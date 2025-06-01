@@ -1,6 +1,6 @@
-# hexdoc-hexcassettes
+# hexdoc-hierophantics
 
-Python web book docgen and [hexdoc](https://pypi.org/project/hexdoc) plugin for Hexcassettes.
+Python web book docgen and [hexdoc](https://pypi.org/project/hexdoc) plugin for Hierophantics.
 
 ## Version scheme
 
@@ -32,9 +32,9 @@ pip install -e .[dev]
 
 For local testing, create a file called `.env` in the repo root following this template:
 ```sh
-GITHUB_REPOSITORY=miyucomics/hexcassettes
+GITHUB_REPOSITORY=robotgiggle/hierophantics
 GITHUB_SHA=main
-GITHUB_PAGES_URL=https://miyucomics.github.io/hexcassettes/
+GITHUB_PAGES_URL=https://robotgiggle.github.io/hierophantics/
 ```
 
 Useful commands:

@@ -1,12 +1,12 @@
-package miyucomics.hexcassettes.patterns
+package robotgiggle.hierophantics.patterns
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
-import miyucomics.hexcassettes.HexcassettesAPI
-import miyucomics.hexcassettes.HexcassettesUtils
+import robotgiggle.hierophantics.HexcassettesAPI
+import robotgiggle.hierophantics.HexcassettesUtils
 import net.minecraft.server.network.ServerPlayerEntity
 
 class OpInspect : ConstMediaAction {

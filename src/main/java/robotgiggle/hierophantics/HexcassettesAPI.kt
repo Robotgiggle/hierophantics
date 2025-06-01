@@ -1,10 +1,10 @@
-package miyucomics.hexcassettes
+package robotgiggle.hierophantics
 
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
-import miyucomics.hexcassettes.data.PlayerState
-import miyucomics.hexcassettes.data.QueuedHex
-import miyucomics.hexcassettes.inits.HexcassettesNetworking
+import robotgiggle.hierophantics.data.PlayerState
+import robotgiggle.hierophantics.data.QueuedHex
+import robotgiggle.hierophantics.inits.HexcassettesNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.entity.player.PlayerEntity

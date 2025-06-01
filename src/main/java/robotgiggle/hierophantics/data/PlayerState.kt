@@ -1,9 +1,9 @@
-package miyucomics.hexcassettes.data
+package robotgiggle.hierophantics.data
 
 import at.petrak.hexcasting.api.utils.asCompound
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.putList
-import miyucomics.hexcassettes.HexcassettesAPI
+import robotgiggle.hierophantics.HexcassettesAPI
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement

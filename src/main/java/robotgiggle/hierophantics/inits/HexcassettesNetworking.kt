@@ -1,8 +1,8 @@
-package miyucomics.hexcassettes.inits
+package robotgiggle.hierophantics.inits
 
-import miyucomics.hexcassettes.HexcassettesAPI
-import miyucomics.hexcassettes.HexcassettesUtils.id
-import miyucomics.hexcassettes.client.ClientStorage
+import robotgiggle.hierophantics.HexcassettesAPI
+import robotgiggle.hierophantics.HexcassettesUtils.id
+import robotgiggle.hierophantics.client.ClientStorage
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents

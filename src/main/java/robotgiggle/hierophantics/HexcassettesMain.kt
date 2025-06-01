@@ -1,11 +1,11 @@
-package miyucomics.hexcassettes
+package robotgiggle.hierophantics
 
 import at.petrak.hexcasting.api.HexAPI
-import miyucomics.hexcassettes.HexcassettesUtils.id
-import miyucomics.hexcassettes.inits.HexcassettesAdvancements
-import miyucomics.hexcassettes.inits.HexcassettesNetworking
-import miyucomics.hexcassettes.inits.HexcassettesPatterns
-import miyucomics.hexcassettes.inits.HexcassettesSounds
+import robotgiggle.hierophantics.HexcassettesUtils.id
+import robotgiggle.hierophantics.inits.HexcassettesAdvancements
+import robotgiggle.hierophantics.inits.HexcassettesNetworking
+import robotgiggle.hierophantics.inits.HexcassettesPatterns
+import robotgiggle.hierophantics.inits.HexcassettesSounds
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.entity.LivingEntity
@@ -33,7 +33,7 @@ class HexcassettesMain : ModInitializer {
 	}
 
 	companion object {
-		const val MOD_ID: String = "hexcassettes"
+		const val MOD_ID: String = "hierophantics"
 		const val MAX_CASSETTES: Int = 6
 		const val MAX_LABEL_LENGTH: Int = 32
 	}

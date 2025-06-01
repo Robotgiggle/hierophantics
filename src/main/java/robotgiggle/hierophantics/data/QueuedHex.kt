@@ -1,10 +1,10 @@
-package miyucomics.hexcassettes.data
+package robotgiggle.hierophantics.data
 
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.utils.putCompound
-import miyucomics.hexcassettes.CassetteCastEnv
+import robotgiggle.hierophantics.CassetteCastEnv
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand

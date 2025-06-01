@@ -1,22 +1,22 @@
 {
-	"parent": "hexcassettes:tape_worm",
+	"parent": "hierophantics:tape_worm",
 	"criteria": {
 		"full_arsenal": {
-			"trigger": "hexcassettes:full_arsenal"
+			"trigger": "hierophantics:full_arsenal"
 		}
 	},
 	"display": {
 		"announce_to_chat": true,
 		"title": {
-			"translate": "advancements.hexcassettes.full_arsenal.title"
+			"translate": "advancements.hierophantics.full_arsenal.title"
 		},
 		"description": {
-			"translate": "advancements.hexcassettes.full_arsenal.description"
+			"translate": "advancements.hierophantics.full_arsenal.description"
 		},
 		"frame": "goal",
 		"hidden": true,
 		"icon": {
-			"item": "hexcassettes:cassette"
+			"item": "hierophantics:cassette"
 		},
 		"show_toast": true
 	},

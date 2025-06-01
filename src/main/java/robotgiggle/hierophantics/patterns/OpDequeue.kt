@@ -1,17 +1,18 @@
-package miyucomics.hexcassettes.patterns
+package robotgiggle.hierophantics.patterns
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
-import miyucomics.hexcassettes.HexcassettesAPI
+import robotgiggle.hierophantics.HexcassettesAPI
+import robotgiggle.hierophantics.HexcassettesUtils
 import net.minecraft.server.network.ServerPlayerEntity
 
-class OpKillAll : ConstMediaAction {
-	override val argc = 0
+class OpDequeue : ConstMediaAction {
+	override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val caster = env.castingEntity
 		if (caster != null && caster is ServerPlayerEntity)
-			HexcassettesAPI.dequeueAll(caster)
+			HexcassettesAPI.dequeueByName(caster, HexcassettesUtils.shortenLabel(args[0].display().string))
 		return emptyList()
 	}
 }

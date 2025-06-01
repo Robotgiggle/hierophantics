@@ -1,35 +1,35 @@
 {
 	"schemaVersion": 1,
-	"id": "hexcassettes",
+	"id": "hierophantics",
 	"version": "${version}",
-	"name": "Hexcassettes",
-	"description": "An addon for all your daemon and delaying needs!",
+	"name": "Hierophantics",
+	"description": "PLACEHOLDER",
 	"authors": [
-		"miyucomics"
+		"Robotgiggle"
 	],
 	"contact": {
-		"homepage": "https://github.com/miyucomics/hexcassettes",
-		"sources": "https://github.com/miyucomics/hexcassettes"
+		"homepage": "https://github.com/robotgiggle/hierophantics",
+		"sources": "https://github.com/robotgiggle/hierophantics"
 	},
 	"license": "MIT",
-	"icon": "assets/hexcassettes/icon.png",
+	"icon": "assets/hierophantics/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			{
 				"adapter": "kotlin",
-				"value": "miyucomics.hexcassettes.HexcassettesMain"
+				"value": "robotgiggle.hierophantics.HexcassettesMain"
 			}
 		],
 		"client": [
 			{
 				"adapter": "kotlin",
-				"value": "miyucomics.hexcassettes.HexcassettesClient"
+				"value": "robotgiggle.hierophantics.HexcassettesClient"
 			}
 		]
 	},
 	"mixins": [
-		"hexcassettes.mixins.json"
+		"hierophantics.mixins.json"
 	],
 	"depends": {
 		"minecraft": "1.20.1",

@@ -8,26 +8,26 @@ build-backend = "hatchling.build"
 # project metadata
 
 [project]
-name = "hexdoc-hexcassettes"
-description = "Python web book docgen and hexdoc plugin for Hexcassettes."
+name = "hexdoc-hierophantics"
+description = "Python web book docgen and hexdoc plugin for Hierophantics."
 readme = "doc/README.md"
 authors = [
-    { name="miyucomics" },
+    { name="robotgiggle" },
 ]
 keywords = ["hexdoc"]
 requires-python = ">=3.11"
 dynamic = ["version", "dependencies", "optional-dependencies"]
 
 [project.urls]
-Homepage = "https://miyucomics.github.io/hexcassettes/"
-Source = "https://github.com/miyucomics/hexcassettes"
+Homepage = "https://robotgiggle.github.io/hierophantics/"
+Source = "https://github.com/robotgiggle/hierophantics"
 
 # Gradle version/deps
 
 [tool.hatch.version]
 scheme = "gradle"
 source = "gradle-properties"
-py-path = "doc/src/hexdoc_hexcassettes/__version__.py"
+py-path = "doc/src/hexdoc_hierophantics/__version__.py"
 key = "mod_version"
 
 [tool.hatch.metadata.hooks.gradle-properties]
@@ -44,12 +44,12 @@ dev = [
 
 [tool.hatch.build]
 only-include = [
-    "doc/src/hexdoc_hexcassettes",
+    "doc/src/hexdoc_hierophantics",
     "gradle.properties",
 ]
 artifacts = [
-    "/doc/src/hexdoc_hexcassettes/_export/generated",
-    "/doc/src/hexdoc_hexcassettes/__gradle_version__.py",
+    "/doc/src/hexdoc_hierophantics/_export/generated",
+    "/doc/src/hexdoc_hierophantics/__gradle_version__.py",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -58,7 +58,7 @@ sources = ["doc/src"]
 # hexdoc entry points
 
 [project.entry-points.hexdoc]
-hexcassettes = "hexdoc_hexcassettes._hooks:HexcassettesPlugin"
+hierophantics = "hexdoc_hierophantics._hooks:HierophanticsPlugin"
 
 # linting
 

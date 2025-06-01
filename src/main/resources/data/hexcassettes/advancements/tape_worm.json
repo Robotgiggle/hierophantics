@@ -2,16 +2,16 @@
 	"parent": "hexcasting:root",
 	"criteria": {
 		"tape_worm": {
-			"trigger": "hexcassettes:tape_worm"
+			"trigger": "hierophantics:tape_worm"
 		}
 	},
 	"display": {
 		"announce_to_chat": true,
 		"title": {
-			"translate": "advancements.hexcassettes.tape_worm.title"
+			"translate": "advancements.hierophantics.tape_worm.title"
 		},
 		"description": {
-			"translate": "advancements.hexcassettes.tape_worm.description"
+			"translate": "advancements.hierophantics.tape_worm.description"
 		},
 		"frame": "task",
 		"hidden": true,

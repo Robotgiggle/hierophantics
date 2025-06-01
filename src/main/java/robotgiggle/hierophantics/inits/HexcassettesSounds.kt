@@ -1,6 +1,6 @@
-package miyucomics.hexcassettes.inits
+package robotgiggle.hierophantics.inits
 
-import miyucomics.hexcassettes.HexcassettesUtils
+import robotgiggle.hierophantics.HexcassettesUtils
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.sound.SoundEvent

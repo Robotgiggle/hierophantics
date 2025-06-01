@@ -1,6 +1,6 @@
-package miyucomics.hexcassettes
+package robotgiggle.hierophantics
 
-import miyucomics.hexcassettes.inits.HexcassettesNetworking
+import robotgiggle.hierophantics.inits.HexcassettesNetworking
 import net.fabricmc.api.ClientModInitializer
 
 class HexcassettesClient : ClientModInitializer {

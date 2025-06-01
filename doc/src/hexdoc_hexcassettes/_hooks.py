@@ -9,24 +9,24 @@ from hexdoc.plugin import (
     hookimpl,
 )
 
-import hexdoc_hexcassettes
+import hexdoc_hierophantics
 
 from .__gradle_version__ import FULL_VERSION, GRADLE_VERSION
 from .__version__ import PY_VERSION
 
 
-class HexcassettesPlugin(ModPluginImpl):
+class HierophanticsPlugin(ModPluginImpl):
     @staticmethod
     @hookimpl
     def hexdoc_mod_plugin(branch: str) -> ModPlugin:
-        return HexcassettesModPlugin(branch=branch)
+        return HierophanticsModPlugin(branch=branch)
 
 
-class HexcassettesModPlugin(ModPluginWithBook):
+class HierophanticsModPlugin(ModPluginWithBook):
     @property
     @override
     def modid(self) -> str:
-        return "hexcassettes"
+        return "hierophantics"
 
     @property
     @override
@@ -54,4 +54,4 @@ class HexcassettesModPlugin(ModPluginWithBook):
 
     @override
     def jinja_template_root(self) -> tuple[Package, str]:
-        return hexdoc_hexcassettes, "_templates"
+        return hexdoc_hierophantics, "_templates"

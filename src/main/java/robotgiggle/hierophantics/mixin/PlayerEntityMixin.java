@@ -1,8 +1,9 @@
-package miyucomics.hexcassettes.mixin;
+package robotgiggle.hierophantics.mixin;
 
-import miyucomics.hexcassettes.HexcassettesAPI;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import robotgiggle.hierophantics.HexcassettesAPI;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

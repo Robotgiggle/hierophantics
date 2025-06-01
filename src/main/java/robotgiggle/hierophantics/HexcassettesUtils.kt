@@ -1,4 +1,4 @@
-package miyucomics.hexcassettes
+package robotgiggle.hierophantics
 
 import net.minecraft.util.Identifier
 

@@ -10,6 +10,6 @@
 	},
 	"pattern": [" A ", "ADA", " A "],
 	"result": {
-		"item": "hexcassettes:cassette"
+		"item": "hierophantics:cassette"
 	}
 }

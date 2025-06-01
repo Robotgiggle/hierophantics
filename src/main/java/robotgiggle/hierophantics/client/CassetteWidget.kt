@@ -1,9 +1,9 @@
-package miyucomics.hexcassettes.client
+package robotgiggle.hierophantics.client
 
 import com.mojang.blaze3d.systems.RenderSystem
-import miyucomics.hexcassettes.HexcassettesUtils
-import miyucomics.hexcassettes.inits.HexcassettesNetworking
-import miyucomics.hexcassettes.inits.HexcassettesSounds
+import robotgiggle.hierophantics.HexcassettesUtils
+import robotgiggle.hierophantics.inits.HexcassettesNetworking
+import robotgiggle.hierophantics.inits.HexcassettesSounds
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.client.MinecraftClient

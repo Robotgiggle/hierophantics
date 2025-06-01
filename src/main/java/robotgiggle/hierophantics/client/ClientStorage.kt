@@ -1,4 +1,4 @@
-package miyucomics.hexcassettes.client
+package robotgiggle.hierophantics.client
 
 import net.minecraft.text.Text
 

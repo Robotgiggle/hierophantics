@@ -1,4 +1,4 @@
-package miyucomics.hexcassettes.patterns
+package robotgiggle.hierophantics.patterns
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
@@ -8,11 +8,11 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapOthersName
-import miyucomics.hexcassettes.CassetteCastEnv
-import miyucomics.hexcassettes.HexcassettesAPI
-import miyucomics.hexcassettes.HexcassettesMain
-import miyucomics.hexcassettes.HexcassettesUtils
-import miyucomics.hexcassettes.inits.HexcassettesAdvancements
+import robotgiggle.hierophantics.CassetteCastEnv
+import robotgiggle.hierophantics.HexcassettesAPI
+import robotgiggle.hierophantics.HexcassettesMain
+import robotgiggle.hierophantics.HexcassettesUtils
+import robotgiggle.hierophantics.inits.HexcassettesAdvancements
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.DyeColor
 

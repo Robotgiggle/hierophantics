@@ -1,10 +1,11 @@
-package miyucomics.hexcassettes.mixin;
+package robotgiggle.hierophantics.mixin;
 
 import at.petrak.hexcasting.client.gui.GuiSpellcasting;
-import miyucomics.hexcassettes.client.CassetteWidget;
-import miyucomics.hexcassettes.client.ClientStorage;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import robotgiggle.hierophantics.client.CassetteWidget;
+import robotgiggle.hierophantics.client.ClientStorage;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

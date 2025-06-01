@@ -1,17 +1,17 @@
 {
-	"parent": "hexcassettes:tape_worm",
+	"parent": "hierophantics:tape_worm",
 	"criteria": {
 		"quinio": {
-			"trigger": "hexcassettes:quinio"
+			"trigger": "hierophantics:quinio"
 		}
 	},
 	"display": {
 		"announce_to_chat": true,
 		"title": {
-			"translate": "advancements.hexcassettes.quinio.title"
+			"translate": "advancements.hierophantics.quinio.title"
 		},
 		"description": {
-			"translate": "advancements.hexcassettes.quinio.description"
+			"translate": "advancements.hierophantics.quinio.description"
 		},
 		"frame": "challenge",
 		"hidden": true,

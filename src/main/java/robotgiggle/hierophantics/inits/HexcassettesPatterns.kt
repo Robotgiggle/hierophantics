@@ -1,12 +1,12 @@
-package miyucomics.hexcassettes.inits
+package robotgiggle.hierophantics.inits
 
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry
 import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.hex.HexActions
-import miyucomics.hexcassettes.HexcassettesUtils
-import miyucomics.hexcassettes.patterns.*
+import robotgiggle.hierophantics.HexcassettesUtils
+import robotgiggle.hierophantics.patterns.*
 import net.minecraft.registry.Registry
 
 object HexcassettesPatterns {

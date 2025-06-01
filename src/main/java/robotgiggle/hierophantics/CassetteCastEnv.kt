@@ -1,4 +1,4 @@
-package miyucomics.hexcassettes
+package robotgiggle.hierophantics
 
 import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.casting.eval.CastResult

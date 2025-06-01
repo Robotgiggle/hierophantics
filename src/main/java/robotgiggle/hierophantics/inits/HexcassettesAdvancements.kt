@@ -1,7 +1,7 @@
-package miyucomics.hexcassettes.inits
+package robotgiggle.hierophantics.inits
 
 import com.google.gson.JsonObject
-import miyucomics.hexcassettes.HexcassettesUtils.id
+import robotgiggle.hierophantics.HexcassettesUtils.id
 import net.minecraft.advancement.criterion.AbstractCriterion
 import net.minecraft.advancement.criterion.AbstractCriterionConditions
 import net.minecraft.advancement.criterion.Criteria

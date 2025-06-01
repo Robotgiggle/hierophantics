@@ -1,90 +1,90 @@
 {
-	"name": "hexcassettes.page.async.title",
-	"icon": "hexcassettes:cassette",
+	"name": "hierophantics.page.async.title",
+	"icon": "hierophantics:cassette",
 	"category": "hexcasting:patterns",
 	"sortnum": 30,
 	"advancement": "hexcasting:root",
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "hexcassettes.page.async.0"
+			"text": "hierophantics.page.async.0"
 		},
 		{
 			"type": "patchouli:crafting",
-			"recipe": "hexcassettes:cassette",
-			"text": "hexcassettes.page.async.craft"
+			"recipe": "hierophantics:cassette",
+			"text": "hierophantics.page.async.craft"
 		},
         {
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:enqueue",
-			"anchor": "hexcassettes:enqueue",
+			"op_id": "hierophantics:enqueue",
+			"anchor": "hierophantics:enqueue",
 			"input": "list, number, any",
 			"output": "",
-			"text": "hexcassettes.page.enqueue.summary"
+			"text": "hierophantics.page.enqueue.summary"
         },
 		{
 			"type": "patchouli:text",
-			"text": "hexcassettes.page.async.1"
+			"text": "hierophantics.page.async.1"
 		},
 		{
 			"type": "patchouli:text",
-			"text": "hexcassettes.page.async.2"
+			"text": "hierophantics.page.async.2"
 		},
 		{
 			"type": "patchouli:text",
-			"text": "hexcassettes.page.async.3"
+			"text": "hierophantics.page.async.3"
 		},
 		{
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:dequeue",
-			"anchor": "hexcassettes:dequeue",
+			"op_id": "hierophantics:dequeue",
+			"anchor": "hierophantics:dequeue",
 			"input": "any",
 			"output": "",
-			"text": "hexcassettes.page.dequeue.summary"
+			"text": "hierophantics.page.dequeue.summary"
 		},
 		{
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:killall",
-			"anchor": "hexcassettes:killall",
+			"op_id": "hierophantics:killall",
+			"anchor": "hierophantics:killall",
 			"input": "",
 			"output": "",
-			"text": "hexcassettes.page.killall.summary"
+			"text": "hierophantics.page.killall.summary"
 		},
 		{
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:specs",
-			"anchor": "hexcassettes:specs",
+			"op_id": "hierophantics:specs",
+			"anchor": "hierophantics:specs",
 			"input": "",
 			"output": "number",
-			"text": "hexcassettes.page.specs.summary"
+			"text": "hierophantics.page.specs.summary"
 		},
 		{
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:free",
-			"anchor": "hexcassettes:free",
+			"op_id": "hierophantics:free",
+			"anchor": "hierophantics:free",
 			"input": "",
 			"output": "number",
-			"text": "hexcassettes.page.free.summary"
+			"text": "hierophantics.page.free.summary"
 		},
 		{
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:inspect",
-			"anchor": "hexcassettes:inspect",
+			"op_id": "hierophantics:inspect",
+			"anchor": "hierophantics:inspect",
 			"input": "any",
 			"output": "null/list of patterns",
-			"text": "hexcassettes.page.inspect.summary"
+			"text": "hierophantics.page.inspect.summary"
 		},
 		{
 			"type": "hexcasting:pattern",
-			"op_id": "hexcassettes:foretell",
-			"anchor": "hexcassettes:foretell",
+			"op_id": "hierophantics:foretell",
+			"anchor": "hierophantics:foretell",
 			"input": "any",
 			"output": "null/number",
-			"text": "hexcassettes.page.foretell.summary"
+			"text": "hierophantics.page.foretell.summary"
 		},
 		{
 			"type": "patchouli:text",
-			"text": "hexcassettes.page.async.4"
+			"text": "hierophantics.page.async.4"
 		}
 	]
 }

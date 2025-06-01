@@ -1,4 +1,4 @@
-modid = "hexcassettes"
+modid = "hierophantics"
 book = "hexcasting:thehexbook"
 default_lang = "en_us"
 default_branch = "main"
@@ -11,19 +11,19 @@ resource_dirs = [
     { modid="minecraft" },
     { modid="hexdoc" },
 ]
-export_dir = "src/hexdoc_hexcassettes/_export/generated"
+export_dir = "src/hexdoc_hierophantics/_export/generated"
 
 [template]
 icon = "icon.png"
 include = [
-    "hexcassettes",
+    "hierophantics",
     "hexcasting",
     "hexdoc",
 ]
 
 [template.args]
-mod_name = "Hexcassettes"
-author = "miyucomics"
+mod_name = "Hierophantics"
+author = "robotgiggle"
 show_landing_text = false
 
 [extra.hexcasting]
@@ -37,4 +37,4 @@ per_world_value = "{^_per_world_value}"
 
 [_common]
 src = "../src"
-package = "{src}/main/java/miyucomics/hexcassettes"
+package = "{src}/main/java/robotgiggle/hierophantics"
