@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "miyucomics.hexcassettes.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"minVersion": "0.8",
+	"mixins": [
+		"PlayerEntityMixin"
+	],
+	"client": [
+		"GuiSpellcastingMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
