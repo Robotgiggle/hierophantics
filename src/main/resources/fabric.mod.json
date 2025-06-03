@@ -3,7 +3,7 @@
 	"id": "hierophantics",
 	"version": "${version}",
 	"name": "Hierophantics",
-	"description": "PLACEHOLDER",
+	"description": "An addon to Hex Casting that lets you embed extracted villager minds into your own to conditionally execute hexes.",
 	"authors": [
 		"Robotgiggle"
 	],
