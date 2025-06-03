@@ -3,7 +3,7 @@ package robotgiggle.hierophantics
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.data.PlayerState
-import robotgiggle.hierophantics.data.QueuedHex
+import robotgiggle.hierophantics.data.HieroMind
 import robotgiggle.hierophantics.inits.HexcassettesNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -15,7 +15,7 @@ import net.minecraft.world.PersistentState
 import net.minecraft.world.World
 import java.util.*
 
-class HexcassettesAPI : PersistentState() {
+class HierophanticsAPI : PersistentState() {
 	private val players: HashMap<UUID, PlayerState> = HashMap()
 
 	override fun writeNbt(nbt: NbtCompound): NbtCompound {
@@ -24,14 +24,14 @@ class HexcassettesAPI : PersistentState() {
 	}
 
 	companion object {
-		private fun createFromNbt(nbt: NbtCompound): HexcassettesAPI {
-			val state = HexcassettesAPI()
+		private fun createFromNbt(nbt: NbtCompound): HierophanticsAPI {
+			val state = HierophanticsAPI()
 			nbt.keys.forEach { uuid -> state.players[UUID.fromString(uuid)] = PlayerState.deserialize(nbt.getCompound(uuid)) }
 			return state
 		}
 
-		private fun getServerState(server: MinecraftServer): HexcassettesAPI {
-			val state = server.getWorld(World.OVERWORLD)!!.persistentStateManager.getOrCreate(::createFromNbt, ::HexcassettesAPI, HexcassettesMain.MOD_ID)
+		private fun getServerState(server: MinecraftServer): HierophanticsAPI {
+			val state = server.getWorld(World.OVERWORLD)!!.persistentStateManager.getOrCreate(::createFromNbt, ::HierophanticsAPI, HierophanticsMain.MOD_ID)
 			state.markDirty()
 			return state
 		}
@@ -41,24 +41,32 @@ class HexcassettesAPI : PersistentState() {
 			return getServerState(player.server!!).players.computeIfAbsent(player.uuid) { PlayerState() }
 		}
 
-		fun queue(player: ServerPlayerEntity, hex: ListIota, delay: Int, label: String) {
-			getPlayerState(player).queuedHexes[label] = QueuedHex(IotaType.serialize(hex), delay)
+		fun addMind(player: ServerPlayerEntity) {
+			getPlayerState(player).hieroMinds[UUID.randomUUID()] = HieroMind()
 		}
 
-		fun dequeueAll(player: ServerPlayerEntity) {
-			getPlayerState(player).queuedHexes.clear()
+		fun freeMind(player: ServerPlayerEntity, id: UUID) {
+			getPlayerState(player).hieroMinds.remove(id)
 		}
 
-		fun dequeueByName(player: ServerPlayerEntity, label: String) {
-			getPlayerState(player).queuedHexes.remove(label)
-		}
+		// fun queue(player: ServerPlayerEntity, hex: ListIota, delay: Int, label: String) {
+		// 	getPlayerState(player).queuedHexes[label] = HieroMind(IotaType.serialize(hex), delay)
+		// }
+
+		// fun dequeueAll(player: ServerPlayerEntity) {
+		// 	getPlayerState(player).queuedHexes.clear()
+		// }
+
+		// fun dequeueByName(player: ServerPlayerEntity, label: String) {
+		// 	getPlayerState(player).queuedHexes.remove(label)
+		// }
 
 		fun sendSyncPacket(player: ServerPlayerEntity) {
 			val playerState = getPlayerState(player)
 			val buf = PacketByteBufs.create()
-			buf.writeInt(playerState.ownedCassettes)
-			buf.writeInt(playerState.queuedHexes.size)
-			playerState.queuedHexes.forEach { (label, _) -> buf.writeString(label) }
+			buf.writeInt(playerState.ownedMinds)
+			buf.writeInt(playerState.hieroMinds.size)
+			playerState.hieroMinds.forEach { (uuid, _) -> buf.writeString(uuid.toString()) }
 			ServerPlayNetworking.send(player, HexcassettesNetworking.SYNC_CASSETTES, buf)
 		}
 	}

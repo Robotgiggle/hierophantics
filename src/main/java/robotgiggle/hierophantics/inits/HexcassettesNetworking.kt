@@ -1,6 +1,6 @@
 package robotgiggle.hierophantics.inits
 
-import robotgiggle.hierophantics.HexcassettesAPI
+import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.HexcassettesUtils.id
 import robotgiggle.hierophantics.client.ClientStorage
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import java.util.*
 
 object HexcassettesNetworking {
 	val CASSETTE_REMOVE: Identifier = id("cassette_remove")
@@ -32,12 +33,12 @@ object HexcassettesNetworking {
 	@JvmStatic
 	fun init() {
 		ServerPlayNetworking.registerGlobalReceiver(CASSETTE_REMOVE) { _, player, _, packet, _ ->
-			val label = packet.readString()
-			val state = HexcassettesAPI.getPlayerState(player).queuedHexes
-			state.remove(label)
+			val uuid = UUID.fromString(packet.readString())
+			val minds = HierophanticsAPI.getPlayerState(player).hieroMinds
+			minds.remove(uuid)
 		}
 
-		ServerPlayNetworking.registerGlobalReceiver(SYNC_CASSETTES) { _, player, _, _, _ -> HexcassettesAPI.sendSyncPacket(player) }
-		ServerPlayerEvents.AFTER_RESPAWN.register { _, player, alive -> if (!alive) HexcassettesAPI.dequeueAll(player) }
+		ServerPlayNetworking.registerGlobalReceiver(SYNC_CASSETTES) { _, player, _, _, _ -> HierophanticsAPI.sendSyncPacket(player) }
+		// ServerPlayerEvents.AFTER_RESPAWN.register { _, player, alive -> if (!alive) HierophanticsAPI.dequeueAll(player) }
 	}
 }

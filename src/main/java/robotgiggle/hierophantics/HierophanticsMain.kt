@@ -20,7 +20,7 @@ import net.minecraft.sound.SoundCategory
 import net.minecraft.util.Rarity
 import net.minecraft.world.World
 
-class HexcassettesMain : ModInitializer {
+class HierophanticsMain : ModInitializer {
 	override fun onInitialize() {
 		val cassette = CassetteItem()
 		Registry.register(Registries.ITEM, id("cassette"), cassette)
@@ -51,13 +51,13 @@ class CassetteItem : Item(Settings().maxCount(1).rarity(Rarity.UNCOMMON).food(Fo
 		}
 		if (user !is ServerPlayerEntity)
 			return super.finishUsing(stack, world, user)
-		val playerState = HexcassettesAPI.getPlayerState(user)
-		if (playerState.ownedCassettes < HexcassettesMain.MAX_CASSETTES) {
+		val playerState = HierophanticsAPI.getPlayerState(user)
+		if (playerState.ownedMinds < HierophanticsMain.MAX_CASSETTES) {
 			HexcassettesAdvancements.TAPE_WORM.trigger(user)
-			HexcassettesAPI.getPlayerState(user).ownedCassettes += 1
-			if (HexcassettesAPI.getPlayerState(user).ownedCassettes == HexcassettesMain.MAX_CASSETTES)
+			HierophanticsAPI.getPlayerState(user).ownedMinds += 1
+			if (HierophanticsAPI.getPlayerState(user).ownedMinds == HierophanticsMain.MAX_CASSETTES)
 				HexcassettesAdvancements.FULL_ARSENAL.trigger(user)
-			HexcassettesAPI.sendSyncPacket(user)
+			HierophanticsAPI.sendSyncPacket(user)
 		}
 		return super.finishUsing(stack, world, user)
 	}

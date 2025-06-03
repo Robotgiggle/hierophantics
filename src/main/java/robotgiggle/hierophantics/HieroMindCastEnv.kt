@@ -8,9 +8,7 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 
-class CassetteCastEnv(caster: ServerPlayerEntity, castingHand: Hand) : PlayerBasedCastEnv(caster, castingHand) {
-	override fun produceParticles(particles: ParticleSpray, pigment: FrozenPigment) {}
-
+class HieroMindCastEnv(caster: ServerPlayerEntity, castingHand: Hand) : PlayerBasedCastEnv(caster, castingHand) {
 	override fun getCastingHand(): Hand = this.castingHand
 	override fun getPigment(): FrozenPigment = IXplatAbstractions.INSTANCE.getPigment(this.caster)
 

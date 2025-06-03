@@ -2,7 +2,7 @@ package robotgiggle.hierophantics.mixin;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import robotgiggle.hierophantics.HexcassettesAPI;
+import robotgiggle.hierophantics.HierophanticsAPI;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,6 +16,6 @@ public class PlayerEntityMixin {
 		PlayerEntity player = (PlayerEntity) (Object) this;
 		if (player.getWorld().isClient)
 			return;
-		HexcassettesAPI.getPlayerState(player).tick((ServerPlayerEntity) player);
+		HierophanticsAPI.getPlayerState(player).tick((ServerPlayerEntity) player);
 	}
 }

@@ -18,7 +18,7 @@
 		"main": [
 			{
 				"adapter": "kotlin",
-				"value": "robotgiggle.hierophantics.HexcassettesMain"
+				"value": "robotgiggle.hierophantics.HierophanticsMain"
 			}
 		],
 		"client": [
