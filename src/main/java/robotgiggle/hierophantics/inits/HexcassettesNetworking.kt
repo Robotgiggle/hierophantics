@@ -24,7 +24,7 @@ object HexcassettesNetworking {
 			ClientStorage.labels.clear()
 			val count = packet.readInt()
 			for (i in 0 until count) {
-				val string = packet.readString()
+				val string = packet.readInt().toString()
 				ClientStorage.labels[string] = Text.literal(string)
 			}
 		}
@@ -32,12 +32,7 @@ object HexcassettesNetworking {
 
 	@JvmStatic
 	fun init() {
-		ServerPlayNetworking.registerGlobalReceiver(CASSETTE_REMOVE) { _, player, _, packet, _ ->
-			val uuid = UUID.fromString(packet.readString())
-			val minds = HierophanticsAPI.getPlayerState(player).hieroMinds
-			minds.remove(uuid)
-		}
-
+		ServerPlayNetworking.registerGlobalReceiver(CASSETTE_REMOVE) { _, player, _, packet, _ -> HierophanticsAPI.getPlayerState(player).freeMind(packet.readInt()) }
 		ServerPlayNetworking.registerGlobalReceiver(SYNC_CASSETTES) { _, player, _, _, _ -> HierophanticsAPI.sendSyncPacket(player) }
 		// ServerPlayerEvents.AFTER_RESPAWN.register { _, player, alive -> if (!alive) HierophanticsAPI.dequeueAll(player) }
 	}

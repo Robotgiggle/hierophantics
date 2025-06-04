@@ -1,11 +1,13 @@
 package robotgiggle.hierophantics
 
 import at.petrak.hexcasting.api.HexAPI
+import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import robotgiggle.hierophantics.HexcassettesUtils.id
 import robotgiggle.hierophantics.inits.HexcassettesAdvancements
 import robotgiggle.hierophantics.inits.HexcassettesNetworking
-import robotgiggle.hierophantics.inits.HexcassettesPatterns
+import robotgiggle.hierophantics.inits.HierophanticsPatterns
 import robotgiggle.hierophantics.inits.HexcassettesSounds
+import robotgiggle.hierophantics.iotas.MindReferenceIota
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.entity.LivingEntity
@@ -26,9 +28,11 @@ class HierophanticsMain : ModInitializer {
 		Registry.register(Registries.ITEM, id("cassette"), cassette)
 		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))).register { group -> group.add(cassette) }
 
+		Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
+
 		HexcassettesAdvancements.init()
 		HexcassettesNetworking.init()
-		HexcassettesPatterns.init()
+		HierophanticsPatterns.init()
 		HexcassettesSounds.init()
 	}
 

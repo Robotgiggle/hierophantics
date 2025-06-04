@@ -41,14 +41,6 @@ class HierophanticsAPI : PersistentState() {
 			return getServerState(player.server!!).players.computeIfAbsent(player.uuid) { PlayerState() }
 		}
 
-		fun addMind(player: ServerPlayerEntity) {
-			getPlayerState(player).hieroMinds[UUID.randomUUID()] = HieroMind()
-		}
-
-		fun freeMind(player: ServerPlayerEntity, id: UUID) {
-			getPlayerState(player).hieroMinds.remove(id)
-		}
-
 		// fun queue(player: ServerPlayerEntity, hex: ListIota, delay: Int, label: String) {
 		// 	getPlayerState(player).queuedHexes[label] = HieroMind(IotaType.serialize(hex), delay)
 		// }
@@ -66,7 +58,7 @@ class HierophanticsAPI : PersistentState() {
 			val buf = PacketByteBufs.create()
 			buf.writeInt(playerState.ownedMinds)
 			buf.writeInt(playerState.hieroMinds.size)
-			playerState.hieroMinds.forEach { (uuid, _) -> buf.writeString(uuid.toString()) }
+			playerState.hieroMinds.forEach { (id, _) -> buf.writeInt(id) }
 			ServerPlayNetworking.send(player, HexcassettesNetworking.SYNC_CASSETTES, buf)
 		}
 	}

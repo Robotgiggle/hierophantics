@@ -6,14 +6,14 @@ import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import robotgiggle.hierophantics.HexcassettesUtils
-// import robotgiggle.hierophantics.patterns.*
+import robotgiggle.hierophantics.patterns.*
 import net.minecraft.registry.Registry
 
-object HexcassettesPatterns {
+object HierophanticsPatterns {
 	@JvmStatic
 	fun init() {
-		// register("enqueue", "qeqwqwqwqwqeqaweqqqqqwweeweweewqdwwewewwewweweww", HexDir.EAST, OpEnqueue())
-		// register("dequeue", "eqeweweweweqedwqeeeeewwqqwqwqqweawwqwqwwqwwqwqww", HexDir.WEST, OpDequeue())
+		register("get_minds", "waa", HexDir.EAST, OpGetMinds())
+		register("add_mind", "wwaa", HexDir.EAST, OpDebugAddMind())
 		// register("killall", "eqeweweweweqedwqeeeeewwqqwqwqqw", HexDir.WEST, OpKillAll())
 		// register("specs", "qeqwqwqwqwqeqaweqqqqq", HexDir.EAST, OpSpecs())
 		// register("free", "qeqwqwqwqwqeqaweqqqqqwweeweweew", HexDir.EAST, OpFree())
