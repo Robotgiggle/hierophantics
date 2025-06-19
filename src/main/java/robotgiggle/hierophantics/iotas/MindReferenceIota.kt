@@ -39,8 +39,9 @@ class MindReferenceIota(mindId: Int, host: PlayerEntity) : Iota(TYPE, MindRefere
 				val mindId = (nbt as NbtCompound).getInt("mindID")
 				val hostUuid = UUID.fromString(nbt.getString("hostUUID"))
 				val host = world.getEntity(hostUuid)
-				if (host == null) return null;
-				return MindReferenceIota(mindId, host as PlayerEntity)
+				if (host == null || !(host is PlayerEntity)) return null
+				if (!HierophanticsAPI.getPlayerState(host).hasMind(mindId)) return null
+				return MindReferenceIota(mindId, host)
 			}
 			override fun display(nbt: NbtElement): Text {
 				// TODO: generate a custom name instead of just using the data
@@ -48,7 +49,7 @@ class MindReferenceIota(mindId: Int, host: PlayerEntity) : Iota(TYPE, MindRefere
 				val name = nbt.getString("hostName")
 				return Text.literal("Embedded Mind ("+name+", #"+id+")").formatted(Formatting.AQUA)
 			}
-			override fun color() = -0x55ffff
+			override fun color() = 0x55ffff
 		}
 	}
 }

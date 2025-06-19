@@ -47,6 +47,10 @@ class PlayerState {
 		ownedMinds--
 	}
 
+	fun hasMind(id: Int): Boolean {
+		return hieroMinds.containsKey(id)
+	}
+
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putInt("owned", ownedMinds)

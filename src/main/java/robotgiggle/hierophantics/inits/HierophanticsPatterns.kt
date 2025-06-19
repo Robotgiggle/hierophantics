@@ -12,13 +12,13 @@ import net.minecraft.registry.Registry
 object HierophanticsPatterns {
 	@JvmStatic
 	fun init() {
-		register("get_minds", "waa", HexDir.EAST, OpGetMinds())
 		register("add_mind", "wwaa", HexDir.EAST, OpDebugAddMind())
-		// register("killall", "eqeweweweweqedwqeeeeewwqqwqwqqw", HexDir.WEST, OpKillAll())
-		// register("specs", "qeqwqwqwqwqeqaweqqqqq", HexDir.EAST, OpSpecs())
-		// register("free", "qeqwqwqwqwqeqaweqqqqqwweeweweew", HexDir.EAST, OpFree())
-		// register("inspect", "eqeweweweweqedwqeeeee", HexDir.WEST, OpInspect())
-		// register("foretell", "eqeweweweweqedwqeeeeedww", HexDir.WEST, OpForetell())
+		register("get_minds", "waa", HexDir.EAST, OpGetMinds())
+		register("free_mind", "wdd", HexDir.EAST, OpFreeMind())
+		register("get_mind_hex", "qaa", HexDir.EAST, OpGetMindHex())
+		register("set_mind_hex", "edd", HexDir.EAST, OpSetMindHex())
+		// get_mind_condition
+		// set_mind_condition
 	}
 
 	private fun register(name: String, signature: String, startDir: HexDir, action: Action) {

@@ -6,22 +6,32 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
+import at.petrak.hexcasting.api.casting.getList
 import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.iotas.MindReferenceIota
+import robotgiggle.hierophantics.iotas.getMindReference
 import net.minecraft.server.network.ServerPlayerEntity
 
 import at.petrak.hexcasting.api.HexAPI
 
-class OpGetMinds : ConstMediaAction {
-	override val argc = 0
+class OpSetMindHex : ConstMediaAction {
+    override val argc = 2
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-		val caster = env.castingEntity
+        val caster = env.castingEntity
 		if (caster != null && caster is ServerPlayerEntity) {
-			val minds = HierophanticsAPI.getPlayerState(caster).hieroMinds
-			val output = mutableListOf<Iota>()
-			minds.forEach { (id, _) -> output.add(MindReferenceIota(id, caster)) }
-			return listOf(ListIota(output))
-		}
-		return listOf(NullIota())
+            val mindIota = args.getMindReference(0, argc)
+			if (mindIota.host != caster) {
+				// TODO: throw NotYourMindMishap
+				return emptyList()
+			}
+			val state = HierophanticsAPI.getPlayerState(caster)
+			if (!state.hasMind(mindIota.mindId)) {
+				// TODO: throw MindFreedMishap
+				return emptyList()
+			}
+            args.getList(1, argc) // this makes sure the second argument is a list
+			state.hieroMinds[mindIota.mindId]!!.hex = IotaType.serialize(args[1] as ListIota)
+        }
+		return emptyList()
 	}
 }
