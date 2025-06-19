@@ -4,9 +4,6 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.data.PlayerState
 import robotgiggle.hierophantics.data.HieroMind
-import robotgiggle.hierophantics.inits.HexcassettesNetworking
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.MinecraftServer
@@ -52,14 +49,5 @@ class HierophanticsAPI : PersistentState() {
 		// fun dequeueByName(player: ServerPlayerEntity, label: String) {
 		// 	getPlayerState(player).queuedHexes.remove(label)
 		// }
-
-		fun sendSyncPacket(player: ServerPlayerEntity) {
-			val playerState = getPlayerState(player)
-			val buf = PacketByteBufs.create()
-			buf.writeInt(playerState.ownedMinds)
-			buf.writeInt(playerState.hieroMinds.size)
-			playerState.hieroMinds.forEach { (id, _) -> buf.writeInt(id) }
-			ServerPlayNetworking.send(player, HexcassettesNetworking.SYNC_CASSETTES, buf)
-		}
 	}
 }

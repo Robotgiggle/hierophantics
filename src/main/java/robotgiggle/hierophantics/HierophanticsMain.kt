@@ -4,7 +4,6 @@ import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import robotgiggle.hierophantics.HexcassettesUtils.id
 import robotgiggle.hierophantics.inits.HexcassettesAdvancements
-import robotgiggle.hierophantics.inits.HexcassettesNetworking
 import robotgiggle.hierophantics.inits.HierophanticsPatterns
 import robotgiggle.hierophantics.inits.HexcassettesSounds
 import robotgiggle.hierophantics.iotas.MindReferenceIota
@@ -31,7 +30,6 @@ class HierophanticsMain : ModInitializer {
 		Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
 
 		HexcassettesAdvancements.init()
-		HexcassettesNetworking.init()
 		HierophanticsPatterns.init()
 		HexcassettesSounds.init()
 	}
@@ -61,7 +59,6 @@ class CassetteItem : Item(Settings().maxCount(1).rarity(Rarity.UNCOMMON).food(Fo
 			HierophanticsAPI.getPlayerState(user).ownedMinds += 1
 			if (HierophanticsAPI.getPlayerState(user).ownedMinds == HierophanticsMain.MAX_CASSETTES)
 				HexcassettesAdvancements.FULL_ARSENAL.trigger(user)
-			HierophanticsAPI.sendSyncPacket(user)
 		}
 		return super.finishUsing(stack, world, user)
 	}

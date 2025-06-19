@@ -54,6 +54,7 @@ class PlayerState {
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putInt("owned", ownedMinds)
+		compound.putInt("next", nextIndex)
 		val minds = NbtList()
 		hieroMinds.forEach { (id, mind) ->
 			val mindNbt = NbtCompound()
@@ -69,6 +70,7 @@ class PlayerState {
 		fun deserialize(compound: NbtCompound): PlayerState {
 			val state = PlayerState()
 			state.ownedMinds = compound.getInt("owned")
+			state.nextIndex = compound.getInt("next")
 			compound.getList("minds", NbtElement.COMPOUND_TYPE.toInt()).forEach { mind ->
 				state.hieroMinds[mind.asCompound.getInt("id")] = HieroMind.deserialize(mind.asCompound.getCompound("mind"))
 			}

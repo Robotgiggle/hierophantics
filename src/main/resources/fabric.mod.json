@@ -20,12 +20,6 @@
 				"adapter": "kotlin",
 				"value": "robotgiggle.hierophantics.HierophanticsMain"
 			}
-		],
-		"client": [
-			{
-				"adapter": "kotlin",
-				"value": "robotgiggle.hierophantics.HexcassettesClient"
-			}
 		]
 	},
 	"mixins": [
