@@ -11,8 +11,6 @@ import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import net.minecraft.server.network.ServerPlayerEntity
 
-import at.petrak.hexcasting.api.HexAPI
-
 class OpGetMindHex : ConstMediaAction {
     override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {

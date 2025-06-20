@@ -43,20 +43,20 @@ class TriggerIota(triggerId: Int, threshold: Double = -1.0, dmgType: String = ""
 				return TriggerIota(triggerId, threshold, dmgType)
 			}
 			override fun display(nbt: NbtElement): Text {
-				val label = when((nbt as NbtCompound).getInt("triggerId")) {
-					0 -> "When Damaged"
-					1 -> "When Damaged By " + nbt.getString("dmgType")
-					2 -> "When Health Drops Below " + nbt.getDouble("threshold")
-					3 -> "When Breath Drops Below " + nbt.getDouble("threshold")
-					4 -> "When Hunger Drops Below " + nbt.getDouble("threshold")
-					5 -> "When Velocity Greater Than " + nbt.getDouble("threshold")
-					6 -> "When Falling For " + nbt.getDouble("threshold") + " Seconds"
-					7 -> "When Item Dropped"
-					8 -> "When Entity Struck"
-					9 -> "When Block Broken"
-					10 -> "When Jumping"
-					11 -> "When Teleporting"
-					else -> "UNKNOWN TRIGGER"
+				val label = "Trigger: When " + when((nbt as NbtCompound).getInt("triggerId")) {
+					0 -> "damaged"
+					1 -> "damaged by " + nbt.getString("dmgType")
+					2 -> "health drops below " + nbt.getDouble("threshold")
+					3 -> "breath drops below " + nbt.getDouble("threshold")
+					4 -> "hunger drops below " + nbt.getDouble("threshold")
+					5 -> "velocity greater than " + nbt.getDouble("threshold")
+					6 -> "falling for " + nbt.getDouble("threshold") + " seconds"
+					7 -> "item dropped"
+					8 -> "entity struck"
+					9 -> "block broken"
+					10 -> "jumping"
+					11 -> "teleporting"
+					else -> "UNKNOWN"
 				}
 				return Text.literal(label).formatted(Formatting.GREEN)
 			}
