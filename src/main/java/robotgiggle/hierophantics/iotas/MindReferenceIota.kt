@@ -10,7 +10,7 @@ import net.minecraft.nbt.NbtElement
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity
 import java.util.UUID
 
 class MindReferenceIota(mindId: Int, host: PlayerEntity) : Iota(TYPE, MindReference(mindId, host)) {

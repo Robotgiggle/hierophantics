@@ -9,13 +9,15 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 
-class HieroMind(var hex: NbtCompound, var condition: String) {
-	constructor() : this(NbtCompound(), "none") {}
+class HieroMind(var hex: NbtCompound, var triggerId: Int, var triggerThreshold: Double, var triggerDmgType: String) {
+	constructor() : this(NbtCompound(), -1, -1.0, "") {}
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putCompound("hex", hex)
-		compound.putString("condition", condition)
+		compound.putInt("triggerId", triggerId)
+		compound.putDouble("triggerThreshold", triggerThreshold)
+		compound.putString("triggerDmgType", triggerDmgType)
 		return compound
 	}
 
@@ -28,6 +30,11 @@ class HieroMind(var hex: NbtCompound, var condition: String) {
 	}
 
 	companion object {
-		fun deserialize(compound: NbtCompound) = HieroMind(compound.getCompound("hex"), compound.getString("condition"))
+		fun deserialize(compound: NbtCompound) = HieroMind(
+			compound.getCompound("hex"), 
+			compound.getInt("triggerId"), 
+			compound.getDouble("triggerThreshold"), 
+			compound.getString("triggerDmgType")
+		)
 	}
 }

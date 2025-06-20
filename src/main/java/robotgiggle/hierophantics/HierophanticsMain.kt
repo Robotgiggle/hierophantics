@@ -7,6 +7,7 @@ import robotgiggle.hierophantics.inits.HexcassettesAdvancements
 import robotgiggle.hierophantics.inits.HierophanticsPatterns
 import robotgiggle.hierophantics.inits.HexcassettesSounds
 import robotgiggle.hierophantics.iotas.MindReferenceIota
+import robotgiggle.hierophantics.iotas.TriggerIota
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.entity.LivingEntity
@@ -28,6 +29,7 @@ class HierophanticsMain : ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))).register { group -> group.add(cassette) }
 
 		Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
+		Registry.register(HexIotaTypes.REGISTRY, id("trigger"), TriggerIota.TYPE)
 
 		HexcassettesAdvancements.init()
 		HierophanticsPatterns.init()
