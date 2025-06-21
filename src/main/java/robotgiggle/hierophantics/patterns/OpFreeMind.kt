@@ -9,6 +9,7 @@ import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
+import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
 class OpFreeMind : ConstMediaAction {
@@ -17,19 +18,10 @@ class OpFreeMind : ConstMediaAction {
         val caster = env.castingEntity
 		if (caster != null && caster is ServerPlayerEntity) {
             val mindIota = args.getMindReference(0, argc)
-			if (mindIota.host != caster) {
-				// TODO: throw NotYourMindMishap
-				return emptyList()
-			}
+			if (mindIota.host != caster) throw NotYourMindMishap() 
 			val state = HierophanticsAPI.getPlayerState(caster)
-			if (!state.hasMind(mindIota.mindId)) {
-				// TODO: throw MindFreedMishap
-				return emptyList()
-			}
-			if (state.disabled) {
-				// TODO: throw MindsDisabledMishap
-				return emptyList()
-			}
+			if (!state.hasMind(mindIota.mindId)) throw MindFreedMishap()
+			if (state.disabled) throw MindsDisabledMishap()
 			state.freeMind(mindIota.mindId)
         }
 		return emptyList()

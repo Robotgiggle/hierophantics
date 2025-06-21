@@ -37,17 +37,5 @@ class HierophanticsAPI : PersistentState() {
 		fun getPlayerState(player: PlayerEntity): PlayerState {
 			return getServerState(player.server!!).players.computeIfAbsent(player.uuid) { PlayerState() }
 		}
-
-		// fun queue(player: ServerPlayerEntity, hex: ListIota, delay: Int, label: String) {
-		// 	getPlayerState(player).queuedHexes[label] = HieroMind(IotaType.serialize(hex), delay)
-		// }
-
-		// fun dequeueAll(player: ServerPlayerEntity) {
-		// 	getPlayerState(player).queuedHexes.clear()
-		// }
-
-		// fun dequeueByName(player: ServerPlayerEntity, label: String) {
-		// 	getPlayerState(player).queuedHexes.remove(label)
-		// }
 	}
 }

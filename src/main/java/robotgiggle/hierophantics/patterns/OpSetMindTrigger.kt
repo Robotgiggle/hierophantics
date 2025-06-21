@@ -10,6 +10,7 @@ import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.getTrigger
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
+import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
 import at.petrak.hexcasting.api.HexAPI
@@ -20,19 +21,10 @@ class OpSetMindTrigger : ConstMediaAction {
         val caster = env.castingEntity
         if (caster != null && caster is ServerPlayerEntity) {
             val mindIota = args.getMindReference(0, argc)
-            if (mindIota.host != caster) {
-                // TODO: throw NotYourMindMishap
-                return emptyList()
-            }
+            if (mindIota.host != caster) throw NotYourMindMishap()
             val state = HierophanticsAPI.getPlayerState(caster)
-            if (!state.hasMind(mindIota.mindId)) {
-                // TODO: throw MindFreedMishap
-                return emptyList()
-            }
-            if (state.disabled) {
-				// TODO: throw MindsDisabledMishap
-				return emptyList()
-			}
+            if (!state.hasMind(mindIota.mindId)) throw MindFreedMishap()
+            if (state.disabled) throw MindsDisabledMishap()
             if (args[1] is NullIota) {
                 state.hieroMinds[mindIota.mindId]!!.triggerId = -1
                 state.hieroMinds[mindIota.mindId]!!.triggerThreshold = -1.0
