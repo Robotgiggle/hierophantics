@@ -20,6 +20,7 @@ object HierophanticsPatterns {
 		register("get_mind_trigger", "ddewaa", HexDir.SOUTH_EAST, OpGetMindTrigger())
 		register("set_mind_trigger", "ddewdd", HexDir.SOUTH_EAST, OpSetMindTrigger())
 		register("make_damage_trigger", "qqqqqawwqdwa", HexDir.SOUTH_EAST, OpMakeTrigger(0))
+		register("reenable_minds", "qaqqaeawaeaeqqqeqqwwqqeqqq", HexDir.NORTH_EAST, OpReenableMinds())
 		// attune_damage_trigger (NE dwaqqwawqwa)
 		register("make_health_trigger", "qqqqqawwewawqada", HexDir.SOUTH_EAST, OpMakeThresholdTrigger(2))
 		register("make_breath_trigger", "qqqqqawweqqqqqaa", HexDir.SOUTH_EAST, OpMakeThresholdTrigger(3))

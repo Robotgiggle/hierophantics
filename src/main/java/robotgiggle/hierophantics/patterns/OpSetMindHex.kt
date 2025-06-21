@@ -27,6 +27,10 @@ class OpSetMindHex : ConstMediaAction {
 				// TODO: throw MindFreedMishap
 				return emptyList()
 			}
+			if (state.disabled) {
+				// TODO: throw MindsDisabledMishap
+				return emptyList()
+			}
             args.getList(1, argc) // this makes sure the second argument is a list
 			state.hieroMinds[mindIota.mindId]!!.hex = IotaType.serialize(args[1] as ListIota)
         }

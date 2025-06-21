@@ -29,10 +29,20 @@ class OpSetMindTrigger : ConstMediaAction {
                 // TODO: throw MindFreedMishap
                 return emptyList()
             }
-            val triggerIota = args.getTrigger(1, argc)
-            state.hieroMinds[mindIota.mindId]!!.triggerId = triggerIota.triggerId
-            state.hieroMinds[mindIota.mindId]!!.triggerThreshold = triggerIota.threshold
-            state.hieroMinds[mindIota.mindId]!!.triggerDmgType = triggerIota.dmgType
+            if (state.disabled) {
+				// TODO: throw MindsDisabledMishap
+				return emptyList()
+			}
+            if (args[1] is NullIota) {
+                state.hieroMinds[mindIota.mindId]!!.triggerId = -1
+                state.hieroMinds[mindIota.mindId]!!.triggerThreshold = -1.0
+                state.hieroMinds[mindIota.mindId]!!.triggerDmgType = ""
+            } else {
+                val triggerIota = args.getTrigger(1, argc)
+                state.hieroMinds[mindIota.mindId]!!.triggerId = triggerIota.triggerId
+                state.hieroMinds[mindIota.mindId]!!.triggerThreshold = triggerIota.threshold
+                state.hieroMinds[mindIota.mindId]!!.triggerDmgType = triggerIota.dmgType
+            }
         }
         return emptyList()
     }

@@ -18,26 +18,45 @@ import at.petrak.hexcasting.api.HexAPI
 class PlayerState() {
 	var ownedMinds = 0
 	var nextIndex = 0
+	var disabled = false
 	val hieroMinds: MutableMap<Int, HieroMind> = mutableMapOf()
 	
-	var prevHealth: Double = 0.0
-	var prevBreath: Double = 0.0
-	var prevHunger: Double = 0.0
-	var prevSpeed: Double = 0.0
-	var prevPrevSpeed: Double = 0.0
-	var prevFallTime: Double = 0.0
-	var died = false
+	var prevHealth = 0.0f
+	var prevBreath = 0.0f
+	var prevHunger = 0
+	var prevSpeed = 0.0
+	var prevPrevSpeed = 0.0
+	var prevFallDist = 0.0f
 
 	fun tick(player: ServerPlayerEntity) {
+		val currHealth = player.getHealth()
+		val currBreath = player.getAir() / 30f
+		val currHunger = player.getHungerManager().getFoodLevel()
 		val currSpeed = HexAPI.instance().getEntityVelocitySpecial(player).length()
-		// detect teleportation by looking for single-tick velocity spikes
-		// using this rather than a mixin because player teleport code is a horrible mess
-		if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed > 4) {
-			if (died) died = false
-			else triggerMinds(player, 11)
+		val currFallDist = player.fallDistance
+		if (!disabled) {
+			// detect teleportation by looking for single-tick velocity spikes
+			// using this rather than a mixin because player teleport code is a horrible mess
+			if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed > 4) {
+				triggerMinds(player, 11)
+			}
+			// detect threshold-based triggers
+			hieroMinds.forEach { (_, mind) -> 
+				when (mind.triggerId) {
+					2 -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
+					3 -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
+					4 -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
+					5 -> if (currSpeed > mind.triggerThreshold && prevSpeed <= mind.triggerThreshold) mind.cast(player)
+					6 -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
+				}
+			}
 		}
+		prevHealth = currHealth
+		prevBreath = currBreath
+		prevHunger = currHunger
 		prevPrevSpeed = prevSpeed
 		prevSpeed = currSpeed
+		prevFallDist = currFallDist
 	}
 
 	fun addMind() {
@@ -56,16 +75,15 @@ class PlayerState() {
 	}
 
 	fun triggerMinds(player: ServerPlayerEntity, triggerId: Int) {
+		if (disabled) return
 		hieroMinds.forEach { (_, mind) -> if (mind.triggerId == triggerId) mind.cast(player) }
 	}
-
-	fun markDied() { died = true }
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putInt("owned", ownedMinds)
 		compound.putInt("next", nextIndex)
-		compound.putBoolean("died", died)
+		compound.putBoolean("disabled", disabled)
 		val minds = NbtList()
 		hieroMinds.forEach { (id, mind) ->
 			val mindNbt = NbtCompound()
@@ -82,7 +100,7 @@ class PlayerState() {
 			val state = PlayerState()
 			state.ownedMinds = compound.getInt("owned")
 			state.nextIndex = compound.getInt("next")
-			state.died = compound.getBoolean("died")
+			state.disabled = compound.getBoolean("disabled")
 			compound.getList("minds", NbtElement.COMPOUND_TYPE.toInt()).forEach { mind ->
 				state.hieroMinds[mind.asCompound.getInt("id")] = HieroMind.deserialize(mind.asCompound.getCompound("mind"))
 			}

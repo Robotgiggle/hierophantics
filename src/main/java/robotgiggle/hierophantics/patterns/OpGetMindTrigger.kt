@@ -28,6 +28,10 @@ class OpGetMindTrigger : ConstMediaAction {
                 // TODO: throw MindFreedMishap
                 return emptyList()
             }
+            if (state.disabled) {
+				// TODO: throw MindsDisabledMishap
+				return emptyList()
+			}
             val mind = state.hieroMinds[mindIota.mindId]!!
             if (mind.triggerId == -1) return listOf(NullIota())
             return listOf(TriggerIota(mind.triggerId, mind.triggerThreshold, mind.triggerDmgType))

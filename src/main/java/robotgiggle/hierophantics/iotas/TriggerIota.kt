@@ -50,7 +50,7 @@ class TriggerIota(triggerId: Int, threshold: Double = -1.0, dmgType: String = ""
 					3 -> "breath drops below " + nbt.getDouble("threshold")
 					4 -> "hunger drops below " + nbt.getDouble("threshold")
 					5 -> "velocity greater than " + nbt.getDouble("threshold")
-					6 -> "falling for " + nbt.getDouble("threshold") + " seconds"
+					6 -> "falling more than " + nbt.getDouble("threshold") + " blocks"
 					7 -> "item dropped"
 					8 -> "entity struck"
 					9 -> "block broken"

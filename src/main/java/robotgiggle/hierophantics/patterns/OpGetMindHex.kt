@@ -26,6 +26,10 @@ class OpGetMindHex : ConstMediaAction {
 				// TODO: throw MindFreedMishap
 				return emptyList()
 			}
+			if (state.disabled) {
+				// TODO: throw MindsDisabledMishap
+				return emptyList()
+			}
 			val storedHex = IotaType.deserialize(state.hieroMinds[mindIota.mindId]!!.hex, env.world)
 			if (storedHex is ListIota) return listOf(storedHex)
 			else return listOf(NullIota())

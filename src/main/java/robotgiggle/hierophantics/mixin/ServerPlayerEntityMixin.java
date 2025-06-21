@@ -23,8 +23,8 @@ public class ServerPlayerEntityMixin {
 	}
 
 	@Inject(method = "onDeath", at = @At("HEAD"))
-	private void ignoreRespawnTeleport(CallbackInfo ci) {
+	private void disableMindsOnDeath(CallbackInfo ci) {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-		HierophanticsAPI.getPlayerState(player).markDied();
+		HierophanticsAPI.getPlayerState(player).setDisabled(true);
 	}
 }
