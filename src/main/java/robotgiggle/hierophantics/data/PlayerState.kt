@@ -16,11 +16,14 @@ import net.minecraft.server.network.ServerPlayerEntity
 import at.petrak.hexcasting.api.HexAPI
 
 class PlayerState() {
+	// this stuff gets serde'd
 	var ownedMinds = 0
 	var nextIndex = 0
 	var disabled = false
+	var lastDmgType = ""
 	val hieroMinds: MutableMap<Int, HieroMind> = mutableMapOf()
 	
+	// this stuff doesn't
 	var prevHealth = 0.0f
 	var prevBreath = 0.0f
 	var prevHunger = 0
@@ -59,6 +62,13 @@ class PlayerState() {
 		prevFallDist = currFallDist
 	}
 
+	fun checkTypedDamage(player: ServerPlayerEntity, type: String) {
+		lastDmgType = type;
+		hieroMinds.forEach { (_, mind) -> 
+			if (mind.triggerId == 1 && mind.triggerDmgType.equals(type)) mind.cast(player)
+		}
+	}
+
 	fun addMind() {
 		hieroMinds[nextIndex] = HieroMind()
 		nextIndex++
@@ -84,6 +94,7 @@ class PlayerState() {
 		compound.putInt("owned", ownedMinds)
 		compound.putInt("next", nextIndex)
 		compound.putBoolean("disabled", disabled)
+		compound.putString("lastDmgType", lastDmgType)
 		val minds = NbtList()
 		hieroMinds.forEach { (id, mind) ->
 			val mindNbt = NbtCompound()
@@ -101,6 +112,7 @@ class PlayerState() {
 			state.ownedMinds = compound.getInt("owned")
 			state.nextIndex = compound.getInt("next")
 			state.disabled = compound.getBoolean("disabled")
+			state.lastDmgType = compound.getString("lastDmgType")
 			compound.getList("minds", NbtElement.COMPOUND_TYPE.toInt()).forEach { mind ->
 				state.hieroMinds[mind.asCompound.getInt("id")] = HieroMind.deserialize(mind.asCompound.getCompound("mind"))
 			}

@@ -45,7 +45,7 @@ class TriggerIota(triggerId: Int, threshold: Double = -1.0, dmgType: String = ""
 			override fun display(nbt: NbtElement): Text {
 				val label = "Trigger: When " + when((nbt as NbtCompound).getInt("triggerId")) {
 					0 -> "damaged"
-					1 -> "damaged by " + nbt.getString("dmgType")
+					1 -> "damaged by '" + nbt.getString("dmgType") + "'"
 					2 -> "health drops below " + nbt.getDouble("threshold")
 					3 -> "breath drops below " + nbt.getDouble("threshold")
 					4 -> "hunger drops below " + nbt.getDouble("threshold")
