@@ -5,7 +5,7 @@ import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.hex.HexActions
-import robotgiggle.hierophantics.HexcassettesUtils
+import robotgiggle.hierophantics.HierophanticsUtils
 import robotgiggle.hierophantics.patterns.*
 import net.minecraft.registry.Registry
 
@@ -35,6 +35,6 @@ object HierophanticsPatterns {
 	}
 
 	private fun register(name: String, signature: String, startDir: HexDir, action: Action) {
-		Registry.register(HexActions.REGISTRY, HexcassettesUtils.id(name), ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), action))
+		Registry.register(HexActions.REGISTRY, HierophanticsUtils.id(name), ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), action))
 	}
 }

@@ -2,18 +2,19 @@ package robotgiggle.hierophantics
 
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
-import robotgiggle.hierophantics.HexcassettesUtils.id
-import robotgiggle.hierophantics.inits.HexcassettesAdvancements
+import robotgiggle.hierophantics.HierophanticsUtils.id
 import robotgiggle.hierophantics.inits.HierophanticsPatterns
-import robotgiggle.hierophantics.inits.HexcassettesSounds
-import robotgiggle.hierophantics.iotas.MindReferenceIota
-import robotgiggle.hierophantics.iotas.TriggerIota
+import robotgiggle.hierophantics.inits.HierophanticsSounds
+import robotgiggle.hierophantics.iotas.*
+import robotgiggle.hierophantics.blocks.*
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.FoodComponent
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.item.BlockItem
+import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
@@ -24,44 +25,27 @@ import net.minecraft.world.World
 
 class HierophanticsMain : ModInitializer {
 	override fun onInitialize() {
-		val cassette = CassetteItem()
-		Registry.register(Registries.ITEM, id("cassette"), cassette)
-		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))).register { group -> group.add(cassette) }
+		// val cassette = CassetteItem()
+		// Registry.register(Registries.ITEM, id("cassette"), cassette)
+		// ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))).register { group -> group.add(cassette) }
+
+		Registry.register(Registries.BLOCK, id("flay_bed"), FLAY_BED_BLOCK)
+		Registry.register(Registries.ITEM, id("flay_bed"), BlockItem(FLAY_BED_BLOCK, Item.Settings()))
+		Registry.register(Registries.BLOCK_ENTITY_TYPE, id("flay_bed"), FLAY_BED_BLOCK_ENTITY)
 
 		Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
 		Registry.register(HexIotaTypes.REGISTRY, id("trigger"), TriggerIota.TYPE)
 
-		HexcassettesAdvancements.init()
 		HierophanticsPatterns.init()
-		HexcassettesSounds.init()
+		HierophanticsSounds.init()
 	}
 
 	companion object {
 		const val MOD_ID: String = "hierophantics"
 		const val MAX_CASSETTES: Int = 6
 		const val MAX_LABEL_LENGTH: Int = 32
-	}
-}
 
-// kinda messy, but I don't want to make a whole file for these
-class CassetteItem : Item(Settings().maxCount(1).rarity(Rarity.UNCOMMON).food(FoodComponent.Builder().alwaysEdible().build())) {
-	override fun getMaxUseTime(stack: ItemStack) = 100
-	override fun getEatSound() = HexcassettesSounds.CASSETTE_LOOP
-
-	override fun finishUsing(stack: ItemStack, world: World, user: LivingEntity): ItemStack {
-		if (world.isClient) {
-			world.playSound(user.x, user.y, user.z, HexcassettesSounds.CASSETTE_INSERT, SoundCategory.MASTER, 5f, 1f, false)
-			return super.finishUsing(stack, world, user)
-		}
-		if (user !is ServerPlayerEntity)
-			return super.finishUsing(stack, world, user)
-		val playerState = HierophanticsAPI.getPlayerState(user)
-		if (playerState.ownedMinds < HierophanticsMain.MAX_CASSETTES) {
-			HexcassettesAdvancements.TAPE_WORM.trigger(user)
-			HierophanticsAPI.getPlayerState(user).ownedMinds += 1
-			if (HierophanticsAPI.getPlayerState(user).ownedMinds == HierophanticsMain.MAX_CASSETTES)
-				HexcassettesAdvancements.FULL_ARSENAL.trigger(user)
-		}
-		return super.finishUsing(stack, world, user)
+		val FLAY_BED_BLOCK: FlayBedBlock = FlayBedBlock()
+		val FLAY_BED_BLOCK_ENTITY: BlockEntityType<FlayBedBlockEntity> = BlockEntityType.Builder.create(::FlayBedBlockEntity, FLAY_BED_BLOCK).build(null)
 	}
 }
