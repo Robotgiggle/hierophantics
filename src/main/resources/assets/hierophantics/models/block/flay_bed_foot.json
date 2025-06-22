@@ -4,7 +4,8 @@
     "top": "hierophantics:block/flay_bed_foot_top",
     "bottom": "minecraft:block/oak_planks",
     "side": "hierophantics:block/flay_bed_foot_side",
-    "end": "hierophantics:block/flay_bed_end"
+    "end": "hierophantics:block/flay_bed_end",
+    "particle": "hexcasting:block/slate"
   },
   "elements": [
     {

@@ -17,7 +17,7 @@ import net.minecraft.util.DyeColor
 import net.minecraft.world.World
 import net.minecraft.world.BlockView;
 
-class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.OAK_PLANKS).strength(4f, 4f)) {
+class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f)) {
     override fun createBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
         return FlayBedBlockEntity(blockPos, blockState);
     }
