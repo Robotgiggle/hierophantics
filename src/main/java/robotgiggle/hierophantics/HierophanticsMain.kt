@@ -42,8 +42,8 @@ class HierophanticsMain : ModInitializer {
 
 	companion object {
 		const val MOD_ID: String = "hierophantics"
-		const val MAX_CASSETTES: Int = 6
-		const val MAX_LABEL_LENGTH: Int = 32
+		// const val MAX_CASSETTES: Int = 6
+		// const val MAX_LABEL_LENGTH: Int = 32
 
 		val FLAY_BED_BLOCK: FlayBedBlock = FlayBedBlock()
 		val FLAY_BED_BLOCK_ENTITY: BlockEntityType<FlayBedBlockEntity> = BlockEntityType.Builder.create(::FlayBedBlockEntity, FLAY_BED_BLOCK).build(null)

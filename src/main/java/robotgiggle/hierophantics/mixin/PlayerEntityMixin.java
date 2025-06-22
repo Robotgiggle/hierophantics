@@ -5,12 +5,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.block.Block;
 import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.blocks.FlayBedBlock;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -37,4 +40,11 @@ public class PlayerEntityMixin {
             return;
         HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 10);
 	}
+
+    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))
+    private boolean notSleepingIfOnFlayBed(PlayerEntity checkingPlayer) {
+        Block block = checkingPlayer.getWorld().getBlockState(checkingPlayer.getBlockPos()).getBlock();
+        if (block instanceof FlayBedBlock) return false;
+        return checkingPlayer.isSleeping();
+    }
 }
