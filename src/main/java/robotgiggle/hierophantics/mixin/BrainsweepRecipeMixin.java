@@ -25,7 +25,7 @@ import at.petrak.hexcasting.common.recipe.BrainsweepRecipe;
 public class BrainsweepRecipeMixin {
     @Inject(method = "copyProperties", at = @At("HEAD"), cancellable = true)
     private static void changeInfusedValue(BlockState original, BlockState copyTo, CallbackInfoReturnable<BlockState> ci) {
-        if (copyTo.get(FlayBedBlock.INFUSED)) {
+        if (copyTo.contains(FlayBedBlock.INFUSED) && copyTo.get(FlayBedBlock.INFUSED)) {
             ci.setReturnValue(original.with(FlayBedBlock.INFUSED, true));
         }
     }

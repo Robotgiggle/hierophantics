@@ -69,5 +69,5 @@ fun List<Iota>.getTrigger(idx: Int, argc: Int): TriggerIota {
 	val x = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
 	if (x is TriggerIota)
 		return x
-	throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "Trigger")
+	throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "trigger")
 }
