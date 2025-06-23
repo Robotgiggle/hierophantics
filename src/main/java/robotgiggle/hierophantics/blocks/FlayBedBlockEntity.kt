@@ -18,7 +18,9 @@ import net.minecraft.util.Hand
 import net.minecraft.util.math.BlockBox
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
-import net.minecraft.util.math.Vec3i
+import net.minecraft.util.math.Vec3d
+import net.minecraft.util.Util
+import net.minecraft.util.DyeColor
 import net.minecraft.world.World
 
 import robotgiggle.hierophantics.HierophanticsMain
@@ -26,24 +28,48 @@ import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 
 import at.petrak.hexcasting.api.HexAPI
+import at.petrak.hexcasting.api.casting.ParticleSpray
+import at.petrak.hexcasting.api.pigment.FrozenPigment
+import at.petrak.hexcasting.xplat.IXplatAbstractions
+import at.petrak.hexcasting.common.lib.HexItems
 
 class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(HierophanticsMain.FLAY_BED_BLOCK_ENTITY, pos, state) {
+    val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
+    
     fun tick(world: World, pos: BlockPos) {
         if (world.isClient()) return
         var state = world.getBlockState(pos)
-        if (state.get(FlayBedBlock.INFUSED) && state.get(BedBlock.OCCUPIED)) {
-            var targetPos = pos
-            if (state.get(BedBlock.PART) == BedPart.FOOT) {
-                targetPos = targetPos.offset(state.get(BedBlock.FACING))
+        if (state.get(FlayBedBlock.INFUSED)) {
+            if (state.get(BedBlock.OCCUPIED)) {
+                val targetPos = when(state.get(BedBlock.PART)!!) {
+                    BedPart.HEAD -> pos
+                    BedPart.FOOT -> otherPartPos
+                }
+                val players = world.getEntitiesByClass(PlayerEntity::class.java, Box(targetPos)) { player -> player.getHeight() < 0.3 }
+                if (players.isEmpty()) {
+                    HexAPI.LOGGER.warn("FlayBed can't find sleeping player")
+                    makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
+                } else {
+                    HierophanticsAPI.getPlayerState(players.get(0)).addMind()
+                    makeParticles(world as ServerWorld, IXplatAbstractions.INSTANCE.getPigment(players.get(0)))
+                }
+            } else {
+                makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
             }
-            val players = world.getEntitiesByClass(PlayerEntity::class.java, Box(targetPos)) { player -> player.getHeight() < 0.3 }
-            if (players.isEmpty()) {
-                world.setBlockState(pos, state.with(FlayBedBlock.INFUSED, false))
-                HexAPI.LOGGER.warn("FlayBed can't find sleeping player")
-                return
-            }
-            HierophanticsAPI.getPlayerState(players.get(0)).addMind()
             world.setBlockState(pos, state.with(FlayBedBlock.INFUSED, false))
         }
+    }
+    
+    fun dyeColor(color: DyeColor): FrozenPigment {
+        return FrozenPigment(
+            ItemStack(HexItems.DYE_PIGMENTS[color]!!),
+            Util.NIL_UUID
+        )
+    }
+
+    fun makeParticles(world: ServerWorld, color: FrozenPigment) {
+        val adjust = Vec3d(0.0, -0.17, 0.0)
+        ParticleSpray(pos.toCenterPos().add(adjust), Vec3d(0.0, 0.5, 0.0), 1.3, 0.0, 60).sprayParticles(world, color)
+        ParticleSpray(otherPartPos.toCenterPos().add(adjust), Vec3d(0.0, 0.5, 0.0), 1.3, 0.0, 60).sprayParticles(world, color)
     }
 }
