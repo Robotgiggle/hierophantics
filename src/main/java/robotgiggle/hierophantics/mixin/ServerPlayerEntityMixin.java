@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
@@ -41,6 +42,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     ServerPlayerEntityMixin(World world, BlockPos blockPos, float f, GameProfile gameProfile) {
 		super(world, blockPos, f, gameProfile);
 	}
+
+	@Inject(method = "dropItem", at = @At("TAIL"))
+	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci) {
+        if (!throwRandomly && retainOwnership) {
+			ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+			HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 7);
+		}
+    }
 	
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void checkThresholdTriggers(CallbackInfo ci) {

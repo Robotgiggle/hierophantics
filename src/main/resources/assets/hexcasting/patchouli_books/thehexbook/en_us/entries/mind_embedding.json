@@ -1,0 +1,75 @@
+{
+	"name": "hierophantics.page.mind_embedding.title",
+	"icon": "hierophantics:flay_bed",
+	"category": "hexcasting:patterns",
+	"sortnum": 30,
+	"advancement": "hexcasting:enlightenment",
+    "entry_color": "54398a",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "hierophantics.page.mind_embedding.0"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "hierophantics:flay_bed",
+			"text": "hierophantics.page.mind_embedding.craft"
+		},
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:get_minds",
+			"anchor": "hierophantics:get_minds",
+			"input": "",
+			"output": "[mind]",
+			"text": "hierophantics.page.get_minds.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:reenable_minds",
+			"anchor": "hierophantics:reenable_minds",
+			"input": "",
+			"output": "",
+			"text": "hierophantics.page.reenable_minds.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:get_mind_hex",
+			"anchor": "hierophantics:get_mind_hex",
+			"input": "mind",
+			"output": "[pattern]",
+			"text": "hierophantics.page.get_mind_hex.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:set_mind_hex",
+			"anchor": "hierophantics:set_mind_hex",
+			"input": "mind, [pattern]",
+			"output": "",
+			"text": "hierophantics.page.set_mind_hex.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:get_mind_trigger",
+			"anchor": "hierophantics:get_mind_trigger",
+			"input": "mind",
+			"output": "trigger",
+			"text": "hierophantics.page.get_mind_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:set_mind_trigger",
+			"anchor": "hierophantics:set_mind_trigger",
+			"input": "mind, trigger",
+			"output": "",
+			"text": "hierophantics.page.set_mind_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:free_mind",
+			"anchor": "hierophantics:free_mind",
+			"input": "mind",
+			"output": "",
+			"text": "hierophantics.page.free_mind.summary"
+        }
+	]
+}

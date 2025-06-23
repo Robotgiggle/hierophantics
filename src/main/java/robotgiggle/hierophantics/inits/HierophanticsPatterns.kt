@@ -14,11 +14,11 @@ object HierophanticsPatterns {
 	fun init() {
 		register("debug_add_mind", "wwaa", HexDir.EAST, OpDebugAddMind())
 		register("get_minds", "qaqqaeawaea", HexDir.NORTH_EAST, OpGetMinds())
-		register("free_mind", "ddeawawa", HexDir.SOUTH_EAST, OpFreeMind())
 		register("get_mind_hex", "ddeqaa", HexDir.SOUTH_EAST, OpGetMindHex())
 		register("set_mind_hex", "ddeedd", HexDir.SOUTH_EAST, OpSetMindHex())
 		register("get_mind_trigger", "ddewaa", HexDir.SOUTH_EAST, OpGetMindTrigger())
 		register("set_mind_trigger", "ddewdd", HexDir.SOUTH_EAST, OpSetMindTrigger())
+		register("free_mind", "ddeawawa", HexDir.SOUTH_EAST, OpFreeMind())
 		register("reenable_minds", "qaqqaeawaeaeqqqeqqwwqqeqqq", HexDir.NORTH_EAST, OpReenableMinds())
 		register("make_damage_trigger", "qqqqqawwqdwa", HexDir.SOUTH_EAST, OpMakeTrigger(0))
 		register("make_damage_type_trigger", "qqqqqawwqdwaqqwawqwa", HexDir.SOUTH_EAST, OpMakeDmgTypeTrigger())

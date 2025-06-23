@@ -1,0 +1,110 @@
+{
+	"name": "hierophantics.page.triggers.title",
+	"icon": "minecraft:target",
+	"category": "hexcasting:patterns",
+	"sortnum": 31,
+	"advancement": "hexcasting:enlightenment",
+    "entry_color": "54398a",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "hierophantics.page.triggers.0"
+		},
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_damage_trigger",
+			"anchor": "hierophantics:make_damage_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_damage_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_damage_type_trigger",
+			"anchor": "hierophantics:make_damage_type_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_damage_type_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_health_trigger",
+			"anchor": "hierophantics:make_health_trigger",
+			"input": "num",
+			"output": "trigger",
+			"text": "hierophantics.page.make_health_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_breath_trigger",
+			"anchor": "hierophantics:make_breath_trigger",
+			"input": "num",
+			"output": "trigger",
+			"text": "hierophantics.page.make_breath_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_hunger_trigger",
+			"anchor": "hierophantics:make_hunger_trigger",
+			"input": "num",
+			"output": "trigger",
+			"text": "hierophantics.page.make_hunger_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_velocity_trigger",
+			"anchor": "hierophantics:make_velocity_trigger",
+			"input": "num",
+			"output": "trigger",
+			"text": "hierophantics.page.make_velocity_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_fall_trigger",
+			"anchor": "hierophantics:make_fall_trigger",
+			"input": "num",
+			"output": "trigger",
+			"text": "hierophantics.page.make_fall_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_drop_trigger",
+			"anchor": "hierophantics:make_drop_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_drop_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_attack_trigger",
+			"anchor": "hierophantics:make_attack_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_attack_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_break_trigger",
+			"anchor": "hierophantics:make_break_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_break_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_jump_trigger",
+			"anchor": "hierophantics:make_jump_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_jump_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:make_teleport_trigger",
+			"anchor": "hierophantics:make_teleport_trigger",
+			"input": "",
+			"output": "trigger",
+			"text": "hierophantics.page.make_teleport_trigger.summary"
+        }
+	]
+}
