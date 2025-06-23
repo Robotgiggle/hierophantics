@@ -1,0 +1,18 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "block",
+    "block": "hierophantics:flay_bed"
+  },
+  "cost": 1000000,
+  "entityIn": {
+    "type": "villager",
+    "minLevel": 0
+  },
+  "result": {
+    "name": "hierophantics:flay_bed",
+    "properties": {
+      "infused": "true"
+    }
+  }
+}
