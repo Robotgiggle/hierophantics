@@ -25,13 +25,11 @@ import net.minecraft.world.World
 
 class HierophanticsMain : ModInitializer {
 	override fun onInitialize() {
-		// val cassette = CassetteItem()
-		// Registry.register(Registries.ITEM, id("cassette"), cassette)
-		// ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))).register { group -> group.add(cassette) }
-
 		Registry.register(Registries.BLOCK, id("flay_bed"), FLAY_BED_BLOCK)
-		Registry.register(Registries.ITEM, id("flay_bed"), BlockItem(FLAY_BED_BLOCK, Item.Settings()))
+		Registry.register(Registries.ITEM, id("flay_bed"), FLAY_BED_ITEM)
 		Registry.register(Registries.BLOCK_ENTITY_TYPE, id("flay_bed"), FLAY_BED_BLOCK_ENTITY)
+
+		ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))).register { group -> group.add(FLAY_BED_ITEM) }
 
 		Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
 		Registry.register(HexIotaTypes.REGISTRY, id("trigger"), TriggerIota.TYPE)
@@ -42,10 +40,9 @@ class HierophanticsMain : ModInitializer {
 
 	companion object {
 		const val MOD_ID: String = "hierophantics"
-		// const val MAX_CASSETTES: Int = 6
-		// const val MAX_LABEL_LENGTH: Int = 32
 
 		val FLAY_BED_BLOCK: FlayBedBlock = FlayBedBlock()
+		val FLAY_BED_ITEM: BlockItem = BlockItem(FLAY_BED_BLOCK, Item.Settings())
 		val FLAY_BED_BLOCK_ENTITY: BlockEntityType<FlayBedBlockEntity> = BlockEntityType.Builder.create(::FlayBedBlockEntity, FLAY_BED_BLOCK).build(null)
 	}
 }

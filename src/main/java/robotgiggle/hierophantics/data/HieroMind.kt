@@ -5,9 +5,11 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.utils.putCompound
 import robotgiggle.hierophantics.HieroMindCastEnv
+import robotgiggle.hierophantics.inits.HierophanticsSounds
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
+import net.minecraft.sound.SoundCategory
 
 class HieroMind(var hex: NbtCompound, var triggerId: Int, var triggerThreshold: Double, var triggerDmgType: String) {
 	constructor() : this(NbtCompound(), -1, -1.0, "") {}
@@ -25,8 +27,11 @@ class HieroMind(var hex: NbtCompound, var triggerId: Int, var triggerThreshold: 
 		val hand = if (!player.getStackInHand(Hand.MAIN_HAND).isEmpty && player.getStackInHand(Hand.OFF_HAND).isEmpty) Hand.OFF_HAND else Hand.MAIN_HAND
 		val harness = CastingVM.empty(HieroMindCastEnv(player, hand))
 		val hexIota = IotaType.deserialize(hex, player.serverWorld)
-		if (hexIota is ListIota)
+		if (hexIota is ListIota) {
 			harness.queueExecuteAndWrapIotas(hexIota.list.toList(), player.serverWorld)
+			val pos = player.getPos()
+			player.getWorld().playSound(null, pos.x, pos.y, pos.z, HierophanticsSounds.HIEROMIND_CAST, SoundCategory.PLAYERS, 1f, 1f)
+		}	
 	}
 
 	companion object {

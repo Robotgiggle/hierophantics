@@ -1,18 +1,6 @@
 {
-	"cassette_eject": {
-		"subtitle": "subtitles.hierophantics.cassette_eject",
-		"sounds": ["hierophantics:cassette_eject"]
-	},
-	"cassette_fail": {
-		"subtitle": "subtitles.hierophantics.cassette_fail",
-		"sounds": ["hierophantics:cassette_fail"]
-	},
-	"cassette_insert": {
-		"subtitle": "subtitles.hierophantics.cassette_insert",
-		"sounds": ["hierophantics:cassette_insert"]
-	},
-	"cassette_loop": {
-		"subtitle": "subtitles.hierophantics.cassette_loop",
-		"sounds": ["hierophantics:cassette_loop"]
+	"hieromind_cast": {
+		"subtitle": "subtitles.hierophantics.hieromind_cast",
+		"sounds": ["hierophantics:hieromind_cast"]
 	}
 }

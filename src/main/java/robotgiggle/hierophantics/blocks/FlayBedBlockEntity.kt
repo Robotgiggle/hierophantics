@@ -22,6 +22,8 @@ import net.minecraft.util.math.Vec3d
 import net.minecraft.util.Util
 import net.minecraft.util.DyeColor
 import net.minecraft.world.World
+import net.minecraft.sound.SoundEvents
+import net.minecraft.sound.SoundCategory
 
 import robotgiggle.hierophantics.HierophanticsMain
 import robotgiggle.hierophantics.HierophanticsAPI
@@ -51,6 +53,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                     makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
                 } else {
                     HierophanticsAPI.getPlayerState(players.get(0)).addMind()
+                    world.playSound(null, targetPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                     makeParticles(world as ServerWorld, IXplatAbstractions.INSTANCE.getPigment(players.get(0)))
                 }
             } else {

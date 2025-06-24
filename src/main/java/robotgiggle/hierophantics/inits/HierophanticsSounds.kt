@@ -6,16 +6,10 @@ import net.minecraft.registry.Registry
 import net.minecraft.sound.SoundEvent
 
 object HierophanticsSounds {
-	// lateinit var CASSETTE_EJECT: SoundEvent
-	// lateinit var CASSETTE_FAIL: SoundEvent
-	// lateinit var CASSETTE_INSERT: SoundEvent
-	// lateinit var CASSETTE_LOOP: SoundEvent
+	lateinit var HIEROMIND_CAST: SoundEvent
 
 	fun init() {
-		// CASSETTE_EJECT = register("cassette_eject")
-		// CASSETTE_FAIL = register("cassette_fail")
-		// CASSETTE_INSERT = register("cassette_insert")
-		// CASSETTE_LOOP = register("cassette_loop")
+		HIEROMIND_CAST = register("hieromind_cast")
 	}
 
 	private fun register(name: String): SoundEvent {
