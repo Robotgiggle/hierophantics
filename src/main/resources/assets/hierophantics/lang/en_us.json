@@ -5,7 +5,7 @@
 
 	"hexcasting.mishap.hierophantics:mind_freed": "Tried to interact with an embedded mind that doesn't exist",
 	"hexcasting.mishap.hierophantics:minds_disabled": "Your embedded minds are too unstable to interact with!",
-	"hexcasting.mishap.hierophantics:not_your_mind": "Can't modify another player's embedded mind",
+	"hexcasting.mishap.hierophantics:not_your_mind": "Can't modify an embedded mind that isn't yours",
 	"hexcasting.mishap.invalid_value.class.mindReference": "an embedded mind",
 	"hexcasting.mishap.invalid_value.class.trigger": "a trigger",
 
@@ -54,11 +54,11 @@
 	"hierophantics.page.mind_handling.title.1": "A Note on Privacy",
 	"hierophantics.page.mind_handling.1": "Since mind references can be written to a storage medium, it's possible that another player may gain access to iotas refencing my own minds. Such an individual will not be able to modify my minds (the results will be similar to attempting to save my True Name) but they $(o)will$() be able to view the trigger and _Hex associated with each mind.",
 	"hierophantics.page.get_minds.summary": "Pushes a list of iotas representing all my embedded minds.",
-	"hierophantics.page.reenable_minds.summary": "When I die, my embedded minds become unstable and cease to function. This pattern restores their bindings, allowing them to work again.",
+	"hierophantics.page.reenable_minds.summary": "When I die, my embedded minds become unstable and cease to function. This spell restores them to working order. Costs one $(l:items/amethyst)$(item)Amethyst Dust$() per mind restored.",
 	"hierophantics.page.get_mind_hex.summary": "Pushes the _Hex stored in the provided mind, or $(l:casting/influences)$(thing)Null$() if there isn't one.",
-	"hierophantics.page.set_mind_hex.summary": "Stores the provided _Hex into the mind, to be cast whenever the mind's trigger activates. If there is already a stored _Hex, it will be overwritten.",
+	"hierophantics.page.set_mind_hex.summary": "Stores the provided _Hex into the mind. If there is already a stored _Hex, it will be overwritten. Costs one $(l:items/amethyst)$(item)Charged Amethyst$().",
 	"hierophantics.page.get_mind_trigger.summary": "Pushes the trigger stored in the provided mind, or $(l:casting/influences)$(thing)Null$() if there isn't one.",
-	"hierophantics.page.set_mind_trigger.summary": "Stores the provided trigger into the mind, causing the mind to cast its stored _Hex when the trigger activates. If the mind already has a trigger, it will be overwritten.",
+	"hierophantics.page.set_mind_trigger.summary": "Stores the provided trigger into the mind. If the mind already has a trigger, it will be overwritten. Costs one $(l:items/amethyst)$(item)Amethyst Shard$().",
 	"hierophantics.page.free_mind.summary": "Permanently removes an embedded mind from my own consciousness.$(br2)I wonder what happens to them, when they go?",
 
 	"hierophantics.page.triggers.title": "Hierophantic Triggers",

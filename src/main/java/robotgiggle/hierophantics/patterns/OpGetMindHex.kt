@@ -16,15 +16,25 @@ class OpGetMindHex : ConstMediaAction {
     override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val caster = env.castingEntity
-		if (caster != null && caster is ServerPlayerEntity) {
-            val mindIota = args.getMindReference(0, argc)
-			val state = HierophanticsAPI.getPlayerState(caster)
-			if (!state.hasMind(mindIota.mindId)) throw MindFreedMishap()
-			if (state.disabled) throw MindsDisabledMishap()
-			val storedHex = IotaType.deserialize(state.hieroMinds[mindIota.mindId]!!.hex, env.world)
-			if (storedHex is ListIota) return listOf(storedHex)
-			else return listOf(NullIota())
-        }
-		return emptyList()
+		val mind = args.getMindReference(0, argc)
+
+		if (caster == null || caster !is ServerPlayerEntity || mind.host != caster) {
+			throw NotYourMindMishap()
+		}
+
+		val state = HierophanticsAPI.getPlayerState(caster)
+		if (!state.hasMind(mind.mindId)) {
+			throw MindFreedMishap()
+		}
+		if (state.disabled) {
+			throw MindsDisabledMishap()
+		}
+
+		val storedHex = IotaType.deserialize(state.hieroMinds[mind.mindId]!!.hex, env.world)
+		if (storedHex is ListIota) {
+			return listOf(storedHex)
+		} else {
+			return listOf(NullIota())
+		}
 	}
 }

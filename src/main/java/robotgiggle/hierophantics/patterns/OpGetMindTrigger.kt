@@ -18,15 +18,25 @@ class OpGetMindTrigger : ConstMediaAction {
     override val argc = 1
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val caster = env.castingEntity
-        if (caster != null && caster is ServerPlayerEntity) {
-            val mindIota = args.getMindReference(0, argc)
-            val state = HierophanticsAPI.getPlayerState(caster)
-            if (!state.hasMind(mindIota.mindId)) throw MindFreedMishap()
-            if (state.disabled) throw MindsDisabledMishap()
-            val mind = state.hieroMinds[mindIota.mindId]!!
-            if (mind.triggerId == -1) return listOf(NullIota())
+		val mindIota = args.getMindReference(0, argc)
+
+		if (caster == null || caster !is ServerPlayerEntity || mindIota.host != caster) {
+			throw NotYourMindMishap()
+		}
+
+		val state = HierophanticsAPI.getPlayerState(caster)
+		if (!state.hasMind(mindIota.mindId)) {
+			throw MindFreedMishap()
+		}
+		if (state.disabled) {
+			throw MindsDisabledMishap()
+		}
+
+        val mind = state.hieroMinds[mindIota.mindId]!!
+        if (mind.triggerId == -1) {
+            return listOf(NullIota())
+        } else {
             return listOf(TriggerIota(mind.triggerId, mind.triggerThreshold, mind.triggerDmgType))
         }
-        return emptyList()
     }
 }
