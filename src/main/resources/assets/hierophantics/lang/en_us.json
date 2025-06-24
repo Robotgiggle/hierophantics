@@ -65,7 +65,7 @@
 	"hierophantics.page.free_mind.summary": "Permanently removes an embedded mind from my own consciousness.$(br2)I wonder what happens to them, when they go?",
 
 	"hierophantics.page.triggers.title": "Hierophantic Triggers",
-	"hierophantics.page.triggers.0": "The $(l:greatwork/hierophantics)minds$() I have sewn into myself are independent to a point, but they cannot think for themselves. Thus, in order to begin casting, they require a trigger of some kind. The patterns listed here are used to create these triggers, based on a variety of common occurances.",
+	"hierophantics.page.triggers.0": "The $(l:greatwork/hierophantics)minds$() I have sewn into myself are independent to a point, but they cannot truly think for themselves. Thus, in order to begin casting, they require a trigger of some kind. The patterns listed here are used to create these triggers, based on a variety of common occurances.",
 	"hierophantics.page.make_damage_trigger.summary": "Creates a trigger that activates whenever I take damage. To prevent a lethal chain-reaction, does not activate if the damage was caused by overcasting.",
 	"hierophantics.page.make_damage_type_trigger.summary": "Creates a trigger that activates whenever I take damage, but only if the damage was of a specific type. The trigger will be attunned to whatever type of damage I last received.",
 	"hierophantics.page.make_health_trigger.summary": "Creates a trigger that activates when my health drops below the specified value. A full, standard healthbar has a value of 20.",
@@ -77,5 +77,5 @@
 	"hierophantics.page.make_attack_trigger.summary": "Creates a trigger that activates whenever I strike another entity.",
 	"hierophantics.page.make_break_trigger.summary": "Creates a trigger that activates whenever I break a block.",
 	"hierophantics.page.make_jump_trigger.summary": "Creates a trigger that activates whenever I jump.",
-	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 4 blocks in length.",
+	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 4 blocks in length."
 }
