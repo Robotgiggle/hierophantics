@@ -12,6 +12,7 @@ import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.nbt.NbtCompound
 
 class OpSetMindHex : ConstMediaAction {
     override val argc = 2
@@ -23,8 +24,12 @@ class OpSetMindHex : ConstMediaAction {
 			val state = HierophanticsAPI.getPlayerState(caster)
 			if (!state.hasMind(mindIota.mindId)) throw MindFreedMishap()
 			if (state.disabled) throw MindsDisabledMishap()
-            args.getList(1, argc) // this makes sure the second argument is a list
-			state.hieroMinds[mindIota.mindId]!!.hex = IotaType.serialize(args[1] as ListIota)
+			if (args[1] is NullIota) {
+				state.hieroMinds[mindIota.mindId]!!.hex = NbtCompound()
+			} else {
+				args.getList(1, argc) // this makes sure the second argument is a list
+				state.hieroMinds[mindIota.mindId]!!.hex = IotaType.serialize(args[1] as ListIota)
+			}
         }
 		return emptyList()
 	}

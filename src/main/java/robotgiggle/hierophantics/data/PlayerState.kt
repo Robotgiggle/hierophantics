@@ -40,7 +40,7 @@ class PlayerState() {
 		if (!disabled) {
 			// detect teleportation by looking for single-tick velocity spikes
 			// using this rather than a mixin because player teleport code is a horrible mess
-			if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed > 4) {
+			if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
 				triggerMinds(player, 11)
 			}
 			// detect threshold-based triggers

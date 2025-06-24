@@ -1,0 +1,32 @@
+{
+	"name": "hierophantics.page.hierophantics.title",
+	"icon": "hierophantics:flay_bed",
+	"category": "hexcasting:greatwork",
+	"sortnum": 30,
+	"advancement": "hexcasting:enlightenment",
+    "entry_color": "54398a",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "hierophantics.page.hierophantics.0"
+		},
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.hierophantics.1"
+		},
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.hierophantics.2"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "hierophantics:flay_bed",
+			"text": "hierophantics.page.hierophantics.craft"
+		},
+        {
+            "type": "hexcasting:brainsweep",
+            "recipe": "hierophantics:activate_flay_bed",
+            "text": "hierophantics.page.hierophantics.flay"
+        }
+	]
+}
