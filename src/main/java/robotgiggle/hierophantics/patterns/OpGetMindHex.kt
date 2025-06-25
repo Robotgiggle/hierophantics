@@ -23,14 +23,14 @@ class OpGetMindHex : ConstMediaAction {
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mind.mindId)) {
+		if (!state.hasMind(mind.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
 			throw MindsDisabledMishap()
 		}
 
-		val storedHex = IotaType.deserialize(state.hieroMinds[mind.mindId]!!.hex, env.world)
+		val storedHex = IotaType.deserialize(state.hieroMinds[mind.name]!!.hex, env.world)
 		if (storedHex is ListIota) {
 			return listOf(storedHex)
 		} else {

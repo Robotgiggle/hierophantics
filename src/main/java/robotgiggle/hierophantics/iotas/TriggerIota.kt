@@ -58,9 +58,9 @@ class TriggerIota(triggerId: Int, threshold: Double = -1.0, dmgType: String = ""
 					11 -> "teleporting"
 					else -> "UNKNOWN"
 				}
-				return Text.literal(label).formatted(Formatting.GREEN)
+				return Text.literal(label).formatted(Formatting.YELLOW)
 			}
-			override fun color() = 0x55ff55
+			override fun color() = 0xffff55
 		}
 	}
 }

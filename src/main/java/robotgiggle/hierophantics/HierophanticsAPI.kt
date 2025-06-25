@@ -20,6 +20,12 @@ class HierophanticsAPI : PersistentState() {
 		return nbt
 	}
 
+	fun nameUsed(name: String): Boolean {
+		var used = false
+		players.forEach { (_, state) -> if (state.hieroMinds.containsKey(name)) used = true }
+		return used
+	}
+
 	companion object {
 		private fun createFromNbt(nbt: NbtCompound): HierophanticsAPI {
 			val state = HierophanticsAPI()
@@ -27,7 +33,7 @@ class HierophanticsAPI : PersistentState() {
 			return state
 		}
 
-		private fun getServerState(server: MinecraftServer): HierophanticsAPI {
+		fun getServerState(server: MinecraftServer): HierophanticsAPI {
 			val state = server.getWorld(World.OVERWORLD)!!.persistentStateManager.getOrCreate(::createFromNbt, ::HierophanticsAPI, HierophanticsMain.MOD_ID)
 			state.markDirty()
 			return state

@@ -25,14 +25,14 @@ class OpGetMindTrigger : ConstMediaAction {
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mindIota.mindId)) {
+		if (!state.hasMind(mindIota.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
 			throw MindsDisabledMishap()
 		}
 
-        val mind = state.hieroMinds[mindIota.mindId]!!
+        val mind = state.hieroMinds[mindIota.name]!!
         if (mind.triggerId == -1) {
             return listOf(NullIota())
         } else {

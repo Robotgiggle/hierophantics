@@ -13,21 +13,20 @@ import net.minecraft.util.Formatting
 import net.minecraft.entity.player.PlayerEntity
 import java.util.UUID
 
-class MindReferenceIota(mindId: Int, host: PlayerEntity) : Iota(TYPE, MindReference(mindId, host)) {
+class MindReferenceIota(name: String, host: PlayerEntity) : Iota(TYPE, MindReference(name, host)) {
 	@JvmRecord
-    data class MindReference(val mindId: Int, val host: PlayerEntity)
+    data class MindReference(val name: String, val host: PlayerEntity)
     
     override fun isTruthy() = true
 	override fun toleratesOther(that: Iota): Boolean {
-		return typesMatch(this, that) && this.mindId == (that as MindReferenceIota).mindId && this.host == that.host
+		return typesMatch(this, that) && this.name == (that as MindReferenceIota).name && this.host == that.host
 	}
-	val mindId = (payload as MindReference).mindId
+	val name = (payload as MindReference).name
 	val host = (payload as MindReference).host
 
 	override fun serialize(): NbtElement {
 		val compound = NbtCompound()
-		compound.putInt("mindID", mindId)
-		compound.putString("hostName", host.getName().getString())
+		compound.putString("name", name)
 		compound.putString("hostUUID", host.getUuid().toString())
 		return compound
 	}
@@ -36,18 +35,16 @@ class MindReferenceIota(mindId: Int, host: PlayerEntity) : Iota(TYPE, MindRefere
 		@JvmField
 		val TYPE: IotaType<MindReferenceIota> = object : IotaType<MindReferenceIota>() {
 			override fun deserialize(nbt: NbtElement, world: ServerWorld): MindReferenceIota? {
-				val mindId = (nbt as NbtCompound).getInt("mindID")
+				val name = (nbt as NbtCompound).getString("name")
 				val hostUuid = UUID.fromString(nbt.getString("hostUUID"))
 				val host = world.getEntity(hostUuid)
 				if (host == null || !(host is PlayerEntity)) return null
-				if (!HierophanticsAPI.getPlayerState(host).hasMind(mindId)) return null
-				return MindReferenceIota(mindId, host)
+				if (!HierophanticsAPI.getPlayerState(host).hasMind(name)) return null
+				return MindReferenceIota(name, host)
 			}
 			override fun display(nbt: NbtElement): Text {
-				// TODO: generate a custom name instead of just using the data
-				val id = (nbt as NbtCompound).getInt("mindID")
-				val name = nbt.getString("hostName")
-				return Text.literal("Embedded Mind ("+name+", #"+id+")").formatted(Formatting.AQUA)
+				val name = (nbt as NbtCompound).getString("name")
+				return Text.literal("Embedded Mind \""+name+"\"").formatted(Formatting.AQUA)
 			}
 			override fun color() = 0x55ffff
 		}

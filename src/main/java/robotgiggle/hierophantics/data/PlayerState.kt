@@ -6,22 +6,24 @@ import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.api.utils.vecFromNBT
 import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.generateMindName
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.MinecraftServer
 
 import at.petrak.hexcasting.api.HexAPI
 
 class PlayerState() {
 	// this stuff gets serde'd
 	var ownedMinds = 0
-	var nextIndex = 0
+	//var nextIndex = 0
 	var disabled = false
 	var lastDmgType = ""
-	val hieroMinds: MutableMap<Int, HieroMind> = mutableMapOf()
+	val hieroMinds: MutableMap<String, HieroMind> = mutableMapOf()
 	
 	// this stuff doesn't
 	var prevHealth = 0.0f
@@ -69,19 +71,23 @@ class PlayerState() {
 		}
 	}
 
-	fun addMind() {
-		hieroMinds[nextIndex] = HieroMind()
-		nextIndex++
+	fun addMind(server: MinecraftServer) {
+		val sState = HierophanticsAPI.getServerState(server)
+		var name = generateMindName()
+		while (sState.nameUsed(name)) {
+			name = generateMindName()
+		}
+		hieroMinds[name] = HieroMind()
 		ownedMinds++
 	}
 
-	fun freeMind(id: Int) {
-		hieroMinds.remove(id)
+	fun freeMind(name: String) {
+		hieroMinds.remove(name)
 		ownedMinds--
 	}
 
-	fun hasMind(id: Int): Boolean {
-		return hieroMinds.containsKey(id)
+	fun hasMind(name: String): Boolean {
+		return hieroMinds.containsKey(name)
 	}
 
 	fun triggerMinds(player: ServerPlayerEntity, triggerId: Int) {
@@ -92,13 +98,12 @@ class PlayerState() {
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putInt("owned", ownedMinds)
-		compound.putInt("next", nextIndex)
 		compound.putBoolean("disabled", disabled)
 		compound.putString("lastDmgType", lastDmgType)
 		val minds = NbtList()
-		hieroMinds.forEach { (id, mind) ->
+		hieroMinds.forEach { (name, mind) ->
 			val mindNbt = NbtCompound()
-			mindNbt.putInt("id", id)
+			mindNbt.putString("name", name)
 			mindNbt.putCompound("mind", mind.serialize())
 			minds.add(mindNbt)
 		}
@@ -110,11 +115,10 @@ class PlayerState() {
 		fun deserialize(compound: NbtCompound): PlayerState {
 			val state = PlayerState()
 			state.ownedMinds = compound.getInt("owned")
-			state.nextIndex = compound.getInt("next")
 			state.disabled = compound.getBoolean("disabled")
 			state.lastDmgType = compound.getString("lastDmgType")
 			compound.getList("minds", NbtElement.COMPOUND_TYPE.toInt()).forEach { mind ->
-				state.hieroMinds[mind.asCompound.getInt("id")] = HieroMind.deserialize(mind.asCompound.getCompound("mind"))
+				state.hieroMinds[mind.asCompound.getString("name")] = HieroMind.deserialize(mind.asCompound.getCompound("mind"))
 			}
 			return state
 		}

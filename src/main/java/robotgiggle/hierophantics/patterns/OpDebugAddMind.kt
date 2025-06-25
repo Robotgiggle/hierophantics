@@ -17,7 +17,7 @@ class OpDebugAddMind : ConstMediaAction {
 		val caster = env.castingEntity
 		if (caster != null && caster is ServerPlayerEntity) {
 			HexAPI.LOGGER.warn("adding mind to " + caster.getName().getString())
-			HierophanticsAPI.getPlayerState(caster).addMind()
+			HierophanticsAPI.getPlayerState(caster).addMind(env.world.server)
 			return listOf()
 		} else {
 			HexAPI.LOGGER.warn("caster is not a ServerPlayerEntity, can't add mind")

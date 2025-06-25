@@ -29,7 +29,7 @@ class OpSetMindTrigger : SpellAction {
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mind.mindId)) {
+		if (!state.hasMind(mind.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
@@ -50,14 +50,14 @@ class OpSetMindTrigger : SpellAction {
 	private data class Spell(val mind: MindReferenceIota, val triggerOrNull: Iota, val state: PlayerState) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			if (triggerOrNull is NullIota) {
-                state.hieroMinds[mind.mindId]!!.triggerId = -1
-                state.hieroMinds[mind.mindId]!!.triggerThreshold = -1.0
-                state.hieroMinds[mind.mindId]!!.triggerDmgType = ""
+                state.hieroMinds[mind.name]!!.triggerId = -1
+                state.hieroMinds[mind.name]!!.triggerThreshold = -1.0
+                state.hieroMinds[mind.name]!!.triggerDmgType = ""
 			} else {
 				val trigger = triggerOrNull as TriggerIota
-                state.hieroMinds[mind.mindId]!!.triggerId = trigger.triggerId
-                state.hieroMinds[mind.mindId]!!.triggerThreshold = trigger.threshold
-                state.hieroMinds[mind.mindId]!!.triggerDmgType = trigger.dmgType
+                state.hieroMinds[mind.name]!!.triggerId = trigger.triggerId
+                state.hieroMinds[mind.name]!!.triggerThreshold = trigger.threshold
+                state.hieroMinds[mind.name]!!.triggerDmgType = trigger.dmgType
 			}
 		}
 	}
@@ -71,17 +71,17 @@ class OpSetMindTrigger : SpellAction {
 //             val mindIota = args.getMindReference(0, argc)
 //             if (mindIota.host != caster) throw NotYourMindMishap()
 //             val state = HierophanticsAPI.getPlayerState(caster)
-//             if (!state.hasMind(mindIota.mindId)) throw MindFreedMishap()
+//             if (!state.hasMind(mindIota.name)) throw MindFreedMishap()
 //             if (state.disabled) throw MindsDisabledMishap()
 //             if (args[1] is NullIota) {
-//                 state.hieroMinds[mindIota.mindId]!!.triggerId = -1
-//                 state.hieroMinds[mindIota.mindId]!!.triggerThreshold = -1.0
-//                 state.hieroMinds[mindIota.mindId]!!.triggerDmgType = ""
+//                 state.hieroMinds[mindIota.name]!!.triggerId = -1
+//                 state.hieroMinds[mindIota.name]!!.triggerThreshold = -1.0
+//                 state.hieroMinds[mindIota.name]!!.triggerDmgType = ""
 //             } else {
 //                 val triggerIota = args.getTrigger(1, argc)
-//                 state.hieroMinds[mindIota.mindId]!!.triggerId = triggerIota.triggerId
-//                 state.hieroMinds[mindIota.mindId]!!.triggerThreshold = triggerIota.threshold
-//                 state.hieroMinds[mindIota.mindId]!!.triggerDmgType = triggerIota.dmgType
+//                 state.hieroMinds[mindIota.name]!!.triggerId = triggerIota.triggerId
+//                 state.hieroMinds[mindIota.name]!!.triggerThreshold = triggerIota.threshold
+//                 state.hieroMinds[mindIota.name]!!.triggerDmgType = triggerIota.dmgType
 //             }
 //         }
 //         return emptyList()

@@ -52,7 +52,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                     HexAPI.LOGGER.warn("FlayBed can't find sleeping player")
                     makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
                 } else {
-                    HierophanticsAPI.getPlayerState(players.get(0)).addMind()
+                    HierophanticsAPI.getPlayerState(players.get(0)).addMind(world.server!!)
                     world.playSound(null, targetPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                     makeParticles(world as ServerWorld, IXplatAbstractions.INSTANCE.getPigment(players.get(0)))
                 }

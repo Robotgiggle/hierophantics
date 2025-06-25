@@ -23,14 +23,14 @@ class OpFreeMind : ConstMediaAction {
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mind.mindId)) {
+		if (!state.hasMind(mind.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
 			throw MindsDisabledMishap()
 		}
 		
-		state.freeMind(mind.mindId)
+		state.freeMind(mind.name)
 		return listOf()
 	}
 }

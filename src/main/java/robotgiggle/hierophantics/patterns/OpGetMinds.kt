@@ -20,7 +20,7 @@ class OpGetMinds : ConstMediaAction {
 		if (caster != null && caster is ServerPlayerEntity) {
 			val minds = HierophanticsAPI.getPlayerState(caster).hieroMinds
 			val output = mutableListOf<Iota>()
-			minds.forEach { (id, _) -> output.add(MindReferenceIota(id, caster)) }
+			minds.forEach { (name, _) -> output.add(MindReferenceIota(name, caster)) }
 			return listOf(ListIota(output))
 		}
 		return listOf(NullIota())
