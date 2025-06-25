@@ -1,4 +1,7 @@
- # Hierophantics
+# Hierophantics
+[![powered by hexdoc](https://img.shields.io/endpoint?url=https://hexxy.media/api/v0/badge/hexdoc?label=1)](https://github.com/hexdoc-dev/hexdoc)
+
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/hierophantics) | [Modrinth](https://modrinth.com/mod/hierophantics)
 
 An addon to Hex Casting that lets you embed extracted villager minds into your own to conditionally execute hexes. Inspired by a certain concept from the Foundryside trilogy.
 
