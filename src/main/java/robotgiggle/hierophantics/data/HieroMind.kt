@@ -14,13 +14,13 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 import net.minecraft.sound.SoundCategory
 
-class HieroMind(var hex: NbtCompound, var triggerId: Int, var triggerThreshold: Double, var triggerDmgType: String) {
-	constructor() : this(NbtCompound(), -1, -1.0, "") {}
+class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold: Double, var triggerDmgType: String) {
+	constructor() : this(NbtCompound(), "", -1.0, "") {}
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putCompound("hex", hex)
-		compound.putInt("triggerId", triggerId)
+		compound.putString("trigger", trigger)
 		compound.putDouble("triggerThreshold", triggerThreshold)
 		compound.putString("triggerDmgType", triggerDmgType)
 		return compound
@@ -45,7 +45,7 @@ class HieroMind(var hex: NbtCompound, var triggerId: Int, var triggerThreshold: 
 	companion object {
 		fun deserialize(compound: NbtCompound) = HieroMind(
 			compound.getCompound("hex"), 
-			compound.getInt("triggerId"), 
+			compound.getString("trigger"), 
 			compound.getDouble("triggerThreshold"), 
 			compound.getString("triggerDmgType")
 		)

@@ -14,10 +14,10 @@ import net.minecraft.server.network.ServerPlayerEntity
 
 import at.petrak.hexcasting.api.HexAPI
 
-class OpMakeThresholdTrigger(val triggerId: Int) : ConstMediaAction {
+class OpMakeThresholdTrigger(val trigger: String) : ConstMediaAction {
 	override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val threshold = args.getPositiveDouble(0, argc)
-		return listOf(TriggerIota(triggerId, threshold))
+		return listOf(TriggerIota(trigger, threshold))
 	}
 }

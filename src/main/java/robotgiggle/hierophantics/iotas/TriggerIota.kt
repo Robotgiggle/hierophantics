@@ -13,21 +13,21 @@ import net.minecraft.util.Formatting
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.damage.DamageType
 
-class TriggerIota(triggerId: Int, threshold: Double = -1.0, dmgType: String = "") : Iota(TYPE, Trigger(triggerId, threshold, dmgType)) {
+class TriggerIota(trigger: String, threshold: Double = -1.0, dmgType: String = "") : Iota(TYPE, Trigger(trigger, threshold, dmgType)) {
 	@JvmRecord
-    data class Trigger(val triggerId: Int, val threshold: Double, val dmgType: String)
+    data class Trigger(val trigger: String, val threshold: Double, val dmgType: String)
     
     override fun isTruthy() = true
 	override fun toleratesOther(that: Iota): Boolean {
-		return typesMatch(this, that) && this.triggerId == (that as TriggerIota).triggerId && this.threshold == that.threshold && this.dmgType == that.dmgType
+		return typesMatch(this, that) && this.trigger == (that as TriggerIota).trigger && this.threshold == that.threshold && this.dmgType == that.dmgType
 	}
-	val triggerId = (payload as Trigger).triggerId
+	val trigger = (payload as Trigger).trigger
 	val threshold = (payload as Trigger).threshold
 	val dmgType = (payload as Trigger).dmgType
 
 	override fun serialize(): NbtElement {
 		val compound = NbtCompound()
-		compound.putInt("triggerId", triggerId)
+		compound.putString("trigger", trigger)
 		compound.putDouble("threshold", threshold)
 		compound.putString("dmgType", dmgType)
 		return compound
@@ -37,28 +37,23 @@ class TriggerIota(triggerId: Int, threshold: Double = -1.0, dmgType: String = ""
 		@JvmField
 		val TYPE: IotaType<TriggerIota> = object : IotaType<TriggerIota>() {
 			override fun deserialize(nbt: NbtElement, world: ServerWorld): TriggerIota? {
-				val triggerId = (nbt as NbtCompound).getInt("triggerId")
+				val trigger = (nbt as NbtCompound).getString("trigger")
 				val threshold = nbt.getDouble("threshold")
 				val dmgType = nbt.getString("dmgType")
-				return TriggerIota(triggerId, threshold, dmgType)
+				return TriggerIota(trigger, threshold, dmgType)
 			}
 			override fun display(nbt: NbtElement): Text {
-				val label = "Trigger: When " + when((nbt as NbtCompound).getInt("triggerId")) {
-					0 -> "damaged"
-					1 -> "damaged by '" + nbt.getString("dmgType") + "'"
-					2 -> "health drops below " + nbt.getDouble("threshold")
-					3 -> "breath drops below " + nbt.getDouble("threshold")
-					4 -> "hunger drops below " + nbt.getDouble("threshold")
-					5 -> "velocity greater than " + nbt.getDouble("threshold")
-					6 -> "falling more than " + nbt.getDouble("threshold") + " blocks"
-					7 -> "item dropped"
-					8 -> "entity struck"
-					9 -> "block broken"
-					10 -> "jumping"
-					11 -> "teleporting"
-					else -> "UNKNOWN"
+				var type: Text
+				val dmgType = (nbt as NbtCompound).getString("dmgType")
+				val threshold = nbt.getDouble("threshold")
+				if (!dmgType.equals("")) {
+					type = Text.translatable("hierophantics.tooltip.trigger_type.damage_typed", dmgType)
+				} else if (threshold != -1.0) {
+					type = Text.translatable("hierophantics.tooltip.trigger_type." + nbt.getString("trigger"), nbt.getDouble("threshold"))
+				} else {
+					type = Text.translatable("hierophantics.tooltip.trigger_type." + nbt.getString("trigger"))
 				}
-				return Text.literal(label).formatted(Formatting.YELLOW)
+				return Text.translatable("hierophantics.tooltip.trigger", type).formatted(Formatting.YELLOW)
 			}
 			override fun color() = 0xffff55
 		}

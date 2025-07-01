@@ -44,7 +44,7 @@ class MindReferenceIota(name: String, host: PlayerEntity) : Iota(TYPE, MindRefer
 			}
 			override fun display(nbt: NbtElement): Text {
 				val name = (nbt as NbtCompound).getString("name")
-				return Text.literal("Embedded Mind \""+name+"\"").formatted(Formatting.AQUA)
+				return Text.translatable("hierophantics.tooltip.mind_reference", name).formatted(Formatting.AQUA)
 			}
 			override fun color() = 0x55ffff
 		}
@@ -55,5 +55,5 @@ fun List<Iota>.getMindReference(idx: Int, argc: Int): MindReferenceIota {
 	val x = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
 	if (x is MindReferenceIota)
 		return x
-	throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "mindReference")
+	throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "mind_reference")
 }

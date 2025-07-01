@@ -43,16 +43,16 @@ class PlayerState() {
 			// detect teleportation by looking for single-tick velocity spikes
 			// using this rather than a mixin because player teleport code is a horrible mess
 			if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
-				triggerMinds(player, 11)
+				triggerMinds(player, "teleport")
 			}
 			// detect threshold-based triggers
 			hieroMinds.forEach { (_, mind) -> 
-				when (mind.triggerId) {
-					2 -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
-					3 -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
-					4 -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
-					5 -> if (currSpeed > mind.triggerThreshold && prevSpeed <= mind.triggerThreshold) mind.cast(player)
-					6 -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
+				when (mind.trigger) {
+					"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
+					"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
+					"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
+					"velocity" -> if (currSpeed > mind.triggerThreshold && prevSpeed <= mind.triggerThreshold) mind.cast(player)
+					"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 				}
 			}
 		//}
@@ -67,7 +67,7 @@ class PlayerState() {
 	fun checkTypedDamage(player: ServerPlayerEntity, type: String) {
 		lastDmgType = type;
 		hieroMinds.forEach { (_, mind) -> 
-			if (mind.triggerId == 1 && mind.triggerDmgType.equals(type)) mind.cast(player)
+			if (mind.trigger == "damage_typed" && mind.triggerDmgType.equals(type)) mind.cast(player)
 		}
 	}
 
@@ -90,9 +90,9 @@ class PlayerState() {
 		return hieroMinds.containsKey(name)
 	}
 
-	fun triggerMinds(player: ServerPlayerEntity, triggerId: Int) {
+	fun triggerMinds(player: ServerPlayerEntity, trigger: String) {
 		//if (disabled) return
-		hieroMinds.forEach { (_, mind) -> if (mind.triggerId == triggerId) mind.cast(player) }
+		hieroMinds.forEach { (_, mind) -> if (mind.trigger == trigger) mind.cast(player) }
 	}
 
 	fun serialize(): NbtCompound {

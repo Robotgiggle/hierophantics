@@ -3,10 +3,27 @@
 
 	"block.hierophantics.flay_bed": "Imbuement Bed",
 
+	"hierophantics.tooltip.mind_reference": "Embedded Mind \"%s\"",
+	"hierophantics.tooltip.trigger": "Trigger: When %s",
+	"hierophantics.tooltip.mishap_thrower": "Hierophantics Mishap Thrower",
+
+	"hierophantics.tooltip.trigger_type.damage": "damaged",
+	"hierophantics.tooltip.trigger_type.damage_typed": "damaged by '%s'",
+	"hierophantics.tooltip.trigger_type.health": "health drops below %d",
+	"hierophantics.tooltip.trigger_type.breath": "breath drops below %d",
+	"hierophantics.tooltip.trigger_type.hunger": "hunger drops below %d",
+	"hierophantics.tooltip.trigger_type.velocity": "velocity greater than %d",
+	"hierophantics.tooltip.trigger_type.fall": "falling more than %d blocks",
+	"hierophantics.tooltip.trigger_type.drop": "item dropped",
+	"hierophantics.tooltip.trigger_type.attack": "entity struck",
+	"hierophantics.tooltip.trigger_type.break": "block broken",
+	"hierophantics.tooltip.trigger_type.jump": "jumping",
+	"hierophantics.tooltip.trigger_type.teleport": "teleporting",
+
 	"hexcasting.mishap.hierophantics:mind_freed": "Tried to interact with an embedded mind that doesn't exist",
 	"hexcasting.mishap.hierophantics:minds_disabled": "Your embedded minds are too unstable to %s!",
 	"hexcasting.mishap.hierophantics:not_your_mind": "Can't modify an embedded mind that isn't yours",
-	"hexcasting.mishap.invalid_value.class.mindReference": "an embedded mind",
+	"hexcasting.mishap.invalid_value.class.mind_reference": "an embedded mind",
 	"hexcasting.mishap.invalid_value.class.trigger": "a trigger",
 
 	"hexcasting.action.hierophantics:get_minds": "Hierophant's Reflection",

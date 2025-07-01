@@ -21,7 +21,7 @@ public class LivingEntityMixin {
         if (entity instanceof PlayerEntity player) {
             if (player.getWorld().isClient)
 			    return;
-		    HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 8);
+		    HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "attack");
         }
 	}
 }

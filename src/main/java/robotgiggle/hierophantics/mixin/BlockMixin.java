@@ -25,6 +25,6 @@ public class BlockMixin {
     private void fireBreakTriggers(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
 		if (player.getWorld().isClient)
 			return;
-		HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 9);
+		HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "break");
     }
 }

@@ -29,7 +29,7 @@ public class PlayerEntityMixin {
             return;
         String dmgType = source.getName();
         if (!dmgType.equals("hexcasting.overcast"))
-            HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 0);
+            HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage");
         HierophanticsAPI.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType);
 	}
 
@@ -38,7 +38,7 @@ public class PlayerEntityMixin {
 		PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getWorld().isClient)
             return;
-        HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 10);
+        HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "jump");
 	}
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))

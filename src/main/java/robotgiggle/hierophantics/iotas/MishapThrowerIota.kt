@@ -42,7 +42,7 @@ class MishapThrowerIota() : Iota(TYPE, 0) {
 				return MishapThrowerIota()
 			}
 			override fun display(nbt: NbtElement): Text {
-				return Text.literal("Hierophantics Mishap Thrower (you should not see this)").formatted(Formatting.DARK_RED)
+				return Text.translatable("hierophantics.tooltip.mishap_thrower").formatted(Formatting.DARK_RED)
 			}
 			override fun color() = 0xaa0000
 		}

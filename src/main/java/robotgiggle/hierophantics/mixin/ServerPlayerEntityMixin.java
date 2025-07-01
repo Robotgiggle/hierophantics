@@ -47,7 +47,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci) {
         if (!throwRandomly && retainOwnership) {
 			ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-			HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, 7);
+			HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "drop");
 		}
     }
 	

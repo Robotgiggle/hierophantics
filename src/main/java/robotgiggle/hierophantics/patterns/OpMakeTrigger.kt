@@ -13,9 +13,9 @@ import net.minecraft.server.network.ServerPlayerEntity
 
 import at.petrak.hexcasting.api.HexAPI
 
-class OpMakeTrigger(val triggerId: Int) : ConstMediaAction {
+class OpMakeTrigger(val trigger: String) : ConstMediaAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-		return listOf(TriggerIota(triggerId))
+		return listOf(TriggerIota(trigger))
 	}
 }

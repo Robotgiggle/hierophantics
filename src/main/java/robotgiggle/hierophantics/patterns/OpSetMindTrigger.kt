@@ -50,12 +50,12 @@ class OpSetMindTrigger : SpellAction {
 	private data class Spell(val mind: MindReferenceIota, val triggerOrNull: Iota, val state: PlayerState) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			if (triggerOrNull is NullIota) {
-                state.hieroMinds[mind.name]!!.triggerId = -1
+                state.hieroMinds[mind.name]!!.trigger = ""
                 state.hieroMinds[mind.name]!!.triggerThreshold = -1.0
                 state.hieroMinds[mind.name]!!.triggerDmgType = ""
 			} else {
 				val trigger = triggerOrNull as TriggerIota
-                state.hieroMinds[mind.name]!!.triggerId = trigger.triggerId
+                state.hieroMinds[mind.name]!!.trigger = trigger.trigger
                 state.hieroMinds[mind.name]!!.triggerThreshold = trigger.threshold
                 state.hieroMinds[mind.name]!!.triggerDmgType = trigger.dmgType
 			}

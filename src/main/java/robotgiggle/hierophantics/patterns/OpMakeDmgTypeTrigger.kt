@@ -19,8 +19,8 @@ class OpMakeDmgTypeTrigger() : ConstMediaAction {
 		val caster = env.castingEntity
         if (caster != null && caster is ServerPlayerEntity) {
             val lastDmgType = HierophanticsAPI.getPlayerState(caster).lastDmgType
-            if (lastDmgType == "") return listOf(TriggerIota(0))
-            else return listOf(TriggerIota(1, dmgType=lastDmgType))
+            if (lastDmgType == "") return listOf(TriggerIota("damage"))
+            else return listOf(TriggerIota("damage_typed", dmgType=lastDmgType))
         }
         return listOf(NullIota())
 	}
