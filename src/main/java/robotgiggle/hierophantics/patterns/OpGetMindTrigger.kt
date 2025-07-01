@@ -20,11 +20,7 @@ class OpGetMindTrigger : ConstMediaAction {
         val caster = env.castingEntity
 		val mindIota = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mindIota.host != caster) {
-			throw NotYourMindMishap()
-		}
-
-		val state = HierophanticsAPI.getPlayerState(caster)
+		val state = HierophanticsAPI.getPlayerState(mindIota.host)
 		if (!state.hasMind(mindIota.name)) {
 			throw MindFreedMishap()
 		}
