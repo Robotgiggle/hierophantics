@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.updateTriggerNbt
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.server.world.ServerWorld
@@ -37,7 +38,8 @@ class TriggerIota(trigger: String, threshold: Double = -1.0, dmgType: String = "
 		@JvmField
 		val TYPE: IotaType<TriggerIota> = object : IotaType<TriggerIota>() {
 			override fun deserialize(nbt: NbtElement, world: ServerWorld): TriggerIota? {
-				val trigger = (nbt as NbtCompound).getString("trigger")
+				updateTriggerNbt(nbt as NbtCompound)
+				val trigger = nbt.getString("trigger")
 				val threshold = nbt.getDouble("threshold")
 				val dmgType = nbt.getString("dmgType")
 				return TriggerIota(trigger, threshold, dmgType)

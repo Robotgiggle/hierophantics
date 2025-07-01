@@ -28,7 +28,7 @@ class OpGetMindTrigger : ConstMediaAction {
 		}
 
         val mind = state.hieroMinds[mindIota.name]!!
-        if (mind.trigger.equals("")) {
+        if (mind.trigger.equals("none")) {
             return listOf(NullIota())
         } else {
             return listOf(TriggerIota(mind.trigger, mind.triggerThreshold, mind.triggerDmgType))

@@ -9,13 +9,14 @@ import robotgiggle.hierophantics.HieroMindCastEnv
 import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import robotgiggle.hierophantics.iotas.MishapThrowerIota
+import robotgiggle.hierophantics.data.updateTriggerNbt
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 import net.minecraft.sound.SoundCategory
 
 class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold: Double, var triggerDmgType: String) {
-	constructor() : this(NbtCompound(), "", -1.0, "") {}
+	constructor() : this(NbtCompound(), "none", -1.0, "") {}
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
@@ -43,11 +44,14 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 	}
 
 	companion object {
-		fun deserialize(compound: NbtCompound) = HieroMind(
-			compound.getCompound("hex"), 
-			compound.getString("trigger"), 
-			compound.getDouble("triggerThreshold"), 
-			compound.getString("triggerDmgType")
-		)
+		fun deserialize(compound: NbtCompound): HieroMind {
+			updateTriggerNbt(compound)
+			return HieroMind(
+				compound.getCompound("hex"), 
+				compound.getString("trigger"), 
+				compound.getDouble("triggerThreshold"), 
+				compound.getString("triggerDmgType")
+			)
+		}
 	}
 }
