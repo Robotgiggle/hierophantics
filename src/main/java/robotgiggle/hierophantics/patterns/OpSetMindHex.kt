@@ -56,24 +56,3 @@ class OpSetMindHex : SpellAction {
 		}
 	}
 }
-
-// class OpSetMindHex : ConstMediaAction {
-//     override val argc = 2
-// 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-//         val caster = env.castingEntity
-// 		if (caster != null && caster is ServerPlayerEntity) {
-//             val mind = args.getMindReference(0, argc)
-// 			if (mind.host != caster) throw NotYourMindMishap()
-// 			val state = HierophanticsAPI.getPlayerState(caster)
-// 			if (!state.hasMind(mind.name)) throw MindFreedMishap()
-// 			if (state.disabled) throw MindsDisabledMishap()
-// 			if (args[1] is NullIota) {
-// 				state.hieroMinds[mind.name]!!.hex = NbtCompound()
-// 			} else {
-// 				args.getList(1, argc) // this makes sure the second argument is a list
-// 				state.hieroMinds[mind.name]!!.hex = IotaType.serialize(args[1] as ListIota)
-// 			}
-//         }
-// 		return emptyList()
-// 	}
-// }

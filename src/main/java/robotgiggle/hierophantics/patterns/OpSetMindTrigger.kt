@@ -62,28 +62,3 @@ class OpSetMindTrigger : SpellAction {
 		}
 	}
 }
-
-// class OpSetMindTrigger : ConstMediaAction {
-//     override val argc = 2
-//     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-//         val caster = env.castingEntity
-//         if (caster != null && caster is ServerPlayerEntity) {
-//             val mindIota = args.getMindReference(0, argc)
-//             if (mindIota.host != caster) throw NotYourMindMishap()
-//             val state = HierophanticsAPI.getPlayerState(caster)
-//             if (!state.hasMind(mindIota.name)) throw MindFreedMishap()
-//             if (state.disabled) throw MindsDisabledMishap()
-//             if (args[1] is NullIota) {
-//                 state.hieroMinds[mindIota.name]!!.triggerId = -1
-//                 state.hieroMinds[mindIota.name]!!.triggerThreshold = -1.0
-//                 state.hieroMinds[mindIota.name]!!.triggerDmgType = ""
-//             } else {
-//                 val triggerIota = args.getTrigger(1, argc)
-//                 state.hieroMinds[mindIota.name]!!.triggerId = triggerIota.triggerId
-//                 state.hieroMinds[mindIota.name]!!.triggerThreshold = triggerIota.threshold
-//                 state.hieroMinds[mindIota.name]!!.triggerDmgType = triggerIota.dmgType
-//             }
-//         }
-//         return emptyList()
-//     }
-// }
