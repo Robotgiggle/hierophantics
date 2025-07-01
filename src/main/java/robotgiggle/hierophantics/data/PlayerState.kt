@@ -39,7 +39,7 @@ class PlayerState() {
 		val currHunger = player.getHungerManager().getFoodLevel()
 		val currSpeed = HexAPI.instance().getEntityVelocitySpecial(player).length()
 		val currFallDist = player.fallDistance
-		if (!disabled) {
+		//if (!disabled) {
 			// detect teleportation by looking for single-tick velocity spikes
 			// using this rather than a mixin because player teleport code is a horrible mess
 			if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
@@ -55,7 +55,7 @@ class PlayerState() {
 					6 -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 				}
 			}
-		}
+		//}
 		prevHealth = currHealth
 		prevBreath = currBreath
 		prevHunger = currHunger
@@ -91,7 +91,7 @@ class PlayerState() {
 	}
 
 	fun triggerMinds(player: ServerPlayerEntity, triggerId: Int) {
-		if (disabled) return
+		//if (disabled) return
 		hieroMinds.forEach { (_, mind) -> if (mind.triggerId == triggerId) mind.cast(player) }
 	}
 

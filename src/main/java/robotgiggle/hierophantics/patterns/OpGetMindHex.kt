@@ -22,7 +22,7 @@ class OpGetMindHex : ConstMediaAction {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
-			throw MindsDisabledMishap()
+			throw MindsDisabledMishap("examine")
 		}
 
 		val storedHex = IotaType.deserialize(state.hieroMinds[mind.name]!!.hex, env.world)

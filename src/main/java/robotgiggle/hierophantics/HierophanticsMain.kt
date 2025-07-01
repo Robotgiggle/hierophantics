@@ -33,6 +33,7 @@ class HierophanticsMain : ModInitializer {
 
 		Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
 		Registry.register(HexIotaTypes.REGISTRY, id("trigger"), TriggerIota.TYPE)
+		Registry.register(HexIotaTypes.REGISTRY, id("mishap_thrower"), MishapThrowerIota.TYPE)
 
 		HierophanticsPatterns.init()
 		HierophanticsSounds.init()

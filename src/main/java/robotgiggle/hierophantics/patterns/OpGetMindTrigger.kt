@@ -17,7 +17,6 @@ import at.petrak.hexcasting.api.HexAPI
 class OpGetMindTrigger : ConstMediaAction {
     override val argc = 1
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val caster = env.castingEntity
 		val mindIota = args.getMindReference(0, argc)
 
 		val state = HierophanticsAPI.getPlayerState(mindIota.host)
@@ -25,7 +24,7 @@ class OpGetMindTrigger : ConstMediaAction {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
-			throw MindsDisabledMishap()
+			throw MindsDisabledMishap("examine")
 		}
 
         val mind = state.hieroMinds[mindIota.name]!!

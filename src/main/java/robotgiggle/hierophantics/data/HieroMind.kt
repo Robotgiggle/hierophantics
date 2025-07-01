@@ -6,7 +6,9 @@ import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.common.lib.HexSounds
 import robotgiggle.hierophantics.HieroMindCastEnv
+import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.inits.HierophanticsSounds
+import robotgiggle.hierophantics.iotas.MishapThrowerIota
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
@@ -29,8 +31,11 @@ class HieroMind(var hex: NbtCompound, var triggerId: Int, var triggerThreshold: 
 		val harness = CastingVM.empty(HieroMindCastEnv(player, hand))
 		val hexIota = IotaType.deserialize(hex, player.serverWorld)
 		if (hexIota is ListIota) {
-			// TODO: add custom iota to start of list to throw MindsDisabledMishap if minds are disabled
-			val ecv = harness.queueExecuteAndWrapIotas(hexIota.list.toList(), player.serverWorld)
+			var patternList = hexIota.list.toList()
+			if (HierophanticsAPI.getPlayerState(player).disabled) {
+				patternList = listOf(MishapThrowerIota())
+			}
+			val ecv = harness.queueExecuteAndWrapIotas(patternList, player.serverWorld)
 			val pos = player.getPos()
 			val sound = if (ecv.resolutionType.success) HierophanticsSounds.HIEROMIND_CAST else HexSounds.CAST_FAILURE
 			player.getWorld().playSound(null, pos.x, pos.y, pos.z, sound, SoundCategory.PLAYERS, 1f, 1f)

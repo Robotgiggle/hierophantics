@@ -4,7 +4,7 @@
 	"block.hierophantics.flay_bed": "Imbuement Bed",
 
 	"hexcasting.mishap.hierophantics:mind_freed": "Tried to interact with an embedded mind that doesn't exist",
-	"hexcasting.mishap.hierophantics:minds_disabled": "Your embedded minds are too unstable to interact with!",
+	"hexcasting.mishap.hierophantics:minds_disabled": "Your embedded minds are too unstable to %s!",
 	"hexcasting.mishap.hierophantics:not_your_mind": "Can't modify an embedded mind that isn't yours",
 	"hexcasting.mishap.invalid_value.class.mindReference": "an embedded mind",
 	"hexcasting.mishap.invalid_value.class.trigger": "a trigger",
