@@ -14,13 +14,13 @@ import net.minecraft.nbt.NbtList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.MinecraftServer
+import net.minecraft.stat.Stats;
 
 import at.petrak.hexcasting.api.HexAPI
 
 class PlayerState() {
 	// this stuff gets serde'd
 	var ownedMinds = 0
-	//var nextIndex = 0
 	var disabled = false
 	var lastDmgType = ""
 	val hieroMinds: MutableMap<String, HieroMind> = mutableMapOf()
@@ -39,23 +39,25 @@ class PlayerState() {
 		val currHunger = player.getHungerManager().getFoodLevel()
 		val currSpeed = HexAPI.instance().getEntityVelocitySpecial(player).length()
 		val currFallDist = player.fallDistance
-		//if (!disabled) {
-			// detect teleportation by looking for single-tick velocity spikes
-			// using this rather than a mixin because player teleport code is a horrible mess
-			if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
+			
+		// detect teleportation by looking for single-tick velocity spikes
+		// using this rather than a mixin because player teleport code is a horrible mess
+		if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
+			if (player.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_DEATH)) > 20)
 				triggerMinds(player, "teleport")
+		}
+
+		// detect threshold-based triggers
+		hieroMinds.forEach { (_, mind) -> 
+			when (mind.trigger) {
+				"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
+				"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
+				"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
+				"velocity" -> if (currSpeed > mind.triggerThreshold && prevSpeed <= mind.triggerThreshold) mind.cast(player)
+				"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 			}
-			// detect threshold-based triggers
-			hieroMinds.forEach { (_, mind) -> 
-				when (mind.trigger) {
-					"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
-					"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
-					"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
-					"velocity" -> if (currSpeed > mind.triggerThreshold && prevSpeed <= mind.triggerThreshold) mind.cast(player)
-					"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
-				}
-			}
-		//}
+		}
+
 		prevHealth = currHealth
 		prevBreath = currBreath
 		prevHunger = currHunger
@@ -91,7 +93,6 @@ class PlayerState() {
 	}
 
 	fun triggerMinds(player: ServerPlayerEntity, trigger: String) {
-		//if (disabled) return
 		hieroMinds.forEach { (_, mind) -> if (mind.trigger == trigger) mind.cast(player) }
 	}
 
