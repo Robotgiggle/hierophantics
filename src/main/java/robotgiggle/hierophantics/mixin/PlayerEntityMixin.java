@@ -13,9 +13,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.common.lib.HexDamageTypes;
@@ -41,10 +43,10 @@ public class PlayerEntityMixin {
         HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "jump");
 	}
 
-    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))
-    private boolean notSleepingIfOnFlayBed(PlayerEntity checkingPlayer) {
-        Block block = checkingPlayer.getWorld().getBlockState(checkingPlayer.getBlockPos()).getBlock();
+    @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))
+    private boolean notSleepingIfOnFlayBed(PlayerEntity instance, Operation<Boolean> original) {
+        Block block = instance.getWorld().getBlockState(instance.getBlockPos()).getBlock();
         if (block instanceof FlayBedBlock) return false;
-        return checkingPlayer.isSleeping();
+        return original.call(instance);
     }
 }
