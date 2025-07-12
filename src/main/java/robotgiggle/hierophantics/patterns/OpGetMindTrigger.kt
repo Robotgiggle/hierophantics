@@ -24,7 +24,7 @@ class OpGetMindTrigger : ConstMediaAction {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
-			throw MindsDisabledMishap("examine")
+			throw MindsDisabledMishap("examine", mindRef.host == env.castingEntity)
 		}
 
         val mind = state.getMind(mindRef.name)
