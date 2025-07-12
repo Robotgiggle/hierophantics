@@ -21,14 +21,14 @@ class OpSetMindHex : SpellAction {
 	override val argc = 2
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
         val caster = env.castingEntity
-		val mind = args.getMindReference(0, argc)
+		val mindRef = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mind.host != caster) {
+		if (caster == null || caster !is ServerPlayerEntity || mindRef.host != caster) {
 			throw NotYourMindMishap()
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mind.name)) {
+		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
@@ -41,17 +41,17 @@ class OpSetMindHex : SpellAction {
 		}
 
 		return SpellAction.Result(
-			Spell(mind, args[1], state),
+			Spell(mindRef, args[1], state),
 			MediaConstants.CRYSTAL_UNIT,
 			listOf()
 		)
 	}
-	private data class Spell(val mind: MindReferenceIota, val payload: Iota, val state: PlayerState) : RenderedSpell {
+	private data class Spell(val mindRef: MindReferenceIota, val payload: Iota, val state: PlayerState) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			if (payload is NullIota) {
-				state.hieroMinds[mind.name]!!.hex = NbtCompound()
+				state.getMind(mindRef.name).hex = NbtCompound()
 			} else {
-				state.hieroMinds[mind.name]!!.hex = IotaType.serialize(payload as ListIota)
+				state.getMind(mindRef.name).hex = IotaType.serialize(payload as ListIota)
 			}
 		}
 	}

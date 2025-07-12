@@ -15,17 +15,17 @@ import net.minecraft.server.network.ServerPlayerEntity
 class OpGetMindHex : ConstMediaAction {
     override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-		val mind = args.getMindReference(0, argc)
+		val mindRef = args.getMindReference(0, argc)
 
-		val state = HierophanticsAPI.getPlayerState(mind.host)
-		if (!state.hasMind(mind.name)) {
+		val state = HierophanticsAPI.getPlayerState(mindRef.host)
+		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
 			throw MindsDisabledMishap("examine")
 		}
 
-		val storedHex = IotaType.deserialize(state.hieroMinds[mind.name]!!.hex, env.world)
+		val storedHex = IotaType.deserialize(state.getMind(mindRef.name).hex, env.world)
 		if (storedHex is ListIota) {
 			return listOf(storedHex)
 		} else {

@@ -17,17 +17,17 @@ import at.petrak.hexcasting.api.HexAPI
 class OpGetMindTrigger : ConstMediaAction {
     override val argc = 1
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-		val mindIota = args.getMindReference(0, argc)
+		val mindRef = args.getMindReference(0, argc)
 
-		val state = HierophanticsAPI.getPlayerState(mindIota.host)
-		if (!state.hasMind(mindIota.name)) {
+		val state = HierophanticsAPI.getPlayerState(mindRef.host)
+		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
 			throw MindsDisabledMishap("examine")
 		}
 
-        val mind = state.hieroMinds[mindIota.name]!!
+        val mind = state.getMind(mindRef.name)
         if (mind.trigger.equals("none")) {
             return listOf(NullIota())
         } else {
