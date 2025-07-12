@@ -83,6 +83,10 @@ class PlayerState() {
 		ownedMinds++
 	}
 
+	fun getMind(name: String): HieroMind {
+		return hieroMinds[name]!!;
+	}
+
 	fun freeMind(name: String) {
 		hieroMinds.remove(name)
 		ownedMinds--

@@ -16,21 +16,21 @@ class OpFreeMind : ConstMediaAction {
     override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val caster = env.castingEntity
-		val mind = args.getMindReference(0, argc)
+		val mindRef = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mind.host != caster) {
+		if (caster == null || caster !is ServerPlayerEntity || mindRef.host != caster) {
 			throw NotYourMindMishap()
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mind.name)) {
+		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
 			throw MindsDisabledMishap("interact with")
 		}
 		
-		state.freeMind(mind.name)
+		state.freeMind(mindRef.name)
 		return listOf()
 	}
 }

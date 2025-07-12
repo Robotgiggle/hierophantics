@@ -22,14 +22,14 @@ class OpSetMindTrigger : SpellAction {
 	override val argc = 2
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
         val caster = env.castingEntity
-		val mind = args.getMindReference(0, argc)
+		val mindRef = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mind.host != caster) {
+		if (caster == null || caster !is ServerPlayerEntity || mindRef.host != caster) {
 			throw NotYourMindMishap()
 		}
 
 		val state = HierophanticsAPI.getPlayerState(caster)
-		if (!state.hasMind(mind.name)) {
+		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
@@ -42,22 +42,23 @@ class OpSetMindTrigger : SpellAction {
 		}
 
 		return SpellAction.Result(
-			Spell(mind, args[1], state),
+			Spell(mindRef, args[1], state),
 			MediaConstants.SHARD_UNIT,
 			listOf()
 		)
 	}
-	private data class Spell(val mind: MindReferenceIota, val triggerOrNull: Iota, val state: PlayerState) : RenderedSpell {
+	private data class Spell(val mindRef: MindReferenceIota, val triggerOrNull: Iota, val state: PlayerState) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
+			val mind = state.getMind(mindRef.name)
 			if (triggerOrNull is NullIota) {
-                state.hieroMinds[mind.name]!!.trigger = "none"
-                state.hieroMinds[mind.name]!!.triggerThreshold = -1.0
-                state.hieroMinds[mind.name]!!.triggerDmgType = ""
+                mind.trigger = "none"
+                mind.triggerThreshold = -1.0
+                mind.triggerDmgType = ""
 			} else {
 				val trigger = triggerOrNull as TriggerIota
-                state.hieroMinds[mind.name]!!.trigger = trigger.trigger
-                state.hieroMinds[mind.name]!!.triggerThreshold = trigger.threshold
-                state.hieroMinds[mind.name]!!.triggerDmgType = trigger.dmgType
+                mind.trigger = trigger.trigger
+                mind.triggerThreshold = trigger.threshold
+                mind.triggerDmgType = trigger.dmgType
 			}
 		}
 	}
