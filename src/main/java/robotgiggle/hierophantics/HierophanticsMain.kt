@@ -3,8 +3,7 @@ package robotgiggle.hierophantics
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import robotgiggle.hierophantics.HierophanticsUtils.id
-import robotgiggle.hierophantics.inits.HierophanticsPatterns
-import robotgiggle.hierophantics.inits.HierophanticsSounds
+import robotgiggle.hierophantics.inits.*
 import robotgiggle.hierophantics.iotas.*
 import robotgiggle.hierophantics.blocks.*
 import net.fabricmc.api.ModInitializer
@@ -35,6 +34,7 @@ class HierophanticsMain : ModInitializer {
 		Registry.register(HexIotaTypes.REGISTRY, id("trigger"), TriggerIota.TYPE)
 		Registry.register(HexIotaTypes.REGISTRY, id("mishap_thrower"), MishapThrowerIota.TYPE)
 
+		HierophanticsAdvancements.init()
 		HierophanticsPatterns.init()
 		HierophanticsSounds.init()
 	}

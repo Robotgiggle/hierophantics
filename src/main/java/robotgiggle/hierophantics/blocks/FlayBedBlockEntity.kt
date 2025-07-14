@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
 import net.minecraft.util.math.BlockBox
@@ -27,6 +28,7 @@ import net.minecraft.sound.SoundCategory
 
 import robotgiggle.hierophantics.HierophanticsMain
 import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 
 import at.petrak.hexcasting.api.HexAPI
@@ -53,10 +55,13 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                     makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
                 } else {
                     HierophanticsAPI.getPlayerState(players.get(0)).addMind(world.server!!)
+                    HierophanticsAdvancements.EMBED_MIND.trigger(players.get(0) as ServerPlayerEntity)
                     world.playSound(null, targetPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                     makeParticles(world as ServerWorld, IXplatAbstractions.INSTANCE.getPigment(players.get(0)))
                 }
             } else {
+                val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 5.0, false)
+                HierophanticsAdvancements.WASTE_MIND.trigger(nearestPlayer as ServerPlayerEntity)
                 makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
             }
             world.setBlockState(pos, state.with(FlayBedBlock.INFUSED, false))

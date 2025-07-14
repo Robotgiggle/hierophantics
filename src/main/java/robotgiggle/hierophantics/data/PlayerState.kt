@@ -73,6 +73,18 @@ class PlayerState() {
 		}
 	}
 
+	fun allTriggersUsed(): Boolean {
+		var allTriggers = true
+		TRIGGER_NAMES.forEach { triggerName -> 
+			var triggerUsed = false
+			hieroMinds.forEach { (_, mind) -> 
+				if (mind.trigger == triggerName) triggerUsed = true
+			}
+			if (!triggerUsed) allTriggers = false
+		}
+		return allTriggers
+	}
+
 	fun addMind(server: MinecraftServer) {
 		val sState = HierophanticsAPI.getServerState(server)
 		var name = generateMindName()
@@ -127,5 +139,11 @@ class PlayerState() {
 			}
 			return state
 		}
+
+		val TRIGGER_NAMES = listOf(
+			"damage", "damage_typed", "health", "breath",
+			"hunger","velocity", "fall", "drop", "attack",
+		    "break", "jump", "teleport"
+		)
 	}
 }
