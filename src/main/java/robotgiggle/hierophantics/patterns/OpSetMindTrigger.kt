@@ -34,7 +34,7 @@ class OpSetMindTrigger : SpellAction {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
-			throw MindsDisabledMishap("modify")
+			throw MindsDisabledMishap("write")
 		}
 
 		// second argument should be either a trigger or null, mishap otherwise

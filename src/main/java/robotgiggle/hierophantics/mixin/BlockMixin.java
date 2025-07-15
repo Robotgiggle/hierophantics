@@ -19,12 +19,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import org.jetbrains.annotations.Nullable;
 
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
+
 @Mixin(Block.class)
 public class BlockMixin {
     @Inject(method = "afterBreak", at = @At("TAIL"))
     private void fireBreakTriggers(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
-		if (player.getWorld().isClient)
-			return;
-		HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "break");
+      if (player.getWorld().isClient)
+        return;
+      HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "break", new Vec3Iota(pos.toCenterPos()));
     }
 }

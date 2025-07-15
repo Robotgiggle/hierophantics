@@ -29,7 +29,7 @@ class MishapThrowerIota() : Iota(TYPE, 0) {
 			this,
 			continuation,
 			null,
-			listOf(OperatorSideEffect.DoMishap(MindsDisabledMishap("function"), Mishap.Context(null, null))),
+			listOf(OperatorSideEffect.DoMishap(MindsDisabledMishap("cast"), Mishap.Context(null, null))),
 			ResolvedPatternType.ERRORED,
 			HexEvalSounds.MISHAP
 		)

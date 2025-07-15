@@ -8,7 +8,6 @@ import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.iotas.MindReferenceIota
-import robotgiggle.hierophantics.mishaps.MindsDisabledMishap
 import net.minecraft.server.network.ServerPlayerEntity
 
 import at.petrak.hexcasting.api.HexAPI

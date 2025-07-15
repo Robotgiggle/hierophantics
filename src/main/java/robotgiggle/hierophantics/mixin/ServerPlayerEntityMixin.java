@@ -1,6 +1,7 @@
 package robotgiggle.hierophantics.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -32,10 +33,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.sugar.Local;
+
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 
 import at.petrak.hexcasting.api.HexAPI;
+import at.petrak.hexcasting.api.casting.iota.EntityIota;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity {
@@ -44,10 +48,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	}
 
 	@Inject(method = "dropItem", at = @At("TAIL"))
-	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci) {
+	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci, @Local ItemEntity droppedEntity) {
         if (!throwRandomly && retainOwnership) {
 			ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-			HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "drop");
+			HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "drop", new EntityIota(droppedEntity));
 		}
     }
 	

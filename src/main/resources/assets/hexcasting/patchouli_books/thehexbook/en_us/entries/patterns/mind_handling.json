@@ -31,15 +31,7 @@
 			"output": "",
 			"text": "hierophantics.page.reenable_minds.summary"
         },
-        {
-			"type": "hexcasting:pattern",
-			"op_id": "hierophantics:get_mind_hex",
-			"anchor": "hierophantics:get_mind_hex",
-			"input": "mind",
-			"output": "[pattern] | null",
-			"text": "hierophantics.page.get_mind_hex.summary"
-        },
-        {
+		{
 			"type": "hexcasting:pattern",
 			"op_id": "hierophantics:set_mind_hex",
 			"anchor": "hierophantics:set_mind_hex",
@@ -49,19 +41,27 @@
         },
         {
 			"type": "hexcasting:pattern",
-			"op_id": "hierophantics:get_mind_trigger",
-			"anchor": "hierophantics:get_mind_trigger",
+			"op_id": "hierophantics:get_mind_hex",
+			"anchor": "hierophantics:get_mind_hex",
 			"input": "mind",
-			"output": "trigger | null",
-			"text": "hierophantics.page.get_mind_trigger.summary"
+			"output": "[pattern] | null",
+			"text": "hierophantics.page.get_mind_hex.summary"
         },
-        {
+		{
 			"type": "hexcasting:pattern",
 			"op_id": "hierophantics:set_mind_trigger",
 			"anchor": "hierophantics:set_mind_trigger",
 			"input": "mind, trigger | null",
 			"output": "",
 			"text": "hierophantics.page.set_mind_trigger.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:get_mind_trigger",
+			"anchor": "hierophantics:get_mind_trigger",
+			"input": "mind",
+			"output": "trigger | null",
+			"text": "hierophantics.page.get_mind_trigger.summary"
         },
         {
 			"type": "hexcasting:pattern",

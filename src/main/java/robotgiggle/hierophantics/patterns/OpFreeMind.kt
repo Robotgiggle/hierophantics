@@ -27,7 +27,7 @@ class OpFreeMind : ConstMediaAction {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
-			throw MindsDisabledMishap("interact with")
+			throw MindsDisabledMishap("free")
 		}
 		
 		state.freeMind(mindRef.name)

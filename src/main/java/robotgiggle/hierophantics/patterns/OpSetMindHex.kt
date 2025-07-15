@@ -32,7 +32,7 @@ class OpSetMindHex : SpellAction {
 			throw MindFreedMishap()
 		}
 		if (state.disabled) {
-			throw MindsDisabledMishap("modify")
+			throw MindsDisabledMishap("write")
 		}
 
 		// second argument should be either a list or null, mishap otherwise

@@ -1,8 +1,10 @@
 package robotgiggle.hierophantics.data
 
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
+import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
+import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.common.lib.HexSounds
 import robotgiggle.hierophantics.HieroMindCastEnv
@@ -27,9 +29,9 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 		return compound
 	}
 
-	fun cast(player: ServerPlayerEntity) {
+	fun cast(player: ServerPlayerEntity, initialStack: List<Iota> = listOf()) {
 		val hand = if (!player.getStackInHand(Hand.MAIN_HAND).isEmpty && player.getStackInHand(Hand.OFF_HAND).isEmpty) Hand.OFF_HAND else Hand.MAIN_HAND
-		val harness = CastingVM.empty(HieroMindCastEnv(player, hand))
+		val harness = CastingVM(CastingImage().copy(stack = initialStack), HieroMindCastEnv(player, hand))
 		val hexIota = IotaType.deserialize(hex, player.serverWorld)
 		if (hexIota is ListIota) {
 			var patternList = hexIota.list.toList()

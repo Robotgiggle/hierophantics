@@ -11,7 +11,8 @@ import net.minecraft.util.DyeColor
 class MindsDisabledMishap(val action: String, val yourMind: Boolean = true) : Mishap() {
 	override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.PURPLE)
 	override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Text {
-		return error(HierophanticsMain.MOD_ID + ":minds_disabled." + if (yourMind) "yours" else "other", action)
+		val translatedAction = Text.translatable("hierophantics.mishap.minds_disabled.action.$action")
+		return error("hierophantics:minds_disabled." + if (yourMind) "yours" else "other", translatedAction)
 	} 
 	override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {}
 }
