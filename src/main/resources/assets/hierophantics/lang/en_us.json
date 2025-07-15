@@ -34,6 +34,11 @@
 	"hexcasting.mishap.invalid_value.class.mind_reference": "an embedded mind",
 	"hexcasting.mishap.invalid_value.class.trigger": "a trigger",
 
+	"hierophantics.mishap.minds_disabled.action.cast": "function",
+    "hierophantics.mishap.minds_disabled.action.read": "examine",
+	"hierophantics.mishap.minds_disabled.action.write": "modify",
+	"hierophantics.mishap.minds_disabled.action.free": "interact with",
+
 	"hexcasting.action.hierophantics:get_minds": "Hierophant's Reflection",
 	"hexcasting.action.hierophantics:reenable_minds": "Stabilize Minds",
 	"hexcasting.action.hierophantics:set_mind_hex": "Payload Gambit",
