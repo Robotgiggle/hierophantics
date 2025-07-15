@@ -21,6 +21,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.common.lib.HexDamageTypes;
+import at.petrak.hexcasting.api.casting.iota.DoubleIota;
+
+import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
@@ -30,9 +33,10 @@ public class PlayerEntityMixin {
         if (player.getWorld().isClient)
             return;
         String dmgType = source.getName();
+        var initialIota = new DoubleIota((double)amount);
         if (!dmgType.equals("hexcasting.overcast"))
-            HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage");
-        HierophanticsAPI.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType);
+            HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
+        HierophanticsAPI.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
 	}
 
     @Inject(method = "jump", at = @At("TAIL"))

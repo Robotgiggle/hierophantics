@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.api.utils.vecFromNBT
+import at.petrak.hexcasting.api.casting.iota.Iota
 import robotgiggle.hierophantics.HierophanticsAPI
 import robotgiggle.hierophantics.data.generateMindName
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
@@ -17,6 +18,7 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.stat.Stats;
 
 import at.petrak.hexcasting.api.HexAPI
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 
 class PlayerState() {
 	// this stuff gets serde'd
@@ -29,22 +31,27 @@ class PlayerState() {
 	var prevHealth = 0.0f
 	var prevBreath = 0.0f
 	var prevHunger = 0
-	var prevSpeed = 0.0
-	var prevPrevSpeed = 0.0
+	var prevVel = Vec3d.ZERO
+	var prevPrevVel = Vec3d.ZERO
 	var prevFallDist = 0.0f
 
 	fun tick(player: ServerPlayerEntity) {
 		val currHealth = player.getHealth()
 		val currBreath = player.getAir() / 30f
 		val currHunger = player.getHungerManager().getFoodLevel()
-		val currSpeed = HexAPI.instance().getEntityVelocitySpecial(player).length()
+		val currVel = HexAPI.instance().getEntityVelocitySpecial(player)
 		val currFallDist = player.fallDistance
+
+		val currSpeed = currVel.length()
+		val prevSpeed = prevVel.length()
+		val prevPrevSpeed = prevPrevVel.length()
 			
 		// detect teleportation by looking for single-tick velocity spikes
 		// using this rather than a mixin because player teleport code is a horrible mess
 		if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
-			if (player.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_DEATH)) > 20)
-				triggerMinds(player, "teleport")
+			if (player.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_DEATH)) > 20) {
+				triggerMinds(player, "teleport", Vec3Iota(prevVel))
+			}	
 		}
 
 		// detect threshold-based triggers
@@ -61,15 +68,16 @@ class PlayerState() {
 		prevHealth = currHealth
 		prevBreath = currBreath
 		prevHunger = currHunger
-		prevPrevSpeed = prevSpeed
-		prevSpeed = currSpeed
+		prevPrevVel = prevVel
+		prevVel = currVel
 		prevFallDist = currFallDist
 	}
 
-	fun checkTypedDamage(player: ServerPlayerEntity, type: String) {
+	fun checkTypedDamage(player: ServerPlayerEntity, type: String, initialIota: Iota) {
 		lastDmgType = type;
 		hieroMinds.forEach { (_, mind) -> 
-			if (mind.trigger == "damage_typed" && mind.triggerDmgType.equals(type)) mind.cast(player)
+			if (mind.trigger == "damage_typed" && mind.triggerDmgType.equals(type)) 
+				mind.cast(player, listOf(initialIota))
 		}
 	}
 
@@ -108,8 +116,13 @@ class PlayerState() {
 		return hieroMinds.containsKey(name)
 	}
 
-	fun triggerMinds(player: ServerPlayerEntity, trigger: String) {
-		hieroMinds.forEach { (_, mind) -> if (mind.trigger == trigger) mind.cast(player) }
+	@JvmOverloads
+	fun triggerMinds(player: ServerPlayerEntity, trigger: String, initialStack: List<Iota> = listOf()) {
+		hieroMinds.forEach { (_, mind) -> if (mind.trigger == trigger) mind.cast(player, initialStack) }
+	}
+
+	fun triggerMinds(player: ServerPlayerEntity, trigger: String, initialIota: Iota) {
+		triggerMinds(player, trigger, listOf(initialIota))
 	}
 
 	fun serialize(): NbtCompound {
