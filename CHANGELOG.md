@@ -1,5 +1,14 @@
 # Hierophantics
 
+## 1.1.0
+- Some trigger types now start their cast with a relevant iota on the stack
+- Added advancements for embedding a mind, wasting a mind, and having one of each trigger type
+- Casting Trigger Reflection: Damage Type as a non-player now produces a 'When damaged' trigger rather than Null
+- 'When health drops below X' trigger no longer tries to fire if the health decrease killed you
+- Mishap text for trying to examine a disabled mind is now slightly different if the mind isn't yours
+- Added zh_cn translations (thanks ChuijkYahus!)
+- Assorted internal cleanup
+
 ## 1.0.2
 - 'When teleporting' trigger no longer tries to fire when you respawn
 - Fixed a couple typos in the guidebook
