@@ -27,10 +27,10 @@ import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
-    @Inject(method = "applyDamage", at = @At("TAIL"))
+    @Inject(method = "applyDamage", at = @At("HEAD"))
 	private void fireDamageTriggers(DamageSource source, float amount, CallbackInfo ci) {
 		PlayerEntity player = (PlayerEntity) (Object) this;
-        if (player.getWorld().isClient)
+        if (player.getWorld().isClient || player.isInvulnerableTo(source))
             return;
         String dmgType = source.getName();
         var initialIota = new DoubleIota((double)amount);
