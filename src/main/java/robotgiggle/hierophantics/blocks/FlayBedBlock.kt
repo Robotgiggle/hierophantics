@@ -31,7 +31,6 @@ import robotgiggle.hierophantics.HierophanticsMain
 class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f)) {
     init {
 		defaultState = stateManager.defaultState
-            .with(INFUSED, false)
             .with(PART, BedPart.FOOT)
             .with(OCCUPIED, false)
 	}
@@ -46,15 +45,6 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
 
     override fun getRenderType(blockState: BlockState): BlockRenderType {
         return BlockRenderType.MODEL;
-    }
-
-    override fun appendProperties(builder: StateManager.Builder<Block, BlockState>) {
-		super.appendProperties(builder)
-		builder.add(INFUSED)
-	}
-
-    override fun <T : BlockEntity> getTicker(world: World, state: BlockState, type: BlockEntityType<T>): BlockEntityTicker<T> {
-        return BlockEntityTicker { world1, pos, _, blockEntity -> (blockEntity as FlayBedBlockEntity).tick(world1, pos) }
     }
 
     override fun onUse(blockState: BlockState, world: World, blockPos: BlockPos, playerEntity: PlayerEntity, hand: Hand, blockHitResult: BlockHitResult): ActionResult {
@@ -76,10 +66,5 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
             }
         });
         return ActionResult.SUCCESS;
-    }
-
-    companion object {
-        @JvmField
-        val INFUSED: BooleanProperty = BooleanProperty.of("infused")
     }
 }

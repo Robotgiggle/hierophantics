@@ -10,9 +10,6 @@
     "minLevel": 5
   },
   "result": {
-    "name": "hierophantics:flay_bed",
-    "properties": {
-      "infused": "true"
-    }
+    "name": "hierophantics:flay_bed"
   }
 }

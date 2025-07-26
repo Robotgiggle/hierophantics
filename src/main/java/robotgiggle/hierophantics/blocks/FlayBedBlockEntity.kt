@@ -5,7 +5,7 @@ import net.minecraft.block.BedBlock
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.Entity
-import net.minecraft.entity.ItemEntity
+import net.minecraft.entity.mob.MobEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
@@ -40,31 +40,26 @@ import at.petrak.hexcasting.common.lib.HexItems
 class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(HierophanticsMain.FLAY_BED_BLOCK_ENTITY, pos, state) {
     val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
     
-    fun tick(world: World, pos: BlockPos) {
-        if (world.isClient()) return
-        var state = world.getBlockState(pos)
-        if (state.get(FlayBedBlock.INFUSED)) {
+    fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity) {
             if (state.get(BedBlock.OCCUPIED)) {
-                val targetPos = when(state.get(BedBlock.PART)!!) {
+            val headPos = when(state.get(BedBlock.PART)!!) {
                     BedPart.HEAD -> pos
                     BedPart.FOOT -> otherPartPos
                 }
-                val players = world.getEntitiesByClass(PlayerEntity::class.java, Box(targetPos)) { player -> player.getHeight() < 0.3 }
+            val players = world.getEntitiesByClass(PlayerEntity::class.java, Box(headPos)) { player -> player.getHeight() < 0.3 }
                 if (players.isEmpty()) {
                     HexAPI.LOGGER.warn("FlayBed can't find sleeping player")
-                    makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
+                makeParticles(world, dyeColor(DyeColor.RED))
                 } else {
                     HierophanticsAPI.getPlayerState(players.get(0)).addMind(world.server!!)
                     HierophanticsAdvancements.EMBED_MIND.trigger(players.get(0) as ServerPlayerEntity)
-                    world.playSound(null, targetPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
-                    makeParticles(world as ServerWorld, IXplatAbstractions.INSTANCE.getPigment(players.get(0)))
+                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
+                makeParticles(world, IXplatAbstractions.INSTANCE.getPigment(players.get(0)))
                 }
             } else {
                 val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 5.0, false)
                 HierophanticsAdvancements.WASTE_MIND.trigger(nearestPlayer as ServerPlayerEntity)
-                makeParticles(world as ServerWorld, dyeColor(DyeColor.RED))
-            }
-            world.setBlockState(pos, state.with(FlayBedBlock.INFUSED, false))
+            makeParticles(world, dyeColor(DyeColor.RED))
         }
     }
     

@@ -8,7 +8,7 @@
 		"PlayerEntityMixin",
 		"ServerPlayerEntityMixin",
 		"BlockMixin",
-		"BrainsweepRecipeMixin"
+		"BrainsweepMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
