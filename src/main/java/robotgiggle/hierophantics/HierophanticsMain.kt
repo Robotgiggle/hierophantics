@@ -42,6 +42,7 @@ class HierophanticsMain : ModInitializer {
 	companion object {
 		const val MOD_ID: String = "hierophantics"
 
+		@JvmField
 		val FLAY_BED_BLOCK: FlayBedBlock = FlayBedBlock()
 		val FLAY_BED_ITEM: BlockItem = BlockItem(FLAY_BED_BLOCK, Item.Settings())
 		val FLAY_BED_BLOCK_ENTITY: BlockEntityType<FlayBedBlockEntity> = BlockEntityType.Builder.create(::FlayBedBlockEntity, FLAY_BED_BLOCK).build(null)
