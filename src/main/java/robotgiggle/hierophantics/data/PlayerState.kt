@@ -7,6 +7,7 @@ import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.api.utils.vecFromNBT
 import at.petrak.hexcasting.api.casting.iota.Iota
 import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.HierophanticsUtils
 import robotgiggle.hierophantics.data.generateMindName
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.nbt.NbtCompound
@@ -83,7 +84,7 @@ class PlayerState() {
 
 	fun allTriggersUsed(): Boolean {
 		var allTriggers = true
-		TRIGGER_NAMES.forEach { triggerName -> 
+		HierophanticsUtils.TRIGGER_NAMES.forEach { triggerName -> 
 			var triggerUsed = false
 			hieroMinds.forEach { (_, mind) -> 
 				if (mind.trigger == triggerName) triggerUsed = true
@@ -98,6 +99,18 @@ class PlayerState() {
 		var name = generateMindName()
 		while (sState.nameUsed(name)) {
 			name = generateMindName()
+		}
+		hieroMinds[name] = HieroMind()
+		ownedMinds++
+	}
+
+	fun addMindNamed(server: MinecraftServer, baseName: String) {
+		val sState = HierophanticsAPI.getServerState(server)
+		var name = baseName
+		var suffix = 2
+		while (sState.nameUsed(name)) {
+			name = baseName + " " + HierophanticsUtils.numToRoman(suffix)
+			suffix++
 		}
 		hieroMinds[name] = HieroMind()
 		ownedMinds++
@@ -152,11 +165,5 @@ class PlayerState() {
 			}
 			return state
 		}
-
-		val TRIGGER_NAMES = listOf(
-			"damage", "damage_typed", "health", "breath",
-			"hunger","velocity", "fall", "drop", "attack",
-		    "break", "jump", "teleport"
-		)
 	}
 }
