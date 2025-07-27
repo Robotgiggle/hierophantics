@@ -38,8 +38,8 @@ public class BrainsweepMixin {
     private void activateFlayBed(CastingEnvironment env, CallbackInfo ci) {
         if (state.getBlock() instanceof FlayBedBlock && recipe.result().getBlock() instanceof FlayBedBlock) {
             BlockEntity bed = env.getWorld().getBlockEntity(pos);
-            if (bed instanceof FlayBedBlockEntity) {
-                ((FlayBedBlockEntity)bed).activate(env.getWorld(), state, sacrifice);
+            if (bed instanceof FlayBedBlockEntity flaybed) {
+                flaybed.activate(env.getWorld(), state, sacrifice, env.getPigment());
             }
         }
     }

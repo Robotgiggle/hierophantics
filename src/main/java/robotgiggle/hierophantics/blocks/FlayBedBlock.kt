@@ -11,9 +11,12 @@ import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.block.enums.BedPart;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Box;
 import net.minecraft.util.DyeColor
 import net.minecraft.util.Hand;
 import net.minecraft.util.ActionResult;
@@ -47,6 +50,7 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
         return BlockRenderType.MODEL;
     }
 
+    // this is identical to BedBlock except it doesn't try to explode in other dims
     override fun onUse(blockState: BlockState, world: World, blockPos: BlockPos, playerEntity: PlayerEntity, hand: Hand, blockHitResult: BlockHitResult): ActionResult {
         if (world.isClient) return ActionResult.CONSUME;
         var sleepPos = blockPos
@@ -57,7 +61,9 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
             }
         }
         if (blockState.get(OCCUPIED)) {
-            playerEntity.sendMessage(Text.translatable("block.minecraft.bed.occupied"), true);
+            if (!this.wakeVillager(world, blockPos)) {
+               playerEntity.sendMessage(Text.translatable("block.minecraft.bed.occupied"), true);
+            }
             return ActionResult.SUCCESS;
         }
         playerEntity.trySleep(sleepPos).ifLeft({sleepFailureReason -> 
@@ -66,5 +72,16 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
             }
         });
         return ActionResult.SUCCESS;
+    }
+
+    // this is private in BedBlock so i have to reimplement it
+    fun wakeVillager(world: World, blockPos: BlockPos): Boolean {
+        val list = world.getEntitiesByClass(VillagerEntity::class.java, Box(blockPos), LivingEntity::isSleeping)
+        if (list.isEmpty()) {
+            return false;
+        } else {
+            (list.get(0)).wakeUp();
+            return true;
+        }
     }
 }

@@ -9,6 +9,7 @@ object HierophanticsUtils {
 		"break", "jump", "teleport"
 	)
 	
+      @JvmStatic
 	fun id(string: String) = Identifier(HierophanticsMain.MOD_ID, string)
 
 	// Credit to André Kramer Orten on stackoverflow for this

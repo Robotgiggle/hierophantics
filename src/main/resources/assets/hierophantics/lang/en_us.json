@@ -2,6 +2,9 @@
 	"subtitles.hierophantics.hieromind_cast": "Embedded mind casts",
 
 	"block.hierophantics.flay_bed": "Imbuement Bed",
+	"block.hierophantics.edified_workstation": "Edified Workstation",
+
+	"entity.minecraft.villager.quiltmind": "Quiltmind",
 
 	"advancements.hierophantics.embed_mind.title": "Interwoven",
 	"advancements.hierophantics.embed_mind.description": "Embed a villager's mind into your own",
