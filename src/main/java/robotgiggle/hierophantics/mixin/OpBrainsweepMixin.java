@@ -3,6 +3,7 @@ package robotgiggle.hierophantics.mixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -37,8 +38,8 @@ public class OpBrainsweepMixin {
             // if player on bed and sacrifice isn't a master, mishap
             BlockEntity bed = env.getWorld().getBlockEntity(pos);
             if (bed instanceof FlayBedBlockEntity flaybed) {
-                PlayerEntity player = flaybed.getSleeperByClass(PlayerEntity.class, env.getWorld());
-                if (player != null && villager.getVillagerData().getLevel() < 5) {
+                Entity sleeper = flaybed.getSleeper(env.getWorld());
+                if (sleeper instanceof PlayerEntity && villager.getVillagerData().getLevel() < 5) {
                     throw new MishapBadBrainsweep(sacrifice, pos);
                 }
             }

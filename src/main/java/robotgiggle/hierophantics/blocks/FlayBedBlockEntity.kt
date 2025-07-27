@@ -49,36 +49,35 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
     
     fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment) {
         if (state.get(BedBlock.OCCUPIED)) {
-            val player = getSleeperByClass(PlayerEntity::class.java, world)
-            val villager = getSleeperByClass(VillagerEntity::class.java, world)
-            if (player != null) {
+            val subject = getSleeper(world)
+            if (subject is PlayerEntity) {
                 // sleeping entity is a player: give them a new hieromind and trigger the advancement
                 val villagerName: Text? = sacrifice.getCustomName()
                 if (villagerName != null)
-                    HierophanticsAPI.getPlayerState(player).addMindNamed(world.server, villagerName.getString())
+                    HierophanticsAPI.getPlayerState(subject).addMindNamed(world.server, villagerName.getString())
                 else
-                    HierophanticsAPI.getPlayerState(player).addMind(world.server)
-                HierophanticsAdvancements.EMBED_MIND.trigger(player as ServerPlayerEntity)
+                    HierophanticsAPI.getPlayerState(subject).addMind(world.server)
+                HierophanticsAdvancements.EMBED_MIND.trigger(subject as ServerPlayerEntity)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
-            } else if (villager != null) {
+            } else if (subject is VillagerEntity) {
                 // sleeping entity is a villager: increase level, merge trade offers, convert into quiltmind
-                val data = villager.getVillagerData()
-                val trades = villager.getOffers()
+                val data = subject.getVillagerData()
+                val trades = subject.getOffers()
                 
                 val oldLevel = when(data.getProfession()) {
                     VillagerProfession.NONE -> 0
                     VillagerProfession.NITWIT -> 0
                     else -> data.getLevel()
                 }
-                villager.setVillagerData(data
+                subject.setVillagerData(data
                     .withLevel(oldLevel + 1)
                     .withProfession(HierophanticsVillagers.QUILTMIND)
                 )
                 trades.addAll((sacrifice as VillagerEntity).getOffers())
-                villager.setOffers(trades)
-                if (villager.getExperience() == 0) villager.setExperience(1);
+                subject.setOffers(trades)
+                if (subject.getExperience() == 0) subject.setExperience(1);
 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
@@ -93,8 +92,8 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         }
     }
 
-    fun <T : Entity> getSleeperByClass(class_: Class<T>, world: ServerWorld): T? {
-        val entities = world.getEntitiesByClass(class_, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
+    fun getSleeper(world: ServerWorld): Entity? {
+        val entities = world.getEntitiesByClass(Entity::class.java, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
         if (entities.isEmpty()) return null
         else return entities.get(0)
     }
