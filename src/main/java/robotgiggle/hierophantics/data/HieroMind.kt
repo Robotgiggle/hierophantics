@@ -30,7 +30,7 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 	}
 
 	fun cast(player: ServerPlayerEntity, initialStack: List<Iota> = listOf()) {
-		if (player.isDead()) return
+		//if (player.isDead()) return
 		val hand = if (!player.getStackInHand(Hand.MAIN_HAND).isEmpty && player.getStackInHand(Hand.OFF_HAND).isEmpty) Hand.OFF_HAND else Hand.MAIN_HAND
 		val harness = CastingVM(CastingImage().copy(stack = initialStack), HieroMindCastEnv(player, hand))
 		val hexIota = IotaType.deserialize(hex, player.serverWorld)

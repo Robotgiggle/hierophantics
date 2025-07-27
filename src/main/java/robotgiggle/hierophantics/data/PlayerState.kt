@@ -37,6 +37,8 @@ class PlayerState() {
 	var prevFallDist = 0.0f
 
 	fun tick(player: ServerPlayerEntity) {
+		if (player.isDead()) return
+
 		val currHealth = player.getHealth()
 		val currBreath = player.getAir() / 30f
 		val currHunger = player.getHungerManager().getFoodLevel()
