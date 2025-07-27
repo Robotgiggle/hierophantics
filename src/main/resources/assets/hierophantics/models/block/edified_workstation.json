@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "down": "hexcasting:block/edified_planks",
+    "up": "hierophantics:block/edified_workstation_top",
+    "side": "hierophantics:block/edified_workstation_side"
+  }
+}
