@@ -28,7 +28,7 @@ import at.petrak.hexcasting.common.recipe.BrainsweepRecipe;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpBrainsweep;
 
 @Mixin(targets = "at.petrak.hexcasting.common.casting.actions.spells.great.OpBrainsweep$Spell", remap = false)
-public class BrainsweepMixin {
+public class BrainsweepSpellMixin {
     @Shadow private BlockPos pos;
     @Shadow private BlockState state;
     @Shadow private MobEntity sacrifice;

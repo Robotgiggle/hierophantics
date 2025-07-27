@@ -42,44 +42,43 @@ import at.petrak.hexcasting.common.lib.HexItems
 
 class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(HierophanticsMain.FLAY_BED_BLOCK_ENTITY, pos, state) {
     val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
+    val headPos = when(state.get(BedBlock.PART)!!) {
+        BedPart.HEAD -> pos
+        BedPart.FOOT -> otherPartPos
+    }
     
     fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment) {
         if (state.get(BedBlock.OCCUPIED)) {
-            val headPos = when(state.get(BedBlock.PART)!!) {
-                BedPart.HEAD -> pos
-                BedPart.FOOT -> otherPartPos
-            }
-            val players = world.getEntitiesByClass(PlayerEntity::class.java, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
-            val villagers = world.getEntitiesByClass(VillagerEntity::class.java, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
-            if (players.size > 0) {
+            val player = getSleeperByClass(PlayerEntity::class.java, world)
+            val villager = getSleeperByClass(VillagerEntity::class.java, world)
+            if (player != null) {
                 // sleeping entity is a player: give them a new hieromind and trigger the advancement
                 val villagerName: Text? = sacrifice.getCustomName()
                 if (villagerName != null)
-                    HierophanticsAPI.getPlayerState(players.get(0)).addMindNamed(world.server, villagerName.getString())
+                    HierophanticsAPI.getPlayerState(player).addMindNamed(world.server, villagerName.getString())
                 else
-                    HierophanticsAPI.getPlayerState(players.get(0)).addMind(world.server)
-                HierophanticsAdvancements.EMBED_MIND.trigger(players.get(0) as ServerPlayerEntity)
+                    HierophanticsAPI.getPlayerState(player).addMind(world.server)
+                HierophanticsAdvancements.EMBED_MIND.trigger(player as ServerPlayerEntity)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
-            } else if (villagers.size > 0) {
+            } else if (villager != null) {
                 // sleeping entity is a villager: increase level, merge trade offers, convert into quiltmind
-                val subject = villagers.get(0)
-                val data = subject.getVillagerData()
-                val trades = subject.getOffers()
+                val data = villager.getVillagerData()
+                val trades = villager.getOffers()
                 
                 val oldLevel = when(data.getProfession()) {
                     VillagerProfession.NONE -> 0
                     VillagerProfession.NITWIT -> 0
                     else -> data.getLevel()
                 }
-                subject.setVillagerData(data
+                villager.setVillagerData(data
                     .withLevel(oldLevel + 1)
                     .withProfession(HierophanticsVillagers.QUILTMIND)
                 )
                 trades.addAll((sacrifice as VillagerEntity).getOffers())
-                subject.setOffers(trades)
-                if (subject.getExperience() == 0) subject.setExperience(1);
+                villager.setOffers(trades)
+                if (villager.getExperience() == 0) villager.setExperience(1);
 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
@@ -92,6 +91,12 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
             HierophanticsAdvancements.WASTE_MIND.trigger(nearestPlayer as ServerPlayerEntity)
             makeParticles(world, dyeColor(DyeColor.RED))
         }
+    }
+
+    fun <T : Entity> getSleeperByClass(class_: Class<T>, world: ServerWorld): T? {
+        val entities = world.getEntitiesByClass(class_, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
+        if (entities.isEmpty()) return null
+        else return entities.get(0)
     }
     
     fun dyeColor(color: DyeColor): FrozenPigment {

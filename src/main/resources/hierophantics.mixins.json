@@ -9,7 +9,8 @@
 		"PlayerEntityMixin",
 		"ServerPlayerEntityMixin",
 		"BlockMixin",
-		"BrainsweepMixin",
+		"OpBrainsweepMixin",
+		"BrainsweepSpellMixin",
 		"PointOfInterestTypesMixin"
 	],
 	"injectors": {
