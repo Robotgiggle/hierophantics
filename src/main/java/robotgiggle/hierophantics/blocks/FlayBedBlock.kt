@@ -11,6 +11,7 @@ import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.block.enums.BedPart;
+import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.shape.VoxelShape;
@@ -48,6 +49,14 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
 
     override fun getRenderType(blockState: BlockState): BlockRenderType {
         return BlockRenderType.MODEL;
+    }
+
+    override fun onLandedUpon(world: World, blockState: BlockState, blockPos: BlockPos, entity: Entity, f: Float) {
+        entity.handleFallDamage(f, 1.0F, entity.getDamageSources().fall());
+    }
+
+    override fun onEntityLand(blockView: BlockView, entity: Entity) {
+        entity.setVelocity(entity.getVelocity().multiply(1.0, 0.0, 1.0));
     }
 
     // this is identical to BedBlock except it doesn't try to explode in other dims
