@@ -34,9 +34,11 @@ public class PlayerEntityMixin {
             return;
         String dmgType = source.getName();
         var initialIota = new DoubleIota((double)amount);
-        if (!dmgType.equals("hexcasting.overcast"))
-            HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
-        HierophanticsAPI.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
+        if (!dmgType.equals("genericKill")) {
+            if (!dmgType.equals("hexcasting.overcast"))
+                HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
+            HierophanticsAPI.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
+        }
 	}
 
     @Inject(method = "jump", at = @At("TAIL"))
