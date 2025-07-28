@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.block.Block;
@@ -38,8 +39,8 @@ public class BrainsweepSpellMixin {
     private void activateFlayBed(CastingEnvironment env, CallbackInfo ci) {
         if (state.getBlock() instanceof FlayBedBlock && recipe.result().getBlock() instanceof FlayBedBlock) {
             BlockEntity bed = env.getWorld().getBlockEntity(pos);
-            if (bed instanceof FlayBedBlockEntity flaybed) {
-                flaybed.activate(env.getWorld(), state, sacrifice, env.getPigment());
+            if (bed instanceof FlayBedBlockEntity flaybed && sacrifice instanceof VillagerEntity vSacrifice) {
+                flaybed.activate(env.getWorld(), state, vSacrifice, env.getPigment());
             }
         }
     }

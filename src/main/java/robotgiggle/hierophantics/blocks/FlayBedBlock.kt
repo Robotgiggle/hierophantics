@@ -70,7 +70,7 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
             }
         }
         if (blockState.get(OCCUPIED)) {
-            if (!this.wakeVillager(world, blockPos)) {
+            if (!wakeVillager(world, blockPos)) {
                playerEntity.sendMessage(Text.translatable("block.minecraft.bed.occupied"), true);
             }
             return ActionResult.SUCCESS;

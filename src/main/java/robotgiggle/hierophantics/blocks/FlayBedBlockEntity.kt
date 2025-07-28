@@ -15,6 +15,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.village.VillagerData
 import net.minecraft.village.VillagerProfession
 import net.minecraft.text.Text
 import net.minecraft.util.ActionResult
@@ -47,11 +48,11 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         BedPart.FOOT -> otherPartPos
     }
     
-    fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment) {
+    fun activate(world: ServerWorld, state: BlockState, sacrifice: VillagerEntity, pigment: FrozenPigment) {
         if (state.get(BedBlock.OCCUPIED)) {
             val subject = getSleeper(world)
             if (subject is PlayerEntity) {
-                // sleeping entity is a player: give them a new hieromind and trigger the advancement
+                // subject is a player: give them a new hieromind and trigger the advancement
                 val villagerName: Text? = sacrifice.getCustomName()
                 if (villagerName != null)
                     HierophanticsAPI.getPlayerState(subject).addMindNamed(world.server, villagerName.getString())
@@ -62,27 +63,24 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
             } else if (subject is VillagerEntity) {
-                // sleeping entity is a villager: increase level, merge trade offers, convert into quiltmind
+                // subject is a villager: increase level, merge trade offers, convert to quiltmind if professions don't match
                 val data = subject.getVillagerData()
                 val trades = subject.getOffers()
                 
-                val oldLevel = when(data.getProfession()) {
-                    VillagerProfession.NONE -> 0
-                    VillagerProfession.NITWIT -> 0
-                    else -> data.getLevel()
+                val newLevel = Math.min(data.getLevel() + 1, 5)
+                when (canSubjectKeepProfession(data.getProfession(), sacrifice.getVillagerData().getProfession())) {
+                    0 -> subject.setVillagerData(data.withLevel(newLevel))
+                    1 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(sacrifice.getVillagerData().getProfession()))
+                    2 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(HierophanticsVillagers.QUILTMIND))
                 }
-                subject.setVillagerData(data
-                    .withLevel(oldLevel + 1)
-                    .withProfession(HierophanticsVillagers.QUILTMIND)
-                )
-                trades.addAll((sacrifice as VillagerEntity).getOffers())
+                trades.addAll(sacrifice.getOffers())
                 subject.setOffers(trades)
-                if (subject.getExperience() == 0) subject.setExperience(1);
+                subject.setExperience(VillagerData.getLowerLevelExperience(newLevel));
 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
             } else {
-                HexAPI.LOGGER.warn("Imbuement Bed couldn't find sleeping entity")
+                HexAPI.LOGGER.warn("Imbuement Bed couldn't find sleeping player or villager")
                 makeParticles(world, dyeColor(DyeColor.GRAY))
             }
         } else {
@@ -96,6 +94,22 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         val entities = world.getEntitiesByClass(Entity::class.java, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
         if (entities.isEmpty()) return null
         else return entities.get(0)
+    }
+
+    fun canSubjectKeepProfession(prof1: VillagerProfession, prof2: VillagerProfession): Int {
+        // blank + blank = quiltmind
+        // profA + profA = profA
+        // blank + profA = profA
+        // profA + profB = quiltmind
+        val blankProfs = setOf(VillagerProfession.NONE, VillagerProfession.NITWIT)
+        if (prof1 == prof2 && prof1 in blankProfs)
+            return 2
+        else if (prof1 == prof2 || prof2 in blankProfs)
+            return 0
+        else if (prof1 in blankProfs)
+            return 1
+        else
+            return 2
     }
     
     fun dyeColor(color: DyeColor): FrozenPigment {
