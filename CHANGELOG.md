@@ -1,5 +1,17 @@
 # Hierophantics
 
+## 1.2.0
+- Villagers (except for nitwits) can now use the Imbuement Bed! Embedding a mind into a villager will:
+  - Increase the target's level by one, without needing any trading
+  - Transfer all of the available trades from the victim to the target
+  - Change the target's profession to Quiltmind, if the two professions don't match
+- Added the Edified Workstation, which acts as a job site for Quiltmind villagers
+- Creating an embedded mind from a named villager will now use that name instead of generating a random one
+- 'When damaged' and 'When damaged by' triggers can no longer detect generic_kill damage (ie /kill)
+- 'When damaged' and 'When damaged by' triggers now fire after the damage is applied rather than before, though they're still able to fire as you die
+- Imbuement Bed is no longer bouncy, and no longer reduces fall damage
+- Hierophantics book entry now links to the Hierophantic Patterns and Hierophantic Triggers entries
+
 ## 1.1.0
 - Some trigger types now start their cast with a relevant iota on the stack
 - Added advancements for embedding a mind, wasting a mind, and having one of each trigger type
