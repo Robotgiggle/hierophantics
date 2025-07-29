@@ -101,12 +101,11 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         // profA + profA = profA
         // blank + profA = profA
         // profA + profB = quiltmind
-        val blankProfs = setOf(VillagerProfession.NONE, VillagerProfession.NITWIT)
-        if (prof1 == prof2 && prof1 in blankProfs)
+        if (prof1 == prof2 && prof1 == VillagerProfession.NONE)
             return 2
-        else if (prof1 == prof2 || prof2 in blankProfs)
+        else if (prof1 == prof2 || prof2 == VillagerProfession.NONE)
             return 0
-        else if (prof1 in blankProfs)
+        else if (prof1 == VillagerProfession.NONE)
             return 1
         else
             return 2
