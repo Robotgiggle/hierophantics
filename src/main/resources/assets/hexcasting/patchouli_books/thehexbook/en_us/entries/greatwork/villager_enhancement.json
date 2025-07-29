@@ -1,0 +1,36 @@
+{
+	"name": "hierophantics.page.villager_enhancement.title",
+	"icon": "hierophantics:edified_workstation",
+	"category": "hexcasting:greatwork",
+	"sortnum": 31,
+	"advancement": "hexcasting:enlightenment",
+    "entry_color": "54398a",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "hierophantics.page.villager_enhancement.0"
+		},
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.villager_enhancement.1"
+		},
+        {
+            "type": "hexcasting:brainsweep",
+            "recipe": "hierophantics:activate_flay_bed_any",
+            "text": "hierophantics.page.villager_enhancement.flay"
+        },
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.villager_enhancement.2"
+		},
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.villager_enhancement.3"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "hierophantics:edified_workstation",
+			"text": "hierophantics.page.villager_enhancement.craft"
+		}
+	]
+}
