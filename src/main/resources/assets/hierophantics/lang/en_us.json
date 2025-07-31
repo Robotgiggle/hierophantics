@@ -4,6 +4,9 @@
 	"block.hierophantics.flay_bed": "Imbuement Bed",
 	"block.hierophantics.edified_workstation": "Edified Workstation",
 
+	"command.hierophantics.add_mind": "Added new embdded mind to %s",
+	"command.hierophantics.disable": "Disabled %s's embedded minds",
+
 	"entity.minecraft.villager.quiltmind": "Quiltmind",
 
 	"advancements.hierophantics.embed_mind.title": "Interwoven",

@@ -12,30 +12,30 @@ import robotgiggle.hierophantics.HierophanticsAPI;
 object HierophanticsCommands {
     fun init() {
         CommandRegistrationCallback.EVENT.register{disp, _, _ -> 
-            val base = CommandManager.literal("hierophantics")
-            base.then(CommandManager.literal("addMind")
-                .requires{source -> source.hasPermissionLevel(2)}
-                .executes{ctx -> 
-                    var source = ctx.getSource();
-                    var player = source.getPlayerOrThrow();
-                    HierophanticsAPI.getPlayerState(player).addMind(source.getServer());
-                    source.sendFeedback({ -> Text.literal("Added new embedded mind")}, false);
-                    return@executes 1
-                }
-            )
-            base.then(CommandManager.literal("disable")
-                .then(CommandManager.argument("target", EntityArgumentType.player())
+            disp.register(CommandManager.literal("hierophantics")
+                .then(CommandManager.literal("addMind")
                     .requires{source -> source.hasPermissionLevel(2)}
                     .executes{ctx -> 
                         var source = ctx.getSource();
-                        var target = EntityArgumentType.getPlayer(ctx, "target");
-                        HierophanticsAPI.getPlayerState(target).disabled = true;
-                        source.sendFeedback({ -> Text.literal("Disabled minds of ").append(target.getName())}, true);
+                        var player = source.getPlayerOrThrow();
+                        HierophanticsAPI.getPlayerState(player).addMind(source.getServer());
+                        source.sendFeedback({ -> Text.translatable("command.hierophantics.add_mind", player.getName())}, false);
                         return@executes 1
                     }
                 )
+                .then(CommandManager.literal("disable")
+                    .then(CommandManager.argument("target", EntityArgumentType.player())
+                        .requires{source -> source.hasPermissionLevel(2)}
+                        .executes{ctx -> 
+                            var source = ctx.getSource();
+                            var target = EntityArgumentType.getPlayer(ctx, "target");
+                            HierophanticsAPI.getPlayerState(target).disabled = true;
+                            source.sendFeedback({ -> Text.translatable("command.hierophantics.disable", target.getName())}, true);
+                            return@executes 1
+                        }
+                    )
+                )
             )
-            disp.register(base)
         };
     }
 }
