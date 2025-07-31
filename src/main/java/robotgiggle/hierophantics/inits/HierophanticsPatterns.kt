@@ -12,7 +12,6 @@ import net.minecraft.registry.Registry
 object HierophanticsPatterns {
 	@JvmStatic
 	fun init() {
-		// register("debug_add_mind", "wwaa", HexDir.EAST, OpDebugAddMind())
 		register("get_minds", "qaqqaeawaea", HexDir.NORTH_EAST, OpGetMinds())
 		register("get_mind_hex", "ddeqaa", HexDir.SOUTH_EAST, OpGetMindHex())
 		register("set_mind_hex", "ddeedd", HexDir.SOUTH_EAST, OpSetMindHex())
