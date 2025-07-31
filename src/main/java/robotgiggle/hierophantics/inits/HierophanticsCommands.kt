@@ -14,14 +14,16 @@ object HierophanticsCommands {
         CommandRegistrationCallback.EVENT.register{disp, _, _ -> 
             disp.register(CommandManager.literal("hierophantics")
                 .then(CommandManager.literal("addMind")
-                    .requires{source -> source.hasPermissionLevel(2)}
-                    .executes{ctx -> 
-                        var source = ctx.getSource();
-                        var player = source.getPlayerOrThrow();
-                        HierophanticsAPI.getPlayerState(player).addMind(source.getServer());
-                        source.sendFeedback({ -> Text.translatable("command.hierophantics.add_mind", player.getName())}, false);
-                        return@executes 1
-                    }
+                    .then(CommandManager.argument("target", EntityArgumentType.player())
+                        .requires{source -> source.hasPermissionLevel(2)}
+                        .executes{ctx -> 
+                            var source = ctx.getSource();
+                            var target = EntityArgumentType.getPlayer(ctx, "target");
+                            HierophanticsAPI.getPlayerState(target).addMind(source.getServer());
+                            source.sendFeedback({ -> Text.translatable("command.hierophantics.add_mind", target.getName())}, false);
+                            return@executes 1
+                        }
+                    )
                 )
                 .then(CommandManager.literal("disable")
                     .then(CommandManager.argument("target", EntityArgumentType.player())
