@@ -37,7 +37,7 @@ class PlayerState() {
 	var skipTeleTrigger = false
 
 	fun tick(player: ServerPlayerEntity) {
-		if (player.isDead()) return
+		if (player.isDead() || ownedMinds == 0) return
 
 		val currHealth = player.getHealth()
 		val currBreath = player.getAir() / 30f
