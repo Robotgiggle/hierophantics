@@ -1,20 +1,22 @@
 package robotgiggle.hierophantics.patterns
 
-import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
+import at.petrak.hexcasting.api.casting.RenderedSpell
+import at.petrak.hexcasting.api.casting.castables.SpellAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.PlayerState
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
-class OpFreeMind : ConstMediaAction {
+class OpFreeMind : SpellAction {
     override val argc = 1
-	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
+	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
         val caster = env.castingEntity
 		val mindRef = args.getMindReference(0, argc)
 
@@ -30,7 +32,15 @@ class OpFreeMind : ConstMediaAction {
 			throw MindsDisabledMishap("free")
 		}
 		
-		state.freeMind(mindRef.name)
-		return listOf()
+		return SpellAction.Result(
+			Spell(state, mindRef.name),
+			0,
+			listOf()
+		)
+	}
+	private data class Spell(val state: PlayerState, val mindName: String) : RenderedSpell {
+		override fun cast(env: CastingEnvironment) {
+			state.freeMind(mindName)
+		}
 	}
 }
