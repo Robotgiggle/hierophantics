@@ -1,5 +1,13 @@
 # Hierophantics
 
+## 1.2.1
+- Added `/hierophantics addMind <player>` command to directly add an embedded mind to the target player
+- Added `/hierophantics disable <player>` command to disable the target player's minds
+- Added config option for the maximum number of embedded minds per player (default is 64)
+- Dying will no longer disable your embedded minds if you don't have any minds
+- 'When teleporting' trigger will no longer fire when entering or leaving dimensions with coordinate scaling
+- 'When velocity exceeds X' trigger will no longer fire when teleporting or when respawning
+
 ## 1.2.0
 - Villagers (except for nitwits) can now use the Imbuement Bed! Embedding a mind into a villager will:
   - Increase the target's level by one, without needing any trading
