@@ -46,6 +46,7 @@ class HierophanticsMain : ModInitializer {
 		HierophanticsVillagers.init()
 		HierophanticsCommands.init()
 		HierophanticsPatterns.init()
+		HierophanticsConfig.init()
 		HierophanticsSounds.init()
 	}
 

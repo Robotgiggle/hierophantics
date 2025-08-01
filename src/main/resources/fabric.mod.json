@@ -20,6 +20,9 @@
 				"adapter": "kotlin",
 				"value": "robotgiggle.hierophantics.HierophanticsMain"
 			}
+		],
+		"modmenu": [
+			"robotgiggle.hierophantics.ModMenuIntegration"
 		]
 	},
 	"mixins": [
