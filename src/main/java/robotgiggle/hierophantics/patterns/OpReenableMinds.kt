@@ -38,14 +38,3 @@ class OpReenableMinds : SpellAction {
 		}
 	}
 }
-
-// class OpReenableMinds : ConstMediaAction {
-// 	override val argc = 0
-// 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-// 		val caster = env.castingEntity
-// 		if (caster != null && caster is ServerPlayerEntity) {
-// 			HierophanticsAPI.getPlayerState(caster).disabled = false
-// 		}
-// 		return emptyList()
-// 	}
-// }

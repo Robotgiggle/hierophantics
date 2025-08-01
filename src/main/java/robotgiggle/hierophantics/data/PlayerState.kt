@@ -16,7 +16,6 @@ import net.minecraft.nbt.NbtList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.MinecraftServer
-import net.minecraft.stat.Stats;
 
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
@@ -35,9 +34,10 @@ class PlayerState() {
 	var prevVel = Vec3d.ZERO
 	var prevPrevVel = Vec3d.ZERO
 	var prevFallDist = 0.0f
+	var skipTeleTrigger = false
 
 	fun tick(player: ServerPlayerEntity) {
-		if (player.isDead()) return
+		if (player.isDead() || ownedMinds == 0) return
 
 		val currHealth = player.getHealth()
 		val currBreath = player.getAir() / 30f
@@ -48,13 +48,15 @@ class PlayerState() {
 		val currSpeed = currVel.length()
 		val prevSpeed = prevVel.length()
 		val prevPrevSpeed = prevPrevVel.length()
-			
+
+		var teleported = false
+		
 		// detect teleportation by looking for single-tick velocity spikes
 		// using this rather than a mixin because player teleport code is a horrible mess
 		if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
-			if (player.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_DEATH)) > 20) {
-				triggerMinds(player, "teleport", Vec3Iota(prevVel))
-			}	
+			teleported = true
+			if (skipTeleTrigger) skipTeleTrigger = false
+			else triggerMinds(player, "teleport", Vec3Iota(prevVel))	
 		}
 
 		// detect threshold-based triggers
@@ -63,7 +65,7 @@ class PlayerState() {
 				"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
 				"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
 				"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
-				"velocity" -> if (currSpeed > mind.triggerThreshold && prevSpeed <= mind.triggerThreshold) mind.cast(player)
+				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prevPrevSpeed <= mind.triggerThreshold) mind.cast(player)
 				"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 			}
 		}

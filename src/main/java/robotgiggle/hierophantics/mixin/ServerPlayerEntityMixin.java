@@ -64,7 +64,18 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Inject(method = "onDeath", at = @At("HEAD"))
 	private void disableMindsOnDeath(CallbackInfo ci) {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-		HierophanticsAPI.getPlayerState(player).setDisabled(true);
+		var state = HierophanticsAPI.getPlayerState(player);
+		if (state.getOwnedMinds() > 0) {
+			state.setDisabled(true);
+			state.setSkipTeleTrigger(true);
+		}
+	}
+
+	@Inject(method = "moveToWorld", at = @At("HEAD"))
+	private void skipTeleTriggerWhenChangingDims(CallbackInfoReturnable ci) {
+		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+		var state = HierophanticsAPI.getPlayerState(player);
+		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(true);
 	}
 
 	@Inject(method = "trySleep", at = @At("Head"), cancellable = true)

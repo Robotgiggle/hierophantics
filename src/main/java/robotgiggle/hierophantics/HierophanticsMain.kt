@@ -17,6 +17,7 @@ import net.minecraft.item.BlockItem
 import net.minecraft.block.Block
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.block.AbstractBlock.Settings
+import net.minecraft.block.Blocks
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
@@ -24,8 +25,6 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.util.Rarity
 import net.minecraft.world.World
-
-import net.minecraft.block.Blocks;
 
 class HierophanticsMain : ModInitializer {
 	override fun onInitialize() {
@@ -45,7 +44,9 @@ class HierophanticsMain : ModInitializer {
 
 		HierophanticsAdvancements.init()
 		HierophanticsVillagers.init()
+		HierophanticsCommands.init()
 		HierophanticsPatterns.init()
+		HierophanticsConfig.init()
 		HierophanticsSounds.init()
 	}
 
