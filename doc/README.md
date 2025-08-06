@@ -2,6 +2,8 @@
 
 Python web book docgen and [hexdoc](https://pypi.org/project/hexdoc) plugin for Hierophantics.
 
+An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers.
+
 ## Version scheme
 
 We use [hatch-gradle-version](https://pypi.org/project/hatch-gradle-version) to generate the version number based on whichever mod version the docgen was built with.
@@ -15,7 +17,7 @@ For example:
 
 ## Setup
 
-Install Python 3.11 and Node 18 (20+ is **not** currently supported).
+Install Python 3.11.
 
 ```sh
 python3.11 -m venv venv
@@ -31,13 +33,15 @@ pip install -e .[dev]
 ## Usage
 
 For local testing, create a file called `.env` in the repo root following this template:
+
 ```sh
-GITHUB_REPOSITORY=robotgiggle/hierophantics
+GITHUB_REPOSITORY=Robotgiggle/hierophantics
 GITHUB_SHA=main
-GITHUB_PAGES_URL=https://robotgiggle.github.io/hierophantics/
+GITHUB_PAGES_URL=https://github.com/Robotgiggle/hierophantics
 ```
 
 Useful commands:
+
 ```sh
 # show help
 hexdoc -h
@@ -48,9 +52,8 @@ nodemon --config doc/nodemon.json
 # render and serve the web book
 hexdoc serve
 
-# export, render, and merge the web book
-hexdoc export
-hexdoc render
+# build and merge the web book
+hexdoc build
 hexdoc merge
 
 # start the Python interpreter with some extra local variables

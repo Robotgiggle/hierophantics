@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "robotgiggle.hierophantics.forge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "MixinDatagenMain"
+  ],
+  "plugin": "robotgiggle.hierophantics.forge.mixin.ForgeMixinConfigPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "hierophantics",
+  "version": "${version}",
+  "name": "Hierophantics",
+  "description": "An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers.",
+  "authors": [
+    "Robotgiggle"
+  ],
+  "contact": {
+    "homepage": "https://robotgiggle.github.io/hierophantics",
+    "sources": "https://github.com/Robotgiggle/hierophantics"
+  },
+  "license": "MIT",
+  "icon": "assets/hierophantics/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [{
+      "adapter": "kotlin",
+      "value": "robotgiggle.hierophantics.fabric.FabricHierophantics"
+    }],
+    "client": [{
+      "adapter": "kotlin",
+      "value": "robotgiggle.hierophantics.fabric.FabricHierophanticsClient"
+    }],
+    "modmenu": [{
+      "adapter": "kotlin",
+      "value": "robotgiggle.hierophantics.fabric.FabricHierophanticsModMenu"
+    }]
+  },
+  "mixins": [
+    "hierophantics-common.mixins.json",
+    "hierophantics-fabric.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${versions.minecraft}",
+    "fabricloader": ">=${versions.fabric_loader}",
+    "fabric-api": ">=${versions.fabric_api}",
+    "fabric-language-kotlin": ">=${versions.kotlin_fabric}",
+    "architectury": ">=${versions.architectury}",
+    "hexcasting": ">=${versions.hexcasting_dependency}",
+    "cloth-config": ">=${versions.clothConfig}"
+  },
+  "suggests": {
+    "modmenu": ">=${versions.modMenu}"
+  }
+}

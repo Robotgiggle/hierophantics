@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+# https://copier.readthedocs.io/en/stable/updating/#never-change-the-answers-file-manually
+_commit: v2.0.4
+_src_path: gh:FallingColors/hexdummy
+advanced: false
+description: An addon to Hex Casting that lets you work with extracted minds to create
+    conditional hexes and merge villagers.
+display_name: Hierophantics
+github_repo: hierophantics
+github_user: Robotgiggle
+java_package: robotgiggle.hierophantics
+mappings_name: Yarn
+minecraft_version_in_mod_version: false
+mod_version: 1.2.2
+modid: hierophantics
