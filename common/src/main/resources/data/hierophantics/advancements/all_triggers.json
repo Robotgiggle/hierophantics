@@ -1,0 +1,24 @@
+{
+	"parent": "hierophantics:embed_mind",
+	"criteria": {
+		"all_triggers": {
+			"trigger": "hierophantics:all_triggers"
+		}
+	},
+	"display": {
+		"announce_to_chat": true,
+		"title": {
+			"translate": "advancements.hierophantics.all_triggers.title"
+		},
+		"description": {
+			"translate": "advancements.hierophantics.all_triggers.description"
+		},
+		"frame": "challenge",
+		"hidden": false,
+		"icon": {
+			"item": "minecraft:command_block"
+		},
+		"show_toast": true
+	},
+	"requirements": [["all_triggers"]]
+}

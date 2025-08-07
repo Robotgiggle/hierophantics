@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"S": {
+			"item": "hexcasting:slate"
+		},
+		"I": {
+			"item": "hexcasting:impetus/empty"
+		},
+		"P": {
+			"tag": "minecraft:planks"
+		}
+	},
+	"pattern": ["   ", "SSI", "PPP"],
+	"result": {
+		"item": "hierophantics:flay_bed"
+	}
+}

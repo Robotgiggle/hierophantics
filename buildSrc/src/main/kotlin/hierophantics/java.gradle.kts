@@ -19,7 +19,7 @@ group = mavenGroup
 
 version = modVersion
 if (!release) {
-    version = "$version-SNAPSHOT"
+    version = "$version-DEV"
 }
 
 repositories {
