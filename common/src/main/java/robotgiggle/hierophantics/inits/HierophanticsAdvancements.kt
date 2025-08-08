@@ -15,12 +15,14 @@ object HierophanticsAdvancements {
     lateinit var EMBED_MIND: EmbedMindCriterion
     lateinit var WASTE_MIND: WasteMindCriterion
     lateinit var ALL_TRIGGERS: AllTriggersCriterion
+	lateinit var FUSE_VILLAGERS: FuseVillagersCriterion
     
     @JvmStatic
     fun init() {
         EMBED_MIND = Criteria.register(EmbedMindCriterion())
         WASTE_MIND = Criteria.register(WasteMindCriterion())
         ALL_TRIGGERS = Criteria.register(AllTriggersCriterion())
+		FUSE_VILLAGERS = Criteria.register(FuseVillagersCriterion())
     }
 }
 
@@ -54,5 +56,16 @@ class AllTriggersCriterion : AbstractCriterion<AllTriggersCriterion.Condition>()
 	class Condition : AbstractCriterionConditions(ID, LootContextPredicate.EMPTY)
 	companion object {
 		val ID: Identifier = Hierophantics.id("all_triggers")
+	}
+}
+
+class FuseVillagersCriterion : AbstractCriterion<FuseVillagersCriterion.Condition>() {
+    override fun conditionsFromJson(jsonObject: JsonObject, lootContextPredicate: LootContextPredicate, advancementEntityPredicateDeserializer: AdvancementEntityPredicateDeserializer) = Condition()
+	fun trigger(player: ServerPlayerEntity) = trigger(player) { true }
+	override fun getId() = ID
+
+	class Condition : AbstractCriterionConditions(ID, LootContextPredicate.EMPTY)
+	companion object {
+		val ID: Identifier = Hierophantics.id("fuse_villagers")
 	}
 }

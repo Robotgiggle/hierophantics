@@ -1,0 +1,24 @@
+{
+	"parent": "hexcasting:enlightenment",
+	"criteria": {
+		"fuse_villagers": {
+			"trigger": "hierophantics:fuse_villagers"
+		}
+	},
+	"display": {
+		"announce_to_chat": true,
+		"title": {
+			"translate": "advancements.hierophantics.fuse_villagers.title"
+		},
+		"description": {
+			"translate": "advancements.hierophantics.fuse_villagers.description"
+		},
+		"frame": "task",
+		"hidden": true,
+		"icon": {
+			"item": "hierophantics:edified_workstation"
+		},
+		"show_toast": true
+	},
+	"requirements": [["fuse_villagers"]]
+}

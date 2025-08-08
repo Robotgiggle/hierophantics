@@ -1,5 +1,5 @@
 {
-	"parent": "hierophantics:embed_mind",
+	"parent": "hierophantics:aab_embed_mind",
 	"criteria": {
 		"all_triggers": {
 			"trigger": "hierophantics:all_triggers"
