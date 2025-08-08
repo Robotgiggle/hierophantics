@@ -30,11 +30,11 @@ show_landing_text = false
 
 [extra.hexcasting]
 # NOTE: "!Raw" means "don't apply variable interpolation to this value"
-_pattern_regex = { "!Raw"='(?P<is_per_world>make|makePerWorld)\("(?P<name>[^"]+)",\s*HexDir\.(?P<startdir>\w+),\s*"(?P<signature>[qweasd]+)"' }
+_pattern_regex = { "!Raw"='(?P<is_per_world>register|registerPerWorld)\("(?P<name>[^"]+)"?,\s"(?P<signature>[qweasd]+)",\sHexDir\.(?P<startdir>\w+)' }
 _per_world_value = "makePerWorld"
 
 [[extra.hexcasting.pattern_stubs]]
-path = "{$_common.kotlin}/registry/HierophanticsActions.kt"
+path = "{$_common.package}/inits/HierophanticsPatterns.kt"
 regex = "{^_pattern_regex}"
 per_world_value = "{^_per_world_value}"
 
@@ -42,15 +42,12 @@ per_world_value = "{^_per_world_value}"
 
 [_common]
 src = "../common/src"
-java = "{src}/main/java/robotgiggle/hierophantics"
-kotlin = "{src}/main/kotlin/robotgiggle/hierophantics"
+package = "{src}/main/java/robotgiggle/hierophantics"
 
 [_fabric]
 src = "../fabric/src"
-java = "{src}/main/java/robotgiggle/hierophantics/fabric"
-kotlin = "{src}/main/kotlin/robotgiggle/hierophantics/fabric"
+package = "{src}/main/java/robotgiggle/hierophantics/fabric"
 
 [_forge]
 src = "../forge/src"
-java = "{src}/main/java/robotgiggle/hierophantics/forge"
-kotlin = "{src}/main/kotlin/robotgiggle/hierophantics/forge"
+package = "{src}/main/java/robotgiggle/hierophantics/forge"

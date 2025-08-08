@@ -44,15 +44,6 @@ jobs:
           RELEASE: ${{ inputs.mod_release == true }}
         run: ./gradlew build
 
-      # if this step fails, you need to run your datagen and commit the updated files
-      - name: Check if datagen needs to be run
-        timeout-minutes: 3
-        run: |
-          mkdir -p /home/runner/.gradle/caches/fabric-loom/assets
-          ./gradlew runAllDatagen
-          git add --intent-to-add .
-          git diff --name-only --exit-code -- ":!:*/src/generated/resources/.cache/*"
-
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -179,7 +170,7 @@ jobs:
       - id: build
         uses: hexdoc-dev/actions/build@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           release: ${{ inputs.hexdoc_release == true }}
 

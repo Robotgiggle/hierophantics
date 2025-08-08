@@ -68,7 +68,7 @@ jobs:
         env:
           RELEASE: true
           DRY_RUN: ${{ inputs.dry_run && 'true' || '' }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: ./gradlew publishGithub
 
       - name: Publish to CurseForge
