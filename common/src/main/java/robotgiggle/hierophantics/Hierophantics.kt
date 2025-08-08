@@ -60,25 +60,13 @@ object Hierophantics {
         IOTAS.register("mind_reference", {-> MindReferenceIota.TYPE})
 		IOTAS.register("trigger", {-> TriggerIota.TYPE})
 		IOTAS.register("mishap_thrower", {-> MishapThrowerIota.TYPE})
-        
 
         BLOCKS.register()
         ITEMS.register()
         BLOCK_ENTITIES.register()
-        // Registry.register(Registries.BLOCK, id("flay_bed"), FLAY_BED_BLOCK)
-		// Registry.register(Registries.ITEM, id("flay_bed"), FLAY_BED_ITEM)
-		// Registry.register(Registries.BLOCK_ENTITY_TYPE, id("flay_bed"), FLAY_BED_BLOCK_ENTITY)
-
-		// Registry.register(Registries.BLOCK, id("edified_workstation"), EDIFIED_WORKSTATION_BLOCK)
-		// Registry.register(Registries.ITEM, id("edified_workstation"), EDIFIED_WORKSTATION_ITEM)
-
-        // Registry.register(HexIotaTypes.REGISTRY, id("mind_reference"), MindReferenceIota.TYPE)
-		// Registry.register(HexIotaTypes.REGISTRY, id("trigger"), TriggerIota.TYPE)
-		// Registry.register(HexIotaTypes.REGISTRY, id("mishap_thrower"), MishapThrowerIota.TYPE)
 
 		HierophanticsAdvancements.init()
 		HierophanticsNetworking.init()
-		//HierophanticsVillagers.init()
 		HierophanticsPatterns.init()
 		HierophanticsConfig.init()
 		HierophanticsSounds.init()

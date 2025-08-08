@@ -22,7 +22,6 @@ class HierophanticsForge {
         MOD_BUS.apply {
             EventBuses.registerModEventBus(Hierophantics.MOD_ID, this)
             addListener(ForgeHierophanticsClient::init)
-            addListener(::gatherData)
             addListener{evt: BuildCreativeModeTabContentsEvent -> 
                 if (evt.getTabKey() == RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))) {
                     evt.accept{ -> Hierophantics.FLAY_BED_ITEM.get()}
@@ -31,17 +30,7 @@ class HierophanticsForge {
             }
             addListener(ForgeHierophanticsVillagers::init)
         }
-        // set hierophantics.quiltmind value or smth
         Hierophantics.init()
         FORGE_BUS.addListener{evt: RegisterCommandsEvent -> HierophanticsCommands.register(evt.getDispatcher())};
     }
-
-    private fun gatherData(event: GatherDataEvent) {
-        event.apply {
-            // TODO: add datagen providers here
-        }
-    }
 }
-
-fun <T : DataProvider> GatherDataEvent.addProvider(run: Boolean, factory: (DataOutput) -> T) =
-    generator.addProvider(run, Factory { factory(it) })

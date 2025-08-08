@@ -6,7 +6,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.block.Block;
-import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,8 +36,8 @@ public class PlayerEntityMixin {
         var initialIota = new DoubleIota((double)amount);
         if (!dmgType.equals("genericKill")) {
             if (!dmgType.equals("hexcasting.overcast"))
-                HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
-            HierophanticsAPI.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
+                HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
+            HieroServerState.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
         }
 	}
 
@@ -46,7 +46,7 @@ public class PlayerEntityMixin {
 		PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getWorld().isClient)
             return;
-        HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "jump");
+        HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "jump");
 	}
 
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))

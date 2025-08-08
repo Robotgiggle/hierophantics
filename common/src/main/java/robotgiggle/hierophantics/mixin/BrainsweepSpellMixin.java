@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.blocks.FlayBedBlockEntity;
 

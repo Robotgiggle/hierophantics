@@ -8,8 +8,8 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.misc.MediaConstants
-import robotgiggle.hierophantics.HierophanticsAPI
-import robotgiggle.hierophantics.data.PlayerState
+import robotgiggle.hierophantics.data.HieroServerState
+import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.mishaps.NotYourMindMishap
 import net.minecraft.server.network.ServerPlayerEntity
@@ -24,7 +24,7 @@ class OpReenableMinds : SpellAction {
 			throw NotYourMindMishap()
 		}
 
-		val state = HierophanticsAPI.getPlayerState(caster)
+		val state = HieroServerState.getPlayerState(caster)
 
 		return SpellAction.Result(
 			Spell(state),
@@ -32,7 +32,7 @@ class OpReenableMinds : SpellAction {
 			listOf()
 		)
 	}
-	private data class Spell(val state: PlayerState) : RenderedSpell {
+	private data class Spell(val state: HieroPlayerState) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			state.disabled = false
 		}

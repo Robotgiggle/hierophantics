@@ -27,7 +27,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpBrainsweep;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 
-import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.blocks.FlayBedBlockEntity;
 import robotgiggle.hierophantics.mishaps.NitwitImbuementMishap;
@@ -49,7 +49,7 @@ public class OpBrainsweepMixin {
                     int maxMinds = HierophanticsConfig.getServer().getMaxMinds();
                     if (vSacrifice.getVillagerData().getLevel() < 5) {
                         throw new MishapBadBrainsweep(sacrifice, pos);
-                    } else if (HierophanticsAPI.getPlayerState(pSleeper).getOwnedMinds() >= maxMinds) {
+                    } else if (HieroServerState.getPlayerState(pSleeper).getOwnedMinds() >= maxMinds) {
                         throw new MindsCappedMishap(pSleeper);
                     }
                 } 

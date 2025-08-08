@@ -11,7 +11,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.mishaps.MindsDisabledMishap
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement

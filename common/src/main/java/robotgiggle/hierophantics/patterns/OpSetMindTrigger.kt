@@ -7,8 +7,8 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.misc.MediaConstants
-import robotgiggle.hierophantics.data.PlayerState
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroPlayerState
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.getTrigger
@@ -29,7 +29,7 @@ class OpSetMindTrigger : SpellAction {
 			throw NotYourMindMishap()
 		}
 
-		val state = HierophanticsAPI.getPlayerState(caster)
+		val state = HieroServerState.getPlayerState(caster)
 		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
@@ -48,7 +48,7 @@ class OpSetMindTrigger : SpellAction {
 			listOf()
 		)
 	}
-	private data class Spell(val mindRef: MindReferenceIota, val triggerOrNull: Iota, val state: PlayerState, val caster: ServerPlayerEntity) : RenderedSpell {
+	private data class Spell(val mindRef: MindReferenceIota, val triggerOrNull: Iota, val state: HieroPlayerState, val caster: ServerPlayerEntity) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			val mind = state.getMind(mindRef.name)
 			if (triggerOrNull is NullIota) {

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.data.HieroServerState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,6 +27,6 @@ public class BlockMixin {
     private void fireBreakTriggers(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
       if (player.getWorld().isClient)
         return;
-      HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "break", new Vec3Iota(pos.toCenterPos()));
+      HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "break", new Vec3Iota(pos.toCenterPos()));
     }
 }

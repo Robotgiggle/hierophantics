@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.HorizontalFacingBlock;
-import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 
 import java.util.List;
@@ -51,20 +51,20 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci, @Local ItemEntity droppedEntity) {
         if (!throwRandomly && retainOwnership) {
 			ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-			HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "drop", new EntityIota(droppedEntity));
+			HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "drop", new EntityIota(droppedEntity));
 		}
     }
 	
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void checkThresholdTriggers(CallbackInfo ci) {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-		HierophanticsAPI.getPlayerState(player).tick(player);
+		HieroServerState.getPlayerState(player).tick(player);
 	}
 
 	@Inject(method = "onDeath", at = @At("HEAD"))
 	private void disableMindsOnDeath(CallbackInfo ci) {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-		var state = HierophanticsAPI.getPlayerState(player);
+		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) {
 			state.setDisabled(true);
 			state.setSkipTeleTrigger(true);
@@ -74,7 +74,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Inject(method = "worldChanged", at = @At("HEAD"))
 	private void skipTeleTriggerWhenChangingDims(CallbackInfo ci) {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-		var state = HierophanticsAPI.getPlayerState(player);
+		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(true);
 	}
 

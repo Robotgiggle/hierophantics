@@ -6,7 +6,7 @@ import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.api.utils.vecFromNBT
 import at.petrak.hexcasting.api.casting.iota.Iota
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.data.generateMindName
 import net.minecraft.nbt.NbtCompound
@@ -19,7 +19,7 @@ import net.minecraft.server.MinecraftServer
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 
-class PlayerState() {
+class HieroPlayerState() {
 	// this stuff gets serde'd
 	var ownedMinds = 0
 	var disabled = false
@@ -98,7 +98,7 @@ class PlayerState() {
 	}
 
 	fun addMind(server: MinecraftServer) {
-		val sState = HierophanticsAPI.getServerState(server)
+		val sState = HieroServerState.getServerState(server)
 		var name = generateMindName()
 		while (sState.nameUsed(name)) {
 			name = generateMindName()
@@ -108,7 +108,7 @@ class PlayerState() {
 	}
 
 	fun addMindNamed(server: MinecraftServer, baseName: String) {
-		val sState = HierophanticsAPI.getServerState(server)
+		val sState = HieroServerState.getServerState(server)
 		var name = baseName
 		var suffix = 2
 		while (sState.nameUsed(name)) {
@@ -158,8 +158,8 @@ class PlayerState() {
 	}
 
 	companion object {
-		fun deserialize(compound: NbtCompound): PlayerState {
-			val state = PlayerState()
+		fun deserialize(compound: NbtCompound): HieroPlayerState {
+			val state = HieroPlayerState()
 			state.ownedMinds = compound.getInt("owned")
 			state.disabled = compound.getBoolean("disabled")
 			state.lastDmgType = compound.getString("lastDmgType")

@@ -8,7 +8,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.common.lib.HexSounds
 import robotgiggle.hierophantics.HieroMindCastEnv
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import robotgiggle.hierophantics.iotas.MishapThrowerIota
 import net.minecraft.nbt.NbtCompound
@@ -35,7 +35,7 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 		val hexIota = IotaType.deserialize(hex, player.serverWorld)
 		if (hexIota is ListIota) {
 			var patternList = hexIota.list.toList()
-			if (HierophanticsAPI.getPlayerState(player).disabled) {
+			if (HieroServerState.getPlayerState(player).disabled) {
 				patternList = listOf(MishapThrowerIota())
 			}
 			val ecv = harness.queueExecuteAndWrapIotas(patternList, player.serverWorld)

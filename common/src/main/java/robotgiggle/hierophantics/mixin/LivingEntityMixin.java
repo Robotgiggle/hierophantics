@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import robotgiggle.hierophantics.HierophanticsAPI;
+import robotgiggle.hierophantics.data.HieroServerState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +23,7 @@ public class LivingEntityMixin {
         if (entity instanceof PlayerEntity player) {
             if (player.getWorld().isClient)
 			    return;
-		    HierophanticsAPI.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "attack", new EntityIota(target));
+		    HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "attack", new EntityIota(target));
         }
 	}
 }

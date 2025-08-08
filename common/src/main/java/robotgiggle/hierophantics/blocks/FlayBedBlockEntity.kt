@@ -31,7 +31,7 @@ import net.minecraft.sound.SoundEvents
 import net.minecraft.sound.SoundCategory
 
 import robotgiggle.hierophantics.Hierophantics
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.HierophanticsVillagers
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.blocks.FlayBedBlock
@@ -55,9 +55,9 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 // subject is a player: give them a new hieromind and trigger the advancement
                 val villagerName: Text? = sacrifice.getCustomName()
                 if (villagerName != null)
-                    HierophanticsAPI.getPlayerState(subject).addMindNamed(world.server, villagerName.getString())
+                    HieroServerState.getPlayerState(subject).addMindNamed(world.server, villagerName.getString())
                 else
-                    HierophanticsAPI.getPlayerState(subject).addMind(world.server)
+                    HieroServerState.getPlayerState(subject).addMind(world.server)
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject as ServerPlayerEntity)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
@@ -76,11 +76,11 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 trades.addAll(sacrifice.getOffers())
                 subject.setOffers(trades)
                 subject.setExperience(VillagerData.getLowerLevelExperience(newLevel));
-
+                
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment)
             } else {
-                HexAPI.LOGGER.warn("Imbuement Bed couldn't find sleeping player or villager")
+                Hierophantics.LOGGER.warn("Imbuement Bed couldn't find sleeping player or villager")
                 makeParticles(world, dyeColor(DyeColor.GRAY))
             }
         } else {

@@ -4,7 +4,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroServerState
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.server.world.ServerWorld
@@ -39,7 +39,7 @@ class MindReferenceIota(name: String, host: PlayerEntity) : Iota(TYPE, MindRefer
 				val hostUuid = UUID.fromString(nbt.getString("hostUUID"))
 				val host = world.getEntity(hostUuid)
 				if (host == null || !(host is PlayerEntity)) return null
-				if (!HierophanticsAPI.getPlayerState(host).hasMind(name)) return null
+				if (!HieroServerState.getPlayerState(host).hasMind(name)) return null
 				return MindReferenceIota(name, host)
 			}
 			override fun display(nbt: NbtElement): Text {

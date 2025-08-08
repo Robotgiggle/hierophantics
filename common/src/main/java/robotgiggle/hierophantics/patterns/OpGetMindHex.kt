@@ -6,7 +6,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
-import robotgiggle.hierophantics.HierophanticsAPI
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
@@ -17,7 +17,7 @@ class OpGetMindHex : ConstMediaAction {
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val mindRef = args.getMindReference(0, argc)
 
-		val state = HierophanticsAPI.getPlayerState(mindRef.host)
+		val state = HieroServerState.getPlayerState(mindRef.host)
 		if (!state.hasMind(mindRef.name)) {
 			throw MindFreedMishap()
 		}
