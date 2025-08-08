@@ -124,5 +124,5 @@
 	"hierophantics.page.make_attack_trigger.summary": "创建一个在我击中其他实体时激活的触发条件。",
 	"hierophantics.page.make_break_trigger.summary": "创建一个在我破坏方块时激活的触发条件。",
 	"hierophantics.page.make_jump_trigger.summary": "创建一个在我跳跃时激活的触发条件。",
-	"hierophantics.page.make_teleport_trigger.summary": "创建一个在我传送时激活的触发条件。因为我无法指明的原因，此类触发条件检测不到距离在 4 格以下的传送。"
+	"hierophantics.page.make_teleport_trigger.summary": "创建一个在我传送时激活的触发条件。因为我无法指明的原因，此类触发条件检测不到距离在 1.5 格以下的传送。"
 }

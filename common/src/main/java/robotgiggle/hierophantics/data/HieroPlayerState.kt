@@ -54,7 +54,7 @@ class HieroPlayerState() {
 		
 		// detect teleportation by looking for single-tick velocity spikes
 		// using this rather than a mixin because player teleport code is a horrible mess
-		if (prevSpeed > 4*prev2Speed && prevSpeed > 4*prev3Speed && prevSpeed > 4*currSpeed) {
+		if (prevSpeed > 4*prev2Speed && prevSpeed > 4*prev3Speed && prevSpeed > 4*currSpeed && prevSpeed >= 1.5) {
 			teleported = true
 			if (skipTeleTrigger) skipTeleTrigger = false
 			else triggerMinds(player, "teleport", Vec3Iota(prevVel))	

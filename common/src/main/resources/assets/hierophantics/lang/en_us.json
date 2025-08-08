@@ -127,5 +127,5 @@
 	"hierophantics.page.make_attack_trigger.summary": "Creates a trigger that activates whenever I strike another entity.",
 	"hierophantics.page.make_break_trigger.summary": "Creates a trigger that activates whenever I break a block.",
 	"hierophantics.page.make_jump_trigger.summary": "Creates a trigger that activates whenever I jump.",
-	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this trigger has a short cooldown of about a tenth of a second."
+	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 1.5 blocks in length."
 }
