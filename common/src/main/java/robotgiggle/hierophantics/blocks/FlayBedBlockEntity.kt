@@ -61,7 +61,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject as ServerPlayerEntity)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
-                makeParticles(world, pigment)
+                makeParticles(world, pigment, 60)
             } else if (subject is VillagerEntity) {
                 // subject is a villager: increase level, merge trade offers, convert to quiltmind if professions don't match
                 val data = subject.getVillagerData()
@@ -76,17 +76,20 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 trades.addAll(sacrifice.getOffers())
                 subject.setOffers(trades)
                 subject.setExperience(VillagerData.getLowerLevelExperience(newLevel));
+
+                val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 5.0, false)
+                HierophanticsAdvancements.FUSE_VILLAGERS.trigger(nearestPlayer as ServerPlayerEntity)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
-                makeParticles(world, pigment)
+                makeParticles(world, pigment, 60)
             } else {
                 Hierophantics.LOGGER.warn("Imbuement Bed couldn't find sleeping player or villager")
-                makeParticles(world, dyeColor(DyeColor.GRAY))
+                makeParticles(world, dyeColor(DyeColor.GRAY), 80)
             }
         } else {
             val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 5.0, false)
             HierophanticsAdvancements.WASTE_MIND.trigger(nearestPlayer as ServerPlayerEntity)
-            makeParticles(world, dyeColor(DyeColor.RED))
+            makeParticles(world, dyeColor(DyeColor.RED), 80)
         }
     }
 
@@ -118,9 +121,9 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         )
     }
 
-    fun makeParticles(world: ServerWorld, color: FrozenPigment) {
+    fun makeParticles(world: ServerWorld, color: FrozenPigment, amount: Int) {
         val adjust = Vec3d(0.0, -0.17, 0.0)
-        ParticleSpray(pos.toCenterPos().add(adjust), Vec3d(0.0, 0.5, 0.0), 1.3, 0.0, 60).sprayParticles(world, color)
-        ParticleSpray(otherPartPos.toCenterPos().add(adjust), Vec3d(0.0, 0.5, 0.0), 1.3, 0.0, 60).sprayParticles(world, color)
+        ParticleSpray(pos.toCenterPos().add(adjust), Vec3d(0.0, 0.5, 0.0), 1.3, 0.0, amount).sprayParticles(world, color)
+        ParticleSpray(otherPartPos.toCenterPos().add(adjust), Vec3d(0.0, 0.5, 0.0), 1.3, 0.0, amount).sprayParticles(world, color)
     }
 }
