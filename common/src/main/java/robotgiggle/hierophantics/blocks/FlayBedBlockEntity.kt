@@ -32,7 +32,7 @@ import net.minecraft.sound.SoundCategory
 
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.HierophanticsAPI
-import robotgiggle.hierophantics.inits.HierophanticsVillagers
+import robotgiggle.hierophantics.HierophanticsVillagers
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 
@@ -41,7 +41,7 @@ import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.common.lib.HexItems
 
-class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hierophantics.FLAY_BED_BLOCK_ENTITY, pos, state) {
+class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hierophantics.FLAY_BED_BLOCK_ENTITY.get(), pos, state) {
     val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
     val headPos = when(state.get(BedBlock.PART)!!) {
         BedPart.HEAD -> pos
@@ -71,7 +71,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 when (canSubjectKeepProfession(data.getProfession(), sacrifice.getVillagerData().getProfession())) {
                     0 -> subject.setVillagerData(data.withLevel(newLevel))
                     1 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(sacrifice.getVillagerData().getProfession()))
-                    2 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(HierophanticsVillagers.QUILTMIND))
+                    2 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(HierophanticsVillagers.QUILTMIND.get()))
                 }
                 trades.addAll(sacrifice.getOffers())
                 subject.setOffers(trades)

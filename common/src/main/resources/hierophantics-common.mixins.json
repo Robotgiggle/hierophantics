@@ -7,14 +7,14 @@
   "client": [
   ],
   "mixins": [
+    "BlockMixin",
+    "BrainsweepSpellMixin",
     "LivingEntityMixin",
-		"VillagerEntityMixin",
-		"PlayerEntityMixin",
-		"ServerPlayerEntityMixin",
-		"BlockMixin",
-		"OpBrainsweepMixin",
-		"BrainsweepSpellMixin",
-		"PointOfInterestTypesMixin"
+    "OpBrainsweepMixin",
+    "PlayerEntityMixin",
+    "ReferenceRegistryEntryMixin",
+    "ServerPlayerEntityMixin",
+		"VillagerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

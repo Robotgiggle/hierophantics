@@ -9,7 +9,6 @@ import net.minecraft.advancement.criterion.Criteria
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.predicate.entity.LootContextPredicate
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer
-import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 
 object HierophanticsAdvancements {

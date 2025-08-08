@@ -1,4 +1,4 @@
-package robotgiggle.hierophantics.forge.mixin;
+package robotgiggle.hierophantics.forge;
 
 import robotgiggle.hierophantics.Hierophantics;
 import org.objectweb.asm.tree.ClassNode;

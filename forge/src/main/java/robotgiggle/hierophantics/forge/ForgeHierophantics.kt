@@ -25,11 +25,13 @@ class HierophanticsForge {
             addListener(::gatherData)
             addListener{evt: BuildCreativeModeTabContentsEvent -> 
                 if (evt.getTabKey() == RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))) {
-                    evt.accept{ -> Hierophantics.FLAY_BED_ITEM}
-                    evt.accept{ -> Hierophantics.EDIFIED_WORKSTATION_ITEM}
+                    evt.accept{ -> Hierophantics.FLAY_BED_ITEM.get()}
+                    evt.accept{ -> Hierophantics.EDIFIED_WORKSTATION_ITEM.get()}
                 }
             }
+            addListener(ForgeHierophanticsVillagers::init)
         }
+        // set hierophantics.quiltmind value or smth
         Hierophantics.init()
         FORGE_BUS.addListener{evt: RegisterCommandsEvent -> HierophanticsCommands.register(evt.getDispatcher())};
     }

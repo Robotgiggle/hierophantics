@@ -1,20 +1,26 @@
 package robotgiggle.hierophantics.inits
 
+import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.Hierophantics.id
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.SoundEvent
 
+import dev.architectury.registry.registries.DeferredRegister
+import dev.architectury.registry.registries.RegistrySupplier
+
 object HierophanticsSounds {
-	lateinit var HIEROMIND_CAST: SoundEvent
+	val SOUNDS: DeferredRegister<SoundEvent> = DeferredRegister.create(Hierophantics.MOD_ID, RegistryKeys.SOUND_EVENT)
+
+	val HIEROMIND_CAST: RegistrySupplier<SoundEvent> = register("hieromind_cast")
 
 	fun init() {
-		HIEROMIND_CAST = register("hieromind_cast")
+		SOUNDS.register()
 	}
 
-	private fun register(name: String): SoundEvent {
+	private fun register(name: String): RegistrySupplier<SoundEvent> {
 		val event = SoundEvent.of(id(name))
-		Registry.register(Registries.SOUND_EVENT, id(name), event)
-		return event
+		return SOUNDS.register(name, {-> event})
 	}
 }

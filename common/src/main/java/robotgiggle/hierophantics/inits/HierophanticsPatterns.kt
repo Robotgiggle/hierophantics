@@ -5,11 +5,21 @@ import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.hex.HexActions
+import at.petrak.hexcasting.common.lib.HexRegistries
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.patterns.*
 import net.minecraft.registry.Registry
 
+import dev.architectury.registry.registries.DeferredRegister
+import dev.architectury.registry.registries.RegistrySupplier
+
 object HierophanticsPatterns {
+	val ACTIONS: DeferredRegister<ActionRegistryEntry> = DeferredRegister.create(Hierophantics.MOD_ID, HexRegistries.ACTION)
+
+	private fun register(name: String, signature: String, startDir: HexDir, action: Action) {
+		ACTIONS.register(name, {-> ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), action)})
+	}
+
 	@JvmStatic
 	fun init() {
 		register("get_minds", "qaqqaeawaea", HexDir.NORTH_EAST, OpGetMinds())
@@ -31,9 +41,7 @@ object HierophanticsPatterns {
 		register("make_break_trigger", "qqqqqawwwqaqqqqq", HexDir.SOUTH_EAST, OpMakeTrigger("break"))
 		register("make_jump_trigger", "qqqqqawwqdwdwd", HexDir.SOUTH_EAST, OpMakeTrigger("jump"))
 		register("make_teleport_trigger", "qqqqqawweaqaawaaqa", HexDir.SOUTH_EAST, OpMakeTrigger("teleport"))
-	}
 
-	private fun register(name: String, signature: String, startDir: HexDir, action: Action) {
-		Registry.register(HexActions.REGISTRY, Hierophantics.id(name), ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), action))
+		ACTIONS.register()
 	}
 }

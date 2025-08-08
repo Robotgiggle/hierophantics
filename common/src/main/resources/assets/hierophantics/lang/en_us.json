@@ -6,6 +6,7 @@
 	"command.hierophantics.disable": "Disabled %s's embedded minds",
 
 	"entity.minecraft.villager.quiltmind": "Quiltmind",
+	"entity.minecraft.villager.hierophantics.quiltmind": "Quiltmind",
 
 	"subtitles.hierophantics.hieromind_cast": "Embedded mind casts",
 

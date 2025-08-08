@@ -40,7 +40,7 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 			}
 			val ecv = harness.queueExecuteAndWrapIotas(patternList, player.serverWorld)
 			val pos = player.getPos()
-			val sound = if (ecv.resolutionType.success) HierophanticsSounds.HIEROMIND_CAST else HexSounds.CAST_FAILURE
+			val sound = if (ecv.resolutionType.success) HierophanticsSounds.HIEROMIND_CAST.get() else HexSounds.CAST_FAILURE
 			player.getWorld().playSound(null, pos.x, pos.y, pos.z, sound, SoundCategory.PLAYERS, 1f, 1f)
 		}	
 	}
