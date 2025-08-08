@@ -31,7 +31,8 @@ class HieroPlayerState() {
 	var prevBreath = 0.0f
 	var prevHunger = 0
 	var prevVel = Vec3d.ZERO
-	var prevPrevVel = Vec3d.ZERO
+	var prev2Vel = Vec3d.ZERO
+	var prev3Vel = Vec3d.ZERO
 	var prevFallDist = 0.0f
 	var skipTeleTrigger = false
 
@@ -46,13 +47,14 @@ class HieroPlayerState() {
 
 		val currSpeed = currVel.length()
 		val prevSpeed = prevVel.length()
-		val prevPrevSpeed = prevPrevVel.length()
+		val prev2Speed = prev2Vel.length()
+		val prev3Speed = prev3Vel.length()
 
 		var teleported = false
 		
 		// detect teleportation by looking for single-tick velocity spikes
 		// using this rather than a mixin because player teleport code is a horrible mess
-		if (prevSpeed > 4*prevPrevSpeed && prevSpeed > 4*currSpeed && prevSpeed >= 4) {
+		if (prevSpeed > 4*prev2Speed && prevSpeed > 4*prev3Speed && prevSpeed > 4*currSpeed) {
 			teleported = true
 			if (skipTeleTrigger) skipTeleTrigger = false
 			else triggerMinds(player, "teleport", Vec3Iota(prevVel))	
@@ -64,7 +66,7 @@ class HieroPlayerState() {
 				"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
 				"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
 				"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
-				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prevPrevSpeed <= mind.triggerThreshold) mind.cast(player)
+				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prev2Speed <= mind.triggerThreshold) mind.cast(player)
 				"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 			}
 		}
@@ -72,7 +74,8 @@ class HieroPlayerState() {
 		prevHealth = currHealth
 		prevBreath = currBreath
 		prevHunger = currHunger
-		prevPrevVel = prevVel
+		prev3Vel = prev2Vel
+		prev2Vel = prevVel
 		prevVel = currVel
 		prevFallDist = currFallDist
 	}
