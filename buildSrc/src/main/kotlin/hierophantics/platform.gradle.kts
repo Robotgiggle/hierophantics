@@ -10,7 +10,6 @@ import kotlin.io.path.div
 plugins {
     id("hierophantics.minecraft")
     id("hierophantics.utils.mod-dependencies")
-
     id("com.github.johnrengelman.shadow")
     id("me.modmuss50.mod-publish-plugin")
 }
@@ -104,7 +103,7 @@ publishMods {
     displayName = modLoaders.map { values ->
         val loaders = values.joinToString(", ") { it.capitalize() }
         // CurseForge/Modrinth version display name (eg. "v0.1.0 [Fabric, Quilt]")
-        "v${project.version} [$loaders]"
+        "Hierophantics ${project.version} [$loaders]"
     }
 
     curseforge {
@@ -127,9 +126,9 @@ val SECTION_HEADER_PREFIX = "## "
 
 fun getLatestChangelog() = rootProject.file("CHANGELOG.md").useLines { lines ->
     lines.dropWhile { !it.startsWith(SECTION_HEADER_PREFIX) }
-        .withIndex()
-        .takeWhile { it.index == 0 || !it.value.startsWith(SECTION_HEADER_PREFIX) }
-        .joinToString("\n") { it.value }
+        .drop(1)
+        .takeWhile { !it.startsWith(SECTION_HEADER_PREFIX) }
+        .joinToString("\n")
         .trim()
 }
 

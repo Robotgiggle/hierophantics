@@ -1,8 +1,11 @@
 # Hierophantics
 
 ## 1.2.2
-- [WIP] Migrated to Architctury, so the mod now supports both Forge and Fabric
-- [TODO] Updated zh_cn translations (thanks ChuijkYahus!)
+- Migrated to Architectury, so the mod now supports both Forge and Fabric!
+- Added advancement for merging two villagers using the Imbuement Bed
+- Minimum distance to fire 'When teleporting' trigger is now 1.5 blocks rather than 4
+- Updated zh_cn translations (thanks ChuijkYahus!)
+- More internal cleanup
 
 ## 1.2.1
 - Added `/hierophantics addMind <player>` command to directly add an embedded mind to the target player
