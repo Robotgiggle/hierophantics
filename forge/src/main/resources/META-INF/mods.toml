@@ -1,6 +1,7 @@
 modLoader = "kotlinforforge"
 loaderVersion = "[${versions.kotlin_forge},)"
 license = "MIT"
+issueTrackerURL = "https://github.com/Robotgiggle/hierophantics/issues"
 
 [[mods]]
 modId = "hierophantics"
