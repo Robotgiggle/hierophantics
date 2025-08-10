@@ -6,9 +6,7 @@ import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.api.utils.vecFromNBT
 import at.petrak.hexcasting.api.casting.iota.Iota
-import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.Hierophantics
-import robotgiggle.hierophantics.data.generateMindName
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtList
@@ -100,23 +98,10 @@ class HieroPlayerState() {
 		return allTriggers
 	}
 
-	fun addMind(server: MinecraftServer) {
-		val sState = HieroServerState.getServerState(server)
-		var name = generateMindName()
-		while (sState.nameUsed(name)) {
-			name = generateMindName()
-		}
-		hieroMinds[name] = HieroMind()
-		ownedMinds++
-	}
-
-	fun addMindNamed(server: MinecraftServer, baseName: String) {
-		val sState = HieroServerState.getServerState(server)
-		var name = baseName
-		var suffix = 2
-		while (sState.nameUsed(name)) {
-			name = baseName + " " + Hierophantics.numToRoman(suffix)
-			suffix++
+	fun addMind(server: MinecraftServer, villagerName: String?) {
+		val name = when(villagerName) {
+			null -> MindNamer.generateRandomName(server)
+			else -> MindNamer.processCustomName(server, villagerName)
 		}
 		hieroMinds[name] = HieroMind()
 		ownedMinds++

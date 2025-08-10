@@ -17,7 +17,7 @@ object HierophanticsCommands {
                     .executes{ctx -> 
                         var source = ctx.getSource();
                         var target = EntityArgumentType.getPlayer(ctx, "target");
-                        HieroServerState.getPlayerState(target).addMind(source.getServer());
+                        HieroServerState.getPlayerState(target).addMind(source.getServer(), null);
                         source.sendFeedback({ -> Text.translatable("command.hierophantics.add_mind", target.getName())}, false);
                         return@executes 1
                     }

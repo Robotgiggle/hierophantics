@@ -53,11 +53,8 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
             val subject = getSleeper(world)
             if (subject is PlayerEntity) {
                 // subject is a player: give them a new hieromind and trigger the advancement
-                val villagerName: Text? = sacrifice.getCustomName()
-                if (villagerName != null)
-                    HieroServerState.getPlayerState(subject).addMindNamed(world.server, villagerName.getString())
-                else
-                    HieroServerState.getPlayerState(subject).addMind(world.server)
+                val villagerName = sacrifice.getCustomName()?.getString()
+                HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject as ServerPlayerEntity)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
