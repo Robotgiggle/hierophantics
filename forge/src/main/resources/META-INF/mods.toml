@@ -43,5 +43,5 @@ side = "BOTH"
 modId = "hexcasting"
 mandatory = true
 versionRange = "[${versions.hexcasting_dependency},)"
-ordering = "NONE"
+ordering = "AFTER"
 side = "BOTH"
