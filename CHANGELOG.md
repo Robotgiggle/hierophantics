@@ -1,5 +1,14 @@
 # Hierophantics
 
+## 1.2.3
+- Trying to program an embedded mind with a hex containing someone else's truename will now mishap
+- Wasting a mind or merging two villagers will no longer log an error if there's no player nearby
+- 'When teleporting' trigger no longer fires when mounting/dismounting or when getting in/out of bed
+- Forge version now links to the GitHub issue tracker if it causes a crash
+- Fixed a mysterious load-order issue on the Forge version
+- Updated zh_cn translations again (thanks ChuijkYahus!)
+- Even more internal cleanup
+
 ## 1.2.2
 - Migrated to Architectury, so the mod now supports both Forge and Fabric!
 - Added advancement for merging two villagers using the Imbuement Bed
