@@ -17,8 +17,8 @@ object HierophanticsCommands {
                     .executes{ctx -> 
                         var source = ctx.getSource();
                         var target = EntityArgumentType.getPlayer(ctx, "target");
-                        HieroServerState.getPlayerState(target).addMind(source.getServer());
-                        source.sendFeedback({ -> Text.translatable("command.hierophantics.add_mind", target.getName())}, false);
+                        HieroServerState.getPlayerState(target).addMind(source.getServer(), null);
+                        source.sendFeedback({-> Text.translatable("command.hierophantics.add_mind", target.getName())}, false);
                         return@executes 1
                     }
                 )
@@ -29,9 +29,14 @@ object HierophanticsCommands {
                     .executes{ctx -> 
                         var source = ctx.getSource();
                         var target = EntityArgumentType.getPlayer(ctx, "target");
-                        HieroServerState.getPlayerState(target).disabled = true;
-                        source.sendFeedback({ -> Text.translatable("command.hierophantics.disable", target.getName())}, true);
-                        return@executes 1
+                        if (HieroServerState.getPlayerState(target).disabled) {
+                            source.sendError(Text.translatable("command.hierophantics.disable.already", target.getName()));
+                            return@executes 0
+                        } else {
+                            HieroServerState.getPlayerState(target).disabled = true;
+                            source.sendFeedback({-> Text.translatable("command.hierophantics.disable", target.getName())}, true);
+                            return@executes 1
+                        }
                     }
                 )
             )

@@ -73,12 +73,36 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
 	@Inject(method = "worldChanged", at = @At("HEAD"))
 	private void skipTeleTriggerWhenChangingDims(CallbackInfo ci) {
+		skipTeleTrigger();
+	}
+
+	@Inject(method = "startRiding", at = @At(value = "RETURN", ordinal = 1))
+	private void skipTeleTriggerWhenMountingEntity(CallbackInfoReturnable<Boolean> ci) {
+		skipTeleTrigger();
+	}
+
+	@Inject(method = "stopRiding", at = @At("HEAD"))
+	private void skipTeleTriggerWhenDismountingEntity(CallbackInfo ci) {
+		skipTeleTrigger();
+	}
+
+	@Inject(method = "sleep", at = @At("HEAD"))
+	private void skipTeleTriggerWhenGettingIntoBed(CallbackInfo ci) {
+		skipTeleTrigger();
+	}
+
+	@Inject(method = "wakeUp", at = @At("HEAD"))
+	private void skipTeleTriggerWhenGettingOutOfBed(CallbackInfo ci) {
+		skipTeleTrigger();
+	}
+
+	private void skipTeleTrigger() {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(true);
 	}
-
-	@Inject(method = "trySleep", at = @At("Head"), cancellable = true)
+	
+	@Inject(method = "trySleep", at = @At("HEAD"), cancellable = true)
 	private void trySleepInFlayBed(BlockPos blockPos, CallbackInfoReturnable<Either<PlayerEntity.SleepFailureReason, Unit>> ci) {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 		Block block = player.getWorld().getBlockState(blockPos).getBlock();
@@ -93,7 +117,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Shadow
 	private boolean isBedObstructed(BlockPos blockPos, Direction direction) { return false; }
 
-	public Either<PlayerEntity.SleepFailureReason, Unit> trimmedTrySleep(ServerPlayerEntity player, BlockPos blockPos) {
+	private Either<PlayerEntity.SleepFailureReason, Unit> trimmedTrySleep(ServerPlayerEntity player, BlockPos blockPos) {
         Direction direction = player.getWorld().getBlockState(blockPos).get(HorizontalFacingBlock.FACING);
         if (player.isSleeping() || !player.isAlive()) {
             return Either.left(PlayerEntity.SleepFailureReason.OTHER_PROBLEM);

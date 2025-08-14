@@ -7,7 +7,6 @@
   ],
   "mixins": [
   ],
-  "plugin": "robotgiggle.hierophantics.forge.mixin.ForgeMixinConfigPlugin",
   "injectors": {
     "defaultRequire": 1
   }

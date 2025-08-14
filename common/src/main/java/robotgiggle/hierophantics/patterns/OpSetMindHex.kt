@@ -7,6 +7,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
+import at.petrak.hexcasting.api.casting.mishaps.MishapOthersName
 import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.misc.MediaConstants
 import robotgiggle.hierophantics.data.HieroServerState
@@ -38,6 +39,11 @@ class OpSetMindHex : SpellAction {
 		// second argument should be either a list or null, mishap otherwise
 		if (args[1] !is NullIota) {
 			args.getList(1, argc)
+		}
+
+		val trueName = MishapOthersName.getTrueNameFromDatum(args[1], env.castingEntity as? ServerPlayerEntity)
+        if (trueName != null) {
+			throw MishapOthersName(trueName)
 		}
 
 		return SpellAction.Result(
