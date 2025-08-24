@@ -9,6 +9,7 @@
   "mixins": [
     "BlockMixin",
     "BrainsweepSpellMixin",
+    "ItemRendererMixin",
     "LivingEntityMixin",
     "OpBrainsweepMixin",
     "PlayerEntityMixin",
