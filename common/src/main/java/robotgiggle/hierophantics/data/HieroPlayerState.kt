@@ -65,7 +65,10 @@ class HieroPlayerState() {
 				"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
 				"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
 				"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
-				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prev2Speed <= mind.triggerThreshold) mind.cast(player)
+				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prev2Speed <= mind.triggerThreshold) {
+					if (skipTeleTrigger) skipTeleTrigger = false
+					else mind.cast(player)
+				}
 				"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 			}
 		}

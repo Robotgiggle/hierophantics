@@ -38,7 +38,6 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 
-import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 
 @Mixin(ServerPlayerEntity.class)
@@ -76,7 +75,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		skipTeleTrigger();
 	}
 
-	@Inject(method = "startRiding", at = @At(value = "RETURN", ordinal = 1))
+	@Inject(method = "startRiding", at = @At(value = "RETURN", ordinal = 0))
 	private void skipTeleTriggerWhenMountingEntity(CallbackInfoReturnable<Boolean> ci) {
 		skipTeleTrigger();
 	}
