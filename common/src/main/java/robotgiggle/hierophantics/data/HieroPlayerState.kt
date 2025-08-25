@@ -33,7 +33,7 @@ class HieroPlayerState() {
 	var prev2Vel = Vec3d.ZERO
 	var prev3Vel = Vec3d.ZERO
 	var prevFallDist = 0.0f
-	var skipTeleTrigger = false
+	var skipTeleTrigger = 0
 
 	fun tick(player: ServerPlayerEntity) {
 		if (player.isDead() || ownedMinds == 0) return
@@ -48,14 +48,13 @@ class HieroPlayerState() {
 		val prevSpeed = prevVel.length()
 		val prev2Speed = prev2Vel.length()
 		val prev3Speed = prev3Vel.length()
-
-		var teleported = false
 		
 		// detect teleportation by looking for single-tick velocity spikes
 		// using this rather than a mixin because player teleport code is a horrible mess
+		var teleported = false
 		if (prevSpeed > 4*prev2Speed && prevSpeed > 4*prev3Speed && prevSpeed > 4*currSpeed && prevSpeed >= 1.5) {
 			teleported = true
-			if (skipTeleTrigger) skipTeleTrigger = false
+			if (skipTeleTrigger > 0) skipTeleTrigger = 0
 			else triggerMinds(player, "teleport", Vec3Iota(prevVel))	
 		}
 
@@ -66,13 +65,14 @@ class HieroPlayerState() {
 				"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
 				"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
 				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prev2Speed <= mind.triggerThreshold) {
-					if (skipTeleTrigger) skipTeleTrigger = false
+					if (skipTeleTrigger > 0) skipTeleTrigger = 0
 					else mind.cast(player)
 				}
 				"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
 			}
 		}
 
+		if (skipTeleTrigger > 0) skipTeleTrigger--
 		prevHealth = currHealth
 		prevBreath = currBreath
 		prevHunger = currHunger

@@ -66,7 +66,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) {
 			state.setDisabled(true);
-			state.setSkipTeleTrigger(true);
+			state.setSkipTeleTrigger(5);
 		}
 	}
 
@@ -75,9 +75,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		skipTeleTrigger();
 	}
 
-	@Inject(method = "startRiding", at = @At(value = "RETURN", ordinal = 0))
+	@Inject(method = "startRiding", at = @At("RETURN"))
 	private void skipTeleTriggerWhenMountingEntity(CallbackInfoReturnable<Boolean> ci) {
-		skipTeleTrigger();
+		if (ci.getReturnValue()) skipTeleTrigger();
 	}
 
 	@Inject(method = "stopRiding", at = @At("HEAD"))
@@ -98,7 +98,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private void skipTeleTrigger() {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
-		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(true);
+		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(5);
 	}
 	
 	@Inject(method = "trySleep", at = @At("HEAD"), cancellable = true)
