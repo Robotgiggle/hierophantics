@@ -48,7 +48,7 @@ public class ItemRendererMixin {
 
         // hallucinate media items due to embedded allays
         if (MinecraftClient.getInstance().player.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
-            float mediaChance = 0.1f; // TODO: scale based on level/duration of effect
+            float mediaChance = 0.1f; // TODO: scale based on duration of effect
             if (rng > (1 - mediaChance) * RNG_SCALE) {
                 var items = List.of(
                     HexItems.AMETHYST_DUST, Items.AMETHYST_SHARD,

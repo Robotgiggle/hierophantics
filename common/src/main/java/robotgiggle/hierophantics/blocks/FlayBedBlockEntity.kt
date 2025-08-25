@@ -6,8 +6,10 @@ import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.mob.MobEntity
+import net.minecraft.entity.passive.AllayEntity
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
@@ -49,20 +51,36 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         BedPart.FOOT -> otherPartPos
     }
     
-    fun activate(world: ServerWorld, state: BlockState, sacrifice: VillagerEntity, pigment: FrozenPigment) {
+    fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment) {
         if (state.get(BedBlock.OCCUPIED)) {
             val subject = getSleeper(world)
-            if (subject is ServerPlayerEntity) {
-                // subject is a player: give them a new hieromind and trigger the advancement
+            if (subject is ServerPlayerEntity && sacrifice is VillagerEntity) {
+                // villager -> player: give the player a new hieromind and trigger the advancement
                 val villagerName = sacrifice.getCustomName()?.getString()
                 val newTotal = HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
                 MsgOwnedMindsS2C(newTotal).sendToPlayer(subject)
+                
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
-            } else if (subject is VillagerEntity) {
-                // subject is a villager: increase level, merge trade offers, convert to quiltmind if professions don't match
+            } else if (subject is ServerPlayerEntity && sacrifice is AllayEntity) {
+                // allay -> player: apply or lengthen media discount effect and trigger the advancement
+                if (subject.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
+                    val oldTicks = subject.getStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())!!.duration
+                    val newTicks = (6000 * Math.pow(Math.E, (-oldTicks/12000).toDouble())).toInt()
+                    subject.removeStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())
+                    subject.addStatusEffect(StatusEffectInstance(Hierophantics.MEDIA_DISCOUNT_EFFECT.get(), newTicks + oldTicks))
+                } else {
+                    subject.addStatusEffect(StatusEffectInstance(Hierophantics.MEDIA_DISCOUNT_EFFECT.get(), 6000))
+                }
+
+                HierophanticsAdvancements.EMBED_MIND.trigger(subject)
+                
+                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
+                makeParticles(world, pigment, 60)
+            } else if (subject is VillagerEntity && sacrifice is VillagerEntity) {
+                // villager -> villager: increase level, merge trade offers, convert to quiltmind if professions don't match
                 val data = subject.getVillagerData()
                 val trades = subject.getOffers()
                 

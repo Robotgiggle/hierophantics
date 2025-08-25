@@ -7,6 +7,7 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AllayEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -40,23 +41,36 @@ import java.util.List;
 public class OpBrainsweepMixin {
     @Inject(method = "execute", at = @At("TAIL"))
     private void validateImbuementRecipe(List<Iota> args, CastingEnvironment env, CallbackInfoReturnable<SpellAction.Result> ci, @Local MobEntity sacrifice, @Local BlockPos pos, @Local BlockState state) throws MishapBadBrainsweep, MindsCappedMishap, NitwitImbuementMishap {
-        if (state.getBlock() instanceof FlayBedBlock && sacrifice instanceof VillagerEntity vSacrifice) {
+        if (state.getBlock() instanceof FlayBedBlock) {
             BlockEntity bed = env.getWorld().getBlockEntity(pos);
             if (bed instanceof FlayBedBlockEntity flaybed) {
                 Entity sleeper = flaybed.getSleeper(env.getWorld());
-                // if imbuing player and sacrifice isn't a master, mishap
+                // when imbuing player, mishap if:
+                // - the sacrifice isn't a villager or an allay
+                // - the sacrifice is a villager but not a master
+                // - the sacrifice is a villager but the player has reached the mind cap
                 if (sleeper instanceof PlayerEntity pSleeper) {
-                    int maxMinds = HierophanticsConfig.getServer().getMaxMinds();
-                    if (vSacrifice.getVillagerData().getLevel() < 5) {
+                    if (sacrifice instanceof VillagerEntity vSacrifice) {
+                        int maxMinds = HierophanticsConfig.getServer().getMaxMinds();
+                        if (vSacrifice.getVillagerData().getLevel() < 5) {
+                            throw new MishapBadBrainsweep(sacrifice, pos);
+                        } else if (HieroServerState.getPlayerState(pSleeper).getOwnedMinds() >= maxMinds) {
+                            throw new MindsCappedMishap(pSleeper);
+                        }
+                    } else if (!(sacrifice instanceof AllayEntity)) {
                         throw new MishapBadBrainsweep(sacrifice, pos);
-                    } else if (HieroServerState.getPlayerState(pSleeper).getOwnedMinds() >= maxMinds) {
-                        throw new MindsCappedMishap(pSleeper);
                     }
                 } 
-                // if imbuing villager and either one is a nitwit, mishap
+                // when imbuing villager, mishap if:
+                // - the sacrifice isn't a villager
+                // - either the sleeper or the sacrifice is a nitwit
                 if (sleeper instanceof VillagerEntity vSleeper) {
-                    if (isNitwit(vSleeper)) throw new NitwitImbuementMishap(vSleeper);
-                    if (isNitwit(vSacrifice)) throw new NitwitImbuementMishap(vSacrifice);
+                    if (sacrifice instanceof VillagerEntity vSacrifice) {
+                        if (isNitwit(vSleeper)) throw new NitwitImbuementMishap(vSleeper);
+                        if (isNitwit(vSacrifice)) throw new NitwitImbuementMishap(vSacrifice);
+                    } else {
+                        throw new MishapBadBrainsweep(sacrifice, pos);
+                    }
                 }
             }
         }

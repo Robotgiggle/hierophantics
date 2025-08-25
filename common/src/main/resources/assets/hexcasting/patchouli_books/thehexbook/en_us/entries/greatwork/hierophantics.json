@@ -25,7 +25,7 @@
 		},
         {
             "type": "hexcasting:brainsweep",
-            "recipe": "hierophantics:activate_flay_bed_master",
+            "recipe": "hierophantics:brainsweep/activate_flay_bed_master",
             "text": "hierophantics.page.hierophantics.flay"
         }
 	]

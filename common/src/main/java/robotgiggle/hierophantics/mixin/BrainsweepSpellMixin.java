@@ -39,8 +39,8 @@ public class BrainsweepSpellMixin {
     private void activateFlayBed(CastingEnvironment env, CallbackInfo ci) {
         if (state.getBlock() instanceof FlayBedBlock && recipe.result().getBlock() instanceof FlayBedBlock) {
             BlockEntity bed = env.getWorld().getBlockEntity(pos);
-            if (bed instanceof FlayBedBlockEntity flaybed && sacrifice instanceof VillagerEntity vSacrifice) {
-                flaybed.activate(env.getWorld(), state, vSacrifice, env.getPigment());
+            if (bed instanceof FlayBedBlockEntity flaybed) {
+                flaybed.activate(env.getWorld(), state, sacrifice, env.getPigment());
             }
         }
     }

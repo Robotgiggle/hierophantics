@@ -16,7 +16,7 @@
 		},
         {
             "type": "hexcasting:brainsweep",
-            "recipe": "hierophantics:activate_flay_bed_any",
+            "recipe": "hierophantics:brainsweep/activate_flay_bed_any",
             "text": "hierophantics.page.villager_enhancement.flay"
         },
         {

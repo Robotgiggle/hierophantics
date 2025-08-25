@@ -1,0 +1,15 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "block",
+    "block": "hierophantics:flay_bed"
+  },
+  "cost": 250000,
+  "entityIn": {
+    "type": "entity_type",
+    "entityType": "minecraft:allay"
+  },
+  "result": {
+    "name": "hierophantics:flay_bed"
+  }
+}
