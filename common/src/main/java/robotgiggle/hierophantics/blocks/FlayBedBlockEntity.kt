@@ -35,6 +35,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.HierophanticsVillagers
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.blocks.FlayBedBlock
+import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.ParticleSpray
@@ -51,11 +52,12 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
     fun activate(world: ServerWorld, state: BlockState, sacrifice: VillagerEntity, pigment: FrozenPigment) {
         if (state.get(BedBlock.OCCUPIED)) {
             val subject = getSleeper(world)
-            if (subject is PlayerEntity) {
+            if (subject is ServerPlayerEntity) {
                 // subject is a player: give them a new hieromind and trigger the advancement
                 val villagerName = sacrifice.getCustomName()?.getString()
-                HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
-                HierophanticsAdvancements.EMBED_MIND.trigger(subject as ServerPlayerEntity)
+                val newTotal = HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
+                MsgOwnedMindsS2C(newTotal).sendToPlayer(subject)
+                HierophanticsAdvancements.EMBED_MIND.trigger(subject)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)

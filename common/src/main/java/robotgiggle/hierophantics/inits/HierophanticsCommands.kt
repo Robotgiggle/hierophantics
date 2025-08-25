@@ -7,6 +7,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import com.mojang.brigadier.CommandDispatcher;
 
 import robotgiggle.hierophantics.data.HieroServerState;
+import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 
 object HierophanticsCommands {
     fun register(disp: CommandDispatcher<ServerCommandSource>) {
@@ -17,7 +18,8 @@ object HierophanticsCommands {
                     .executes{ctx -> 
                         var source = ctx.getSource();
                         var target = EntityArgumentType.getPlayer(ctx, "target");
-                        HieroServerState.getPlayerState(target).addMind(source.getServer(), null);
+                        val newTotal = HieroServerState.getPlayerState(target).addMind(source.getServer(), null);
+                        MsgOwnedMindsS2C(newTotal).sendToPlayer(target)
                         source.sendFeedback({-> Text.translatable("command.hierophantics.add_mind", target.getName())}, false);
                         return@executes 1
                     }

@@ -1,6 +1,7 @@
 package robotgiggle.hierophantics.networking.handler
 
 import dev.architectury.networking.NetworkManager.PacketContext
+import robotgiggle.hierophantics.HierophanticsClient
 import robotgiggle.hierophantics.inits.HierophanticsConfig
 import robotgiggle.hierophantics.networking.msg.*
 
@@ -10,6 +11,9 @@ fun HierophanticsMessageS2C.applyOnClient(ctx: PacketContext) = ctx.queue {
             HierophanticsConfig.onSyncConfig(serverConfig)
         }
 
+        is MsgOwnedMindsS2C -> {
+            HierophanticsClient.clientOwnedMinds = ownedMinds
+        }
         // add more client-side message handlers here
     }
 }

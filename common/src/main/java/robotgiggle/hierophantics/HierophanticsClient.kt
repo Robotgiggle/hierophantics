@@ -6,6 +6,9 @@ import me.shedaniel.autoconfig.AutoConfig
 import net.minecraft.client.gui.screen.Screen
 
 object HierophanticsClient {
+    @JvmStatic
+    var clientOwnedMinds = 0;
+    
     fun init() {
         HierophanticsConfig.initClient()
     }

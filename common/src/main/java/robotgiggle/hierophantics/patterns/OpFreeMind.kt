@@ -11,6 +11,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
+import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
@@ -40,7 +41,8 @@ class OpFreeMind : SpellAction {
 	}
 	private data class Spell(val state: HieroPlayerState, val mindName: String) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
-			state.freeMind(mindName)
+			val newTotal = state.freeMind(mindName)
+			MsgOwnedMindsS2C(newTotal).sendToPlayer(env.castingEntity as ServerPlayerEntity)
 		}
 	}
 }
