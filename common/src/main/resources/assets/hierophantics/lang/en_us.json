@@ -6,6 +6,8 @@
 	"command.hierophantics.disable": "Disabled %s's embedded minds",
 	"command.hierophantics.disable.already": "%s's embedded minds are already disabled",
 
+	"effect.hierophantics.media_discount": "Manifold Mind",
+
 	"entity.minecraft.villager.quiltmind": "Quiltmind",
 	"entity.minecraft.villager.hierophantics.quiltmind": "Quiltmind",
 

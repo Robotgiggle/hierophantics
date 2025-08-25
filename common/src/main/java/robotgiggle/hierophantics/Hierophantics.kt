@@ -11,6 +11,8 @@ import net.minecraft.block.Block
 import net.minecraft.block.AbstractBlock.Settings
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.block.entity.BlockEntity
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import robotgiggle.hierophantics.networking.HierophanticsNetworking
@@ -19,6 +21,7 @@ import robotgiggle.hierophantics.iotas.*
 import robotgiggle.hierophantics.blocks.*
 import at.petrak.hexcasting.common.lib.HexBlocks
 import at.petrak.hexcasting.common.lib.HexRegistries
+import at.petrak.hexcasting.common.lib.HexAttributes
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.Iota
@@ -42,6 +45,7 @@ object Hierophantics {
     val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(MOD_ID, RegistryKeys.BLOCK)
     val ITEMS: DeferredRegister<Item> = DeferredRegister.create(MOD_ID, RegistryKeys.ITEM)
     val BLOCK_ENTITIES: DeferredRegister<BlockEntityType<out BlockEntity>> = DeferredRegister.create(MOD_ID, RegistryKeys.BLOCK_ENTITY_TYPE)
+    val EFFECTS: DeferredRegister<StatusEffect> = DeferredRegister.create(MOD_ID, RegistryKeys.STATUS_EFFECT)
 
     @JvmField
     val FLAY_BED_BLOCK: RegistrySupplier<FlayBedBlock> = BLOCKS.register("flay_bed", {-> FlayBedBlock()})
@@ -51,6 +55,9 @@ object Hierophantics {
     @JvmField
     val EDIFIED_WORKSTATION_BLOCK: RegistrySupplier<Block> = BLOCKS.register("edified_workstation", {-> Block(Settings.copy(HexBlocks.EDIFIED_PLANKS))})
     val EDIFIED_WORKSTATION_ITEM: RegistrySupplier<Item> = ITEMS.register("edified_workstation", {-> BlockItem(EDIFIED_WORKSTATION_BLOCK.get(), Item.Settings())})
+
+    @JvmField // the actual effects of this are handled entirely in CastingEnvironmentMixin
+    val MEDIA_DISCOUNT_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("media_discount", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0x64fbff) {})})
 
     @JvmStatic
 	fun id(string: String) = Identifier(MOD_ID, string)
@@ -64,6 +71,7 @@ object Hierophantics {
         BLOCKS.register()
         ITEMS.register()
         BLOCK_ENTITIES.register()
+        EFFECTS.register()
 
 		HierophanticsAdvancements.init()
 		HierophanticsNetworking.init()
