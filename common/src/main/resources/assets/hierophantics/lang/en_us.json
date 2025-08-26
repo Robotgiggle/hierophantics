@@ -14,6 +14,12 @@
 	"subtitles.hierophantics.hieromind_cast": "Embedded mind casts",
 
 	"text.autoconfig.hierophantics.title": "Hierophantics Config",
+	"text.autoconfig.hierophantics.category.client": "Client Settings",
+	"text.autoconfig.hierophantics.option.client.hallucinateAudio": "Enable audio hallucinations",
+	"text.autoconfig.hierophantics.option.client.hallucinateAudio.@Tooltip": "When enabled, embedded minds may sometimes play sounds only you can hear",
+	"text.autoconfig.hierophantics.option.client.hallucinateItems": "Enable item hallucinations",
+	"text.autoconfig.hierophantics.option.client.hallucinateItems.@Tooltip": "When enabled, embedded minds may sometimes cause items to render as other things",
+	"text.autoconfig.hierophantics.category.server": "Server Settings",
 	"text.autoconfig.hierophantics.option.server.maxMinds": "Maximum embedded minds per player",
 
 	"advancements.hierophantics.embed_mind.title": "Interwoven",

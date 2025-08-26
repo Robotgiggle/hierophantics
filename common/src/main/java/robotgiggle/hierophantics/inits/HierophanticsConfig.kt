@@ -20,8 +20,8 @@ object HierophanticsConfig {
     @JvmStatic
     lateinit var holder: ConfigHolder<GlobalConfig>
 
-    // @JvmStatic
-    // val client get() = holder.config.client
+    @JvmStatic
+    val client get() = holder.config.client
 
     @JvmStatic
     val server get() = syncedServerConfig ?: holder.config.server
@@ -52,20 +52,22 @@ object HierophanticsConfig {
 
     @Config(name = Hierophantics.MOD_ID)
     class GlobalConfig : GlobalData() {
-        // @Category("client")
-        // @TransitiveObject
-        // val client = ClientConfig()
+        @Category("client")
+        @TransitiveObject
+        val client = ClientConfig()
 
         @Category("server")
         @TransitiveObject
         val server = ServerConfig()
     }
 
-    // @Config(name = "client")
-    // class ClientConfig : ConfigData {
-    //     @Tooltip
-    //     val clientConfigOption: Boolean = true
-    // }
+    @Config(name = "client")
+    class ClientConfig : ConfigData {
+        @Tooltip
+        val hallucinateAudio: Boolean = true
+        @Tooltip
+        val hallucinateItems: Boolean = true
+    }
 
     @Config(name = "server")
     class ServerConfig : ConfigData {
