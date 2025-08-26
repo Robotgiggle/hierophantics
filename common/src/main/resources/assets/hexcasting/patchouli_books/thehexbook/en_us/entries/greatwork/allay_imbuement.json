@@ -1,0 +1,23 @@
+{
+    "name": "hierophantics.page.allay_imbuement.title",
+	"icon": "hierophantics:textures/mob_effect/media_discount.png",
+	"category": "hexcasting:greatwork",
+	"sortnum": 31,
+	"advancement": "hexcasting:enlightenment",
+    "entry_color": "54398a",
+    "pages": [
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.allay_imbuement.0"
+		},
+        {
+            "type": "hexcasting:brainsweep",
+            "recipe": "hierophantics:brainsweep/activate_flay_bed_allay",
+            "text": "hierophantics.page.allay_imbuement.flay"
+        },
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.allay_imbuement.1"
+		}
+    ]
+}
