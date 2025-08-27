@@ -51,8 +51,16 @@ public class PlayerEntityMixin {
 
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))
     private boolean notSleepingIfOnFlayBed(PlayerEntity instance, Operation<Boolean> original) {
-        Block block = instance.getWorld().getBlockState(instance.getBlockPos()).getBlock();
-        if (block instanceof FlayBedBlock) return false;
+        Block sleepingOn = instance.getWorld().getBlockState(instance.getBlockPos()).getBlock();
+        if (sleepingOn instanceof FlayBedBlock) return false;
         return original.call(instance);
+    }
+
+    // not needed in vanilla, but some mods that modify sleep will break the flaybed if this isn't here
+    @Inject(method = "canResetTimeBySleeping", at = @At("HEAD"), cancellable = true)
+    private void cantResetTimeIfOnFlayBed(CallbackInfoReturnable<Boolean> ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        Block sleepingOn = player.getWorld().getBlockState(player.getBlockPos()).getBlock();
+        if (sleepingOn instanceof FlayBedBlock) ci.setReturnValue(false);
     }
 }
