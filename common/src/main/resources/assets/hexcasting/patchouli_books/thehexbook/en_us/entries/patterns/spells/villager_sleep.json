@@ -1,0 +1,27 @@
+{
+    "name": "hierophantics.page.villager_sleep.title.0",
+    "category": "hexcasting:patterns/spells",
+    "icon": "minecraft:yellow_bed",
+    "sortnum": 8,
+    "advancement": "hexcasting:root",
+    "pages": [
+        {
+			"type": "patchouli:text",
+			"text": "hierophantics.page.villager_sleep.0"
+		},
+        {
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:villager_sleep",
+			"anchor": "hierophantics:villager_sleep",
+			"input": "villager",
+			"output": "",
+			"text": "hierophantics.page.villager_sleep.summary"
+        },
+        {
+            "type": "patchouli:text",
+            "advancement": "hierophantics:aab_embed_mind",
+            "title": "hierophantics.page.villager_sleep.title.1",
+			"text": "hierophantics.page.villager_sleep.1"
+        }
+    ]
+}

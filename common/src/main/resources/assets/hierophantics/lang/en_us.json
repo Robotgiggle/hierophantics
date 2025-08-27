@@ -62,6 +62,7 @@
 	"hierophantics.mishap.minds_disabled.action.write": "modify",
 	"hierophantics.mishap.minds_disabled.action.free": "interact with",
 
+	"hexcasting.action.hierophantics:villager_sleep": "Induce Exhaustion",
 	"hexcasting.action.hierophantics:get_minds": "Hierophant's Reflection",
 	"hexcasting.action.hierophantics:reenable_minds": "Stabilize Minds",
 	"hexcasting.action.hierophantics:set_mind_hex": "Payload Gambit",
@@ -105,16 +106,22 @@
 
 	"hierophantics.page.allay_imbuement.title": "Allay Imbuement",
 	"hierophantics.page.allay_imbuement.0": "Using $(l:greatwork/quenching_allays)allays$(), I have been able to enhance the _media density of a solid crystal. It has become increasingly clear that my own mind is nothing more than a particularly active cluster of _media, so why not apply the same process to myself? The resulting mental convolutions will allow me to cast much more efficiently, conserving a full fourth of the _media I would otherwise consume.",
-	"hierophantics.page.allay_imbuement.flay": "The unique properties of allays make the process less expensive than usual. However, those same properties also mean that the mind cannot remain permanently interwoven with my own - it will inevitably disspate over time.",
+	"hierophantics.page.allay_imbuement.flay": "The unique properties of allays make the $(l:greatwork/hierophantics)process$() less expensive than usual. However, those same properties also mean that the mind cannot remain permanently interwoven with my own - it will inevitably disspate over time.",
 	"hierophantics.page.allay_imbuement.1": "I can mitigate the dissipation by simply weaving in additional allays. However, the more I add, the less additional duration I seem to gain from each one.$(br2)I've also noticed some side effects. Perhaps my enhanced mind can more easily glimpse the true shape of the world?$(br2)Everything shimmers and twists, and the threads glint beneath, and it is all one grand tapestry $(l)in$() and $(l)out$() and $(l)up$() and $(l)down$() and $(k)EVERYWHERE$()",
 
 	"hierophantics.page.villager_enhancement.title": "Villager Enhancement",
 	"hierophantics.page.villager_enhancement.0": "Many of my recent constructs require a sufficiently developed mind. Thus far, such development has only been possible by submitting to the demands of villagers, and providing them with an increasingly eclectic array of materials and gemstones.$(br2)Such work is clearly beneath me. Now, with the $(l:greatwork/hierophantics)$(item)Imbuement Bed$(), I finally have a solution!",
 	"hierophantics.page.villager_enhancement.1": "Mine is not the only mind that can be augmented. Rather than exchanging meaningless trinkets for hours on end, I can directly increase the capability of a villager mind by simply weaving in an extra one.$(br2)As a side effect, any trade offers from the source villager will be transferred into the subject - but what need have I for such petty, material gains? The very mind itself is as clay in my hands!",
-	"hierophantics.page.villager_enhancement.flay": "The process is nearly identical to embedding a mind into myself. The subject must lie in the $(item)Imbuement Bed$(), and a mind must be transferred into it from another villager - though the source here can be of any level.",
+	"hierophantics.page.villager_enhancement.flay": "The process is nearly identical to embedding a mind into myself. The subject must lie in the $(item)Imbuement Bed$() (a $(l:patterns/spells/villager_sleep)certain spell$() may be helpful) and a new mind must be woven in - though the source here can be of any level.",
 	"hierophantics.page.villager_enhancement.2": "When there is only one skill set involved in the merger, the resulting villager will retain those skills. However, if the two villagers are of different professions, the result is something entirely new, which I have dubbed a $(thing)Quiltmind$().$(br2)The more I study this, the more I find my earlier dismissal too hasty - perhaps there $(o)is$() some merit to this process beyond simply developing the mind for later extraction.",
 	"hierophantics.page.villager_enhancement.3": "Like any other villager, $(thing)Quiltminds$() require a workstation to refresh their stock of goods. However, their unique mental state means that any normal workstation, even the one the villager originally used, will not suffice.$(br2)They require something capable of shifting at a moment's notice to reflect a new state of mind and an entirely new skill set. Luckily, my recent $(l:greatwork/quenching_allays)experiments with allays$() have provided the perfect material.",
 	"hierophantics.page.villager_enhancement.craft": "I've noticed that $(item)quenched allays$() tend to morph in response to stray thoughts. This is mostly a nuisance, but here it is critical - the surface of the workstation can adapt itself to whatever the $(thing)Quiltmind$() currently needs.",
+
+	"hierophantics.page.villager_sleep.title.0": "Induce Exhaustion",
+	"hierophantics.page.villager_sleep.0": "A spell that makes the target tired sounds like it would be quite useful in combat, or even for myself should I have trouble sleeping. To my great disappointment, however, this one appears to only work on villagers.$(br2)Perhaps I'll find a better use for it later?",
+	"hierophantics.page.villager_sleep.summary": "Causes the villager to seek out its bed and take a short nap. Not effective if the villager lacks a bed to use. Costs one $(l:items/amethyst)$(item)Charged Amethyst$().",
+	"hierophantics.page.villager_sleep.title.1": "Further Developments",
+	"hierophantics.page.villager_sleep.1": "Following my recent experiments with the $(l:greatwork/hierophantics)$(item)Imbuement Bed$(), I have discovered something interesting, and perhaps a bit worrying. With a villager mind woven into my own, I'm apparently enough like a villager that this spell can now affect me.$(br2)It's not strong enough to put me to sleep during the day, but it will certainly be handy if I'm caught out at night without a convenient bed.",
 
 	"hierophantics.page.mind_handling.title.0": "Hierophantic Patterns",
 	"hierophantics.page.mind_handling.0": "Once I $(l:greatwork/hierophantics)embed a mind$() into myself, I will need to instruct it as to its purpose. This is accomplished using mind reference iotas, which work much like entity iotas but for embedded minds. As such, I can freely create and destroy these iotas without affecting the existence of the minds themselves.",

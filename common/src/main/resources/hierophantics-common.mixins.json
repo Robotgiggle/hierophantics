@@ -5,19 +5,20 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
+    "client.AbstractClientPlayerEntityMixin",
+    "client.ItemRendererMixin"
   ],
   "mixins": [
-    "AbstractClientPlayerEntityMixin",
     "BlockMixin",
     "BrainsweepSpellMixin",
     "CastingEnvironmentMixin",
-    "ItemRendererMixin",
     "LivingEntityMixin",
     "OpBrainsweepMixin",
     "PlayerEntityMixin",
     "ReferenceRegistryEntryMixin",
     "ServerPlayerEntityMixin",
-		"VillagerEntityMixin"
+		"VillagerEntityMixin",
+    "accessor.PlayerEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

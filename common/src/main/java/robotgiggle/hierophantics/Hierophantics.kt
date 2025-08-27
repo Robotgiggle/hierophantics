@@ -31,6 +31,7 @@ import dev.architectury.registry.registries.RegistrySupplier
 
 object Hierophantics {
     const val MOD_ID = "hierophantics"
+    const val RNG_SCALE = 10000
 
     val TRIGGER_NAMES = listOf(
 		"damage", "damage_typed", "health", "breath",
@@ -56,8 +57,10 @@ object Hierophantics {
     val EDIFIED_WORKSTATION_BLOCK: RegistrySupplier<Block> = BLOCKS.register("edified_workstation", {-> Block(Settings.copy(HexBlocks.EDIFIED_PLANKS))})
     val EDIFIED_WORKSTATION_ITEM: RegistrySupplier<Item> = ITEMS.register("edified_workstation", {-> BlockItem(EDIFIED_WORKSTATION_BLOCK.get(), Item.Settings())})
 
-    @JvmField // the actual effects of this are handled entirely in CastingEnvironmentMixin
+    @JvmField // the actual effects of this are handled in CastingEnvironmentMixin
     val MEDIA_DISCOUNT_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("media_discount", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0x64fbff) {})})
+    @JvmField // the actual effects of this are handled in LivingEntityMixin
+    val SLEEP_ANYWHERE_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("sleep_anywhere", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0) {})})
 
     @JvmStatic
 	fun id(string: String) = Identifier(MOD_ID, string)

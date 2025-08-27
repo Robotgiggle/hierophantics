@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import robotgiggle.hierophantics.data.HieroServerState;
+import robotgiggle.hierophantics.Hierophantics;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,5 +26,13 @@ public class LivingEntityMixin {
 			    return;
 		    HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "attack", new EntityIota(target));
         }
+	}
+
+	@Inject(method = "isSleepingInBed", at = @At("HEAD"), cancellable = true)
+	private void allowSleepingAnywhere(CallbackInfoReturnable<Boolean> ci) {
+		LivingEntity entity = (LivingEntity) (Object) this;
+		if (entity.hasStatusEffect(Hierophantics.SLEEP_ANYWHERE_EFFECT.get())) {
+			ci.setReturnValue(true);
+		}
 	}
 }
