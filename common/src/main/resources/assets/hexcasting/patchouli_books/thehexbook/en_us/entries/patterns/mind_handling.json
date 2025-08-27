@@ -65,6 +65,14 @@
         },
         {
 			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:mute_mind",
+			"anchor": "hierophantics:mute_mind",
+			"input": "mind, bool",
+			"output": "",
+			"text": "hierophantics.page.mute_mind.summary"
+        },
+        {
+			"type": "hexcasting:pattern",
 			"op_id": "hierophantics:free_mind",
 			"anchor": "hierophantics:free_mind",
 			"input": "mind",

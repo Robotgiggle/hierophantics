@@ -8,9 +8,12 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 
-class HieroMindCastEnv(caster: ServerPlayerEntity, castingHand: Hand) : PlayerBasedCastEnv(caster, castingHand) {
+class HieroMindCastEnv(caster: ServerPlayerEntity, castingHand: Hand, val muted: Boolean) : PlayerBasedCastEnv(caster, castingHand) {
 	override fun getCastingHand(): Hand = this.castingHand
 	override fun getPigment(): FrozenPigment = IXplatAbstractions.INSTANCE.getPigment(this.caster)
+	override fun produceParticles(particles: ParticleSpray, pigment: FrozenPigment) {
+		if (!muted) super.produceParticles(particles, pigment)
+	}
 
 	public override fun extractMediaEnvironment(costLeft: Long, simulate: Boolean): Long {
 		if (caster.isCreative)

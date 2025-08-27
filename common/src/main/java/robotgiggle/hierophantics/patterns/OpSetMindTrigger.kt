@@ -43,14 +43,14 @@ class OpSetMindTrigger : SpellAction {
 		}
 
 		return SpellAction.Result(
-			Spell(mindRef, args[1], state, caster),
+			Spell(state, mindRef.name, args[1], caster),
 			MediaConstants.SHARD_UNIT,
 			listOf()
 		)
 	}
-	private data class Spell(val mindRef: MindReferenceIota, val triggerOrNull: Iota, val state: HieroPlayerState, val caster: ServerPlayerEntity) : RenderedSpell {
+	private data class Spell(val state: HieroPlayerState, val mindName: String, val triggerOrNull: Iota, val caster: ServerPlayerEntity) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
-			val mind = state.getMind(mindRef.name)
+			val mind = state.getMind(mindName)
 			if (triggerOrNull is NullIota) {
                 mind.trigger = "none"
                 mind.triggerThreshold = -1.0

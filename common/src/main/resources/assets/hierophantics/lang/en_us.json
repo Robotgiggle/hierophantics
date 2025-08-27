@@ -68,6 +68,7 @@
 	"hexcasting.action.hierophantics:get_mind_hex": "Payload Purification",
 	"hexcasting.action.hierophantics:set_mind_trigger": "Trigger Gambit",
 	"hexcasting.action.hierophantics:get_mind_trigger": "Trigger Purification",
+	"hexcasting.action.hierophantics:mute_mind": "Mute Mind",
 	"hexcasting.action.hierophantics:free_mind": "Free Mind",
 	"hexcasting.action.hierophantics:make_damage_trigger": "Trigger Reflection: Damage",
 	"hexcasting.action.hierophantics:make_damage_type_trigger": "Trigger Reflection: Damage Type",
@@ -125,6 +126,7 @@
 	"hierophantics.page.set_mind_hex.summary": "Stores the provided _Hex into the mind. If there is already a stored _Hex, it will be overwritten. Costs one $(l:items/amethyst)$(item)Charged Amethyst$().",
 	"hierophantics.page.get_mind_trigger.summary": "Pushes the trigger stored in the provided mind, or $(l:casting/influences)$(thing)Null$() if there isn't one.",
 	"hierophantics.page.set_mind_trigger.summary": "Stores the provided trigger into the mind. If the mind already has a trigger, it will be overwritten. Costs one $(l:items/amethyst)$(item)Amethyst Shard$().",
+	"hierophantics.page.mute_mind.summary": "Suppresses sound and particles from the provided mind's casting, based on the state of the bool. If true, the mind will be muted; if false, it will be unmuted.",
 	"hierophantics.page.free_mind.summary": "Permanently removes an embedded mind from my own consciousness.$(br2)I wonder what happens to them, when they go?",
 
 	"hierophantics.page.triggers.title": "Hierophantic Triggers",

@@ -16,8 +16,8 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 import net.minecraft.sound.SoundCategory
 
-class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold: Double, var triggerDmgType: String) {
-	constructor() : this(NbtCompound(), "none", -1.0, "") {}
+class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold: Double, var triggerDmgType: String, var muted: Boolean) {
+	constructor() : this(NbtCompound(), "none", -1.0, "", false) {}
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
@@ -25,13 +25,13 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 		compound.putString("trigger", trigger)
 		compound.putDouble("triggerThreshold", triggerThreshold)
 		compound.putString("triggerDmgType", triggerDmgType)
+		compound.putBoolean("muted", muted)
 		return compound
 	}
 
 	fun cast(player: ServerPlayerEntity, initialStack: List<Iota> = listOf()) {
-		//if (player.isDead()) return
 		val hand = if (!player.getStackInHand(Hand.MAIN_HAND).isEmpty && player.getStackInHand(Hand.OFF_HAND).isEmpty) Hand.OFF_HAND else Hand.MAIN_HAND
-		val harness = CastingVM(CastingImage().copy(stack = initialStack), HieroMindCastEnv(player, hand))
+		val harness = CastingVM(CastingImage().copy(stack = initialStack), HieroMindCastEnv(player, hand, muted))
 		val hexIota = IotaType.deserialize(hex, player.serverWorld)
 		if (hexIota is ListIota) {
 			var patternList = hexIota.list.toList()
@@ -39,9 +39,11 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 				patternList = listOf(MishapThrowerIota())
 			}
 			val ecv = harness.queueExecuteAndWrapIotas(patternList, player.serverWorld)
-			val pos = player.getPos()
-			val sound = if (ecv.resolutionType.success) HierophanticsSounds.HIEROMIND_CAST.get() else HexSounds.CAST_FAILURE
-			player.getWorld().playSound(null, pos.x, pos.y, pos.z, sound, SoundCategory.PLAYERS, 1f, 1f)
+			if (!muted) {
+				val pos = player.getPos()
+				val sound = if (ecv.resolutionType.success) HierophanticsSounds.HIEROMIND_CAST.get() else HexSounds.CAST_FAILURE
+				player.getWorld().playSound(null, pos.x, pos.y, pos.z, sound, SoundCategory.PLAYERS, 1f, 1f)
+			}
 		}	
 	}
 
@@ -50,7 +52,8 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 			compound.getCompound("hex"), 
 			compound.getString("trigger"), 
 			compound.getDouble("triggerThreshold"), 
-			compound.getString("triggerDmgType")
+			compound.getString("triggerDmgType"),
+			compound.getBoolean("muted")
 		)
 	}
 }
