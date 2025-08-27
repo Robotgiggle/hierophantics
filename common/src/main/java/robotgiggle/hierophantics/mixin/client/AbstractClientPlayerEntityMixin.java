@@ -33,7 +33,7 @@ public class AbstractClientPlayerEntityMixin {
             if (villagerCooldown > 0) {
                 villagerCooldown--;
             } else if (rand.nextDouble() < 0.00004 * HierophanticsClient.getClientOwnedMinds()) {
-                Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3.5, rand).add(cPlayer.getPos());
+                Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3, rand).add(cPlayer.getPos());
                 cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.PLAYERS, 0.5f, 1f, true);
                 villagerCooldown = 300;
             }
@@ -43,7 +43,7 @@ public class AbstractClientPlayerEntityMixin {
                 if (allayCooldown > 0) {
                     allayCooldown--;
                 } else if (rand.nextDouble() < 0.004) {
-                    Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3.5, rand).add(cPlayer.getPos());
+                    Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3, rand).add(cPlayer.getPos());
                     if (rand.nextDouble() < 0.5) {
                         cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1f, (0.5f + rand.nextFloat() * 1.2F), true);
                     } else {
