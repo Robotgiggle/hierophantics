@@ -14,15 +14,6 @@
 
 	"subtitles.hierophantics.hieromind_cast": "Embedded mind casts",
 
-	"text.autoconfig.hierophantics.title": "Hierophantics Config",
-	"text.autoconfig.hierophantics.category.client": "Client Settings",
-	"text.autoconfig.hierophantics.option.client.hallucinateAudio": "Enable audio hallucinations",
-	"text.autoconfig.hierophantics.option.client.hallucinateAudio.@Tooltip": "When enabled, embedded minds may sometimes play sounds only you can hear",
-	"text.autoconfig.hierophantics.option.client.hallucinateItems": "Enable item hallucinations",
-	"text.autoconfig.hierophantics.option.client.hallucinateItems.@Tooltip": "When enabled, embedded minds may sometimes cause items to render as other things",
-	"text.autoconfig.hierophantics.category.server": "Server Settings",
-	"text.autoconfig.hierophantics.option.server.maxMinds": "Maximum embedded minds per player",
-
 	"advancements.hierophantics.embed_mind.title": "Interwoven",
 	"advancements.hierophantics.embed_mind.description": "Embed another mind into your own",
 	"advancements.hierophantics.waste_mind.title": "Atomized",
@@ -57,6 +48,7 @@
 	"hexcasting.mishap.hierophantics:nitwit_imbuement": "%s does not have enough mind to imbue",
 	"hexcasting.mishap.invalid_value.class.mind_reference": "an embedded mind",
 	"hexcasting.mishap.invalid_value.class.trigger": "a trigger",
+	"hexcasting.mishap.player_sleep_disallowed": "Targeting players has been disallowed by the server admins",
 
 	"hierophantics.mishap.minds_disabled.action.cast": "function",
     "hierophantics.mishap.minds_disabled.action.read": "examine",
@@ -106,7 +98,7 @@
 	"hierophantics.page.hierophantics.flay": "The process requires a master-level villager, which can be transferred into either of the two blocks that make up the $(item)Imbuement Bed$(). However, if I am not in the bed at the moment the spell is cast, the mind will be wasted.",
 
 	"hierophantics.page.allay_imbuement.title": "Allay Imbuement",
-	"hierophantics.page.allay_imbuement.0": "Using $(l:greatwork/quenching_allays)allays$(), I have been able to enhance the _media density of a solid crystal. It has become increasingly clear that my own mind is nothing more than a particularly active cluster of _media, so why not apply the same process to myself? The resulting mental convolutions will allow me to cast much more efficiently, conserving a full quarter of the _media I would otherwise consume.",
+	"hierophantics.page.allay_imbuement.0": "Using $(l:greatwork/quenching_allays)allays$(), I have been able to enhance the _media density of a solid crystal. It has become increasingly clear that my own mind is nothing more than a particularly active cluster of _media, so why not apply the same process to myself? The resulting mental convolutions will allow me to cast much more efficiently, conserving a significant fraction of the _media I would otherwise consume.",
 	"hierophantics.page.allay_imbuement.flay": "The unique properties of allays make the $(l:greatwork/hierophantics)process$() less expensive than usual. However, those same properties also mean that the mind cannot remain permanently interwoven with my own - it will inevitably disspate over time.",
 	"hierophantics.page.allay_imbuement.1": "I can mitigate the dissipation by simply weaving in additional allays. However, the more I add, the less additional duration I seem to gain from each one.$(br2)I've also noticed some side effects. Perhaps my enhanced mind can more easily glimpse the true shape of the world?$(br2)Everything shimmers and twists, and the threads glint beneath, and it is all one grand tapestry $(l)in$() and $(l)out$() and $(l)up$() and $(l)down$() and $(k)EVERYWHERE$()",
 
@@ -151,5 +143,31 @@
 	"hierophantics.page.make_attack_trigger.summary": "Creates a trigger that activates whenever I strike another entity.",
 	"hierophantics.page.make_break_trigger.summary": "Creates a trigger that activates whenever I break a block.",
 	"hierophantics.page.make_jump_trigger.summary": "Creates a trigger that activates whenever I jump.",
-	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 1.5 blocks in length."
+	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 1.5 blocks in length.",
+
+	"text.autoconfig.hierophantics.title": "Hierophantics Config",
+	"text.autoconfig.hierophantics.category.client": "Client Settings",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations": "Item Hallucination Settings",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.@Tooltip": "Embedded minds and Manifold Mind may sometimes cause items to render as other things",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.baseEmeraldRate": "Base emerald hallucination chance",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.baseEmeraldRate.@Tooltip": "Chance (per embedded mind) to hallucinate emeralds",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.maxEmeraldRate": "Maximum emerald hallucination chance",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.maxEmeraldRate.@Tooltip": "Maximum possible chance to hallucinate emeralds",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.mediaRate": "Media hallucination chance",
+	"text.autoconfig.hierophantics.option.client.itemHallucinations.mediaRate.@Tooltip": "Chance to hallucinate media items while affected by Manifold Mind",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations": "Audio Hallucination Settings",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.@Tooltip": "Embedded minds and Manifold Mind may sometimes play sounds only you can hear",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.baseVillagerRate": "Base villager hallucination chance",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.baseVillagerRate.@Tooltip": "Chance per tick (per embedded mind) to play a villager noise",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.maxVillagerRate": "Maximum villager hallucination chance",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.maxVillagerRate.@Tooltip": "Maximum possible chance per tick to play a villager noise",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.allayRate": "Allay/amethyst hallucination chance",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.allayRate.@Tooltip": "Chance per tick to play an allay noise or amethyst chime while affected by Manifold Mind",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.cooldown": "Hallucination cooldown",
+	"text.autoconfig.hierophantics.option.client.audioHallucinations.cooldown.@Tooltip": "Minimum number of ticks between hallucinated sounds",
+	"text.autoconfig.hierophantics.category.server": "Server Settings",
+	"text.autoconfig.hierophantics.option.server.maxMinds": "Maximum embedded minds per player",
+	"text.autoconfig.hierophantics.option.server.mediaDiscount": "Casting cost multiplier for Manifold Mind",
+	"text.autoconfig.hierophantics.option.server.playerSleepSpell": "Induce Exhaustion works on imbued players",
+	"text.autoconfig.hierophantics.option.server.playerSleepSpell.@Tooltip": "When enabled, Induce Exhaustion can target players with at least one embedded mind"
 }

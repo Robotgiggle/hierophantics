@@ -3,6 +3,7 @@ package robotgiggle.hierophantics.mixin;
 import net.minecraft.entity.LivingEntity;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import robotgiggle.hierophantics.Hierophantics;
+import robotgiggle.hierophantics.inits.HierophanticsConfig;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +17,7 @@ public class CastingEnvironmentMixin {
     private long applyMediaDiscount(long original) {
         CastingEnvironment env = (CastingEnvironment) (Object) this;
         if (env.getCastingEntity() != null && env.getCastingEntity().hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
-            return (long)Math.ceil(0.75 * (double)original);
+            return (long)Math.ceil(HierophanticsConfig.getServer().getMediaDiscount() * (double)original);
         }
         return original;
     }

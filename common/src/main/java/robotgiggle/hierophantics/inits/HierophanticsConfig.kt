@@ -9,10 +9,12 @@ import me.shedaniel.autoconfig.annotation.Config
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Category
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.TransitiveObject
+import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.network.PacketByteBuf
+import net.minecraft.item.Item
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.networking.msg.MsgSyncConfigS2C
 
@@ -64,23 +66,54 @@ object HierophanticsConfig {
     @Config(name = "client")
     class ClientConfig : ConfigData {
         @Tooltip
-        val hallucinateAudio: Boolean = true
+        @CollapsibleObject
+        val itemHallucinations: ItemHallucinations = ItemHallucinations()
         @Tooltip
-        val hallucinateItems: Boolean = true
+        @CollapsibleObject
+        val audioHallucinations: AudioHallucinations = AudioHallucinations()
+
+        class ItemHallucinations {
+            @Tooltip
+            val baseEmeraldRate: Double = 0.002
+            @Tooltip
+            val maxEmeraldRate: Double = 0.1
+            @Tooltip
+            val mediaRate: Double = 0.1
+        }
+
+        class AudioHallucinations {
+            @Tooltip
+            val baseVillagerRate: Double = 0.00004
+            @Tooltip
+            val maxVillagerRate: Double = 0.004
+            @Tooltip
+            val allayRate: Double = 0.004
+            @Tooltip
+            val cooldown: Int = 70
+        }
     }
 
     @Config(name = "server")
     class ServerConfig : ConfigData {
         var maxMinds: Int = 64
             private set
+        var mediaDiscount: Double = 0.75
+            private set
+        @Tooltip
+        var playerSleepSpell: Boolean = true
+            private set
 
         fun encode(buf: PacketByteBuf) {
             buf.writeInt(maxMinds)
+            buf.writeDouble(mediaDiscount)
+            buf.writeBoolean(playerSleepSpell)
         }
 
         companion object {
             fun decode(buf: PacketByteBuf) = ServerConfig().apply {
                 maxMinds = buf.readInt()
+                mediaDiscount = buf.readDouble()
+                playerSleepSpell = buf.readBoolean()
             }
         }
     }

@@ -7,6 +7,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.getLivingEntityButNotArmorStand
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadEntity
+import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.misc.MediaConstants
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -18,6 +19,7 @@ import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.text.Text
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.data.HieroServerState
+import robotgiggle.hierophantics.inits.HierophanticsConfig
 import robotgiggle.hierophantics.minterface.VillagerEntityMinterface
 import robotgiggle.hierophantics.mixin.accessor.PlayerEntityAccessor
 
@@ -29,6 +31,10 @@ class OpVillagerSleep : SpellAction {
 
         if (!(target is VillagerEntity || target is PlayerEntity && HieroServerState.getPlayerState(target).ownedMinds > 0)) {
             throw MishapBadEntity(target, Text.translatable("hexcasting.mishap.invalid_value.class.entity.villager"))
+        }
+
+        if (target is PlayerEntity && !HierophanticsConfig.server.playerSleepSpell) {
+            throw MishapDisallowedSpell("player_sleep_disallowed")
         }
         
         return SpellAction.Result(
