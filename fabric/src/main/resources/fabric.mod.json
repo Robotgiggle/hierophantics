@@ -3,7 +3,7 @@
   "id": "hierophantics",
   "version": "${version}",
   "name": "Hierophantics",
-  "description": "An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers.",
+  "description": "An addon to Hex Casting that lets you work with extracted minds to create conditional hexes, merge villagers, and cast spells for less media.",
   "authors": [
     "Robotgiggle"
   ],
