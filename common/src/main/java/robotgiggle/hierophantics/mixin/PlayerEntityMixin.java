@@ -6,8 +6,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.block.Block;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
+import robotgiggle.hierophantics.HierophanticsClient;
+
+import robotgiggle.hierophantics.Hierophantics;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -48,6 +53,19 @@ public class PlayerEntityMixin {
             return;
         HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "jump");
 	}
+
+    @Inject(method = "getHurtSound", at = @At("TAIL"), cancellable = true)
+    private void playVillagerHurtNoise(CallbackInfoReturnable<SoundEvent> ci) {
+        if (ci.getReturnValue() == SoundEvents.ENTITY_PLAYER_HURT) {
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            int minds;
+            if (player.getWorld().isClient()) minds = HierophanticsClient.getClientOwnedMinds();
+            else minds = HieroServerState.getPlayerState(player).getOwnedMinds();
+            if (player.getRandom().nextDouble() < 0.3 - 1/(minds + 3)) {
+                ci.setReturnValue(SoundEvents.ENTITY_VILLAGER_HURT);
+            }
+        }
+    }
 
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSleeping()Z"))
     private boolean notSleepingIfOnFlayBed(PlayerEntity instance, Operation<Boolean> original) {

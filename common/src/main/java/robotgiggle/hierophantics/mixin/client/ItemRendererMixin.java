@@ -36,7 +36,7 @@ public class ItemRendererMixin {
             int rng = (hash + timeScramble * (150 + (hash % 300))) % Hierophantics.RNG_SCALE;
 
             // hallucinate emeralds due to embedded villagers
-            float emeraldChance = 0.002f * HierophanticsClient.getClientOwnedMinds();
+            double emeraldChance = Math.min(0.002 * HierophanticsClient.getClientOwnedMinds(), 0.2);
             if (rng < emeraldChance * Hierophantics.RNG_SCALE) {
                 if (original.getItem() instanceof BlockItem)
                     return new ItemStack(Items.EMERALD_BLOCK, original.getCount());
@@ -46,8 +46,7 @@ public class ItemRendererMixin {
 
             // hallucinate media items due to embedded allays
             if (MinecraftClient.getInstance().player.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
-                float mediaChance = 0.1f; // TODO: scale based on duration of effect
-                if (rng > (1 - mediaChance) * Hierophantics.RNG_SCALE) {
+                if (rng > 0.9 * Hierophantics.RNG_SCALE) {
                     var items = List.of(
                         HexItems.AMETHYST_DUST, Items.AMETHYST_SHARD,
                         HexItems.CHARGED_AMETHYST, HexItems.QUENCHED_SHARD
