@@ -8,7 +8,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.block.Block;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.client.MinecraftClient;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.HierophanticsClient;
@@ -60,11 +59,8 @@ public class PlayerEntityMixin {
         if (ci.getReturnValue() == SoundEvents.ENTITY_PLAYER_HURT) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             int minds = 0;
-            if (!player.getWorld().isClient()) {
-                minds = HieroServerState.getPlayerState(player).getOwnedMinds();
-            } else if (player == MinecraftClient.getInstance().player) {
-                minds = HierophanticsClient.getClientOwnedMinds();
-            }
+            if (player.getWorld().isClient()) minds = HierophanticsClient.getClientOwnedMinds();
+            else minds = HieroServerState.getPlayerState(player).getOwnedMinds();
             if (player.getRandom().nextDouble() < 0.3 - 1.0/(minds + 3)) {
                 ci.setReturnValue(SoundEvents.ENTITY_VILLAGER_HURT);
             }
