@@ -1,5 +1,14 @@
 # Hierophantics
 
+## 1.3.0
+- You can now embed allays into your mind using the Imbuement Bed! This will provide a temporary 25% media discount on all casting you perform, though you may want to watch out for certain perceptual side effects...
+- Normal embedded minds may also cause side effects of a similar nature, though at a greatly reduced rate
+- Most side effects can be disabled via client config
+- Added a new pattern to toggle the sound and particles from embedded mind casts
+- Added a new pattern to make a villager go to sleep, mostly for use with the Imbuement Bed
+- The fixes to the 'When teleporting' trigger from 1.2.3 now work properly, and also apply to the 'When velocity exceeds X' trigger
+- Fixed a mod-interaction bug that allowed for actual sleeping in the Imbuement Bed
+
 ## 1.2.3
 - Trying to program an embedded mind with a hex containing someone else's truename will now mishap
 - Wasting a mind or merging two villagers will no longer log an error if there's no player nearby
