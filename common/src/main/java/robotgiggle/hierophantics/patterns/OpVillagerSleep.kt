@@ -29,12 +29,8 @@ class OpVillagerSleep : SpellAction {
         val target = args.getLivingEntityButNotArmorStand(0, argc)
         env.assertEntityInRange(target)
 
-        if (!(target is VillagerEntity || target is PlayerEntity && HieroServerState.getPlayerState(target).ownedMinds > 0)) {
+        if (!(target is VillagerEntity || target is PlayerEntity && playerIsSleepable(target))) {
             throw MishapBadEntity(target, Text.translatable("hexcasting.mishap.invalid_value.class.entity.villager"))
-        }
-
-        if (target is PlayerEntity && !HierophanticsConfig.server.playerSleepSpell) {
-            throw MishapDisallowedSpell("player_sleep_disallowed")
         }
         
         return SpellAction.Result(
@@ -42,6 +38,10 @@ class OpVillagerSleep : SpellAction {
 			MediaConstants.CRYSTAL_UNIT,
 			listOf()
 		)
+    }
+    fun playerIsSleepable(player: PlayerEntity): Boolean {
+        return HierophanticsConfig.server.playerSleepSpell 
+            && HieroServerState.getPlayerState(player).ownedMinds > 0
     }
     private data class Spell(val target: LivingEntity) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {

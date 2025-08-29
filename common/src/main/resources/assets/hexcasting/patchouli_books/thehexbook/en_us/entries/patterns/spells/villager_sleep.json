@@ -20,6 +20,7 @@
         {
             "type": "patchouli:text",
             "advancement": "hierophantics:aab_embed_mind",
+            "flag": "hierophantics:player_sleep_spell",
             "title": "hierophantics.page.villager_sleep.title.1",
 			"text": "hierophantics.page.villager_sleep.1"
         }

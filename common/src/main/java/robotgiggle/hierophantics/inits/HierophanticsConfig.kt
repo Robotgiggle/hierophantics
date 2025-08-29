@@ -15,6 +15,7 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.network.PacketByteBuf
 import net.minecraft.item.Item
+import vazkii.patchouli.api.PatchouliAPI
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.networking.msg.MsgSyncConfigS2C
 
@@ -39,6 +40,7 @@ object HierophanticsConfig {
 
         PlayerEvent.PLAYER_JOIN.register { player ->
             MsgSyncConfigS2C(holder.config.server).sendToPlayer(player)
+            PatchouliAPI.get().setConfigFlag("hierophantics:player_sleep_spell", server.playerSleepSpell)
         }
     }
 

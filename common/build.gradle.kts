@@ -15,6 +15,8 @@ dependencies {
     modImplementation(libs.fabric.loader)
     modApi(libs.architectury)
 
+    modApi(libs.patchouli.fabric)
+
     modApi(libs.hexcasting.fabric)
 
     modApi(libs.clothConfig.common)
