@@ -32,7 +32,7 @@ public class ItemRendererMixin {
         
         int hash = original.hashCode();
         int timeScramble = (int)(ClientTickCounter.ticksInGame/(180 + (hash % 40)));
-        int rng = (hash + timeScramble * (150 + (hash % 300))) % Hierophantics.RNG_SCALE;
+        int rng = Math.abs((hash + timeScramble * (150 + (hash % 300))) % Hierophantics.RNG_SCALE);
 
         var config = HierophanticsConfig.getClient().getItemHallucinations();
 
