@@ -1,5 +1,16 @@
 # Hierophantics
 
+## 1.3.1
+- Added a lot of new config options
+  - Side effect rates from embedded minds and Manifold Mind can now be individually modified
+  - The media discount from Manifold Mind can now be modified
+  - A certain hidden feature of the Induce Exhaustion spell can now be disabled
+- When merging villagers, two instances of the exact same trade offer will now be merged into a single instance with twice as much in stock
+- The Edified Workstation now drops when broken, and can be mined efficiently with an axe
+- Added a proper texture for zombified Quiltminds, and prevented them from spawning naturally
+- Fixed a bug that could trigger embedded mind side effects without having any minds
+- Updated zh_cn translations (thanks ChuijkYahus!)
+
 ## 1.3.0
 - You can now embed allays into your mind using the Imbuement Bed! This will provide a temporary 25% media discount on all casting you perform, though you may want to watch out for certain perceptual side effects...
 - Normal embedded minds may also cause side effects of a similar nature, though at a greatly reduced rate
