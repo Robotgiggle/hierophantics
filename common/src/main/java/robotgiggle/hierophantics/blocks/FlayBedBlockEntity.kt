@@ -13,12 +13,15 @@ import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.NbtHelper
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.village.VillagerData
 import net.minecraft.village.VillagerProfession
+import net.minecraft.village.TradeOfferList
+import net.minecraft.village.TradeOffer
 import net.minecraft.text.Text
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
@@ -90,7 +93,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                     1 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(sacrifice.getVillagerData().getProfession()))
                     2 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(HierophanticsVillagers.QUILTMIND.get()))
                 }
-                trades.addAll(sacrifice.getOffers())
+                mergeTradeLists(trades, sacrifice.getOffers())
                 subject.setOffers(trades)
                 subject.setExperience(VillagerData.getLowerLevelExperience(newLevel));
 
@@ -129,6 +132,36 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
             return 1
         else
             return 2
+    }
+
+    fun mergeTradeLists(existingList: TradeOfferList, incomingList: TradeOfferList) {
+        for (newOffer in incomingList) {
+            var merged = false
+
+            // if the incoming offer matches an existing one, merge them into one offer with more max uses
+            for (i in 0..<existingList.size) {
+                if (ItemStack.areEqual(existingList[i].getOriginalFirstBuyItem(), newOffer.getOriginalFirstBuyItem()) 
+                 && ItemStack.areEqual(existingList[i].getSecondBuyItem(), newOffer.getSecondBuyItem()) 
+                 && ItemStack.areEqual(existingList[i].getSellItem(), newOffer.getSellItem())
+                ) {
+                    existingList.set(i, TradeOffer(
+                        existingList[i].getOriginalFirstBuyItem(), 
+                        existingList[i].getSecondBuyItem(), 
+                        existingList[i].getSellItem(), 
+                        existingList[i].getMaxUses() + newOffer.getMaxUses(), 
+                        existingList[i].getMerchantExperience(), 
+                        existingList[i].getPriceMultiplier()
+                    ))
+                    merged = true
+                    break
+                }
+            }
+
+            // if no match can be found, just append the incoming offer to the list
+            if (!merged) {
+                existingList.add(newOffer)
+            }
+        }
     }
     
     fun dyeColor(color: DyeColor): FrozenPigment {
