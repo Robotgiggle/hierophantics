@@ -18,6 +18,7 @@
     "ReferenceRegistryEntryMixin",
     "ServerPlayerEntityMixin",
 		"VillagerEntityMixin",
+    "ZombieVillagerEntityMixin",
     "accessor.PlayerEntityAccessor"
   ],
   "injectors": {
