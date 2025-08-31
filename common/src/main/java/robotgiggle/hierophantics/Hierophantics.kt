@@ -31,7 +31,6 @@ import dev.architectury.registry.registries.RegistrySupplier
 
 object Hierophantics {
     const val MOD_ID = "hierophantics"
-    const val RNG_SCALE = 10000
 
     val TRIGGER_NAMES = listOf(
 		"damage", "damage_typed", "health", "breath",

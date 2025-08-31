@@ -32,25 +32,25 @@ public class ItemRendererMixin {
         
         int hash = original.hashCode();
         int timeScramble = (int)(ClientTickCounter.ticksInGame/(180 + (hash % 40)));
-        int rng = Math.abs((hash + timeScramble * (150 + (hash % 300))) % Hierophantics.RNG_SCALE);
+        int rng = Math.abs((hash + timeScramble * (150 + (hash % 300))) % 10000);
 
         var config = HierophanticsConfig.getClient().getItemHallucinations();
 
-        // hallucinate emeralds due to embedded villagers
+        // hallucinate emeralds due to embedded minds
         double emeraldChance = Math.min(
             config.getBaseEmeraldRate() * HierophanticsClient.getClientOwnedMinds(), 
             config.getMaxEmeraldRate()
         );
-        if (rng < emeraldChance * Hierophantics.RNG_SCALE) {
+        if (rng < emeraldChance * 10000) {
             if (original.getItem() instanceof BlockItem)
                 return new ItemStack(Items.EMERALD_BLOCK, original.getCount());
             else
                 return new ItemStack(Items.EMERALD, original.getCount());
         }
 
-        // hallucinate media items due to embedded allays
+        // hallucinate media items due to Manifold Mind
         if (MinecraftClient.getInstance().player.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
-            if (rng > (1 - config.getMediaRate()) * Hierophantics.RNG_SCALE) {
+            if (rng > (1 - config.getMediaRate()) * 10000) {
                 var items = List.of(
                     HexItems.AMETHYST_DUST, Items.AMETHYST_SHARD,
                     HexItems.CHARGED_AMETHYST, HexItems.QUENCHED_SHARD

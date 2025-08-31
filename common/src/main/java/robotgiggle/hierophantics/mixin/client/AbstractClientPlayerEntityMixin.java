@@ -29,26 +29,30 @@ public class AbstractClientPlayerEntityMixin {
 
         if (hallucinationCooldown > 0) {
             hallucinationCooldown--;
-        } else {
-            double villagerChance = Math.min(
-                config.getBaseVillagerRate() * HierophanticsClient.getClientOwnedMinds(),
-                config.getMaxVillagerRate()
-            );
-            if (rand.nextDouble() < villagerChance) {
-                // hallucinate villager nosies
-                Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3.5, rand).add(cPlayer.getPos());
-                cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.PLAYERS, 0.5f, 1f, true);
-                hallucinationCooldown = config.getCooldown();
-            } else if (rand.nextDouble() < config.getAllayRate() && cPlayer.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
-                // hallucinate allay nosies and amethyst chimes
-                Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3, rand).add(cPlayer.getPos());
-                if (rand.nextDouble() < 0.5) {
-                    cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1f, (0.5f + rand.nextFloat() * 1.2F), true);
-                } else {
-                    cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 0.3f, 1f, true);
-                }
-                hallucinationCooldown = config.getCooldown();
+            return;
+        }
+
+        // hallucinate villager nosies due to embedded minds
+        double villagerChance = Math.min(
+            config.getBaseVillagerRate() * HierophanticsClient.getClientOwnedMinds(),
+            config.getMaxVillagerRate()
+        );
+        if (rand.nextDouble() < villagerChance) {
+            Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3.5, rand).add(cPlayer.getPos());
+            cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.PLAYERS, 0.5f, 1f, true);
+            hallucinationCooldown = config.getCooldown();
+            return;
+        } 
+        
+        // hallucinate allay nosies and amethyst chimes due to Manifold Mind
+        if (rand.nextDouble() < config.getAllayRate() && cPlayer.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
+            Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3, rand).add(cPlayer.getPos());
+            if (rand.nextDouble() < 0.5) {
+                cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1f, (0.5f + rand.nextFloat() * 1.2F), true);
+            } else {
+                cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 0.3f, 1f, true);
             }
+            hallucinationCooldown = config.getCooldown();
         }
     }
 
