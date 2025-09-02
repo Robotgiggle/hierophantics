@@ -6,7 +6,11 @@
   "minVersion": "0.8",
   "client": [
     "client.AbstractClientPlayerEntityMixin",
-    "client.ItemRendererMixin"
+    "client.HandledScreenMixin",
+    "client.HeldItemRendererMixin",
+    "client.InGameHudMixin",
+    "client.ItemFrameEntityRendererMixin",
+    "client.ItemEntityRendererMixin"
   ],
   "mixins": [
     "BlockMixin",

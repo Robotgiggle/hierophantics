@@ -5,9 +5,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKey
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.inits.HierophanticsCommands
-import robotgiggle.hierophantics.inits.HierophanticsConfig
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 
@@ -22,7 +20,5 @@ object FabricHierophantics : ModInitializer {
             }
         CommandRegistrationCallback.EVENT.register{dp, _, _ -> HierophanticsCommands.register(dp)}
         FabricHierophanticsVillagers.init()
-        if (FabricLoader.getInstance().isModLoaded("puzzleslib"))
-            HierophanticsConfig.client.itemHallucinations.altAlgorithm = true
     }
 }

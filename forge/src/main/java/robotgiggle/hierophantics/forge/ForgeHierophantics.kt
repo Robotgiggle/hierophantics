@@ -6,7 +6,6 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKey
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.inits.HierophanticsCommands
-import robotgiggle.hierophantics.inits.HierophanticsConfig
 import net.minecraft.data.DataProvider
 import net.minecraft.data.DataProvider.Factory
 import net.minecraft.data.DataOutput
@@ -14,7 +13,6 @@ import net.minecraftforge.data.event.GatherDataEvent
 import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.ModList
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
@@ -34,7 +32,5 @@ class HierophanticsForge {
         }
         Hierophantics.init()
         FORGE_BUS.addListener{evt: RegisterCommandsEvent -> HierophanticsCommands.register(evt.getDispatcher())};
-        if (ModList.get().isLoaded("puzzleslib"))
-            HierophanticsConfig.client.itemHallucinations.altAlgorithm = true
     }
 }
