@@ -22,19 +22,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
     @ModifyVariable(method = "getModel", at = @At("HEAD"), argsOnly = true)
     private ItemStack hallucinateItem(ItemStack original, ItemStack stack, World world, LivingEntity entity, int seed) {
-        // this prevents non-standard item renders (like EMI recipes) from spazzing out
+        // this prevents most non-standard item renders (like EMI recipes) from spazzing out
         if (seed == 0) return original;
         
-        int hash = original.hashCode();
+        var config = HierophanticsConfig.getClient().getItemHallucinations();
+
+        int hash = config.getAltAlgorithm()? Objects.hash(original.getItem(), original.getCount(), original.getNbt()) : original.hashCode();
         int timeScramble = (int)(ClientTickCounter.ticksInGame/(180 + (hash % 40)));
         int rng = Math.abs((hash + timeScramble * (150 + (hash % 300))) % 10000);
-
-        var config = HierophanticsConfig.getClient().getItemHallucinations();
 
         // hallucinate emeralds due to embedded minds
         double emeraldChance = Math.min(

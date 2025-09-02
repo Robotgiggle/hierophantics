@@ -81,6 +81,8 @@ object HierophanticsConfig {
             val maxEmeraldRate: Double = 0.1
             @Tooltip
             val mediaRate: Double = 0.1
+            @Tooltip(count = 2)
+            var altAlgorithm: Boolean = false
         }
 
         class AudioHallucinations {
