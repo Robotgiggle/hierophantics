@@ -1,5 +1,9 @@
 # Hierophantics
 
+## 1.3.2
+- The media discount from Manifold Mind now applies only to your own personal casting (spell circles and other proxy casters will no longer recieve the discount)
+- Fixed a mod-interaction issue that caused certain item renders to rapidly flicker
+
 ## 1.3.1
 - Added a lot of new config options
   - Side effect rates from embedded minds and Manifold Mind can now be individually modified
