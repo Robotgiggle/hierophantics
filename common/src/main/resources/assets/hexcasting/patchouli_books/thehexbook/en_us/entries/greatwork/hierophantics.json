@@ -27,6 +27,10 @@
             "type": "hexcasting:brainsweep",
             "recipe": "hierophantics:brainsweep/activate_flay_bed_master",
             "text": "hierophantics.page.hierophantics.flay"
-        }
+        },
+		{
+			"type": "patchouli:text",
+			"text": "hierophantics.page.hierophantics.3"
+		}
 	]
 }
