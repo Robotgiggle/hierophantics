@@ -76,7 +76,7 @@ object HierophanticsConfig {
 
         class ItemHallucinations {
             @Tooltip
-            val baseEmeraldRate: Double = 0.002
+            val baseEmeraldRate: Double = 0.0015
             @Tooltip
             val maxEmeraldRate: Double = 0.1
             @Tooltip
@@ -85,7 +85,7 @@ object HierophanticsConfig {
 
         class AudioHallucinations {
             @Tooltip
-            val baseVillagerRate: Double = 0.00004
+            val baseVillagerRate: Double = 0.00006
             @Tooltip
             val maxVillagerRate: Double = 0.004
             @Tooltip
