@@ -26,23 +26,23 @@ class HieroPlayerState() {
 	val hieroMinds: MutableMap<String, HieroMind> = mutableMapOf()
 	
 	// this stuff doesn't
-	var prevHealth = 0.0f
-	var prevBreath = 0.0f
-	var prevHunger = 0
+	var prevHealth = 0.0
+	var prevBreath = 0.0
+	var prevHunger = 0.0
 	var prevVel = Vec3d.ZERO
 	var prev2Vel = Vec3d.ZERO
 	var prev3Vel = Vec3d.ZERO
-	var prevFallDist = 0.0f
+	var prevFallDist = 0.0
 	var skipTeleTrigger = 0
 
 	fun tick(player: ServerPlayerEntity) {
 		if (player.isDead() || ownedMinds == 0) return
 
-		val currHealth = player.getHealth()
-		val currBreath = player.getAir() / 30f
-		val currHunger = player.getHungerManager().getFoodLevel()
+		val currHealth = player.getHealth().toDouble()
+		val currBreath = player.getAir() / 30.0
+		val currHunger = player.getHungerManager().getFoodLevel().toDouble()
 		val currVel = HexAPI.instance().getEntityVelocitySpecial(player)
-		val currFallDist = player.fallDistance
+		val currFallDist = player.fallDistance.toDouble()
 
 		val currSpeed = currVel.length()
 		val prevSpeed = prevVel.length()
@@ -60,15 +60,16 @@ class HieroPlayerState() {
 
 		// detect threshold-based triggers
 		hieroMinds.forEach { (_, mind) -> 
-			when (mind.trigger) {
-				"health" -> if (currHealth < mind.triggerThreshold && prevHealth >= mind.triggerThreshold) mind.cast(player)
-				"breath" -> if (currBreath < mind.triggerThreshold && prevBreath >= mind.triggerThreshold) mind.cast(player)
-				"hunger" -> if (currHunger < mind.triggerThreshold && prevHunger >= mind.triggerThreshold) mind.cast(player)
-				"velocity" -> if (!teleported && prevSpeed > mind.triggerThreshold && prev2Speed <= mind.triggerThreshold) {
+			val trigger = mind.trigger
+			when (trigger.type) {
+				"health" -> if (passedThreshold(trigger.threshold, currHealth, prevHealth, trigger.inverted)) mind.cast(player)
+				"breath" -> if (passedThreshold(trigger.threshold, currBreath, prevBreath, trigger.inverted)) mind.cast(player)
+				"hunger" -> if (passedThreshold(trigger.threshold, currHunger, prevHunger, trigger.inverted)) mind.cast(player)
+				"velocity" -> if (!teleported && passedThreshold(trigger.threshold, prevSpeed, prev2Speed, !trigger.inverted)) {
 					if (skipTeleTrigger > 0) skipTeleTrigger = 0
 					else mind.cast(player)
 				}
-				"fall" -> if (currFallDist > mind.triggerThreshold && prevFallDist <= mind.triggerThreshold) mind.cast(player)
+				"fall" -> if (passedThreshold(trigger.threshold, currFallDist, prevFallDist, !trigger.inverted)) mind.cast(player)
 			}
 		}
 
@@ -82,20 +83,25 @@ class HieroPlayerState() {
 		prevFallDist = currFallDist
 	}
 
+	fun passedThreshold(threshold: Double, currVal: Double, prevVal: Double, upward: Boolean): Boolean {
+		if (upward) return currVal > threshold && prevVal <= threshold
+		else return currVal < threshold && prevVal >= threshold
+	}
+
 	fun checkTypedDamage(player: ServerPlayerEntity, type: String, initialIota: Iota) {
 		lastDmgType = type;
 		hieroMinds.forEach { (_, mind) -> 
-			if (mind.trigger == "damage_typed" && mind.triggerDmgType.equals(type)) 
+			if (mind.trigger.type == "damage_typed" && mind.trigger.dmgType.equals(type)) 
 				mind.cast(player, listOf(initialIota))
 		}
 	}
 
 	fun allTriggersUsed(): Boolean {
 		var allTriggers = true
-		Hierophantics.TRIGGER_NAMES.forEach { triggerName -> 
+		Hierophantics.TRIGGER_TYPES.forEach { triggerType -> 
 			var triggerUsed = false
 			hieroMinds.forEach { (_, mind) -> 
-				if (mind.trigger == triggerName) triggerUsed = true
+				if (mind.trigger.type == triggerType) triggerUsed = true
 			}
 			if (!triggerUsed) allTriggers = false
 		}
@@ -126,7 +132,7 @@ class HieroPlayerState() {
 
 	@JvmOverloads
 	fun triggerMinds(player: ServerPlayerEntity, trigger: String, initialStack: List<Iota> = listOf()) {
-		hieroMinds.forEach { (_, mind) -> if (mind.trigger == trigger) mind.cast(player, initialStack) }
+		hieroMinds.forEach { (_, mind) -> if (mind.trigger.type == trigger) mind.cast(player, initialStack) }
 	}
 
 	fun triggerMinds(player: ServerPlayerEntity, trigger: String, initialIota: Iota) {

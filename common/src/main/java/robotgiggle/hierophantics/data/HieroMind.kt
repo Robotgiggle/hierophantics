@@ -11,20 +11,19 @@ import robotgiggle.hierophantics.HieroMindCastEnv
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import robotgiggle.hierophantics.iotas.MishapThrowerIota
+import robotgiggle.hierophantics.iotas.TriggerIota.Trigger
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
 import net.minecraft.sound.SoundCategory
 
-class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold: Double, var triggerDmgType: String, var muted: Boolean) {
-	constructor() : this(NbtCompound(), "none", -1.0, "", false) {}
+class HieroMind(var hex: NbtCompound, var trigger: Trigger, var muted: Boolean) {
+	constructor() : this(NbtCompound(), Trigger("none", -1.0, "", false), false) {}
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()
 		compound.putCompound("hex", hex)
-		compound.putString("trigger", trigger)
-		compound.putDouble("triggerThreshold", triggerThreshold)
-		compound.putString("triggerDmgType", triggerDmgType)
+		compound.putCompound("trigger", trigger.serialize())
 		compound.putBoolean("muted", muted)
 		return compound
 	}
@@ -50,10 +49,22 @@ class HieroMind(var hex: NbtCompound, var trigger: String, var triggerThreshold:
 	companion object {
 		fun deserialize(compound: NbtCompound) = HieroMind(
 			compound.getCompound("hex"), 
-			compound.getString("trigger"), 
-			compound.getDouble("triggerThreshold"), 
-			compound.getString("triggerDmgType"),
+			triggerDatafixer(compound),
 			compound.getBoolean("muted")
 		)
+
+		// pre-1.3.3 hierominds have a different nbt structure so this is needed for now
+		fun triggerDatafixer(compound: NbtCompound): Trigger {
+			if (compound.getString("trigger") != "") {
+				return Trigger(
+					compound.getString("trigger"),
+					compound.getDouble("triggerThreshold"), 
+					compound.getString("triggerDmgType"),
+					false
+				)
+			} else {
+				return Trigger.deserialize(compound.getCompound("trigger"))
+			}
+		}
 	}
 }

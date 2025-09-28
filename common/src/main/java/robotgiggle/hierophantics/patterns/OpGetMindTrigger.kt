@@ -28,10 +28,10 @@ class OpGetMindTrigger : ConstMediaAction {
 		}
 
         val mind = state.getMind(mindRef.name)
-        if (mind.trigger.equals("none")) {
+        if (mind.trigger.type.equals("none")) {
             return listOf(NullIota())
         } else {
-            return listOf(TriggerIota(mind.trigger, mind.triggerThreshold, mind.triggerDmgType))
+            return listOf(TriggerIota(mind.trigger))
         }
     }
 }
