@@ -24,6 +24,11 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 			compound.putBoolean("inverted", inverted)
 			return compound
 		}
+		fun passedThreshold(currVal: Double, prevVal: Double): Boolean {
+			val upward = if (type == "velocity" || type == "fall") !inverted else inverted
+			if (upward) return currVal > threshold && prevVal <= threshold
+			else return currVal < threshold && prevVal >= threshold
+		}
 		companion object {
 			fun deserialize(nbt: NbtElement): Trigger {
 				val type = (nbt as NbtCompound).getString("trigger")

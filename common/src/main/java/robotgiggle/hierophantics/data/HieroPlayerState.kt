@@ -62,14 +62,14 @@ class HieroPlayerState() {
 		hieroMinds.forEach { (_, mind) -> 
 			val trigger = mind.trigger
 			when (trigger.type) {
-				"health" -> if (passedThreshold(trigger.threshold, currHealth, prevHealth, trigger.inverted)) mind.cast(player)
-				"breath" -> if (passedThreshold(trigger.threshold, currBreath, prevBreath, trigger.inverted)) mind.cast(player)
-				"hunger" -> if (passedThreshold(trigger.threshold, currHunger, prevHunger, trigger.inverted)) mind.cast(player)
-				"velocity" -> if (!teleported && passedThreshold(trigger.threshold, prevSpeed, prev2Speed, !trigger.inverted)) {
+				"health" -> if (trigger.passedThreshold(currHealth, prevHealth)) mind.cast(player)
+				"breath" -> if (trigger.passedThreshold(currBreath, prevBreath)) mind.cast(player)
+				"hunger" -> if (trigger.passedThreshold(currHunger, prevHunger)) mind.cast(player)
+				"velocity" -> if (!teleported && trigger.passedThreshold(prevSpeed, prev2Speed)) {
 					if (skipTeleTrigger > 0) skipTeleTrigger = 0
 					else mind.cast(player)
 				}
-				"fall" -> if (passedThreshold(trigger.threshold, currFallDist, prevFallDist, !trigger.inverted)) mind.cast(player)
+				"fall" -> if (trigger.passedThreshold(currFallDist, prevFallDist)) mind.cast(player)
 			}
 		}
 
@@ -81,11 +81,6 @@ class HieroPlayerState() {
 		prev2Vel = prevVel
 		prevVel = currVel
 		prevFallDist = currFallDist
-	}
-
-	fun passedThreshold(threshold: Double, currVal: Double, prevVal: Double, upward: Boolean): Boolean {
-		if (upward) return currVal > threshold && prevVal <= threshold
-		else return currVal < threshold && prevVal >= threshold
 	}
 
 	fun checkTypedDamage(player: ServerPlayerEntity, type: String, initialIota: Iota) {
