@@ -26,13 +26,13 @@ class HieroPlayerState() {
 	val hieroMinds: MutableMap<String, HieroMind> = mutableMapOf()
 	
 	// this stuff doesn't
-	var prevHealth = 0.0
-	var prevBreath = 0.0
-	var prevHunger = 0.0
+	var prevHealth = -1.0
+	var prevBreath = -1.0
+	var prevHunger = -1.0
 	var prevVel = Vec3d.ZERO
 	var prev2Vel = Vec3d.ZERO
 	var prev3Vel = Vec3d.ZERO
-	var prevFallDist = 0.0
+	var prevFallDist = -1.0
 	var skipTeleTrigger = 0
 
 	fun tick(player: ServerPlayerEntity) {

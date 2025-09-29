@@ -26,7 +26,7 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 		}
 		fun passedThreshold(currVal: Double, prevVal: Double): Boolean {
 			val upward = if (type == "velocity" || type == "fall") !inverted else inverted
-			if (upward) return currVal > threshold && prevVal <= threshold
+			if (upward) return currVal > threshold && prevVal <= threshold && prevVal != -1.0
 			else return currVal < threshold && prevVal >= threshold
 		}
 		companion object {
