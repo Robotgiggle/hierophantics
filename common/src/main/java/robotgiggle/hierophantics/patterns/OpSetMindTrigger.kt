@@ -17,8 +17,6 @@ import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
-import at.petrak.hexcasting.api.HexAPI
-
 class OpSetMindTrigger : SpellAction {
 	override val argc = 2
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {

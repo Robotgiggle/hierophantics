@@ -12,8 +12,6 @@ import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import net.minecraft.server.network.ServerPlayerEntity
 
-import at.petrak.hexcasting.api.HexAPI
-
 class OpMakeThresholdTrigger(val trigger: String) : ConstMediaAction {
 	override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {

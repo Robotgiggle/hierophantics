@@ -14,8 +14,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import at.petrak.hexcasting.api.HexAPI;
-
 @Mixin(VillagerEntity.class)
 public class VillagerEntityMixin implements VillagerEntityMinterface {
     @Unique

@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 
 @Mixin(LivingEntity.class)

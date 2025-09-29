@@ -14,8 +14,6 @@ import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.mishaps.NotYourMindMishap
 import net.minecraft.server.network.ServerPlayerEntity
 
-import at.petrak.hexcasting.api.HexAPI
-
 class OpReenableMinds : SpellAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {

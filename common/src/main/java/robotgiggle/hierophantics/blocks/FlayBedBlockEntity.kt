@@ -42,7 +42,6 @@ import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 
-import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.common.lib.HexItems

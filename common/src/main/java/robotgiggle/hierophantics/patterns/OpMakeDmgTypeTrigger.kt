@@ -11,8 +11,6 @@ import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import net.minecraft.server.network.ServerPlayerEntity
 
-import at.petrak.hexcasting.api.HexAPI
-
 class OpMakeDmgTypeTrigger() : ConstMediaAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
