@@ -80,7 +80,7 @@
 	"hexcasting.action.hierophantics:make_break_trigger": "Trigger Reflection: Break",
 	"hexcasting.action.hierophantics:make_jump_trigger": "Trigger Reflection: Jump",
 	"hexcasting.action.hierophantics:make_teleport_trigger": "Trigger Reflection: Teleport",
-	"hexcasting.action.hierophantics:invert_trigger": "Invert Trigger",
+	"hexcasting.action.hierophantics:invert_trigger": "Inversion Purification",
 	
 	"hexcasting.action.book.hierophantics:make_damage_trigger": "Trigger Rfln: Damage",
 	"hexcasting.action.book.hierophantics:make_damage_type_trigger": "Trigger Rfln: DmgType",
@@ -150,6 +150,7 @@
 	"hierophantics.page.make_break_trigger.summary": "Creates a trigger that activates whenever I break a block.",
 	"hierophantics.page.make_jump_trigger.summary": "Creates a trigger that activates whenever I jump.",
 	"hierophantics.page.make_teleport_trigger.summary": "Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 1.5 blocks in length.",
+	"hierophantics.page.invert_trigger.summary": "Inverts the threshold on a numerical trigger. For example, 'When velocity exceeds 5.0' will become 'When velocity drops below 5.0'. Has no effect on other types of triggers.",
 
 	"text.autoconfig.hierophantics.title": "Hierophantics Config",
 	"text.autoconfig.hierophantics.category.client": "Client Settings",
