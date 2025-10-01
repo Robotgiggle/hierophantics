@@ -13,47 +13,75 @@ import net.minecraft.util.Formatting
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.damage.DamageType
 
-class TriggerIota(trigger: String, threshold: Double = -1.0, dmgType: String = "") : Iota(TYPE, Trigger(trigger, threshold, dmgType)) {
+class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 	@JvmRecord
-    data class Trigger(val trigger: String, val threshold: Double, val dmgType: String)
+    data class Trigger(val type: String, val threshold: Double, val dmgType: String, val inverted: Boolean) {
+		fun serialize(): NbtCompound {
+			val compound = NbtCompound()
+			compound.putString("trigger", type)
+			compound.putDouble("threshold", threshold)
+			compound.putString("dmgType", dmgType)
+			compound.putBoolean("inverted", inverted)
+			return compound
+		}
+		fun passedThreshold(currVal: Double, prevVal: Double): Boolean {
+			val upward = if (type == "velocity" || type == "fall") !inverted else inverted
+			if (upward) return currVal > threshold && prevVal <= threshold && prevVal != -1.0
+			else return currVal < threshold && prevVal >= threshold
+		}
+		companion object {
+			fun deserialize(nbt: NbtElement): Trigger {
+				val type = (nbt as NbtCompound).getString("trigger")
+				val threshold = nbt.getDouble("threshold")
+				val dmgType = nbt.getString("dmgType")
+				val inverted = nbt.getBoolean("inverted")
+				return Trigger(type, threshold, dmgType, inverted)
+			}
+			fun none() = Trigger("none", -1.0, "", false)
+		}
+	}
+
+	constructor(trigger: String, threshold: Double = -1.0, dmgType: String = "", inverted: Boolean = false) : this(Trigger(trigger, threshold, dmgType, inverted))
     
     override fun isTruthy() = true
 	override fun toleratesOther(that: Iota): Boolean {
-		return typesMatch(this, that) && this.trigger == (that as TriggerIota).trigger && this.threshold == that.threshold && this.dmgType == that.dmgType
+		return typesMatch(this, that) && this.trigger == (that as TriggerIota).trigger
 	}
-	val trigger = (payload as Trigger).trigger
-	val threshold = (payload as Trigger).threshold
-	val dmgType = (payload as Trigger).dmgType
+
+	val trigger = payload as Trigger
+	val type = trigger.type
+	val threshold = trigger.threshold
+	val dmgType = trigger.dmgType
+	val inverted = trigger.inverted
 
 	override fun serialize(): NbtElement {
-		val compound = NbtCompound()
-		compound.putString("trigger", trigger)
-		compound.putDouble("threshold", threshold)
-		compound.putString("dmgType", dmgType)
-		return compound
+		return trigger.serialize()
 	}
 
 	companion object {
 		@JvmField
 		val TYPE: IotaType<TriggerIota> = object : IotaType<TriggerIota>() {
 			override fun deserialize(nbt: NbtElement, world: ServerWorld): TriggerIota? {
-				val trigger = (nbt as NbtCompound).getString("trigger")
-				val threshold = nbt.getDouble("threshold")
-				val dmgType = nbt.getString("dmgType")
-				return TriggerIota(trigger, threshold, dmgType)
+				return TriggerIota(Trigger.deserialize(nbt))
 			}
 			override fun display(nbt: NbtElement): Text {
-				var type: Text
-				val dmgType = (nbt as NbtCompound).getString("dmgType")
+				var typeDisplay: Text
+				val type = (nbt as NbtCompound).getString("trigger")
+				val dmgType = nbt.getString("dmgType")
 				val threshold = nbt.getDouble("threshold")
+				val inverted = nbt.getBoolean("inverted")
 				if (!dmgType.equals("")) {
-					type = Text.translatable("hierophantics.tooltip.trigger_type.damage_typed", dmgType)
+					typeDisplay = Text.translatable("hierophantics.tooltip.trigger_type.damage_typed", dmgType)
 				} else if (threshold != -1.0) {
-					type = Text.translatable("hierophantics.tooltip.trigger_type." + nbt.getString("trigger"), nbt.getDouble("threshold"))
+					val dir = if (inverted.xor(type == "velocity" || type == "fall")) 
+						Text.translatable("hierophantics.tooltip.threshold_upward") 
+					else 
+						Text.translatable("hierophantics.tooltip.threshold_downward")
+					typeDisplay = Text.translatable("hierophantics.tooltip.trigger_type." + type, dir, threshold)
 				} else {
-					type = Text.translatable("hierophantics.tooltip.trigger_type." + nbt.getString("trigger"))
+					typeDisplay = Text.translatable("hierophantics.tooltip.trigger_type." + type)
 				}
-				return Text.translatable("hierophantics.tooltip.trigger", type).formatted(Formatting.YELLOW)
+				return Text.translatable("hierophantics.tooltip.trigger", typeDisplay).formatted(Formatting.YELLOW)
 			}
 			override fun color() = 0xffff55
 		}

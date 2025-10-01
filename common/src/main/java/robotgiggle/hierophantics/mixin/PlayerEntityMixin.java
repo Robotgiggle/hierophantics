@@ -24,7 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.common.lib.HexDamageTypes;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 

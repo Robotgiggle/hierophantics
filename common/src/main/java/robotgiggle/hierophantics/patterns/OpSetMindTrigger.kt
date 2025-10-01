@@ -17,8 +17,6 @@ import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
-import at.petrak.hexcasting.api.HexAPI
-
 class OpSetMindTrigger : SpellAction {
 	override val argc = 2
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
@@ -52,14 +50,10 @@ class OpSetMindTrigger : SpellAction {
 		override fun cast(env: CastingEnvironment) {
 			val mind = state.getMind(mindName)
 			if (triggerOrNull is NullIota) {
-                mind.trigger = "none"
-                mind.triggerThreshold = -1.0
-                mind.triggerDmgType = ""
+                mind.trigger = TriggerIota.Trigger.none()
 			} else {
-				val trigger = triggerOrNull as TriggerIota
-                mind.trigger = trigger.trigger
-                mind.triggerThreshold = trigger.threshold
-                mind.triggerDmgType = trigger.dmgType
+				val triggerIota = triggerOrNull as TriggerIota
+                mind.trigger = triggerIota.trigger
 				if (state.allTriggersUsed()) {
 					HierophanticsAdvancements.ALL_TRIGGERS.trigger(caster)
 				}

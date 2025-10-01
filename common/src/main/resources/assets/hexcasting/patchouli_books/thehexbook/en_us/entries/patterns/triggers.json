@@ -109,6 +109,14 @@
 			"input": "",
 			"output": "trigger",
 			"text": "hierophantics.page.make_teleport_trigger.summary"
+        },
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hierophantics:invert_trigger",
+			"anchor": "hierophantics:invert_trigger",
+			"input": "trigger",
+			"output": "trigger",
+			"text": "hierophantics.page.invert_trigger.summary"
         }
 	]
 }

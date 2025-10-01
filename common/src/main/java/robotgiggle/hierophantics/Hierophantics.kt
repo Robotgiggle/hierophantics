@@ -32,7 +32,7 @@ import dev.architectury.registry.registries.RegistrySupplier
 object Hierophantics {
     const val MOD_ID = "hierophantics"
 
-    val TRIGGER_NAMES = listOf(
+    val TRIGGER_TYPES = listOf(
 		"damage", "damage_typed", "health", "breath",
 		"hunger","velocity", "fall", "drop", "attack",
 		"break", "jump", "teleport"

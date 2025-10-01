@@ -43,6 +43,7 @@ object HierophanticsPatterns {
 		register("make_break_trigger", "qqqqqawwwqaqqqqq", HexDir.SOUTH_EAST, OpMakeTrigger("break"))
 		register("make_jump_trigger", "qqqqqawwqdwdwd", HexDir.SOUTH_EAST, OpMakeTrigger("jump"))
 		register("make_teleport_trigger", "qqqqqawweaqaawaaqa", HexDir.SOUTH_EAST, OpMakeTrigger("teleport"))
+		register("invert_trigger", "aawddeeqqqqqaw", HexDir.NORTH_EAST, OpInvertTrigger())
 
 		ACTIONS.register()
 	}
