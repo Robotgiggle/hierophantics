@@ -1,5 +1,12 @@
 # Hierophantics
 
+## 1.3.3
+- Added a new pattern to invert the direction of threshold-based triggers (for example, 'When velocity exceeds X' will become 'When velocity drops below X')
+- Side effects from embedded minds are now documented
+- Slightly tweaked the default rates for embedded mind side effects
+  - If your config file already exists, this change will have no effect
+- Updated zh_cn translations (thanks ChuijkYahus!)
+
 ## 1.3.2
 - The media discount from Manifold Mind now applies only to your own personal casting (spell circles and other proxy casters will no longer recieve the discount)
 - Fixed a mod-interaction issue that caused certain item renders to rapidly flicker
