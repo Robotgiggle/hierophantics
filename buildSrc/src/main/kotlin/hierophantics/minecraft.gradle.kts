@@ -20,6 +20,25 @@ val platform: String by project
 
 base.archivesName = "${modId}-$platform"
 
+publishing {
+    publications {
+        create<MavenPublication>("Hierophantics") {
+            artifactId = base.archivesName.get()
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        maven {
+            url = uri("https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/community/maven/v1")
+            credentials {
+                username = "Robotgiggle"
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+    }
+}
+
 loom {
     silentMojangMappingsLicense()
     accessWidenerPath = project(":common").file("src/main/resources/hierophantics.accesswidener")
