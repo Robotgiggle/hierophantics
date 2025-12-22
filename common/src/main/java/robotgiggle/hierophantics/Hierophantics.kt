@@ -26,8 +26,8 @@ import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.Iota
 
-import dev.architectury.registry.registries.DeferredRegister
-import dev.architectury.registry.registries.RegistrySupplier
+// import dev.architectury.registry.registries.DeferredRegister
+// import dev.architectury.registry.registries.RegistrySupplier
 
 object Hierophantics {
     const val MOD_ID = "hierophantics"
@@ -45,7 +45,7 @@ object Hierophantics {
     //val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(MOD_ID, RegistryKeys.BLOCK)
     //val ITEMS: DeferredRegister<Item> = DeferredRegister.create(MOD_ID, RegistryKeys.ITEM)
     //val BLOCK_ENTITIES: DeferredRegister<BlockEntityType<out BlockEntity>> = DeferredRegister.create(MOD_ID, RegistryKeys.BLOCK_ENTITY_TYPE)
-    val EFFECTS: DeferredRegister<StatusEffect> = DeferredRegister.create(MOD_ID, RegistryKeys.STATUS_EFFECT)
+    //val EFFECTS: DeferredRegister<StatusEffect> = DeferredRegister.create(MOD_ID, RegistryKeys.STATUS_EFFECT)
 
     //@JvmField
     //val FLAY_BED_BLOCK: RegistrySupplier<FlayBedBlock> = BLOCKS.register("flay_bed", {-> FlayBedBlock()})
@@ -56,10 +56,10 @@ object Hierophantics {
     //val EDIFIED_WORKSTATION_BLOCK: RegistrySupplier<Block> = BLOCKS.register("edified_workstation", {-> Block(Settings.copy(HexBlocks.EDIFIED_PLANKS))})
     //val EDIFIED_WORKSTATION_ITEM: RegistrySupplier<Item> = ITEMS.register("edified_workstation", {-> BlockItem(EDIFIED_WORKSTATION_BLOCK.get(), Item.Settings())})
 
-    @JvmField // the actual effects of this are handled in CastingEnvironmentMixin
-    val MEDIA_DISCOUNT_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("media_discount", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0x64fbff) {})})
-    @JvmField // the actual effects of this are handled in LivingEntityMixin
-    val SLEEP_ANYWHERE_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("sleep_anywhere", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0) {})})
+    // @JvmField // the actual effects of this are handled in CastingEnvironmentMixin
+    // val MEDIA_DISCOUNT_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("media_discount", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0x64fbff) {})})
+    // @JvmField // the actual effects of this are handled in LivingEntityMixin
+    // val SLEEP_ANYWHERE_EFFECT: RegistrySupplier<StatusEffect> = EFFECTS.register("sleep_anywhere", {-> (object : StatusEffect(StatusEffectCategory.BENEFICIAL, 0) {})})
 
     @JvmStatic
 	fun id(string: String) = Identifier(MOD_ID, string)
@@ -73,20 +73,22 @@ object Hierophantics {
         // BLOCKS.register()
         // ITEMS.register()
         // BLOCK_ENTITIES.register()
-        EFFECTS.register()
+        // EFFECTS.register()
 
 		HierophanticsAdvancements.init()
 		HierophanticsNetworking.init()
-		//HierophanticsPatterns.init()
+		// HierophanticsPatterns.init()
         initRegistries(
             HierophanticsActions,
             HierophanticsBlocks,
             HierophanticsBlockEntities,
+            HierophanticsEffects,
             HierophanticsItems,
             HierophanticsIotaTypes,
+            HierophanticsSounds,
         )
 		HierophanticsConfig.init()
-		HierophanticsSounds.init()
+		// HierophanticsSounds.init()
 
         //IOTAS.register()
     }

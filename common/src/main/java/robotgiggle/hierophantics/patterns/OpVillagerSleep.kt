@@ -20,6 +20,7 @@ import net.minecraft.text.Text
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsConfig
+import robotgiggle.hierophantics.inits.HierophanticsEffects
 import robotgiggle.hierophantics.minterface.VillagerEntityMinterface
 import robotgiggle.hierophantics.mixin.accessor.PlayerEntityAccessor
 
@@ -57,7 +58,7 @@ class OpVillagerSleep : SpellAction {
                 if (env.getWorld().isNight) {
                     target.sleep(target.getBlockPos())
                     (target as PlayerEntityAccessor).setSleepTimer(0)
-                    target.addStatusEffect(StatusEffectInstance(Hierophantics.SLEEP_ANYWHERE_EFFECT.get(), 300, 0, false, false))
+                    target.addStatusEffect(StatusEffectInstance(HierophanticsEffects.SLEEP_ANYWHERE.value, 300, 0, false, false))
                     env.getWorld().updateSleepingPlayers()
                 }
             }

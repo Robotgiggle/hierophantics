@@ -38,6 +38,7 @@ import net.minecraft.sound.SoundCategory
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.HierophanticsVillagers
+import robotgiggle.hierophantics.inits.HierophanticsEffects
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.inits.HierophanticsBlockEntities
 import robotgiggle.hierophantics.blocks.FlayBedBlock
@@ -69,13 +70,13 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 makeParticles(world, pigment, 60)
             } else if (subject is ServerPlayerEntity && sacrifice is AllayEntity) {
                 // allay -> player: apply or lengthen media discount effect and trigger the advancement
-                if (subject.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
-                    val oldTicks = subject.getStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())!!.duration
+                if (subject.hasStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)) {
+                    val oldTicks = subject.getStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)!!.duration
                     val newTicks = (6000 * Math.pow(Math.E, (-oldTicks/12000).toDouble())).toInt()
-                    subject.removeStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())
-                    subject.addStatusEffect(StatusEffectInstance(Hierophantics.MEDIA_DISCOUNT_EFFECT.get(), newTicks + oldTicks))
+                    subject.removeStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)
+                    subject.addStatusEffect(StatusEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, newTicks + oldTicks))
                 } else {
-                    subject.addStatusEffect(StatusEffectInstance(Hierophantics.MEDIA_DISCOUNT_EFFECT.get(), 6000))
+                    subject.addStatusEffect(StatusEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, 6000))
                 }
 
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)

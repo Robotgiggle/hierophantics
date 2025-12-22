@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv;
 import robotgiggle.hierophantics.Hierophantics;
 import robotgiggle.hierophantics.inits.HierophanticsConfig;
+import robotgiggle.hierophantics.inits.HierophanticsEffects;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +18,7 @@ public class CastingEnvironmentMixin {
         CastingEnvironment env = (CastingEnvironment) (Object) this;
         if (env instanceof PlayerBasedCastEnv 
          && env.getCastingEntity() != null 
-         && env.getCastingEntity().hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())
+         && env.getCastingEntity().hasStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.getValue())
         ) {
             return (long)Math.ceil(HierophanticsConfig.getServer().getMediaDiscount() * (double)original);
         }

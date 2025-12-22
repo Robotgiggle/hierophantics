@@ -10,6 +10,7 @@ import at.petrak.hexcasting.client.ClientTickCounter;
 import at.petrak.hexcasting.common.lib.HexItems;
 import at.petrak.hexcasting.common.lib.HexBlocks;
 import at.petrak.hexcasting.common.items.ItemStaff;
+import robotgiggle.hierophantics.inits.HierophanticsEffects
 import robotgiggle.hierophantics.inits.HierophanticsConfig
 import robotgiggle.hierophantics.inits.HierophanticsConfig.GlobalConfig
 import me.shedaniel.autoconfig.AutoConfig
@@ -44,7 +45,7 @@ object HierophanticsClient {
         }
 
         // hallucinate media items due to Manifold Mind
-        if (MinecraftClient.getInstance().player!!.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get()) ) {
+        if (MinecraftClient.getInstance().player!!.hasStatusEffect((HierophanticsEffects.MEDIA_DISCOUNT.value)) ) {
             if (rng > (1 - config.mediaRate) * 10000) {
                 var items = listOf(
                     HexItems.AMETHYST_DUST, Items.AMETHYST_SHARD,

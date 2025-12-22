@@ -9,6 +9,7 @@ import net.minecraft.util.math.random.Random;
 import robotgiggle.hierophantics.Hierophantics;
 import robotgiggle.hierophantics.HierophanticsClient;
 import robotgiggle.hierophantics.inits.HierophanticsConfig;
+import robotgiggle.hierophantics.inits.HierophanticsEffects;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -45,7 +46,7 @@ public class AbstractClientPlayerEntityMixin {
         } 
         
         // hallucinate allay nosies and amethyst chimes due to Manifold Mind
-        if (rand.nextDouble() < config.getAllayRate() && cPlayer.hasStatusEffect(Hierophantics.MEDIA_DISCOUNT_EFFECT.get())) {
+        if (rand.nextDouble() < config.getAllayRate() && cPlayer.hasStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.getValue())) {
             Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3, rand).add(cPlayer.getPos());
             if (rand.nextDouble() < 0.5) {
                 cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1f, (0.5f + rand.nextFloat() * 1.2F), true);
