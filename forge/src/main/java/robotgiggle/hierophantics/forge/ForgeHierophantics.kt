@@ -22,12 +22,6 @@ class HierophanticsForge {
         MOD_BUS.apply {
             EventBuses.registerModEventBus(Hierophantics.MOD_ID, this)
             addListener(ForgeHierophanticsClient::init)
-            // addListener{evt: BuildCreativeModeTabContentsEvent -> 
-            //     if (evt.getTabKey() == RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting"))) {
-            //         evt.accept{ -> Hierophantics.FLAY_BED_ITEM.get()}
-            //         evt.accept{ -> Hierophantics.EDIFIED_WORKSTATION_ITEM.get()}
-            //     }
-            // }
             addListener(ForgeHierophanticsVillagers::init)
         }
         Hierophantics.init()

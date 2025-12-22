@@ -8,7 +8,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.util.Identifier
 
 object HierophanticsItems : HierophanticsRegistrar<Item>(RegistryKeys.ITEM, { Registries.ITEM }) {
-    // no item here, this just exists so that BlockItems can use its register() method
+    // no items here, this just exists so that BlockItems can use its props and register() method
 
     val props: Item.Settings get() = Item.Settings().`arch$tab`(RegistryKey.of(RegistryKeys.ITEM_GROUP, Identifier("hexcasting:hexcasting")))
 }

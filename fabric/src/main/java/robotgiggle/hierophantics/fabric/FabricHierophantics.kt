@@ -12,12 +12,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 object FabricHierophantics : ModInitializer {
     override fun onInitialize() {
         Hierophantics.init()
-        // ItemGroupEvents
-        //     .modifyEntriesEvent(RegistryKey.of(Registries.ITEM_GROUP.key, HexAPI.modLoc("hexcasting")))
-        //     .register{group -> 
-        //         group.add(Hierophantics.FLAY_BED_ITEM.get())
-        //         group.add(Hierophantics.EDIFIED_WORKSTATION_ITEM.get())
-        //     }
         CommandRegistrationCallback.EVENT.register{dp, _, _ -> HierophanticsCommands.register(dp)}
         FabricHierophanticsVillagers.init()
     }

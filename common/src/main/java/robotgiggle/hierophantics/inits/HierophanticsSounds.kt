@@ -7,9 +7,6 @@ import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.SoundEvent
 
-// import dev.architectury.registry.registries.DeferredRegister
-// import dev.architectury.registry.registries.RegistrySupplier
-
 object HierophanticsSounds : HierophanticsRegistrar<SoundEvent>(RegistryKeys.SOUND_EVENT, { Registries.SOUND_EVENT }) {
 	val HIEROMIND_CAST = register("hieromind_cast")
 
@@ -18,14 +15,3 @@ object HierophanticsSounds : HierophanticsRegistrar<SoundEvent>(RegistryKeys.SOU
 		return register(name, { event })
 	}
 }
-
-// object HierophanticsSounds {
-// 	val SOUNDS: DeferredRegister<SoundEvent> = DeferredRegister.create(Hierophantics.MOD_ID, RegistryKeys.SOUND_EVENT)
-
-// 	val HIEROMIND_CAST: RegistrySupplier<SoundEvent> = register("hieromind_cast")
-
-// 	fun init() {
-// 		SOUNDS.register()
-// 	}
-
-// }

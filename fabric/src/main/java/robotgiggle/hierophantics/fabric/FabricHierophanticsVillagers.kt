@@ -18,9 +18,6 @@ import robotgiggle.hierophantics.HierophanticsVillagers;
 import robotgiggle.hierophantics.inits.HierophanticsBlocks;
 import net.fabricmc.fabric.api.`object`.builder.v1.world.poi.PointOfInterestHelper;
 
-import dev.architectury.registry.registries.DeferredRegister
-import dev.architectury.registry.registries.RegistrySupplier
-
 import java.util.function.Supplier
 
 object FabricHierophanticsVillagers {
