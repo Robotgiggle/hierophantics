@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import robotgiggle.hierophantics.networking.HierophanticsNetworking
 import robotgiggle.hierophantics.inits.*
-import robotgiggle.hierophantics.iotas.*
+//import robotgiggle.hierophantics.iotas.*
 import robotgiggle.hierophantics.blocks.*
 import at.petrak.hexcasting.common.lib.HexBlocks
 import at.petrak.hexcasting.common.lib.HexRegistries
@@ -65,10 +65,10 @@ object Hierophantics {
 	fun id(string: String) = Identifier(MOD_ID, string)
 
     fun init() {
-        val IOTAS: DeferredRegister<IotaType<out Iota>> = DeferredRegister.create(MOD_ID, HexRegistries.IOTA_TYPE)
-        IOTAS.register("mind_reference", {-> MindReferenceIota.TYPE})
-		IOTAS.register("trigger", {-> TriggerIota.TYPE})
-		IOTAS.register("mishap_thrower", {-> MishapThrowerIota.TYPE})
+        //val IOTAS: DeferredRegister<IotaType<out Iota>> = DeferredRegister.create(MOD_ID, HexRegistries.IOTA_TYPE)
+        // IOTAS.register("mind_reference", {-> MindReferenceIota.TYPE})
+		// IOTAS.register("trigger", {-> TriggerIota.TYPE})
+		// IOTAS.register("mishap_thrower", {-> MishapThrowerIota.TYPE})
 
         BLOCKS.register()
         ITEMS.register()
@@ -77,10 +77,14 @@ object Hierophantics {
 
 		HierophanticsAdvancements.init()
 		HierophanticsNetworking.init()
-		HierophanticsPatterns.init()
+		//HierophanticsPatterns.init()
+        initRegistries(
+            HierophanticsActions,
+            HierophanticsIotaTypes,
+        )
 		HierophanticsConfig.init()
 		HierophanticsSounds.init()
 
-        IOTAS.register()
+        //IOTAS.register()
     }
 }
