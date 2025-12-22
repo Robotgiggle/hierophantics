@@ -39,6 +39,7 @@ import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.HierophanticsVillagers
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
+import robotgiggle.hierophantics.inits.HierophanticsBlockEntities
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 
@@ -46,7 +47,7 @@ import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.common.lib.HexItems
 
-class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hierophantics.FLAY_BED_BLOCK_ENTITY.get(), pos, state) {
+class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(HierophanticsBlockEntities.FLAY_BED.value, pos, state) {
     val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
     val headPos = when(state.get(BedBlock.PART)!!) {
         BedPart.HEAD -> pos
