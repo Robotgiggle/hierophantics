@@ -1,5 +1,11 @@
 # Hierophantics
 
+## 1.3.4
+- The Imbuement Bed now outputs a comparator signal depending on what's currently lying on it (15 for player, 7 for villager, 0 otherwise)
+- Trying to merge a villager into itself will now do nothing and trigger a new hidden advancement, rather than simultaneously upgrading and flaying it
+- Reworked the internal registration system to use a HexDummy-style registrar, this should hopefully resolve load-order issues when depending on the mod in a dev environment
+- Published the mod to the Hexxy Maven (https://maven.hexxy.media/)
+
 ## 1.3.3
 - Added a new pattern to invert the direction of threshold-based triggers (for example, 'When velocity exceeds X' will become 'When velocity drops below X')
 - Side effects from embedded minds are now documented
