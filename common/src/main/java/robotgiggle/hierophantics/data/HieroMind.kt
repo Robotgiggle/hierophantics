@@ -49,22 +49,8 @@ class HieroMind(var hex: NbtCompound, var trigger: Trigger, var muted: Boolean) 
 	companion object {
 		fun deserialize(compound: NbtCompound) = HieroMind(
 			compound.getCompound("hex"), 
-			triggerDatafixer(compound),
+			Trigger.deserialize(compound.getCompound("trigger")),
 			compound.getBoolean("muted")
 		)
-
-		// pre-1.3.3 hierominds have a different nbt structure so this is needed for now
-		fun triggerDatafixer(compound: NbtCompound): Trigger {
-			if (compound.getString("trigger") != "") {
-				return Trigger(
-					compound.getString("trigger"),
-					compound.getDouble("triggerThreshold"), 
-					compound.getString("triggerDmgType"),
-					false
-				)
-			} else {
-				return Trigger.deserialize(compound.getCompound("trigger"))
-			}
-		}
 	}
 }
