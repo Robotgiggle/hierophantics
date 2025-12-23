@@ -22,6 +22,8 @@
 	"advancements.hierophantics.all_triggers.description": "Have an embedded mind with each possible trigger type",
 	"advancements.hierophantics.fuse_villagers.title": "Two Into One",
 	"advancements.hierophantics.fuse_villagers.description": "Embed a villager's mind into another villager",
+	"advancements.hierophantics.fuse_to_self.title": "Out-of-Body Experience",
+	"advancements.hierophantics.fuse_to_self.description": "Embed a villager's mind back into its own body - what were you expecting?",
 
 	"hierophantics.tooltip.mind_reference": "Embedded Mind \"%s\"",
 	"hierophantics.tooltip.trigger": "Trigger: When %s",

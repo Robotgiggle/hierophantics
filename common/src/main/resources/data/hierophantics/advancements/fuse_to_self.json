@@ -1,0 +1,25 @@
+{
+	"parent": "hierophantics:aaa_waste_mind",
+	"criteria": {
+		"fuse_to_self": {
+			"trigger": "hierophantics:fuse_to_self"
+		}
+	},
+	"display": {
+		"announce_to_chat": true,
+		"title": {
+			"translate": "advancements.hierophantics.fuse_to_self.title"
+		},
+		"description": {
+			"translate": "advancements.hierophantics.fuse_to_self.description"
+		},
+		"frame": "task",
+		"hidden": true,
+		"icon": {
+			"item": "minecraft:potion",
+			"nbt": "{Potion:\"minecraft:water\"}"
+		},
+		"show_toast": true
+	},
+	"requirements": [["fuse_to_self"]]
+}

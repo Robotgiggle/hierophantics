@@ -41,6 +41,7 @@ import robotgiggle.hierophantics.HierophanticsVillagers
 import robotgiggle.hierophantics.inits.HierophanticsEffects
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.inits.HierophanticsBlockEntities
+import robotgiggle.hierophantics.inits.BaseCriterion
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 
@@ -67,9 +68,18 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         }
     }
     
-    fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment) {
+    fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment): Boolean {
         if (state.get(BedBlock.OCCUPIED)) {
             val subject = getSleeper(world)
+
+            // make sure you aren't flaying something into itself
+            if (subject == sacrifice) {
+                triggerForNearestPlayer(HierophanticsAdvancements.FUSE_TO_SELF, world)
+                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
+                makeParticles(world, pigment, 60)
+                return false
+            }
+
             if (subject is ServerPlayerEntity && sacrifice is VillagerEntity) {
                 // villager -> player: give the player a new hieromind and trigger the advancement
                 val villagerName = sacrifice.getCustomName()?.getString()
@@ -110,8 +120,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 subject.setOffers(trades)
                 subject.setExperience(VillagerData.getLowerLevelExperience(newLevel));
 
-                val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 10.0, false)
-                nearestPlayer?.let{HierophanticsAdvancements.FUSE_VILLAGERS.trigger(it as ServerPlayerEntity)}
+                triggerForNearestPlayer(HierophanticsAdvancements.WASTE_MIND, world)
                 
                 world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
@@ -120,10 +129,10 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 makeParticles(world, dyeColor(DyeColor.GRAY), 80)
             }
         } else {
-            val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 10.0, false)
-            nearestPlayer?.let{HierophanticsAdvancements.WASTE_MIND.trigger(it as ServerPlayerEntity)}
+            triggerForNearestPlayer(HierophanticsAdvancements.WASTE_MIND, world)
             makeParticles(world, dyeColor(DyeColor.RED), 80)
         }
+        return true
     }
 
     fun getSleeper(world: World): Entity? {
@@ -175,6 +184,11 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 existingList.add(newOffer)
             }
         }
+    }
+
+    fun triggerForNearestPlayer(adv: BaseCriterion<*>, world: ServerWorld) {
+        val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 10.0, false)
+        nearestPlayer?.let{ adv.trigger(it as ServerPlayerEntity) }
     }
     
     fun dyeColor(color: DyeColor): FrozenPigment {

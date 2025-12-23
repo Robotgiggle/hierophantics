@@ -34,12 +34,13 @@ public class BrainsweepSpellMixin {
     @Shadow private MobEntity sacrifice;
     @Shadow private BrainsweepRecipe recipe;
 
-    @Inject(method = "cast", at = @At("HEAD"))
+    @Inject(method = "cast", at = @At("HEAD"), cancellable = true)
     private void activateFlayBed(CastingEnvironment env, CallbackInfo ci) {
         if (state.getBlock() instanceof FlayBedBlock && recipe.result().getBlock() instanceof FlayBedBlock) {
             BlockEntity bed = env.getWorld().getBlockEntity(pos);
             if (bed instanceof FlayBedBlockEntity flaybed) {
-                flaybed.activate(env.getWorld(), state, sacrifice, env.getPigment());
+                boolean allowFlay = flaybed.activate(env.getWorld(), state, sacrifice, env.getPigment());
+                if (!allowFlay) ci.cancel();
             }
         }
     }
