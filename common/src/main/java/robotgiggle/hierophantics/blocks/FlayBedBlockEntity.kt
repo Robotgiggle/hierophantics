@@ -54,6 +54,18 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         BedPart.HEAD -> pos
         BedPart.FOOT -> otherPartPos
     }
+    var comparatorOutput = 0
+
+    fun tick(world: World, pos: BlockPos, state: BlockState) {
+        if (comparatorOutput == 0 && state.get(BedBlock.OCCUPIED)) {
+            if (getSleeper(world) is PlayerEntity) comparatorOutput = 15
+            else if (getSleeper(world) is VillagerEntity) comparatorOutput = 7
+            world.updateComparators(pos, state.getBlock())
+        } else if (comparatorOutput > 0 && !state.get(BedBlock.OCCUPIED)) {
+            comparatorOutput = 0
+            world.updateComparators(pos, state.getBlock())
+        }
+    }
     
     fun activate(world: ServerWorld, state: BlockState, sacrifice: MobEntity, pigment: FrozenPigment) {
         if (state.get(BedBlock.OCCUPIED)) {
@@ -114,7 +126,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
         }
     }
 
-    fun getSleeper(world: ServerWorld): Entity? {
+    fun getSleeper(world: World): Entity? {
         val entities = world.getEntitiesByClass(Entity::class.java, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
         if (entities.isEmpty()) return null
         else return entities.get(0)

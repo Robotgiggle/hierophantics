@@ -59,6 +59,20 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
         entity.setVelocity(entity.getVelocity().multiply(1.0, 0.0, 1.0));
     }
 
+    override fun hasComparatorOutput(state: BlockState) = true
+
+    override fun getComparatorOutput(state: BlockState, world: World, pos: BlockPos): Int {
+        val be = world.getBlockEntity(pos)
+        if (be is FlayBedBlockEntity) {
+            return be.comparatorOutput
+        }
+        return 0
+    }
+
+    override fun <T : BlockEntity> getTicker(world: World, state: BlockState, type: BlockEntityType<T>): BlockEntityTicker<T> {
+        return BlockEntityTicker { _world, _pos, _state, blockEntity -> (blockEntity as FlayBedBlockEntity).tick(_world, _pos, _state) }
+    }
+
     // this is identical to BedBlock except it doesn't try to explode in other dims
     override fun onUse(blockState: BlockState, world: World, blockPos: BlockPos, playerEntity: PlayerEntity, hand: Hand, blockHitResult: BlockHitResult): ActionResult {
         if (world.isClient) return ActionResult.CONSUME;
