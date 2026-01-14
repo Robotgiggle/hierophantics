@@ -47,12 +47,12 @@ public class OpBrainsweepMixin {
                 Entity sleeper = flaybed.getSleeper(env.getWorld());
                 // when imbuing player, mishap if:
                 // - the sacrifice isn't a villager or an allay
-                // - the sacrifice is a villager but not a master
+                // - the sacrifice is a villager but not an apprentice
                 // - the sacrifice is a villager but the player has reached the mind cap
                 if (sleeper instanceof PlayerEntity pSleeper) {
                     if (sacrifice instanceof VillagerEntity vSacrifice) {
                         int maxMinds = HierophanticsConfig.getServer().getMaxMinds();
-                        if (vSacrifice.getVillagerData().getLevel() < 5) {
+                        if (vSacrifice.getVillagerData().getLevel() < 2) {
                             throw new MishapBadBrainsweep(sacrifice, pos);
                         } else if (HieroServerState.getPlayerState(pSleeper).getOwnedMinds() >= maxMinds) {
                             throw new MindsCappedMishap(pSleeper);
