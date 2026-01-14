@@ -2,7 +2,7 @@
 	"name": "hierophantics.page.villager_enhancement.title",
 	"icon": "hierophantics:edified_workstation",
 	"category": "hexcasting:greatwork",
-	"sortnum": 32,
+	"sortnum": 31,
 	"advancement": "hexcasting:enlightenment",
     "entry_color": "54398a",
 	"pages": [

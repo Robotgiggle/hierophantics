@@ -1,0 +1,24 @@
+{
+	"name": "hierophantics.page.imbuement_bed.title.0",
+	"icon": "hierophantics:flay_bed",
+	"category": "hexcasting:items",
+	"sortnum": 12,
+	"advancement": "hexcasting:enlightenment",
+    "entry_color": "54398a",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "hierophantics.page.imbuement_bed.0"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "hierophantics:flay_bed",
+			"text": "hierophantics.page.imbuement_bed.craft"
+		},
+		{
+			"type": "patchouli:text",
+            "title": "hierophantics.page.imbuement_bed.title.1",
+			"text": "hierophantics.page.imbuement_bed.1"
+		}
+	]
+}

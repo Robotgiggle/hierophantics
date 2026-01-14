@@ -19,9 +19,9 @@
 			"text": "hierophantics.page.hierophantics.2"
 		},
 		{
-			"type": "patchouli:crafting",
-			"recipe": "hierophantics:flay_bed",
-			"text": "hierophantics.page.hierophantics.craft"
+			"type": "patchouli:spotlight",
+			"item": "hierophantics:flay_bed",
+			"text": "hierophantics.page.hierophantics.bed"
 		},
         {
             "type": "hexcasting:brainsweep",

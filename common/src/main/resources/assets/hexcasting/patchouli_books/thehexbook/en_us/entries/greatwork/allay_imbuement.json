@@ -2,7 +2,7 @@
     "name": "hierophantics.page.allay_imbuement.title",
 	"icon": "hierophantics:textures/mob_effect/media_discount.png",
 	"category": "hexcasting:greatwork",
-	"sortnum": 31,
+	"sortnum": 32,
 	"advancement": "hexcasting:enlightenment",
     "entry_color": "54398a",
     "pages": [
