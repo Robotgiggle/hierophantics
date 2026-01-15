@@ -16,8 +16,10 @@ import robotgiggle.hierophantics.inits.HierophanticsConfig.GlobalConfig
 import me.shedaniel.autoconfig.AutoConfig
 
 object HierophanticsClient {
-    @JvmStatic
+    @JvmField
     var clientOwnedMinds = 0;
+
+    var scalingTimestamp = 0L;
     
     fun init() {
         HierophanticsConfig.initClient()
@@ -25,6 +27,18 @@ object HierophanticsClient {
 
     fun getConfigScreen(parent: Screen): Screen {
         return AutoConfig.getConfigScreen(GlobalConfig::class.java, parent).get()
+    }
+
+    @JvmStatic
+    fun setHallucinationScaling(strength: Double) {
+        scalingTimestamp = ClientTickCounter.ticksInGame + (2000*strength).toInt()
+    }
+
+    @JvmStatic
+    fun getHallucinationScaling(): Double {
+        // when the timestamp is in the future, hallucination rate is increased
+        // as the current time approaches the timestamp, the rate scales back down
+        return Math.max((scalingTimestamp - ClientTickCounter.ticksInGame)/2000.0, 0.4)
     }
 
     @JvmStatic
@@ -36,7 +50,10 @@ object HierophanticsClient {
         val rng = Math.abs((hash + timeScramble * (150 + (hash % 300))) % 10000);
 
         // hallucinate emeralds due to embedded minds
-        val emeraldChance = Math.min(config.baseEmeraldRate * clientOwnedMinds, config.maxEmeraldRate);
+        val emeraldChance = Math.min(
+            config.baseEmeraldRate * clientOwnedMinds * getHallucinationScaling(), 
+            config.maxEmeraldRate
+        );
         if (rng < emeraldChance * 10000) {
             if (original.getItem() is BlockItem)
                 return ItemStack(Items.EMERALD_BLOCK, original.getCount());

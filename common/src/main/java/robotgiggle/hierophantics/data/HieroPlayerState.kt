@@ -7,7 +7,6 @@ import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.api.utils.vecFromNBT
 import at.petrak.hexcasting.api.casting.iota.Iota
 import robotgiggle.hierophantics.Hierophantics
-import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtList

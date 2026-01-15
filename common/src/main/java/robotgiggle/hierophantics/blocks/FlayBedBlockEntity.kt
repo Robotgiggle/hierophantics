@@ -44,6 +44,7 @@ import robotgiggle.hierophantics.inits.HierophanticsBlockEntities
 import robotgiggle.hierophantics.inits.BaseCriterion
 import robotgiggle.hierophantics.blocks.FlayBedBlock
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
+import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C
 
 import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.pigment.FrozenPigment
@@ -85,6 +86,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 val villagerName = sacrifice.getCustomName()?.getString()
                 val newTotal = HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
                 MsgOwnedMindsS2C(newTotal).sendToPlayer(subject)
+                MsgHallucinationTriggerS2C(4.0).sendToPlayer(subject)
                 
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
                 

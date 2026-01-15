@@ -12,6 +12,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import robotgiggle.hierophantics.iotas.MishapThrowerIota
 import robotgiggle.hierophantics.iotas.TriggerIota.Trigger
+import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Hand
@@ -43,6 +44,7 @@ class HieroMind(var hex: NbtCompound, var trigger: Trigger, var muted: Boolean) 
 				val sound = if (ecv.resolutionType.success) HierophanticsSounds.HIEROMIND_CAST.value else HexSounds.CAST_FAILURE
 				player.getWorld().playSound(null, pos.x, pos.y, pos.z, sound, SoundCategory.PLAYERS, 1f, 1f)
 			}
+			MsgHallucinationTriggerS2C(2.8).sendToPlayer(player)
 		}	
 	}
 

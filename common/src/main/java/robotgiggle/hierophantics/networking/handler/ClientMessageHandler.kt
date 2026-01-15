@@ -14,6 +14,9 @@ fun HierophanticsMessageS2C.applyOnClient(ctx: PacketContext) = ctx.queue {
         is MsgOwnedMindsS2C -> {
             HierophanticsClient.clientOwnedMinds = ownedMinds
         }
-        // add more client-side message handlers here
+
+        is MsgHallucinationTriggerS2C -> {
+            HierophanticsClient.setHallucinationScaling(strength)
+        }
     }
 }

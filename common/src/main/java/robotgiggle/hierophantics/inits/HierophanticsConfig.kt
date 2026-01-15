@@ -85,7 +85,7 @@ object HierophanticsConfig {
 
         class AudioHallucinations {
             @Tooltip
-            val baseVillagerRate: Double = 0.00006
+            val baseVillagerRate: Double = 0.0002
             @Tooltip
             val maxVillagerRate: Double = 0.004
             @Tooltip

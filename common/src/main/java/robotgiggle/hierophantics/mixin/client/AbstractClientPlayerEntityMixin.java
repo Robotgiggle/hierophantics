@@ -35,7 +35,7 @@ public class AbstractClientPlayerEntityMixin {
 
         // hallucinate villager nosies due to embedded minds
         double villagerChance = Math.min(
-            config.getBaseVillagerRate() * HierophanticsClient.getClientOwnedMinds(),
+            config.getBaseVillagerRate() * HierophanticsClient.clientOwnedMinds * HierophanticsClient.getHallucinationScaling(),
             config.getMaxVillagerRate()
         );
         if (rand.nextDouble() < villagerChance) {

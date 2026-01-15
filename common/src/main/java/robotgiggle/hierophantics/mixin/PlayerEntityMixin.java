@@ -72,7 +72,7 @@ public class PlayerEntityMixin {
         if (ci.getReturnValue() == SoundEvents.ENTITY_PLAYER_HURT) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             int minds = 0;
-            if (player.getWorld().isClient()) minds = HierophanticsClient.getClientOwnedMinds();
+            if (player.getWorld().isClient()) minds = HierophanticsClient.clientOwnedMinds;
             else minds = HieroServerState.getPlayerState(player).getOwnedMinds();
             if (player.getRandom().nextDouble() < 0.3 - 1.0/(minds + 3)) {
                 ci.setReturnValue(SoundEvents.ENTITY_VILLAGER_HURT);
