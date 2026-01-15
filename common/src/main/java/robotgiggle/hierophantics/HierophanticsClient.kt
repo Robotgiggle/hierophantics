@@ -20,6 +20,19 @@ object HierophanticsClient {
     var clientOwnedMinds = 0;
 
     var scalingTimestamp = 0L;
+
+    // item categories for hallucinations
+    val fish = listOf(
+        Items.COD, Items.SALMON, Items.PUFFERFISH, Items.TROPICAL_FISH
+    )
+    val mediaItems = listOf(
+        HexItems.AMETHYST_DUST, Items.AMETHYST_SHARD,
+        HexItems.CHARGED_AMETHYST, HexItems.QUENCHED_SHARD
+    );
+    val mediaBlocks = listOf(
+        Items.AMETHYST_BLOCK, Items.BUDDING_AMETHYST,
+        HexBlocks.QUENCHED_ALLAY.asItem()
+    );
     
     fun init() {
         HierophanticsConfig.initClient()
@@ -45,6 +58,7 @@ object HierophanticsClient {
     fun hallucinateItem(original: ItemStack): ItemStack {
         val config = HierophanticsConfig.client.itemHallucinations;
 
+        // hallucination rng is based on the item's hashcode and the current game time
         val hash = original.hashCode();
         val timeScramble = (ClientTickCounter.ticksInGame/(180 + (hash % 40))).toInt();
         val rng = Math.abs((hash + timeScramble * (150 + (hash % 300))) % 10000);
@@ -55,7 +69,9 @@ object HierophanticsClient {
             config.maxEmeraldRate
         );
         if (rng < emeraldChance * 10000) {
-            if (original.getItem() is BlockItem)
+            if (Hierophantics.isAprilFools())
+                return ItemStack(fish.get(rng % 4), original.getCount());
+            else if (original.getItem() is BlockItem)
                 return ItemStack(Items.EMERALD_BLOCK, original.getCount());
             else
                 return ItemStack(Items.EMERALD, original.getCount());
@@ -64,20 +80,14 @@ object HierophanticsClient {
         // hallucinate media items due to Manifold Mind
         if (MinecraftClient.getInstance().player!!.hasStatusEffect((HierophanticsEffects.MEDIA_DISCOUNT.value)) ) {
             if (rng > (1 - config.mediaRate) * 10000) {
-                var items = listOf(
-                    HexItems.AMETHYST_DUST, Items.AMETHYST_SHARD,
-                    HexItems.CHARGED_AMETHYST, HexItems.QUENCHED_SHARD
-                );
-                var blocks = listOf(
-                    Items.AMETHYST_BLOCK, Items.BUDDING_AMETHYST,
-                    HexBlocks.QUENCHED_ALLAY.asItem()
-                );
-                if (original.getItem() is BlockItem)
-                    return ItemStack(blocks.get(rng % 3), original.getCount());
+                if (Hierophantics.isAprilFools())
+                    return ItemStack(fish.get(rng % 4), original.getCount());
+                else if (original.getItem() is BlockItem)
+                    return ItemStack(mediaBlocks.get(rng % 3), original.getCount());
                 else if (original.getItem() is ToolItem || original.getItem() is ItemStaff)
                     return ItemStack(HexItems.STAFF_QUENCHED, original.getCount());
                 else
-                    return ItemStack(items.get(rng % 4), original.getCount());
+                    return ItemStack(mediaItems.get(rng % 4), original.getCount());
             }
         }
 

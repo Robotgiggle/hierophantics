@@ -40,7 +40,11 @@ public class AbstractClientPlayerEntityMixin {
         );
         if (rand.nextDouble() < villagerChance) {
             Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3.5, rand).add(cPlayer.getPos());
-            cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.PLAYERS, 0.5f, 1f, true);
+            if (Hierophantics.isAprilFools()) {
+                cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_SALMON_FLOP, SoundCategory.PLAYERS, 0.8f, 1f, true);
+            } else {
+                cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.PLAYERS, 0.5f, 1f, true);
+            }
             hallucinationCooldown = config.getCooldown();
             return;
         } 
@@ -48,7 +52,9 @@ public class AbstractClientPlayerEntityMixin {
         // hallucinate allay nosies and amethyst chimes due to Manifold Mind
         if (rand.nextDouble() < config.getAllayRate() && cPlayer.hasStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.getValue())) {
             Vec3d source = randomSpherePoint((rand.nextDouble() * 2.5) + 3, rand).add(cPlayer.getPos());
-            if (rand.nextDouble() < 0.5) {
+            if (Hierophantics.isAprilFools()) {
+                cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_SALMON_FLOP, SoundCategory.PLAYERS, 0.8f, 1f, true);
+            } else if (rand.nextDouble() < 0.5) {
                 cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1f, (0.5f + rand.nextFloat() * 1.2F), true);
             } else {
                 cPlayer.clientWorld.playSound(source.x, source.y, source.z, SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM, SoundCategory.PLAYERS, 0.3f, 1f, true);

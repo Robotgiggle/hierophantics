@@ -23,6 +23,7 @@ import at.petrak.hexcasting.common.lib.HexAttributes
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.Iota
+import java.time.LocalDate
 
 object Hierophantics {
     const val MOD_ID = "hierophantics"
@@ -41,6 +42,12 @@ object Hierophantics {
 
     @JvmStatic
 	fun id(string: String) = Identifier(MOD_ID, string)
+
+    @JvmStatic
+    fun isAprilFools(): Boolean {
+        val today = LocalDate.now()
+        return (today.monthValue == 4 && today.dayOfMonth == 1)
+    }
 
     fun init() {
         HierophanticsAdvancements.init()

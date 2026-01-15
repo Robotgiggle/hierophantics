@@ -12,7 +12,6 @@ import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.inits.HierophanticsConfig;
 import robotgiggle.hierophantics.HierophanticsClient;
-
 import robotgiggle.hierophantics.Hierophantics;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -75,7 +74,11 @@ public class PlayerEntityMixin {
             if (player.getWorld().isClient()) minds = HierophanticsClient.clientOwnedMinds;
             else minds = HieroServerState.getPlayerState(player).getOwnedMinds();
             if (player.getRandom().nextDouble() < 0.3 - 1.0/(minds + 3)) {
-                ci.setReturnValue(SoundEvents.ENTITY_VILLAGER_HURT);
+                if (Hierophantics.isAprilFools()) {
+                    ci.setReturnValue(SoundEvents.ENTITY_SALMON_HURT);
+                } else {
+                    ci.setReturnValue(SoundEvents.ENTITY_VILLAGER_HURT);
+                }
             }
         }
     }
