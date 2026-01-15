@@ -36,6 +36,9 @@ object Hierophantics {
     @JvmField
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
+    @JvmField
+    var lastAction: Identifier = Identifier("hexcasting", "get_caster")
+
     @JvmStatic
 	fun id(string: String) = Identifier(MOD_ID, string)
 

@@ -191,5 +191,7 @@
 	"text.autoconfig.hierophantics.option.server.playerSleepSpell": "Induce Exhaustion works on imbued players",
 	"text.autoconfig.hierophantics.option.server.playerSleepSpell.@Tooltip": "When enabled, Induce Exhaustion can target players with at least one embedded mind",
 	"text.autoconfig.hierophantics.option.server.earlyDamageTriggers": "Damage triggers activate before damage is applied",
-	"text.autoconfig.hierophantics.option.server.earlyDamageTriggers.@Tooltip": "Allows minds to cancel incoming damage with absorption, which some might consider overpowered"
+	"text.autoconfig.hierophantics.option.server.earlyDamageTriggers.@Tooltip": "Allows minds to cancel incoming damage with absorption, which some might consider overpowered",
+	"text.autoconfig.hierophantics.option.server.discountBlacklist": "Media discount blacklist",
+	"text.autoconfig.hierophantics.option.server.discountBlacklist.@Tooltip": "Actions that should not be affected by the media discount from Manifold Mind"
 }
