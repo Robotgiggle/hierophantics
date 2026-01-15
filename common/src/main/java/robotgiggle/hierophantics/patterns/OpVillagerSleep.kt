@@ -50,7 +50,7 @@ class OpVillagerSleep : SpellAction {
                 val now = (env.getWorld().getTimeOfDay() % 24000).toInt()
                 val forcedSleepSched = ScheduleBuilder(Schedule())
                     .withActivity(now, Activity.REST)
-                    .withActivity(now + 300, Activity.IDLE)
+                    .withActivity(now + 600, Activity.IDLE)
                     .build()
                 target.brain.setSchedule(forcedSleepSched)
                 (target as VillagerEntityMinterface).setForcedSleepStatus(if (target.isBaby()) 2 else 1)

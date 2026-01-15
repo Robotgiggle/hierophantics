@@ -10,6 +10,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
+import robotgiggle.hierophantics.inits.HierophanticsConfig;
 import robotgiggle.hierophantics.HierophanticsClient;
 
 import robotgiggle.hierophantics.Hierophantics;
@@ -31,9 +32,22 @@ import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
+    @Inject(method = "applyDamage", at = @At("HEAD"))
+	private void fireTriggersBeforeDamage(DamageSource source, float amount, CallbackInfo ci) {
+		if (HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
+            fireDamageTriggers(source, amount);
+        }
+	}
+    
     @Inject(method = "applyDamage", at = @At("TAIL"))
-	private void fireDamageTriggers(DamageSource source, float amount, CallbackInfo ci) {
-		PlayerEntity player = (PlayerEntity) (Object) this;
+	private void fireTriggersAfterDamage(DamageSource source, float amount, CallbackInfo ci) {
+		if (!HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
+            fireDamageTriggers(source, amount);
+        }
+	}
+
+    private void fireDamageTriggers(DamageSource source, float amount) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getWorld().isClient || player.isInvulnerableTo(source))
             return;
         String dmgType = source.getName();
@@ -43,7 +57,7 @@ public class PlayerEntityMixin {
                 HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
             HieroServerState.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
         }
-	}
+    }
 
     @Inject(method = "jump", at = @At("TAIL"))
 	private void fireJumpTriggers(CallbackInfo ci) {

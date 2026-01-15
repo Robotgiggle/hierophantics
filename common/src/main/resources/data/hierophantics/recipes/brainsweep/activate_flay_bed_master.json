@@ -7,7 +7,7 @@
   "cost": 1000000,
   "entityIn": {
     "type": "villager",
-    "minLevel": 5
+    "minLevel": 2
   },
   "result": {
     "name": "hierophantics:flay_bed"

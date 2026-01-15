@@ -104,11 +104,31 @@ object HierophanticsConfig {
         @Tooltip
         var playerSleepSpell: Boolean = true
             private set
+        @Tooltip
+        var earlyDamageTriggers: Boolean = false
+            private set
+        @Tooltip
+        var discountBlacklist: MutableList<String> = mutableListOf(
+            "hexal:wisp/summon/projectile",
+            "hexal:wisp/summon/ticking",
+            "hexical:conjure_gummy",
+            "hexical:charm",
+            "hexical:recharge_lamp",
+            "lapisworks:imbue_lap",
+            "yaha:time_bomb"
+        )
+            private set
 
         fun encode(buf: PacketByteBuf) {
             buf.writeInt(maxMinds)
             buf.writeDouble(mediaDiscount)
             buf.writeBoolean(playerSleepSpell)
+            buf.writeBoolean(earlyDamageTriggers)
+
+            buf.writeInt(discountBlacklist.size)
+            for (item in discountBlacklist) {
+                buf.writeString(item)
+            }
         }
 
         companion object {
@@ -116,6 +136,12 @@ object HierophanticsConfig {
                 maxMinds = buf.readInt()
                 mediaDiscount = buf.readDouble()
                 playerSleepSpell = buf.readBoolean()
+                earlyDamageTriggers = buf.readBoolean()
+
+                discountBlacklist = mutableListOf()
+                for (i in 1..buf.readInt()) {
+                    discountBlacklist.add(buf.readString())
+                }
             }
         }
     }
