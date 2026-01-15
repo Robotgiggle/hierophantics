@@ -189,5 +189,7 @@
 	"text.autoconfig.hierophantics.option.server.maxMinds": "Maximum embedded minds per player",
 	"text.autoconfig.hierophantics.option.server.mediaDiscount": "Casting cost multiplier for Manifold Mind",
 	"text.autoconfig.hierophantics.option.server.playerSleepSpell": "Induce Exhaustion works on imbued players",
-	"text.autoconfig.hierophantics.option.server.playerSleepSpell.@Tooltip": "When enabled, Induce Exhaustion can target players with at least one embedded mind"
+	"text.autoconfig.hierophantics.option.server.playerSleepSpell.@Tooltip": "When enabled, Induce Exhaustion can target players with at least one embedded mind",
+	"text.autoconfig.hierophantics.option.server.earlyDamageTriggers": "Damage triggers activate before damage is applied",
+	"text.autoconfig.hierophantics.option.server.earlyDamageTriggers.@Tooltip": "Allows minds to cancel incoming damage with absorption, which some might consider overpowered"
 }

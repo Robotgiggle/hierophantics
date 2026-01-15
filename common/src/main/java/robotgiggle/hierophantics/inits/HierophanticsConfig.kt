@@ -104,11 +104,15 @@ object HierophanticsConfig {
         @Tooltip
         var playerSleepSpell: Boolean = true
             private set
+        @Tooltip
+        var earlyDamageTriggers: Boolean = false
+            private set
 
         fun encode(buf: PacketByteBuf) {
             buf.writeInt(maxMinds)
             buf.writeDouble(mediaDiscount)
             buf.writeBoolean(playerSleepSpell)
+            buf.writeBoolean(earlyDamageTriggers)
         }
 
         companion object {
@@ -116,6 +120,7 @@ object HierophanticsConfig {
                 maxMinds = buf.readInt()
                 mediaDiscount = buf.readDouble()
                 playerSleepSpell = buf.readBoolean()
+                earlyDamageTriggers = buf.readBoolean()
             }
         }
     }
