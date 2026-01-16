@@ -1,5 +1,14 @@
 # Hierophantics
 
+## 1.3.5
+- Reworked embedded mind side effects: the base rate has been significantly reduced, but it will increase sharply for a short duration after adding a new mind or triggering an existing one
+- Added a config blacklist for patterns that should not be affected by the media discount from Manifold Mind
+- Added a config toggle to control whether damage-triggered minds cast their hex before or after the damage is applied (default is after; before allows behavior some might consider overpowered)
+- Creating an embedded mind now requires only an Apprentice villager rather than a Master
+- The effect of Induce Exhaustion on villagers now lasts twice as long
+- The comparator behavior added in 1.3.4 is now documented
+- Updated zh_cn translations (thanks ChuijkYahus!)
+
 ## 1.3.4
 - The Imbuement Bed now outputs a comparator signal depending on what's currently lying on it (15 for player, 7 for villager, 0 otherwise)
 - Trying to merge a villager into itself will now do nothing and trigger a new hidden advancement, rather than simultaneously upgrading and flaying it
