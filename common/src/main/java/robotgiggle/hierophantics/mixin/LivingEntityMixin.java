@@ -5,7 +5,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import robotgiggle.hierophantics.data.HieroServerState;
-import robotgiggle.hierophantics.Hierophantics;
 import robotgiggle.hierophantics.inits.HierophanticsEffects;
 
 import org.spongepowered.asm.mixin.Mixin;

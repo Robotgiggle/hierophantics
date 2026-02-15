@@ -1,13 +1,12 @@
 package robotgiggle.hierophantics.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.block.Block;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import org.spongepowered.asm.mixin.Unique;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.inits.HierophanticsConfig;
@@ -15,7 +14,6 @@ import robotgiggle.hierophantics.HierophanticsClient;
 import robotgiggle.hierophantics.Hierophantics;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,33 +22,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import at.petrak.hexcasting.common.lib.HexDamageTypes;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
-
-import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
     @Inject(method = "applyDamage", at = @At("HEAD"))
 	private void fireTriggersBeforeDamage(DamageSource source, float amount, CallbackInfo ci) {
 		if (HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
-            fireDamageTriggers(source, amount);
+            hierophantics$fireDamageTriggers(source, amount);
         }
 	}
     
     @Inject(method = "applyDamage", at = @At("TAIL"))
 	private void fireTriggersAfterDamage(DamageSource source, float amount, CallbackInfo ci) {
 		if (!HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
-            fireDamageTriggers(source, amount);
+            hierophantics$fireDamageTriggers(source, amount);
         }
 	}
 
-    private void fireDamageTriggers(DamageSource source, float amount) {
+    @Unique
+    private void hierophantics$fireDamageTriggers(DamageSource source, float amount) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getWorld().isClient || player.isInvulnerableTo(source))
             return;
         String dmgType = source.getName();
-        var initialIota = new DoubleIota((double)amount);
+        var initialIota = new DoubleIota(amount);
         if (!dmgType.equals("genericKill")) {
             if (!dmgType.equals("hexcasting.overcast"))
                 HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
@@ -70,7 +66,7 @@ public class PlayerEntityMixin {
     private void playVillagerHurtNoise(CallbackInfoReturnable<SoundEvent> ci) {
         if (ci.getReturnValue() == SoundEvents.ENTITY_PLAYER_HURT) {
             PlayerEntity player = (PlayerEntity) (Object) this;
-            int minds = 0;
+            int minds;
             if (player.getWorld().isClient()) minds = HierophanticsClient.clientOwnedMinds;
             else minds = HieroServerState.getPlayerState(player).getOwnedMinds();
             if (player.getRandom().nextDouble() < 0.3 - 1.0/(minds + 3)) {

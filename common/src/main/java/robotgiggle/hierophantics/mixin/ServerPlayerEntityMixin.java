@@ -1,30 +1,18 @@
 package robotgiggle.hierophantics.mixin;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.HorizontalFacingBlock;
+import org.spongepowered.asm.mixin.Unique;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
-
-import java.util.List;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,7 +38,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci, @Local ItemEntity droppedEntity) {
         if (!throwRandomly && retainOwnership) {
 			ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-			HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "drop", new EntityIota(droppedEntity));
+			HieroServerState.getPlayerState(player).triggerMinds(player, "drop", new EntityIota(droppedEntity));
 		}
     }
 	
@@ -72,30 +60,31 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
 	@Inject(method = "worldChanged", at = @At("HEAD"))
 	private void skipTeleTriggerWhenChangingDims(CallbackInfo ci) {
-		skipTeleTrigger();
+		hierophantics$skipTeleTrigger();
 	}
 
 	@Inject(method = "startRiding", at = @At("RETURN"))
 	private void skipTeleTriggerWhenMountingEntity(CallbackInfoReturnable<Boolean> ci) {
-		if (ci.getReturnValue()) skipTeleTrigger();
+		if (ci.getReturnValue()) hierophantics$skipTeleTrigger();
 	}
 
 	@Inject(method = "stopRiding", at = @At("HEAD"))
 	private void skipTeleTriggerWhenDismountingEntity(CallbackInfo ci) {
-		skipTeleTrigger();
+		hierophantics$skipTeleTrigger();
 	}
 
 	@Inject(method = "sleep", at = @At("HEAD"))
 	private void skipTeleTriggerWhenGettingIntoBed(CallbackInfo ci) {
-		skipTeleTrigger();
+		hierophantics$skipTeleTrigger();
 	}
 
 	@Inject(method = "wakeUp", at = @At("HEAD"))
 	private void skipTeleTriggerWhenGettingOutOfBed(CallbackInfo ci) {
-		skipTeleTrigger();
+		hierophantics$skipTeleTrigger();
 	}
 
-	private void skipTeleTrigger() {
+	@Unique
+    private void hierophantics$skipTeleTrigger() {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(5);
@@ -106,7 +95,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 		Block block = player.getWorld().getBlockState(blockPos).getBlock();
 		if (block instanceof FlayBedBlock) {
-			ci.setReturnValue(trimmedTrySleep(player, blockPos));
+			ci.setReturnValue(hierophantics$trimmedTrySleep(player, blockPos));
 		}
 	}
 
@@ -116,7 +105,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Shadow
 	private boolean isBedObstructed(BlockPos blockPos, Direction direction) { return false; }
 
-	private Either<PlayerEntity.SleepFailureReason, Unit> trimmedTrySleep(ServerPlayerEntity player, BlockPos blockPos) {
+	@Unique
+    private Either<PlayerEntity.SleepFailureReason, Unit> hierophantics$trimmedTrySleep(ServerPlayerEntity player, BlockPos blockPos) {
         Direction direction = player.getWorld().getBlockState(blockPos).get(HorizontalFacingBlock.FACING);
         if (player.isSleeping() || !player.isAlive()) {
             return Either.left(PlayerEntity.SleepFailureReason.OTHER_PROBLEM);

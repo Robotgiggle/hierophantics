@@ -1,7 +1,6 @@
 package robotgiggle.hierophantics.mixin;
 
 import net.minecraft.util.Identifier;
-import net.minecraft.entity.LivingEntity;
 import at.petrak.hexcasting.api.casting.PatternShapeMatch;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv;

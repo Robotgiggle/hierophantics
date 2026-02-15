@@ -6,6 +6,7 @@ import net.minecraft.registry.entry.RegistryEntry.Reference;
 import net.minecraft.village.VillagerProfession;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,7 +26,7 @@ public class ZombieVillagerEntityMixin {
             Optional<Reference<VillagerProfession>> newProfOpt;
             do {
                 newProfOpt = Registries.VILLAGER_PROFESSION.getRandom(entity.getRandom());
-            } while (isQuiltmind(newProfOpt));
+            } while (hierophantics$isQuiltmind(newProfOpt));
             newProfOpt.ifPresentOrElse(
                 newProf -> entity.setVillagerData(entity.getVillagerData().withProfession(newProf.value())),
                 () -> entity.setVillagerData(entity.getVillagerData().withProfession(VillagerProfession.NONE))
@@ -33,7 +34,8 @@ public class ZombieVillagerEntityMixin {
         }
     }
 
-    private boolean isQuiltmind(Optional<Reference<VillagerProfession>> optionalProf) {
+    @Unique
+    private boolean hierophantics$isQuiltmind(Optional<Reference<VillagerProfession>> optionalProf) {
         if (optionalProf.isPresent()) {
             return optionalProf.get().value().id().equals("quiltmind");
         } else {

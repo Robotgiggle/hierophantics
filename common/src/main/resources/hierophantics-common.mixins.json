@@ -21,7 +21,7 @@
     "PlayerEntityMixin",
     "ReferenceRegistryEntryMixin",
     "ServerPlayerEntityMixin",
-		"VillagerEntityMixin",
+    "VillagerEntityMixin",
     "ZombieVillagerEntityMixin",
     "accessor.PlayerEntityAccessor"
   ],

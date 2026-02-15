@@ -1,7 +1,6 @@
 package robotgiggle.hierophantics.mixin;
 
 import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.server.world.ServerWorld;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
@@ -12,23 +11,22 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(VillagerEntity.class)
 public class VillagerEntityMixin implements VillagerEntityMinterface {
     @Unique
-    int forcedSleepStatus = 0;
+    int hierophantics$forcedSleepStatus = 0;
 
     @Override
-    public void setForcedSleepStatus(int value) {
-        forcedSleepStatus = value;
+    public void hierophantics$setForcedSleepStatus(int value) {
+        hierophantics$forcedSleepStatus = value;
     }
     
     @Inject(method = "wakeUp", at = @At("HEAD"))
     private void fixScheduleAfterForcedSleep(CallbackInfo ci) {
-        if (forcedSleepStatus > 0) {
+        if (hierophantics$forcedSleepStatus > 0) {
             VillagerEntity villager = (VillagerEntity) (Object) this;
-            villager.getBrain().setSchedule(forcedSleepStatus == 1 ? Schedule.VILLAGER_DEFAULT : Schedule.VILLAGER_BABY);
+            villager.getBrain().setSchedule(hierophantics$forcedSleepStatus == 1 ? Schedule.VILLAGER_DEFAULT : Schedule.VILLAGER_BABY);
         }
     }
 

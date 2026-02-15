@@ -4,10 +4,8 @@ import at.petrak.hexcasting.api.casting.RenderedSpell
 import at.petrak.hexcasting.api.casting.castables.SpellAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.getLivingEntityButNotArmorStand
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadEntity
-import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.misc.MediaConstants
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -17,7 +15,6 @@ import net.minecraft.entity.ai.brain.Schedule
 import net.minecraft.entity.ai.brain.ScheduleBuilder
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.text.Text
-import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsConfig
 import robotgiggle.hierophantics.inits.HierophanticsEffects
@@ -53,7 +50,7 @@ object OpVillagerSleep : SpellAction {
                     .withActivity(now + 600, Activity.IDLE)
                     .build()
                 target.brain.setSchedule(forcedSleepSched)
-                (target as VillagerEntityMinterface).setForcedSleepStatus(if (target.isBaby()) 2 else 1)
+                (target as VillagerEntityMinterface).`hierophantics$setForcedSleepStatus`(if (target.isBaby()) 2 else 1)
             } else if (target is PlayerEntity) {
                 if (env.getWorld().isNight) {
                     target.sleep(target.getBlockPos())
