@@ -12,7 +12,7 @@ import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
-class OpGetMindHex : ConstMediaAction {
+object OpGetMindHex : ConstMediaAction {
     override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val mindRef = args.getMindReference(0, argc)

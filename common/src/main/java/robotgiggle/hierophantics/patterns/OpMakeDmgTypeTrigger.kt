@@ -11,7 +11,7 @@ import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.MindReferenceIota
 import net.minecraft.server.network.ServerPlayerEntity
 
-class OpMakeDmgTypeTrigger() : ConstMediaAction {
+object OpMakeDmgTypeTrigger : ConstMediaAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val caster = env.castingEntity

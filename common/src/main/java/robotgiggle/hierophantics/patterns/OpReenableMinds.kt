@@ -14,7 +14,7 @@ import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.mishaps.NotYourMindMishap
 import net.minecraft.server.network.ServerPlayerEntity
 
-class OpReenableMinds : SpellAction {
+object OpReenableMinds : SpellAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
 		val caster = env.castingEntity

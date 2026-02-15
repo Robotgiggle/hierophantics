@@ -9,7 +9,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.getTrigger
 
-class OpInvertTrigger() : ConstMediaAction {
+object OpInvertTrigger : ConstMediaAction {
 	override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val oldTrigger = args.getTrigger(0, argc)

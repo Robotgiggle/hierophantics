@@ -15,7 +15,7 @@ import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity
 
-class OpFreeMind : SpellAction {
+object OpFreeMind : SpellAction {
     override val argc = 1
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
         val caster = env.castingEntity

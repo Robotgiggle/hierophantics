@@ -24,7 +24,7 @@ import robotgiggle.hierophantics.inits.HierophanticsEffects
 import robotgiggle.hierophantics.minterface.VillagerEntityMinterface
 import robotgiggle.hierophantics.mixin.accessor.PlayerEntityAccessor
 
-class OpVillagerSleep : SpellAction {
+object OpVillagerSleep : SpellAction {
     override val argc = 1
     override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
         val target = args.getLivingEntityButNotArmorStand(0, argc)
