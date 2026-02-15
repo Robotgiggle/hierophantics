@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+      <title>Hierophantics Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers." />
+      <meta name="author" content="Robotgiggle" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Hierophantics Book" />
+<meta property="og:image" content="https://robotgiggle.github.io/hierophantics/v/latest/main/ru_ru/icon.png" />
+<meta property="og:url" content="https://robotgiggle.github.io/hierophantics/v/latest/main/ru_ru" />
+<meta property="og:description" content="An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers." />
+<meta property="og:site_name" content="Hierophantics (latest/main)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">Hierophantics Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/Robotgiggle/hierophantics/tree/775c62e02f10e2f2e866e9b04990f2a112f7c017"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >latest/main <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Русский (Россия) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>Онлайн версия документации для Hierophantics.</p></h1>
+        <p>Эта страница собрана из последней версии кода на GitHub. Здесь могут описываться <strong>новые</strong> вещи, которые могут у вас и не быть, даже на последней версии с Modrinth/CurseForge!</p>
+      <p><strong>Размытие записи являются спойлерами</strong>. Нажмите на них, чтобы убрать размытие, но будьте осторожны - эти записи могут заспойлерить конечные стадии игры. В качестве альтернативы, нажмите <a href="?nospoiler">сюда</a>, чтобы открыть версию без размытия спойлеров.</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>Прошлое - это другая страна. Там всё иначе.</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    <span class="nobr">Содержание<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="Переключить все"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#items" class="toc-elem "><img
+      title="Талисман"
+      alt="Талисман"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/cad/0_focus_empty.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Предметы</a></summary>
+      <ul>
+          <li><a href="#items/imbuement_bed" class="toc-elem spoilered"><img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Ложе Внушения</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#greatwork" class="toc-elem spoilered"><img
+      title="Пластинка"
+      alt="Пластинка"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Великая работа</a></summary>
+      <ul>
+          <li><a href="#greatwork/hierophantics" class="toc-elem spoilered"><img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Иерофантика</a></li>
+          <li><a href="#greatwork/villager_enhancement" class="toc-elem spoilered"><img
+      title="Рабочая станция Просвещения"
+      alt="Рабочая станция Просвещения"
+      src="https://robotgiggle.github.io/hierophantics/v/latest/main/assets/hierophantics/textures/block/edified_workstation.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Улучшение Жителей</a></li>
+          <li><a href="#greatwork/allay_imbuement" class="toc-elem spoilered"><img
+      title="Гибридный разум"
+      alt="Гибридный разум"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/mob_effect/media_discount.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Внушение Тихони</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="Книжная полка"
+      alt="Книжная полка"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Руны</a></summary>
+      <ul>
+          <li><a href="#patterns/triggers" class="toc-elem spoilered"><img
+      title="Мишень"
+      alt="Мишень"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Активаторы Иерофанта</a></li>
+          <li><a href="#patterns/mind_handling" class="toc-elem spoilered"><img
+      title="Пузырёк опыта"
+      alt="Пузырёк опыта"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/experience_bottle.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Шаблоны Иерофанта</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/spells" class="toc-elem "><img
+      title="Чародейская книга"
+      alt="Чародейская книга"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Продвинутые Руны</a></summary>
+      <ul>
+          <li><a href="#patterns/spells/villager_sleep" class="toc-elem "><img
+      title="Жёлтая кровать"
+      alt="Жёлтая кровать"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAFVBMVEXCnWK4lF+vj1WfhE2WdEF+YjdnUCyo+21oAAAAcElEQVR42g3CARXDIAwFwM/DAAk1kGQCVoKDDQeAA+JfQnvvwAV4XyD9CSk5hMS8yYUxR6wTG+WLjKQ3hFtvQgwX/RCbI9aIWHOjJMWrgonMzTqSuqt6RcwRZ+xALqkiJ0DJ7WZWWONO5o6zz3+ciAdixhUFVj2uwQAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Наведённое Истощение</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="items">
+    <h2 class="category-title page-header">
+    <img
+      title="Талисман"
+      alt="Талисман"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/cad/0_focus_empty.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Предметы<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#items"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Я посвящаю этот раздел магическим и таинственным предметам, с которыми я могу столкнуться в ходе своих исследований.</p>
+<div id="items/imbuement_bed" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Ложе Внушения<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#items/imbuement_bed"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Вплетение одного разума в другой — тонкий процесс, который невозможно было бы выполнить над собой без внешней помощи.</p><p><span style="color: #b0b">Ложе Внушения</span> обеспечивает эту помощь, используя каркас пустого инециатора для осторожного направления входящих разумов и их внушения в существо, лежащее на нём.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Нажмите, чтобы показать рецепты</span>
+    <span class="collapse-recipe-hide">Нажмите, чтобы скрыть рецепты</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Ложе Внушения</h5>
+    <div class="crafting-table">
+        <img
+      title="Верстак"
+      alt="Верстак"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div></div>        <div></div>        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Пустая Скрижаль"
+      alt="Пустая Скрижаль"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Пустая Скрижаль"
+      alt="Пустая Скрижаль"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Пустой Инициатор"
+      alt="Пустой Инициатор"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/empty/dim_east.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Доски"
+      alt="Tag: Доски"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Доски Созидания"
+      alt="Доски Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Panel Созидания"
+      alt="Panel Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Плитка Созидания"
+      alt="Плитка Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Доски"
+      alt="Tag: Доски"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Доски Созидания"
+      alt="Доски Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Panel Созидания"
+      alt="Panel Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Плитка Созидания"
+      alt="Плитка Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Доски"
+      alt="Tag: Доски"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Доски Созидания"
+      alt="Доски Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Panel Созидания"
+      alt="Panel Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Плитка Созидания"
+      alt="Плитка Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Когда цель на ложе, новый разум можно поместить в любой из двух его блоков <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/brainsweeping">обычным способом</a>. Но нужно быть осторожным: если разум передан, когда ложе пусто, он будет растрачен впустую!</p>
+<br />
+  <h4>Интеграция с редстоуном</h4>
+    <p>Для автоматизации <span style="color: #b0b">Ложе Внушения</span> можно измерить компаратором, чтобы определить состояние его обитателя.</p><p>Игрок на ложе даёт силу сигнала 15, житель — 7, пустое ложе — 0.</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="greatwork">
+    <div class="spoilered">
+      <h2 class="category-title page-header">
+    <img
+      title="Пластинка"
+      alt="Пластинка"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Великая работа<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Я видел... так много. У меня есть... пережил... аннигиляцию, деконструкцию и реконструкцию. Я видел, как атомы мира кричали, когда их переворачивали, ниспровергали и превращали в энергию. Я видел, я видел, я видел s<span class="obfuscated">get stick bugged lmao</span></p>
+    </div>
+<div id="greatwork/hierophantics" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Иерофантика<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/hierophantics"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Если <span style="color: #74b3f2">мысли</span> можно представить как нити, а разумы — как сплетения этих нитей, то что мешает мне переплести их вместе?</p><p>До сих пор, извлекая разумы жителей, я помещал их лишь в искусственные подложки, но я способен на большее. Я способен <i>стать</i> лучше.</p>
+<br />
+    <p>Вплетая в свой разум дополнительные сознания, я обрету способность творить <span style="color: #b38ef3">заговор</span>, не прилагая никаких сознательных усилий! Мне достаточно просто <a href="#patterns/mind_handling">передать</a> <span style="color: #b38ef3">заговор</span> и <a href="#patterns/triggers">активатор</a>, при котором его творить, а встроенный разум сделает всё остальное сам. Когда все житейские хлопоты улажены сами собой, я наконец смогу посвятить себя тому, что хочу... что мы...</p><p>...кто я?</p>
+<br />
+    <p>Сосредоточься, сосредоточься. В плане есть загвоздка. Я не могу изменять структуру собственного разума во время сотворения <span style="color: #b38ef3">заговора</span>, не рискуя развеять его целиком — а я ещё не настолько <i>безумен</i>.</p><p>Посему мне потребуется некое приспособление. Я могу создать некое ложе, которое, если поместить в него извлечённый разум обычным способом, вплетёт его в мою психику, не требуя от меня никаких мыслительных усилий.</p>
+<br />
+  <h4 class="spotlight-title page-header">Ложе Внушения</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>Мои заметки о <a href="#items/imbuement_bed"><span style="color: #b0b">Ложе Внушения</span></a> и его применении можно найти в отдельной статье. Когда я создам его, я смогу использовать какое-нибудь <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus"><span style="color: #b0b">внешнее устройство</span></a> для проведения Кражи Разума, перенося разум в ложе, пока я просто лежу там до завершения процесса — <i>внушения</i>.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Нажмите, чтобы показать рецепты</span>
+      <span class="collapse-recipe-hide">Нажмите, чтобы скрыть рецепты</span>
+    </summary>
+  <div>
+<h5>Ложе Внушения</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Подмастерье Крестьянин"
+      alt="Подмастерье Крестьянин"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/none.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Герой деревни"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Деревенский житель должен быть Подмастерье уровня или выше
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Аметистовая Пыль"
+      alt="Аметистовая Пыль"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Осколок аметиста"
+      alt="Осколок аметиста"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Заряженный Аметист"
+      alt="Заряженный Аметист"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>Кража Разума требует жителя как минимум уровня подмастерья, поскольку по сути она весьма схожа с созданием <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus"><span style="color: #b0b">Инициатора</span></a>. Я должен не забыть лежать на <a href="#items/imbuement_bed"><span style="color: #b0b">Ложе Внушения</span></a> в момент наложения чар, иначе разум будет утрачен.</p>
+<br />
+    <p>Пока есть запас подходящих разумов, я могу повторять внушение сколько угодно раз. С достаточным количеством разумов я смогу предусмотреть всё — абсолютно всё!</p><p>Однако чем больше разумов я вбираю, тем чаще замечаю странности: зеленоватые блики краем глаза, голоса, доносящиеся из ниоткуда...</p><p>Я уверен, это безвредно.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/villager_enhancement" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Рабочая станция Просвещения"
+      alt="Рабочая станция Просвещения"
+      src="https://robotgiggle.github.io/hierophantics/v/latest/main/assets/hierophantics/textures/block/edified_workstation.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Улучшение Жителей<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/villager_enhancement"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Многие мои недавние конструкции требуют достаточно развитого разума. До сих пор такого развития можно было достичь, лишь подчиняясь требованиям жителей и снабжая их всё более причудливым набором материалов и самоцветов.</p><p>Такая работа явно ниже моего достоинства. Теперь, с <a href="#items/imbuement_bed"><span style="color: #b0b">Ложем Внушения</span></a>, у меня наконец есть решение!</p>
+<br />
+    <p>Не только мой разум можно улучшить. Вместо того чтобы часами обмениваться никчёмными безделушками, я могу напрямую повысить способности разума жителя, просто вплетя в него дополнительный.</p><p>Побочный эффект: все предложения о торговле от жителя-источника сольются с предложениями цели — но какая мне корысть в этих жалких, материальных благах? Сам разум — как глина в моих руках!</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Нажмите, чтобы показать рецепты</span>
+      <span class="collapse-recipe-hide">Нажмите, чтобы скрыть рецепты</span>
+    </summary>
+  <div>
+<h5>Ложе Внушения</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Новичок Крестьянин"
+      alt="Новичок Крестьянин"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/none.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Герой деревни"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Деревенский житель должен быть Новичок уровня или выше
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Аметистовая Пыль"
+      alt="Аметистовая Пыль"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Осколок аметиста"
+      alt="Осколок аметиста"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Заряженный Аметист"
+      alt="Заряженный Аметист"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>Процесс почти идентичен встраиванию разума в себя. Цель должна лежать на <a href="#items/imbuement_bed"><span style="color: #b0b">Ложе Внушения</span></a> (тут может помочь <a href="#patterns/spells/villager_sleep">одно заклинание</a>), и в неё нужно вплести новый разум — хотя источник здесь может быть любого уровня.</p>
+<br />
+    <p>Когда в слиянии участвует только одно ремесло, получившийся житель сохранит это ремесло. Однако если профессии двух жителей различны, результат выходит совершенно новым — я назвал его <span style="color: #8d6acc">Мозаичным разумом</span>.</p><p>Чем больше я изучаю это, тем больше понимаю, что моё прежнее пренебрежение было поспешным — возможно, в этом процессе есть <i>всё-таки</i> польза, помимо простого развития разума для последующего извлечения.</p>
+<br />
+    <p>Как и любой другой житель, <span style="color: #8d6acc">Мозаичные разумы</span> нуждаются в рабочей станции, чтобы обновлять свой запас товаров. Однако их уникальное ментальное состояние означает, что ни одна обычная станция, даже та, которой житель пользовался изначально, не подойдёт.</p><p>Им требуется нечто, способное мгновенно меняться, отражая новое состояние ума и совершенно новые навыки. К счастью, мои недавние <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">опыты с тихонями</a> дали идеальный материал.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Нажмите, чтобы показать рецепты</span>
+    <span class="collapse-recipe-hide">Нажмите, чтобы скрыть рецепты</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Рабочая станция Просвещения</h5>
+    <div class="crafting-table">
+        <img
+      title="Верстак"
+      alt="Верстак"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Брёвна Созидани"
+      alt="Tag: Брёвна Созидани"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Бревно Созидания"
+      alt="Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Аметистовое Бревно Созидания"
+      alt="Аметистовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Авантюриновое Бревно Созидания"
+      alt="Авантюриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Цитриновое Бревно Созидания"
+      alt="Цитриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Фиолетовое Бревно Созидания"
+      alt="Фиолетовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанное Бревно Созидания"
+      alt="Обтесанное Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Древесина Созидания"
+      alt="Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанная Древесина Созидания"
+      alt="Обтесанная Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Осколок Погашенного Сплава"
+      alt="Осколок Погашенного Сплава"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Осколок Погашенного Сплава"
+      alt="Осколок Погашенного Сплава"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Осколок Погашенного Сплава"
+      alt="Осколок Погашенного Сплава"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Осколок Погашенного Сплава"
+      alt="Осколок Погашенного Сплава"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Брёвна Созидани"
+      alt="Tag: Брёвна Созидани"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Бревно Созидания"
+      alt="Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Аметистовое Бревно Созидания"
+      alt="Аметистовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Авантюриновое Бревно Созидания"
+      alt="Авантюриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Цитриновое Бревно Созидания"
+      alt="Цитриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Фиолетовое Бревно Созидания"
+      alt="Фиолетовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанное Бревно Созидания"
+      alt="Обтесанное Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Древесина Созидания"
+      alt="Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанная Древесина Созидания"
+      alt="Обтесанная Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Доски Созидания"
+      alt="Tag: Доски Созидания"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Доски Созидания"
+      alt="Доски Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Panel Созидания"
+      alt="Panel Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Плитка Созидания"
+      alt="Плитка Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Верстак"
+      alt="Верстак"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/crafting_table.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Доски Созидания"
+      alt="Tag: Доски Созидания"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Доски Созидания"
+      alt="Доски Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Panel Созидания"
+      alt="Panel Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Плитка Созидания"
+      alt="Плитка Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Брёвна Созидани"
+      alt="Tag: Брёвна Созидани"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Бревно Созидания"
+      alt="Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Аметистовое Бревно Созидания"
+      alt="Аметистовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Авантюриновое Бревно Созидания"
+      alt="Авантюриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Цитриновое Бревно Созидания"
+      alt="Цитриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Фиолетовое Бревно Созидания"
+      alt="Фиолетовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанное Бревно Созидания"
+      alt="Обтесанное Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Древесина Созидания"
+      alt="Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанная Древесина Созидания"
+      alt="Обтесанная Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Доски Созидания"
+      alt="Tag: Доски Созидания"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Доски Созидания"
+      alt="Доски Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Panel Созидания"
+      alt="Panel Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Плитка Созидания"
+      alt="Плитка Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Брёвна Созидани"
+      alt="Tag: Брёвна Созидани"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Бревно Созидания"
+      alt="Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Аметистовое Бревно Созидания"
+      alt="Аметистовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Авантюриновое Бревно Созидания"
+      alt="Авантюриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Цитриновое Бревно Созидания"
+      alt="Цитриновое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Фиолетовое Бревно Созидания"
+      alt="Фиолетовое Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанное Бревно Созидания"
+      alt="Обтесанное Бревно Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Древесина Созидания"
+      alt="Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Обтесанная Древесина Созидания"
+      alt="Обтесанная Древесина Созидания"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Рабочая станция Просвещения"
+      alt="Рабочая станция Просвещения"
+      src="https://robotgiggle.github.io/hierophantics/v/latest/main/assets/hierophantics/textures/block/edified_workstation.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Я заметил, что <span style="color: #b0b">закалённые тихони</span> имеют свойство изменяться в ответ на случайные мысли. По большей части это досадная помеха, но здесь это критически важно — поверхность рабочей станции может подстраиваться под то, что сейчас нужно <span style="color: #8d6acc">Мозаичному разуму</span>.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/allay_imbuement" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Гибридный разум"
+      alt="Гибридный разум"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/mob_effect/media_discount.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Внушение Тихони<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/allay_imbuement"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Используя <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">тихонь</a>, мне удалось повысить плотность <span style="color: #74b3f2">мыслей</span> в твёрдом кристалле. Становится всё очевиднее, что мой собственный разум — не более чем особо активный сгусток <span style="color: #74b3f2">мыслей</span>, так почему бы не применить тот же процесс к себе? Возникшая в результате ментальная запутанность позволит мне творить заговоры гораздо эффективнее, сохраняя значительную часть <span style="color: #74b3f2">мыслей</span>, которую я иначе бы расходовал.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Нажмите, чтобы показать рецепты</span>
+      <span class="collapse-recipe-hide">Нажмите, чтобы скрыть рецепты</span>
+    </summary>
+  <div>
+<h5>Ложе Внушения</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Тихоня"
+      alt="Тихоня"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/allay.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Аметистовая Пыль"
+      alt="Аметистовая Пыль"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">25</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Осколок аметиста"
+      alt="Осколок аметиста"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">5</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Ложе Внушения"
+      alt="Ложе Внушения"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/775c62e02f10e2f2e866e9b04990f2a112f7c017/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>Уникальные свойства тихонь делают <a href="#greatwork/hierophantics">процесс</a> менее затратным, чем обычно. Однако те же свойства означают, что разум не может оставаться навсегда вплетённым в мой — он неизбежно рассеется со временем.</p>
+<br />
+    <p>Я могу замедлить рассеивание, просто вплетая дополнительных тихонь. Но чем больше я добавляю, тем меньший прирост длительности даёт каждый следующий.</p><p>Я также заметил некоторые побочные эффекты. Возможно, мой усиленный разум легче прозревает истинную форму мира?</p><p>Всё мерцает и искривляется, нити поблёскивают внизу, и всё это — единый великий гобелен <strong>внутри</strong> и <strong>снаружи</strong>, <strong>вверху</strong> и <strong>внизу</strong> и <span class="obfuscated">ПОВСЮДУ</span>.</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="Книжная полка"
+      alt="Книжная полка"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Руны<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Список всех обнаруженных мной руны, а также то, что они делают.</p>
+<div id="patterns/triggers" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Мишень"
+      alt="Мишень"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Активаторы Иерофанта<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/triggers"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Мои <a href="#greatwork/hierophantics">встроенные разумы</a> самостоятельны лишь до некоторой степени — они не могут по-настоящему мыслить. Поэтому для начала сотворения заговора им нужен какой-то активатор. Паттерны, перечисленные здесь, используются для создания таких активаторов на основе различных часто встречающихся событий. Созданный активатор можно назначить разуму с помощью <a href="#patterns/mind_handling@hierophantics:set_mind_trigger">Гамбита активатора</a>.</p>
+<br />
+    <p>Некоторые активаторы при срабатывании могут помещать на стек йоту, связанную с событием, что позволяет более тонко реагировать. Активаторы, которые так делают, перечислены ниже вместе с йотой, которую они предоставляют:</p><p class="fake-li " style="--level: 1;">Урон: величина урона</p><p class="fake-li " style="--level: 1;">Тип урона: величина урона</p><p class="fake-li " style="--level: 1;">Сброс: сущность выброшенного предмета</p><p class="fake-li " style="--level: 1;">Атака: атакованная сущность</p><p class="fake-li " style="--level: 1;">Разрушение: позиция разрушенного блока</p><p class="fake-li " style="--level: 1;">Телепортация: вектор смещения</p>
+<br />
+  <div id="patterns/triggers@hierophantics:make_damage_trigger" class="">
+<h4 class="pattern-title">Активатор: Урон (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_damage_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqdwa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwqdwa</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий при получении мной урона. Чтобы избежать фатальной цепной реакции, не срабатывает, если урон вызван переполнением при сотворении.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_damage_type_trigger" class="">
+<h4 class="pattern-title">Активатор: Тип урона (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_damage_type_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqdwaqqwawqwa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwqdwaqqwawqwa</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий при получении мной урона, но только если урон был определённого типа. Активатор настраивается на тот тип урона, который я получил последним.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_health_trigger" class="">
+<h4 class="pattern-title">Активатор.: Здоровье (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_health_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwewawqada"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwewawqada</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда моё здоровье опускается ниже указанного значения. Полная стандартная полоса здоровья имеет значение 20.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_breath_trigger" class="">
+<h4 class="pattern-title">Активатор.: Дыхание (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_breath_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweqqqqqaa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawweqqqqqaa</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда моё дыхание опускается ниже указанного значения. Полная шкала пузырьков имеет значение 10.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_hunger_trigger" class="">
+<h4 class="pattern-title">Активатор.: Голод (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_hunger_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwaedwda"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwaedwda</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда мой голод опускается ниже указанного значения. Полная шкала голода имеет значение 20.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_velocity_trigger" class="">
+<h4 class="pattern-title">Активатор.: Скорость (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_velocity_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwdaqqqaq"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwdaqqqaq</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда моя скорость (измеряемая в блоках за тик) превышает указанное значение.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_fall_trigger" class="">
+<h4 class="pattern-title">Активатор.: Падение (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_fall_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweawawa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawweawawa</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда я падаю дальше указанного числа блоков.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_drop_trigger" class="">
+<h4 class="pattern-title">Активатор.: Сброс (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_drop_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweaqaddwd"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawweaqaddwd</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда я выбрасываю предмет. Это <strong>не</strong> включает непроизвольное выбрасывание, например при смерти или при использовании <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/teleport">Большой телепортации</a>.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_attack_trigger" class="">
+<h4 class="pattern-title">Активатор.: Атака (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_attack_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqwedweq"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwqwedweq</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда я поражаю другую сущность.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_break_trigger" class="">
+<h4 class="pattern-title">Активатор.: Разрушение (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_break_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwwqaqqqqq"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwwqaqqqqq</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда я ломаю блок.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_jump_trigger" class="">
+<h4 class="pattern-title">Активатор.: Прыжок (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_jump_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqdwdwd"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawwqdwdwd</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда я прыгаю.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_teleport_trigger" class="">
+<h4 class="pattern-title">Активатор: Телепортация (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_teleport_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweaqaawaaqa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqqqqawweaqaawaaqa</canvas>
+  </details>
+      <p>Создаёт активатор, срабатывающий, когда я телепортируюсь. По непонятным мне причинам не срабатывает при телепортации короче 1.5 блока.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:invert_trigger" class="">
+<h4 class="pattern-title">Инверсия Активатора (trigger → trigger)<a
+    href="#patterns/triggers@hierophantics:invert_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aawddeeqqqqqaw"
+        data-start="north_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: aawddeeqqqqqaw</canvas>
+  </details>
+      <p>Инвертирует порог числового активатора. Например, «Когда скорость превышает 5.0» станет «Когда скорость опускается ниже 5.0». Не влияет на другие типы активаторов.</p>
+  </div>
+<br />
+    </div>
+</div>
+<div id="patterns/mind_handling" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Пузырёк опыта"
+      alt="Пузырёк опыта"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/experience_bottle.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Шаблоны Иерофанта<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/mind_handling"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Когда я <a href="#greatwork/hierophantics">встрою в себя разум</a>, мне нужно будет указать ему его цель. Это делается с помощью йот-ссылок на разум, которые работают так же, как йоты сущностей, но для встроенных разумов. Таким образом, я могу свободно создавать и уничтожать эти йоты, не влияя на существование самих разумов.</p>
+<br />
+  <h4>Заметка о приватности</h4>
+    <p>Поскольку ссылки на разум можно записывать на носители, другой игрок может получить доступ к йотам, ссылающимся на мои разумы. Такой человек не сможет изменять мои разумы (результат будет подобен попытке сохранить моё Истинное Имя), но он <i>сможет</i> просмотреть активатор и <span style="color: #b38ef3">заговор</span>, связанные с каждым разумом.</p>
+<br />
+  <div id="patterns/mind_handling@hierophantics:get_minds" class="">
+<h4 class="pattern-title">Зеркало Иерофанта (→ [mind])<a
+    href="#patterns/mind_handling@hierophantics:get_minds"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqqaeawaea"
+        data-start="north_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qaqqaeawaea</canvas>
+  </details>
+      <p>Выдаёт список йот, представляющих все мои встроенные разумы.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:reenable_minds" class="">
+<h4 class="pattern-title">Стабилизация Разумов<a
+    href="#patterns/mind_handling@hierophantics:reenable_minds"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqqaeawaeaeqqqeqqwwqqeqqq"
+        data-start="north_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qaqqaeawaeaeqqqeqqwwqqeqqq</canvas>
+  </details>
+      <p>Когда я умираю, мои встроенные разумы становятся нестабильными и перестают функционировать. Этот заговор восстанавливает их работоспособность. Расходует одну <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Аметистовую пыль</span></a> за разум.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:set_mind_hex" class="">
+<h4 class="pattern-title">Гамбит Заговора (mind, [pattern] | null →)<a
+    href="#patterns/mind_handling@hierophantics:set_mind_hex"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddeedd"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: ddeedd</canvas>
+  </details>
+      <p>Сохраняет указанный <span style="color: #b38ef3">заговор</span> в разум. Если там уже есть <span style="color: #b38ef3">заговор</span>, он будет перезаписан. Расходует одну <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Заряженную аметистовую пластину</span></a>.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:get_mind_hex" class="">
+<h4 class="pattern-title">Очищение Заговора (mind → [pattern] | null)<a
+    href="#patterns/mind_handling@hierophantics:get_mind_hex"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddeqaa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: ddeqaa</canvas>
+  </details>
+      <p>Выдаёт <span style="color: #b38ef3">заговор</span>, хранящийся в указанном разуме, или <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Пустоту</span></a>, если его нет.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:set_mind_trigger" class="">
+<h4 class="pattern-title">Гамбит Активатора (mind, trigger | null →)<a
+    href="#patterns/mind_handling@hierophantics:set_mind_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddewdd"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: ddewdd</canvas>
+  </details>
+      <p>Сохраняет указанный активатор в разум. Если там уже есть активатор, он будет перезаписан. Расходует один <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Осколок аметиста</span></a>.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:get_mind_trigger" class="">
+<h4 class="pattern-title">Очищение Активатора (mind → trigger | null)<a
+    href="#patterns/mind_handling@hierophantics:get_mind_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddewaa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: ddewaa</canvas>
+  </details>
+      <p>Выдаёт активатор, хранящийся в указанном разуме, или <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Пустоту</span></a>, если его нет.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:mute_mind" class="">
+<h4 class="pattern-title">Подавить Разум (mind, bool →)<a
+    href="#patterns/mind_handling@hierophantics:mute_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddweeee"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: ddweeee</canvas>
+  </details>
+      <p>Подавляет звуки и частицы от сотворения заговоров указанным разумом в зависимости от состояния булева значения. Если true, разум будет заглушён; если false, он будет разблокирован.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:free_mind" class="">
+<h4 class="pattern-title">Освободить Разум (mind →)<a
+    href="#patterns/mind_handling@hierophantics:free_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddeawawa"
+        data-start="south_east"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: ddeawawa</canvas>
+  </details>
+      <p>Навсегда удаляет встроенный разум из моего сознания.</p><p>Интересно, что с ними происходит, когда они уходят?</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns/spells">
+    <h2 class="category-title page-header">
+    <img
+      title="Чародейская книга"
+      alt="Чародейская книга"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Продвинутые Руны<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Руны, которые оказывают магическое воздействие на окружающий мир.</p>
+<div id="patterns/spells/villager_sleep" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Жёлтая кровать"
+      alt="Жёлтая кровать"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAFVBMVEXCnWK4lF+vj1WfhE2WdEF+YjdnUCyo+21oAAAAcElEQVR42g3CARXDIAwFwM/DAAk1kGQCVoKDDQeAA+JfQnvvwAV4XyD9CSk5hMS8yYUxR6wTG+WLjKQ3hFtvQgwX/RCbI9aIWHOjJMWrgonMzTqSuqt6RcwRZ+xALqkiJ0DJ7WZWWONO5o6zz3+ciAdixhUFVj2uwQAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Наведённое Истощение<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/villager_sleep"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Заговор, который утомляет цель, звучит как нечто полезное в бою или даже для меня самого, если у меня проблемы со сном. К моему великому разочарованию, однако, это, похоже, работает только на жителях.</p><p>Может, позже я найду ему лучшее применение?</p>
+<br />
+  <div id="patterns/spells/villager_sleep@hierophantics:villager_sleep" class="">
+<h4 class="pattern-title">Наведённое Истощение (villager →)<a
+    href="#patterns/spells/villager_sleep@hierophantics:villager_sleep"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Рендеры</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqwqqwqqqqq"
+        data-start="south_west"
+        data-per-world="False"
+      >Ваш браузер не поддерживает визуализацию узоров. Код паттерна: qqwqqwqqqqq</canvas>
+  </details>
+      <p>Заставляет жителя найти свою кровать и немного вздремнуть. Не работает, если у жителя нет кровати. Расходует одну <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Заряженную аметистовую пластину</span></a>.</p>
+  </div>
+<br />
+  <h4>Дальнейшие открытия</h4>
+    <p>После моих <a href="#greatwork/hierophantics">недавних опытов</a> с <a href="#items/imbuement_bed"><span style="color: #b0b">Ложем Внушения</span></a> я обнаружил кое-что интересное и, возможно, тревожное. С разумом жителя, вплетённым в мой собственный, я теперь достаточно похож на жителя, чтобы этот заговор действовал и на меня.</p><p>Он недостаточно силён, чтобы усыпить меня днём, но определённо пригодится, если ночь застанет меня без подходящей кровати.</p>
+<br />
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>Неофициальный продукт Minecraft. Не одобрен и не связан с компанией Mojang или Microsoft.</p><p>Контент и материалы Minecraft являются интеллектуальной собственностью их соответствующих владельцев.</p><p>Сделано с ❤️ используя <a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>.</p>
+        </div>
+      </footer>
+  </body>
+</html>
