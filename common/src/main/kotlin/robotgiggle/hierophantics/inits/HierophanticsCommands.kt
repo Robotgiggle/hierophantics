@@ -1,4 +1,4 @@
-package robotgiggle.hierophantics.inits;
+package robotgiggle.hierophantics.inits
 
 import net.minecraft.text.Text;
 import net.minecraft.command.argument.EntityArgumentType;

@@ -2,7 +2,6 @@ package robotgiggle.hierophantics.inits
 
 import com.google.gson.JsonObject
 import robotgiggle.hierophantics.Hierophantics
-import robotgiggle.hierophantics.patterns.*
 import net.minecraft.advancement.criterion.AbstractCriterion
 import net.minecraft.advancement.criterion.AbstractCriterionConditions
 import net.minecraft.advancement.criterion.Criteria
