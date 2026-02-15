@@ -42,12 +42,12 @@ per_world_value = "{^_per_world_value}"
 
 [_common]
 src = "../common/src"
-package = "{src}/main/java/robotgiggle/hierophantics"
+package = "{src}/main/kotlin/robotgiggle/hierophantics"
 
 [_fabric]
 src = "../fabric/src"
-package = "{src}/main/java/robotgiggle/hierophantics/fabric"
+package = "{src}/main/kotlin/robotgiggle/hierophantics/fabric"
 
 [_forge]
 src = "../forge/src"
-package = "{src}/main/java/robotgiggle/hierophantics/forge"
+package = "{src}/main/kotlin/robotgiggle/hierophantics/forge"
