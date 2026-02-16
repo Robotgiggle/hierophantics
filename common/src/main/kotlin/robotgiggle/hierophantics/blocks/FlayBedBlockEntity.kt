@@ -2,7 +2,7 @@ package robotgiggle.hierophantics.blocks
 
 import net.minecraft.block.BlockState
 import net.minecraft.block.BedBlock
-import net.minecraft.block.enums.BedPart;
+import net.minecraft.block.enums.BedPart
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.mob.MobEntity
@@ -10,22 +10,13 @@ import net.minecraft.entity.passive.AllayEntity
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.effect.StatusEffectInstance
-import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtHelper
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
-import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.village.VillagerData
 import net.minecraft.village.VillagerProfession
 import net.minecraft.village.TradeOfferList
 import net.minecraft.village.TradeOffer
-import net.minecraft.text.Text
-import net.minecraft.util.ActionResult
-import net.minecraft.util.Hand
-import net.minecraft.util.math.BlockBox
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
@@ -42,13 +33,13 @@ import robotgiggle.hierophantics.inits.HierophanticsEffects
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.inits.HierophanticsBlockEntities
 import robotgiggle.hierophantics.inits.BaseCriterion
-import robotgiggle.hierophantics.blocks.FlayBedBlock
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C
 
 import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.common.lib.HexItems
+import kotlin.math.pow
 
 class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(HierophanticsBlockEntities.FLAY_BED.value, pos, state) {
     val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
@@ -96,7 +87,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 // allay -> player: apply or lengthen media discount effect and trigger the advancement
                 if (subject.hasStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)) {
                     val oldTicks = subject.getStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)!!.duration
-                    val newTicks = (6000 * Math.pow(Math.E, (-oldTicks/12000).toDouble())).toInt()
+                    val newTicks = (6000 * Math.E.pow((-oldTicks / 12000).toDouble())).toInt()
                     subject.removeStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)
                     subject.addStatusEffect(StatusEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, newTicks + oldTicks))
                 } else {
@@ -112,7 +103,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 val data = subject.getVillagerData()
                 val trades = subject.getOffers()
                 
-                val newLevel = Math.min(data.getLevel() + 1, 5)
+                val newLevel = (data.getLevel() + 1).coerceAtMost(5)
                 when (canSubjectKeepProfession(data.getProfession(), sacrifice.getVillagerData().getProfession())) {
                     0 -> subject.setVillagerData(data.withLevel(newLevel))
                     1 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(sacrifice.getVillagerData().getProfession()))
@@ -120,7 +111,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 }
                 mergeTradeLists(trades, sacrifice.getOffers())
                 subject.setOffers(trades)
-                subject.setExperience(VillagerData.getLowerLevelExperience(newLevel));
+                subject.setExperience(VillagerData.getLowerLevelExperience(newLevel))
 
                 triggerForNearestPlayer(HierophanticsAdvancements.WASTE_MIND, world)
                 

@@ -1,9 +1,7 @@
 package robotgiggle.hierophantics.inits
 
-import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.Hierophantics.id
 import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.SoundEvent
 

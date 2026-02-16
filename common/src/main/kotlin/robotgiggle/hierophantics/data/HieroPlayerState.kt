@@ -3,8 +3,6 @@ package robotgiggle.hierophantics.data
 import at.petrak.hexcasting.api.utils.asCompound
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.putList
-import at.petrak.hexcasting.api.utils.serializeToNBT
-import at.petrak.hexcasting.api.utils.vecFromNBT
 import at.petrak.hexcasting.api.casting.iota.Iota
 import robotgiggle.hierophantics.Hierophantics
 import net.minecraft.nbt.NbtCompound
@@ -17,7 +15,7 @@ import net.minecraft.server.MinecraftServer
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 
-class HieroPlayerState() {
+class HieroPlayerState {
 	// this stuff gets serde'd
 	var ownedMinds = 0
 	var disabled = false
@@ -83,7 +81,7 @@ class HieroPlayerState() {
 	}
 
 	fun checkTypedDamage(player: ServerPlayerEntity, type: String, initialIota: Iota) {
-		lastDmgType = type;
+		lastDmgType = type
 		hieroMinds.forEach { (_, mind) -> 
 			if (mind.trigger.type == "damage_typed" && mind.trigger.dmgType.equals(type)) 
 				mind.cast(player, listOf(initialIota))
@@ -117,7 +115,7 @@ class HieroPlayerState() {
 	}
 
 	fun getMind(name: String): HieroMind {
-		return hieroMinds[name]!!;
+		return hieroMinds[name]!!
 	}
 
 	fun hasMind(name: String): Boolean {

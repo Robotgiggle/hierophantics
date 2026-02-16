@@ -1,12 +1,12 @@
 package robotgiggle.hierophantics.inits
 
-import net.minecraft.text.Text;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.text.Text
+import net.minecraft.command.argument.EntityArgumentType
+import net.minecraft.server.command.CommandManager
+import net.minecraft.server.command.ServerCommandSource
+import com.mojang.brigadier.CommandDispatcher
 
-import robotgiggle.hierophantics.data.HieroServerState;
+import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 
 object HierophanticsCommands {
@@ -16,11 +16,11 @@ object HierophanticsCommands {
                 .then(CommandManager.argument("target", EntityArgumentType.player())
                     .requires{source -> source.hasPermissionLevel(2)}
                     .executes{ctx -> 
-                        var source = ctx.getSource();
-                        var target = EntityArgumentType.getPlayer(ctx, "target");
-                        val newTotal = HieroServerState.getPlayerState(target).addMind(source.getServer(), null);
+                        val source = ctx.getSource()
+                        val target = EntityArgumentType.getPlayer(ctx, "target")
+                        val newTotal = HieroServerState.getPlayerState(target).addMind(source.getServer(), null)
                         MsgOwnedMindsS2C(newTotal).sendToPlayer(target)
-                        source.sendFeedback({-> Text.translatable("command.hierophantics.add_mind", target.getName())}, false);
+                        source.sendFeedback({ Text.translatable("command.hierophantics.add_mind", target.getName()) }, false)
                         return@executes 1
                     }
                 )
@@ -29,14 +29,14 @@ object HierophanticsCommands {
                 .then(CommandManager.argument("target", EntityArgumentType.player())
                     .requires{source -> source.hasPermissionLevel(2)}
                     .executes{ctx -> 
-                        var source = ctx.getSource();
-                        var target = EntityArgumentType.getPlayer(ctx, "target");
+                        val source = ctx.getSource()
+                        val target = EntityArgumentType.getPlayer(ctx, "target")
                         if (HieroServerState.getPlayerState(target).disabled) {
-                            source.sendError(Text.translatable("command.hierophantics.disable.already", target.getName()));
+                            source.sendError(Text.translatable("command.hierophantics.disable.already", target.getName()))
                             return@executes 0
                         } else {
-                            HieroServerState.getPlayerState(target).disabled = true;
-                            source.sendFeedback({-> Text.translatable("command.hierophantics.disable", target.getName())}, true);
+                            HieroServerState.getPlayerState(target).disabled = true
+                            source.sendFeedback({ Text.translatable("command.hierophantics.disable", target.getName()) }, true)
                             return@executes 1
                         }
                     }

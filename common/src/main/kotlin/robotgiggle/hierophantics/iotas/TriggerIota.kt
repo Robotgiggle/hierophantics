@@ -4,14 +4,11 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
-import robotgiggle.hierophantics.data.HieroServerState
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.entity.damage.DamageType
 
 class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 	@JvmRecord

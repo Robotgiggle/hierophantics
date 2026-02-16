@@ -38,7 +38,7 @@ class MindReferenceIota(name: String, host: PlayerEntity) : Iota(TYPE, MindRefer
 				val name = (nbt as NbtCompound).getString("name")
 				val hostUuid = UUID.fromString(nbt.getString("hostUUID"))
 				val host = world.getEntity(hostUuid)
-				if (host == null || !(host is PlayerEntity)) return null
+				if (host == null || host !is PlayerEntity) return null
 				if (!HieroServerState.getPlayerState(host).hasMind(name)) return null
 				return MindReferenceIota(name, host)
 			}

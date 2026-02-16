@@ -1,28 +1,10 @@
 package robotgiggle.hierophantics
 
 import net.minecraft.util.Identifier
-import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.item.Item
-import net.minecraft.item.BlockItem
-import net.minecraft.block.Block
-import net.minecraft.block.AbstractBlock.Settings
-import net.minecraft.block.entity.BlockEntityType
-import net.minecraft.block.entity.BlockEntity
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import robotgiggle.hierophantics.networking.HierophanticsNetworking
 import robotgiggle.hierophantics.inits.*
-import at.petrak.hexcasting.common.lib.HexBlocks
-import at.petrak.hexcasting.common.lib.HexRegistries
-import at.petrak.hexcasting.common.lib.HexAttributes
-import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
-import at.petrak.hexcasting.api.casting.iota.IotaType;
-import at.petrak.hexcasting.api.casting.iota.Iota
 import java.time.LocalDate
 
 object Hierophantics {

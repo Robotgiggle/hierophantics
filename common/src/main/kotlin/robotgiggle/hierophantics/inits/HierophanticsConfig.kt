@@ -14,7 +14,6 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.network.PacketByteBuf
-import net.minecraft.item.Item
 import vazkii.patchouli.api.PatchouliAPI
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.networking.msg.MsgSyncConfigS2C

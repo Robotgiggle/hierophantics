@@ -4,12 +4,8 @@ import at.petrak.hexcasting.api.casting.RenderedSpell
 import at.petrak.hexcasting.api.casting.castables.SpellAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.iota.NullIota
-import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.data.HieroPlayerState
-import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 import robotgiggle.hierophantics.mishaps.*

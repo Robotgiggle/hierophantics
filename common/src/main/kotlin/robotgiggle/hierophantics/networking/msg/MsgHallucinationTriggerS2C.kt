@@ -1,6 +1,5 @@
 package robotgiggle.hierophantics.networking.msg
 
-import robotgiggle.hierophantics.inits.HierophanticsConfig
 import net.minecraft.network.PacketByteBuf
 
 data class MsgHallucinationTriggerS2C(val strength: Double) : HierophanticsMessageS2C {

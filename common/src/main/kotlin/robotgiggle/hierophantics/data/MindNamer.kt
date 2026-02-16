@@ -74,6 +74,6 @@ object MindNamer {
             .replace("CCCCC", "D")
             .replace("CCCC", "CD")
             .replace("DD", "M")
-            .replace("DCD", "CM");
+            .replace("DCD", "CM")
 	}
 }

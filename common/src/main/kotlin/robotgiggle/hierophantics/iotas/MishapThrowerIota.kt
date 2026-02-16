@@ -2,16 +2,13 @@ package robotgiggle.hierophantics.iotas
 
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
-import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
-import at.petrak.hexcasting.api.casting.eval.CastResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingVM;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
+import at.petrak.hexcasting.api.casting.eval.CastResult
+import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
+import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
-import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
-import robotgiggle.hierophantics.data.HieroServerState
+import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import robotgiggle.hierophantics.mishaps.MindsDisabledMishap
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
@@ -19,7 +16,7 @@ import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
-class MishapThrowerIota() : Iota(TYPE, 0) {
+class MishapThrowerIota : Iota(TYPE, 0) {
     override fun isTruthy() = false
     override fun toleratesOther(that: Iota) = false
     override fun serialize(): NbtElement = NbtCompound()

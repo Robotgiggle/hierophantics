@@ -7,10 +7,8 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.data.HieroServerState
-import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
-import net.minecraft.server.network.ServerPlayerEntity
 
 object OpGetMindHex : ConstMediaAction {
     override val argc = 1

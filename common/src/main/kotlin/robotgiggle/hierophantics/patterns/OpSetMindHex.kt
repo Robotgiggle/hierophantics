@@ -12,7 +12,6 @@ import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.misc.MediaConstants
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.data.HieroPlayerState
-import robotgiggle.hierophantics.iotas.MindReferenceIota
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.network.ServerPlayerEntity

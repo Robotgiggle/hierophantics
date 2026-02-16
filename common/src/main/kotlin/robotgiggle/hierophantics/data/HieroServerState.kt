@@ -1,14 +1,9 @@
 package robotgiggle.hierophantics.data
 
-import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.iota.ListIota
-import robotgiggle.hierophantics.data.HieroPlayerState
-import robotgiggle.hierophantics.data.HieroMind
 import robotgiggle.hierophantics.Hierophantics
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.MinecraftServer
-import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.world.PersistentState
 import net.minecraft.world.World
 import java.util.*

@@ -8,7 +8,6 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.common.lib.HexSounds
 import robotgiggle.hierophantics.HieroMindCastEnv
-import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import robotgiggle.hierophantics.iotas.MishapThrowerIota
 import robotgiggle.hierophantics.iotas.TriggerIota.Trigger
@@ -19,7 +18,7 @@ import net.minecraft.util.Hand
 import net.minecraft.sound.SoundCategory
 
 class HieroMind(var hex: NbtCompound, var trigger: Trigger, var muted: Boolean) {
-	constructor() : this(NbtCompound(), Trigger("none", -1.0, "", false), false) {}
+	constructor() : this(NbtCompound(), Trigger("none", -1.0, "", false), false)
 
 	fun serialize(): NbtCompound {
 		val compound = NbtCompound()

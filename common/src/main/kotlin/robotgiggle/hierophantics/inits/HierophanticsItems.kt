@@ -1,6 +1,5 @@
 package robotgiggle.hierophantics.inits
 
-import at.petrak.hexcasting.common.lib.HexCreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
