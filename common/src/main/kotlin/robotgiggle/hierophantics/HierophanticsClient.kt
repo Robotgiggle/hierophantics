@@ -50,9 +50,9 @@ object HierophanticsClient {
 
     @JvmStatic
     fun getHallucinationScaling(): Double {
-        // when the timestamp is in the future, hallucination rate is increased
-        // as the current time approaches the timestamp, the rate scales back down
-        return ((scalingTimestamp - ClientTickCounter.ticksInGame) / 2000.0).coerceAtLeast(0.4)
+        // when the scaling timestamp is in the future, hallucination rate is increased
+        // as the current time approaches the scaling timestamp, the rate scales back down
+        return ((scalingTimestamp - ClientTickCounter.ticksInGame) / 2000.0).coerceAtLeast(0.3)
     }
 
     @JvmStatic
