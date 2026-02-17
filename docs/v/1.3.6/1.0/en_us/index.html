@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+      <title>Hierophantics Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers." />
+      <meta name="author" content="Robotgiggle" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Hierophantics Book" />
+<meta property="og:image" content="https://robotgiggle.github.io/hierophantics/v/1.3.6/1.0/en_us/icon.png" />
+<meta property="og:url" content="https://robotgiggle.github.io/hierophantics/v/1.3.6/1.0/en_us" />
+<meta property="og:description" content="An addon to Hex Casting that lets you work with extracted minds to create conditional hexes and merge villagers." />
+<meta property="og:site_name" content="Hierophantics (1.3.6)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">Hierophantics Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/Robotgiggle/hierophantics/tree/511f1323385043b73364fa5252d7d9bdce07d55b"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >1.3.6 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >English (United States) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>This is the online version of the Hierophantics documentation.</p></h1>
+      <p><strong>Entries which are blurred are spoilers</strong>. Click to reveal them, but be aware that they may spoil endgame progression. Alternatively, click <a href="?nospoiler">here</a> to get a version with all spoilers showing.</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>The past is a foreign country; they do things differently there.</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    Table of <span class="nobr">Contents<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="Toggle all"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#items" class="toc-elem "><img
+      title="Focus"
+      alt="Focus"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/cad/0_focus_empty.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Items</a></summary>
+      <ul>
+          <li><a href="#items/imbuement_bed" class="toc-elem spoilered"><img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Imbuement Bed</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#greatwork" class="toc-elem spoilered"><img
+      title="Music Disc"
+      alt="Music Disc"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > The Great Work</a></summary>
+      <ul>
+          <li><a href="#greatwork/hierophantics" class="toc-elem spoilered"><img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Hierophantics</a></li>
+          <li><a href="#greatwork/villager_enhancement" class="toc-elem spoilered"><img
+      title="Edified Workstation"
+      alt="Edified Workstation"
+      src="https://robotgiggle.github.io/hierophantics/v/1.3.6/1.0/assets/hierophantics/textures/block/edified_workstation.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Villager Enhancement</a></li>
+          <li><a href="#greatwork/allay_imbuement" class="toc-elem spoilered"><img
+      title="Manifold Mind"
+      alt="Manifold Mind"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/mob_effect/media_discount.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Allay Imbuement</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="Bookshelf"
+      alt="Bookshelf"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Patterns</a></summary>
+      <ul>
+          <li><a href="#patterns/mind_handling" class="toc-elem spoilered"><img
+      title="Bottle o' Enchanting"
+      alt="Bottle o&#39; Enchanting"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/experience_bottle.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Hierophantic Patterns</a></li>
+          <li><a href="#patterns/triggers" class="toc-elem spoilered"><img
+      title="Target"
+      alt="Target"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Hierophantic Triggers</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/spells" class="toc-elem "><img
+      title="Enchanted Book"
+      alt="Enchanted Book"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Spells</a></summary>
+      <ul>
+          <li><a href="#patterns/spells/villager_sleep" class="toc-elem "><img
+      title="Yellow Bed"
+      alt="Yellow Bed"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAFVBMVEXCnWK4lF+vj1WfhE2WdEF+YjdnUCyo+21oAAAAcElEQVR42g3CARXDIAwFwM/DAAk1kGQCVoKDDQeAA+JfQnvvwAV4XyD9CSk5hMS8yYUxR6wTG+WLjKQ3hFtvQgwX/RCbI9aIWHOjJMWrgonMzTqSuqt6RcwRZ+xALqkiJ0DJ7WZWWONO5o6zz3+ciAdixhUFVj2uwQAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Induce Exhaustion</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="items">
+    <h2 class="category-title page-header">
+    <img
+      title="Focus"
+      alt="Focus"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/cad/0_focus_empty.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Items<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#items"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>I devote this section to the magical and mysterious items I might encounter in my studies.</p>
+<div id="items/imbuement_bed" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Imbuement Bed<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#items/imbuement_bed"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Weaving one mind into another is a delicate process, and one that would be impossible to perform on myself without external aid.</p><p>The <span style="color: #b0b">Imbuement Bed</span> provides that aid, using the framework of an empty impetus to carefully direct incoming minds and integrate them into whatever being lays atop it.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Imbuement Bed</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/4247ab3e14266c17153907975e64009be16e5307/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div></div>        <div></div>        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Empty Impetus"
+      alt="Empty Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/empty/dim_east.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Planks"
+      alt="Tag: Planks"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Panel"
+      alt="Edified Panel"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Tile"
+      alt="Edified Tile"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Planks"
+      alt="Tag: Planks"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Panel"
+      alt="Edified Panel"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Tile"
+      alt="Edified Tile"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Planks"
+      alt="Tag: Planks"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Panel"
+      alt="Edified Panel"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Tile"
+      alt="Edified Tile"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Once the subject is on the bed, a new mind can be provided to either of its two blocks in the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/brainsweeping">usual manner</a>. I must be careful, though: if a mind is provided while the bed is empty, it will be wasted!</p>
+<br />
+  <h4>Redstone Integration</h4>
+    <p>To aid in automation, the <span style="color: #b0b">Imbuement Bed</span> can be measured with a comparator to determine the status of its occupant.</p><p>A player on the bed will produce a signal strength of 15, a villager will produce a signal strength of 7, and an empty bed will produce no signal at all.</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="greatwork">
+    <div class="spoilered">
+      <h2 class="category-title page-header">
+    <img
+      title="Music Disc"
+      alt="Music Disc"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >The Great Work<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>I have seen... so much. I have... experienced... annihilation and deconstruction and reconstruction. I have seen the atoms of the world screaming as they were inverted and subverted and demoted to energy. I have seen I have seen I have s<span class="obfuscated">get stick bugged lmao</span></p>
+    </div>
+<div id="greatwork/hierophantics" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Hierophantics<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/hierophantics"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>If <span style="color: #74b3f2">media</span> can be seen as threads, if minds can be seen as tangles of such threads, then what is to stop me from weaving them together?</p><p>Thus far, when extracting the minds of villagers, I have inserted them only into artificial subtrates, but I can do better. I can <i>become</i> better.</p>
+<br />
+    <p>By weaving additional minds into my own, I will gain the ability to cast <span style="color: #b38ef3">Hexes</span> without requiring any conscious thought! I can simply <a href="#patterns/mind_handling">provide</a> a <span style="color: #b38ef3">Hex</span>, and a <a href="#patterns/triggers">condition</a> under which to cast it, and the embedded mind will handle the rest on its own. With all the bothers of everyday life automatically handled, I can finally dedicate myself to whatever I... whatever we...</p><p>...what am I?</p>
+<br />
+    <p>Focus, focus. There is a snag in the plan. I cannot modify the structure of my own mind midway through a <span style="color: #b38ef3">Hex</span> without running the risk of unraveling it entirely – and I am not yet <i>that</i> insane.</p><p>Thus, I require some artifice. I can create a bed of sorts which, when provided with an extracted mind via the usual process, can weave it into my psyche without requiring any cognition on my part.</p>
+<br />
+  <h4 class="spotlight-title page-header">Imbuement Bed</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/4247ab3e14266c17153907975e64009be16e5307/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>My notes on the <a href="#items/imbuement_bed"><span style="color: #b0b">Imbuement Bed</span></a> and its usage can be found in their own entry. Once I&#39;ve constructed it, I can then use some <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus"><span style="color: #b0b">external device</span></a> to perform the extraction, transferring the mind into the bed while I simply lay there until the process – the <i>integration</i> – is complete.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Imbuement Bed</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Apprentice Villager"
+      alt="Apprentice Villager"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/none.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Apprentice or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>This process requires an apprentice-level villager, as it is in concept quite similar to the creation of an <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus"><span style="color: #b0b">Impetus</span></a>. I must remember to be lying in the <a href="#items/imbuement_bed"><span style="color: #b0b">Imbuement Bed</span></a> at the moment the spell is cast, or the mind will be lost.</p>
+<br />
+    <p>So long as a supply of suitable minds is available, I can repeat the imbuement process as many times as I desire. With enough minds, I could set up a contingency for anything - for everything!</p><p>However, the more minds I incorporate, the more I begin to notice strange things: glints of green out of the corner of my eye, voices echoing from nowhere...</p><p>I&#39;m sure it&#39;s hrrmless.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/villager_enhancement" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Edified Workstation"
+      alt="Edified Workstation"
+      src="https://robotgiggle.github.io/hierophantics/v/1.3.6/1.0/assets/hierophantics/textures/block/edified_workstation.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Villager Enhancement<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/villager_enhancement"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Many of my recent constructs require a sufficiently developed mind. Thus far, such development has only been possible by submitting to the demands of villagers, and providing them with an increasingly eclectic array of materials and gemstones.</p><p>Such work is clearly beneath me. Now, with the <a href="#items/imbuement_bed"><span style="color: #b0b">Imbuement Bed</span></a>, I finally have a solution!</p>
+<br />
+    <p>Mine is not the only mind that can be augmented. Rather than exchanging meaningless trinkets for hours on end, I can directly increase the capability of a villager mind by simply weaving in an extra one.</p><p>As a side effect, any trade offers from the source villager will be merged into the subject - but what need have I for such petty, material gains? The very mind itself is as clay in my hands!</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Imbuement Bed</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Novice Villager"
+      alt="Novice Villager"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/none.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Novice or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>The process is nearly identical to embedding a mind into myself. The subject must lie in the <a href="#items/imbuement_bed"><span style="color: #b0b">Imbuement Bed</span></a> (a <a href="#patterns/spells/villager_sleep">certain spell</a> may be helpful) and a new mind must be woven in - though the source here can be of any level.</p>
+<br />
+    <p>When there is only one skill set involved in the merger, the resulting villager will retain those skills. However, if the two villagers are of different professions, the result is something entirely new, which I have dubbed a <span style="color: #8d6acc">Quiltmind</span>.</p><p>The more I study this, the more I find my earlier dismissal too hasty - perhaps there <i>is</i> some merit to this process beyond simply developing the mind for later extraction.</p>
+<br />
+    <p>Like any other villager, <span style="color: #8d6acc">Quiltminds</span> require a workstation to refresh their stock of goods. However, their unique mental state means that any normal workstation, even the one the villager originally used, will not suffice.</p><p>They require something capable of shifting at a moment&#39;s notice to reflect a new state of mind and an entirely new skill set. Luckily, my recent <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">experiments with allays</a> have provided the perfect material.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Edified Workstation</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/4247ab3e14266c17153907975e64009be16e5307/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Logs"
+      alt="Tag: Edified Logs"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Log"
+      alt="Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Amethyst Edified Log"
+      alt="Amethyst Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Aventurine Edified Log"
+      alt="Aventurine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Citrine Edified Log"
+      alt="Citrine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Purple Edified Log"
+      alt="Purple Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Log"
+      alt="Stripped Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Wood"
+      alt="Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Wood"
+      alt="Stripped Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Logs"
+      alt="Tag: Edified Logs"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Log"
+      alt="Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Amethyst Edified Log"
+      alt="Amethyst Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Aventurine Edified Log"
+      alt="Aventurine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Citrine Edified Log"
+      alt="Citrine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Purple Edified Log"
+      alt="Purple Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Log"
+      alt="Stripped Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Wood"
+      alt="Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Wood"
+      alt="Stripped Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Planks"
+      alt="Tag: Edified Planks"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Panel"
+      alt="Edified Panel"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Tile"
+      alt="Edified Tile"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/crafting_table.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Planks"
+      alt="Tag: Edified Planks"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Panel"
+      alt="Edified Panel"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Tile"
+      alt="Edified Tile"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Logs"
+      alt="Tag: Edified Logs"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Log"
+      alt="Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Amethyst Edified Log"
+      alt="Amethyst Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Aventurine Edified Log"
+      alt="Aventurine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Citrine Edified Log"
+      alt="Citrine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Purple Edified Log"
+      alt="Purple Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Log"
+      alt="Stripped Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Wood"
+      alt="Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Wood"
+      alt="Stripped Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Planks"
+      alt="Tag: Edified Planks"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Panel"
+      alt="Edified Panel"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_panel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Tile"
+      alt="Edified Tile"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_tile.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Edified Logs"
+      alt="Tag: Edified Logs"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Edified Log"
+      alt="Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Amethyst Edified Log"
+      alt="Amethyst Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Aventurine Edified Log"
+      alt="Aventurine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_aventurine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Citrine Edified Log"
+      alt="Citrine Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_citrine.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Purple Edified Log"
+      alt="Purple Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_log_purple.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Log"
+      alt="Stripped Edified Log"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_log.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Edified Wood"
+      alt="Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Stripped Edified Wood"
+      alt="Stripped Edified Wood"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/stripped_edified_wood.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Edified Workstation"
+      alt="Edified Workstation"
+      src="https://robotgiggle.github.io/hierophantics/v/1.3.6/1.0/assets/hierophantics/textures/block/edified_workstation.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>I&#39;ve noticed that <span style="color: #b0b">quenched allays</span> tend to morph in response to stray thoughts. This is mostly a nuisance, but here it is critical - the surface of the workstation can adapt itself to whatever the <span style="color: #8d6acc">Quiltmind</span> currently needs.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/allay_imbuement" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Manifold Mind"
+      alt="Manifold Mind"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/mob_effect/media_discount.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Allay Imbuement<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/allay_imbuement"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Using <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">allays</a>, I have been able to enhance the <span style="color: #74b3f2">media</span> density of a solid crystal. It has become increasingly clear that my own mind is nothing more than a particularly active cluster of <span style="color: #74b3f2">media</span>, so why not apply the same process to myself? The resulting mental convolutions will allow me to cast much more efficiently, conserving a significant fraction of the <span style="color: #74b3f2">media</span> I would otherwise consume.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Imbuement Bed</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Allay"
+      alt="Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/allay.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">25</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">5</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Imbuement Bed"
+      alt="Imbuement Bed"
+      src="https://raw.githubusercontent.com/Robotgiggle/hierophantics/511f1323385043b73364fa5252d7d9bdce07d55b/common/src/main/resources/assets/hierophantics/textures/item/flay_bed.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>The unique properties of allays make the <a href="#greatwork/hierophantics">process</a> less expensive than usual. However, those same properties also mean that the mind cannot remain permanently interwoven with my own - it will inevitably disspate over time.</p>
+<br />
+    <p>I can mitigate the dissipation by simply weaving in additional allays. However, the more I add, the less additional duration I seem to gain from each one.</p><p>I&#39;ve also noticed some side effects. Perhaps my enhanced mind can more easily glimpse the true shape of the world?</p><p>Everything shimmers and twists, and the threads glint beneath, and it is all one grand tapestry <strong>in</strong> and <strong>out</strong> and <strong>up</strong> and <strong>down</strong> and <span class="obfuscated">EVERYWHERE</span></p>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="Bookshelf"
+      alt="Bookshelf"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>A list of all the patterns I&#39;ve discovered, as well as what they do.</p>
+<div id="patterns/mind_handling" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Bottle o' Enchanting"
+      alt="Bottle o&#39; Enchanting"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/experience_bottle.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Hierophantic Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/mind_handling"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Once I <a href="#greatwork/hierophantics">embed a mind</a> into myself, I will need to instruct it as to its purpose. This is accomplished using mind reference iotas, which work much like entity iotas but for embedded minds. As such, I can freely create and destroy these iotas without affecting the existence of the minds themselves.</p>
+<br />
+  <h4>A Note on Privacy</h4>
+    <p>Since mind references can be written to a storage medium, it&#39;s possible that another player may gain access to iotas refencing my own minds. Such an individual will not be able to modify my minds (the results will be similar to attempting to save my True Name) but they <i>will</i> be able to view the trigger and <span style="color: #b38ef3">Hex</span> associated with each mind.</p>
+<br />
+  <div id="patterns/mind_handling@hierophantics:get_minds" class="">
+<h4 class="pattern-title">Hierophant&#39;s Reflection (→ [mind])<a
+    href="#patterns/mind_handling@hierophantics:get_minds"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqqaeawaea"
+        data-start="north_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qaqqaeawaea</canvas>
+  </details>
+      <p>Pushes a list of iotas representing all my embedded minds.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:reenable_minds" class="">
+<h4 class="pattern-title">Stabilize Minds<a
+    href="#patterns/mind_handling@hierophantics:reenable_minds"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqqaeawaeaeqqqeqqwwqqeqqq"
+        data-start="north_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qaqqaeawaeaeqqqeqqwwqqeqqq</canvas>
+  </details>
+      <p>When I die, my embedded minds become unstable and cease to function. This spell restores them to working order. Costs one <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Amethyst Dust</span></a> per mind restored.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:set_mind_hex" class="">
+<h4 class="pattern-title">Payload Gambit (mind, [pattern] | null →)<a
+    href="#patterns/mind_handling@hierophantics:set_mind_hex"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddeedd"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: ddeedd</canvas>
+  </details>
+      <p>Stores the provided <span style="color: #b38ef3">Hex</span> into the mind. If there is already a stored <span style="color: #b38ef3">Hex</span>, it will be overwritten. Costs one <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Charged Amethyst</span></a>.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:get_mind_hex" class="">
+<h4 class="pattern-title">Payload Purification (mind → [pattern] | null)<a
+    href="#patterns/mind_handling@hierophantics:get_mind_hex"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddeqaa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: ddeqaa</canvas>
+  </details>
+      <p>Pushes the <span style="color: #b38ef3">Hex</span> stored in the provided mind, or <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Null</span></a> if there isn&#39;t one.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:set_mind_trigger" class="">
+<h4 class="pattern-title">Trigger Gambit (mind, trigger | null →)<a
+    href="#patterns/mind_handling@hierophantics:set_mind_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddewdd"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: ddewdd</canvas>
+  </details>
+      <p>Stores the provided trigger into the mind. If the mind already has a trigger, it will be overwritten. Costs one <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Amethyst Shard</span></a>.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:get_mind_trigger" class="">
+<h4 class="pattern-title">Trigger Purification (mind → trigger | null)<a
+    href="#patterns/mind_handling@hierophantics:get_mind_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddewaa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: ddewaa</canvas>
+  </details>
+      <p>Pushes the trigger stored in the provided mind, or <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Null</span></a> if there isn&#39;t one.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:mute_mind" class="">
+<h4 class="pattern-title">Mute Mind (mind, bool →)<a
+    href="#patterns/mind_handling@hierophantics:mute_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddweeee"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: ddweeee</canvas>
+  </details>
+      <p>Suppresses sound and particles from the provided mind&#39;s casting, based on the state of the bool. If true, the mind will be muted; if false, it will be unmuted.</p>
+  </div>
+<br />
+  <div id="patterns/mind_handling@hierophantics:free_mind" class="">
+<h4 class="pattern-title">Free Mind (mind →)<a
+    href="#patterns/mind_handling@hierophantics:free_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddeawawa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: ddeawawa</canvas>
+  </details>
+      <p>Permanently removes an embedded mind from my own consciousness.</p><p>I wonder what happens to them when they go?</p>
+  </div>
+<br />
+    </div>
+</div>
+<div id="patterns/triggers" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Target"
+      alt="Target"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Hierophantic Triggers<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/triggers"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>My <a href="#greatwork/hierophantics">embedded minds</a> are independent to a point, but they cannot truly think for themselves. Thus, in order to begin casting, they require a trigger of some kind. The patterns listed here are used to create these triggers, based on a variety of common occurances. Once created, a trigger can be assigned to a mind using <a href="#patterns/mind_handling@hierophantics:set_mind_trigger">Trigger Gambit</a>.</p>
+<br />
+    <p>Some triggers, when activated, may cast their hex with an iota relevant to the triggering event already on the stack, to allow for a more fine-grained response. The triggers that do this are listed below, along with the iota they provide:</p><p class="fake-li " style="--level: 1;">Damage: amount of damage</p><p class="fake-li " style="--level: 1;">DmgType: amount of damage</p><p class="fake-li " style="--level: 1;">Drop: dropped item entity</p><p class="fake-li " style="--level: 1;">Attack: attacked entity</p><p class="fake-li " style="--level: 1;">Break: position broken</p><p class="fake-li " style="--level: 1;">Teleport: offset vector</p>
+<br />
+  <div id="patterns/triggers@hierophantics:make_damage_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: Damage (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_damage_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqdwa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwqdwa</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I take damage. To prevent a lethal chain-reaction, does not activate if the damage was caused by overcasting.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_damage_type_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: DmgType (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_damage_type_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqdwaqqwawqwa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwqdwaqqwawqwa</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I take damage, but only if the damage was of a specific type. The trigger will be attuned to whatever type of damage I last received.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_health_trigger" class="">
+<h4 class="pattern-title">Trigger Prfn: Health (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_health_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwewawqada"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwewawqada</canvas>
+  </details>
+      <p>Creates a trigger that activates when my health drops below the specified value. A full, standard healthbar has a value of 20.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_breath_trigger" class="">
+<h4 class="pattern-title">Trigger Prfn: Breath (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_breath_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweqqqqqaa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawweqqqqqaa</canvas>
+  </details>
+      <p>Creates a trigger that activates when my breath drops below the specified value. A full bar of bubbles has a value of 10.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_hunger_trigger" class="">
+<h4 class="pattern-title">Trigger Prfn: Hunger (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_hunger_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwaedwda"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwaedwda</canvas>
+  </details>
+      <p>Creates a trigger that activates when my hunger drops below the specified value. A full hunger bar has a value of 20.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_velocity_trigger" class="">
+<h4 class="pattern-title">Trigger Prfn: Velocity (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_velocity_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwdaqqqaq"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwdaqqqaq</canvas>
+  </details>
+      <p>Creates a trigger that activates when my velocity (measured in blocks per tick) exceeds the specified value.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_fall_trigger" class="">
+<h4 class="pattern-title">Trigger Prfn: Fall (num → trigger)<a
+    href="#patterns/triggers@hierophantics:make_fall_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweawawa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawweawawa</canvas>
+  </details>
+      <p>Creates a trigger that activates when I fall further than the specified number of blocks.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_drop_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: Drop (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_drop_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweaqaddwd"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawweaqaddwd</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I drop an item. This does <strong>not</strong> include involuntary dropping, such as on death or when using <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/teleport">Greater Teleport</a>.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_attack_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: Attack (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_attack_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqwedweq"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwqwedweq</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I strike another entity.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_break_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: Break (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_break_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwwqaqqqqq"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwwqaqqqqq</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I break a block.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_jump_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: Jump (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_jump_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawwqdwdwd"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawwqdwdwd</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I jump.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:make_teleport_trigger" class="">
+<h4 class="pattern-title">Trigger Rfln: Teleport (→ trigger)<a
+    href="#patterns/triggers@hierophantics:make_teleport_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqawweaqaawaaqa"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqqqawweaqaawaaqa</canvas>
+  </details>
+      <p>Creates a trigger that activates whenever I teleport. For reasons I cannot discern, this will not detect teleports shorter than 1.5 blocks in length.</p>
+  </div>
+<br />
+  <div id="patterns/triggers@hierophantics:invert_trigger" class="">
+<h4 class="pattern-title">Inversion Purification (trigger → trigger)<a
+    href="#patterns/triggers@hierophantics:invert_trigger"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aawddeeqqqqqaw"
+        data-start="north_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: aawddeeqqqqqaw</canvas>
+  </details>
+      <p>Inverts the threshold on a numerical trigger. For example, &#39;When velocity exceeds 5.0&#39; will become &#39;When velocity drops below 5.0&#39;. Has no effect on other types of triggers.</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns/spells">
+    <h2 class="category-title page-header">
+    <img
+      title="Enchanted Book"
+      alt="Enchanted Book"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Spells<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Patterns and actions that perform a magical effect on the world.</p>
+<div id="patterns/spells/villager_sleep" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Yellow Bed"
+      alt="Yellow Bed"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAFVBMVEXCnWK4lF+vj1WfhE2WdEF+YjdnUCyo+21oAAAAcElEQVR42g3CARXDIAwFwM/DAAk1kGQCVoKDDQeAA+JfQnvvwAV4XyD9CSk5hMS8yYUxR6wTG+WLjKQ3hFtvQgwX/RCbI9aIWHOjJMWrgonMzTqSuqt6RcwRZ+xALqkiJ0DJ7WZWWONO5o6zz3+ciAdixhUFVj2uwQAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Induce Exhaustion<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/villager_sleep"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>A spell that makes the target tired sounds like it would be quite useful in combat, or even for myself should I have trouble sleeping. To my great disappointment, however, this one appears to only work on villagers.</p><p>Perhaps I&#39;ll find a better use for it later?</p>
+<br />
+  <div id="patterns/spells/villager_sleep@hierophantics:villager_sleep" class="">
+<h4 class="pattern-title">Induce Exhaustion (villager →)<a
+    href="#patterns/spells/villager_sleep@hierophantics:villager_sleep"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqwqqwqqqqq"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqwqqwqqqqq</canvas>
+  </details>
+      <p>Causes the villager to seek out its bed and take a short nap. Not effective if the villager lacks a bed to use. Costs one <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst"><span style="color: #b0b">Charged Amethyst</span></a>.</p>
+  </div>
+<br />
+  <h4>Further Developments</h4>
+    <p>After my <a href="#greatwork/hierophantics">recent experiments</a> with the <a href="#items/imbuement_bed"><span style="color: #b0b">Imbuement Bed</span></a>, I have discovered something interesting, and perhaps a bit worrying. With a villager mind woven into my own, I&#39;m apparently enough like a villager that this spell can now affect me.</p><p>It&#39;s not strong enough to put me to sleep during the day, but it will certainly be handy if I&#39;m caught out at night without a convenient bed.</p>
+<br />
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p><p>Minecraft content and materials are the intellectual property of their respective owners.</p><p>Made with ❤️ using <a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>.</p>
+        </div>
+      </footer>
+  </body>
+</html>
