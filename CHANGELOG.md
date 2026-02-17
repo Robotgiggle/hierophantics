@@ -1,5 +1,10 @@
 # Hierophantics
 
+## 1.3.6
+- Added ru_ru translations (thanks Dewered!)
+- The scaled-down rate for embedded mind side effects when you haven't recently added or triggered a mind is now slightly lower
+- Lots of internal cleanup
+
 ## 1.3.5
 - Reworked embedded mind side effects: the base rate has been significantly reduced, but it will increase sharply for a short duration after adding a new mind or triggering an existing one
 - Added a config blacklist for patterns that should not be affected by the media discount from Manifold Mind
