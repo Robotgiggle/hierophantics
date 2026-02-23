@@ -2,6 +2,7 @@ package robotgiggle.hierophantics.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import robotgiggle.hierophantics.data.HieroServerState;
@@ -23,6 +24,8 @@ public class LivingEntityMixin {
         if (entity instanceof PlayerEntity player) {
             if (player.getWorld().isClient)
 			    return;
+			if (target instanceof EnderDragonPart part)
+				target = part.owner;
 		    HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "attack", new EntityIota(target));
         }
 	}
