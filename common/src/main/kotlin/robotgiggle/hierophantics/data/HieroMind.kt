@@ -10,7 +10,6 @@ import at.petrak.hexcasting.common.lib.HexSounds
 import robotgiggle.hierophantics.HieroMindCastEnv
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import robotgiggle.hierophantics.iotas.MishapThrowerIota
-import robotgiggle.hierophantics.iotas.TriggerIota.Trigger
 import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity

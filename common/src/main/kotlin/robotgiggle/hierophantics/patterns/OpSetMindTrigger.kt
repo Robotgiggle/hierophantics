@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.misc.MediaConstants
 import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.data.HieroServerState
+import robotgiggle.hierophantics.data.Trigger
 import robotgiggle.hierophantics.inits.HierophanticsAdvancements
 import robotgiggle.hierophantics.iotas.TriggerIota
 import robotgiggle.hierophantics.iotas.getTrigger
@@ -48,7 +49,7 @@ object OpSetMindTrigger : SpellAction {
 		override fun cast(env: CastingEnvironment) {
 			val mind = state.getMind(mindName)
 			if (triggerOrNull is NullIota) {
-                mind.trigger = TriggerIota.Trigger.none()
+                mind.trigger = Trigger.none()
 			} else {
 				val triggerIota = triggerOrNull as TriggerIota
                 mind.trigger = triggerIota.trigger

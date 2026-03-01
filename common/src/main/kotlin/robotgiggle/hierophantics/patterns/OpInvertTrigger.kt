@@ -17,7 +17,7 @@ object OpInvertTrigger : ConstMediaAction {
         }
 
         return listOf(TriggerIota(
-            oldTrigger.type, oldTrigger.threshold, oldTrigger.dmgType, !oldTrigger.inverted
+            oldTrigger.triggerType, oldTrigger.threshold, oldTrigger.dmgType, !oldTrigger.inverted
         ))
 	}
 }

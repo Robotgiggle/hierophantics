@@ -15,6 +15,8 @@ import net.minecraft.server.MinecraftServer
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 
+import java.util.function.Predicate
+
 class HieroPlayerState {
 	// this stuff gets serde'd
 	var ownedMinds = 0
@@ -123,12 +125,14 @@ class HieroPlayerState {
 	}
 
 	@JvmOverloads
-	fun triggerMinds(player: ServerPlayerEntity, trigger: String, initialStack: List<Iota> = listOf()) {
-		hieroMinds.forEach { (_, mind) -> if (mind.trigger.type == trigger) mind.cast(player, initialStack) }
+	fun triggerMinds(player: ServerPlayerEntity, triggerPred: Predicate<Trigger>, initialIota: Iota? = null) {
+		val initialStack = if (initialIota != null) listOf(initialIota) else listOf()
+		hieroMinds.forEach { (_, mind) -> if (triggerPred.test(mind.trigger)) mind.cast(player, initialStack) }
 	}
 
-	fun triggerMinds(player: ServerPlayerEntity, trigger: String, initialIota: Iota) {
-		triggerMinds(player, trigger, listOf(initialIota))
+	@JvmOverloads
+	fun triggerMinds(player: ServerPlayerEntity, triggerType: String, initialIota: Iota? = null) {
+		triggerMinds(player, {t -> t.type == triggerType}, initialIota)
 	}
 
 	fun serialize(): NbtCompound {

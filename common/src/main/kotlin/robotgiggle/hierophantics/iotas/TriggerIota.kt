@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
+import robotgiggle.hierophantics.data.Trigger
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.server.world.ServerWorld
@@ -11,33 +12,6 @@ import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
 class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
-	@JvmRecord
-    data class Trigger(val type: String, val threshold: Double, val dmgType: String, val inverted: Boolean) {
-		fun serialize(): NbtCompound {
-			val compound = NbtCompound()
-			compound.putString("trigger", type)
-			compound.putDouble("threshold", threshold)
-			compound.putString("dmgType", dmgType)
-			compound.putBoolean("inverted", inverted)
-			return compound
-		}
-		fun passedThreshold(currVal: Double, prevVal: Double): Boolean {
-			val upward = if (type == "velocity" || type == "fall") !inverted else inverted
-			if (upward) return currVal > threshold && prevVal <= threshold && prevVal != -1.0
-			else return currVal < threshold && prevVal >= threshold
-		}
-		companion object {
-			fun deserialize(nbt: NbtElement): Trigger {
-				val type = (nbt as NbtCompound).getString("trigger")
-				val threshold = nbt.getDouble("threshold")
-				val dmgType = nbt.getString("dmgType")
-				val inverted = nbt.getBoolean("inverted")
-				return Trigger(type, threshold, dmgType, inverted)
-			}
-			fun none() = Trigger("none", -1.0, "", false)
-		}
-	}
-
 	constructor(trigger: String, threshold: Double = -1.0, dmgType: String = "", inverted: Boolean = false) : this(Trigger(trigger, threshold, dmgType, inverted))
     
     override fun isTruthy() = true
@@ -46,7 +20,7 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 	}
 
 	val trigger = payload as Trigger
-	val type = trigger.type
+	val triggerType = trigger.type
 	val threshold = trigger.threshold
 	val dmgType = trigger.dmgType
 	val inverted = trigger.inverted
