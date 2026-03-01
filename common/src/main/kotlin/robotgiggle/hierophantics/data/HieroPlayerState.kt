@@ -57,18 +57,20 @@ class HieroPlayerState {
 			else triggerMinds(player, "teleport", Vec3Iota(prevVel))	
 		}
 
-		// detect threshold-based triggers
-		hieroMinds.forEach { (_, mind) -> 
-			val trigger = mind.trigger
-			when (trigger.type) {
-				"health" -> if (trigger.passedThreshold(currHealth, prevHealth)) mind.cast(player)
-				"breath" -> if (trigger.passedThreshold(currBreath, prevBreath)) mind.cast(player)
-				"hunger" -> if (trigger.passedThreshold(currHunger, prevHunger)) mind.cast(player)
-				"velocity" -> if (!teleported && trigger.passedThreshold(prevSpeed, prev2Speed)) {
-					if (skipTeleTrigger > 0) skipTeleTrigger = 0
-					else mind.cast(player)
+		// detect threshold-based triggers (but not when respawning)
+		if (prevHealth > 0) {
+			hieroMinds.forEach { (_, mind) ->
+				val trigger = mind.trigger
+				when (trigger.type) {
+					"health" -> if (trigger.passedThreshold(currHealth, prevHealth)) mind.cast(player)
+					"breath" -> if (trigger.passedThreshold(currBreath, prevBreath)) mind.cast(player)
+					"hunger" -> if (trigger.passedThreshold(currHunger, prevHunger)) mind.cast(player)
+					"velocity" -> if (!teleported && trigger.passedThreshold(prevSpeed, prev2Speed)) {
+						if (skipTeleTrigger > 0) skipTeleTrigger = 0
+						else mind.cast(player)
+					}
+					"fall" -> if (trigger.passedThreshold(currFallDist, prevFallDist) ) mind.cast(player)
 				}
-				"fall" -> if (trigger.passedThreshold(currFallDist, prevFallDist)) mind.cast(player)
 			}
 		}
 

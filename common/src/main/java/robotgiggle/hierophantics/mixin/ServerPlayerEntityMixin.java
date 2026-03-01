@@ -55,6 +55,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		if (state.getOwnedMinds() > 0) {
 			state.setDisabled(true);
 			state.setSkipTeleTrigger(5);
+			state.setPrevHealth(0);
 		}
 	}
 
