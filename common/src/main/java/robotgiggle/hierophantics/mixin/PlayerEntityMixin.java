@@ -6,14 +6,15 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.block.Block;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import org.spongepowered.asm.mixin.Unique;
 import robotgiggle.hierophantics.data.HieroServerState;
+import robotgiggle.hierophantics.data.Trigger;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.inits.HierophanticsConfig;
 import robotgiggle.hierophantics.HierophanticsClient;
 import robotgiggle.hierophantics.Hierophantics;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,6 +24,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
+
+import java.util.function.Predicate;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
@@ -37,6 +40,12 @@ public class PlayerEntityMixin {
 	private void fireTriggersAfterDamage(DamageSource source, float amount, CallbackInfo ci) {
 		if (!HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
             hierophantics$fireDamageTriggers(source, amount);
+        }
+        // this allows health threshold triggers to fire as the player dies but before they drop the media in their inv
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (player.isDead()) {
+            Predicate<Trigger> isDownwardHealthTrigger = t -> t.type().equals("health") && !t.inverted();
+            HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, isDownwardHealthTrigger);
         }
 	}
 
