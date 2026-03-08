@@ -1,5 +1,10 @@
 # Hierophantics
 
+## 1.3.7
+- 'When entity struck' trigger now pushes a reference to the main Ender Dragon entity even if what you hit was actually one of its sub-entities
+- 'When health drops below X' trigger now fires even if the health drop was fatal (this can't save you from death, but it can use the media in your inventory before it drops)
+- Threshold-based triggers no longer try to fire if the threshold was passed as a result of respawning
+
 ## 1.3.6
 - Added ru_ru translations (thanks Dewered!)
 - The scaled-down rate for embedded mind side effects when you haven't recently added or triggered a mind is now slightly lower
