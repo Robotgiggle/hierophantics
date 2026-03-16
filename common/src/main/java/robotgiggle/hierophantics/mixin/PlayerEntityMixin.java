@@ -36,7 +36,7 @@ public class PlayerEntityMixin {
         }
 	}
     
-    @Inject(method = "applyDamage", at = @At("TAIL"))
+    @Inject(method = "applyDamage", at = @At("RETURN"))
 	private void fireTriggersAfterDamage(DamageSource source, float amount, CallbackInfo ci) {
 		if (!HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
             hierophantics$fireDamageTriggers(source, amount);
