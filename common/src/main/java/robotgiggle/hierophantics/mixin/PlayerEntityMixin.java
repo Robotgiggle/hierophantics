@@ -52,15 +52,15 @@ public class PlayerEntityMixin {
     @Unique
     private void hierophantics$fireDamageTriggers(DamageSource source, float amount) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-        if (player.getWorld().isClient || player.isInvulnerableTo(source))
+        if (player.getWorld().isClient || player.isInvulnerableTo(source) || source.isIn(Hierophantics.BYPASSES_DAMAGE_TRIGGER))
             return;
         String dmgType = source.getName();
         var initialIota = new DoubleIota(amount);
-        if (!dmgType.equals("genericKill")) {
-            if (!dmgType.equals("hexcasting.overcast"))
-                HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
-            HieroServerState.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
-        }
+        // generic damage triggers ignore overcast damage to avoid infinite loops
+        if (!dmgType.equals("hexcasting.overcast"))
+            HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "damage", initialIota);
+        // typed damage triggers don't, in case you actually want that for some reason
+        HieroServerState.getPlayerState(player).checkTypedDamage((ServerPlayerEntity) player, dmgType, initialIota);
     }
 
     @Inject(method = "jump", at = @At("TAIL"))
