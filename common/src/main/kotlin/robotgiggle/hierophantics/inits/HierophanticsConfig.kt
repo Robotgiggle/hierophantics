@@ -114,6 +114,7 @@ object HierophanticsConfig {
             "hexical:charm",
             "hexical:recharge_lamp",
             "lapisworks:imbue_lap",
+            "lapisworks:deposit",
             "yaha:time_bomb"
         )
             private set
