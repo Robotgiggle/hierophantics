@@ -43,6 +43,6 @@ side = "BOTH"
 [[dependencies.hierophantics]]
 modId = "hexcasting"
 mandatory = true
-versionRange = "[${versions.hexcasting_dependency},)"
+versionRange = "[${versions.hexcasting},)"
 ordering = "AFTER"
 side = "BOTH"

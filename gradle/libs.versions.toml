@@ -5,9 +5,9 @@
 [versions]
 java = "17" # must be an integer
 
-kotlin = "1.9.22"
-kotlin-fabric = "1.10.18+kotlin.1.9.22"
-kotlin-forge = "4.10.0"
+kotlin = "2.2.21"
+kotlin-fabric = "1.13.7+kotlin.2.2.21"
+kotlin-forge = "4.12.0"
 
 # Minecraft
 
@@ -16,20 +16,17 @@ yarn = "1.20.1+build.10"
 
 architectury = "9.2.14"
 architectury-plugin = { require="[3.4, 3.5[" }
-architectury-loom = { require="[1.7, 1.8[" }
+architectury-loom = { require="[1.9, 1.10[" }
 
-fabric-loader = "0.14.25"
-fabric-api = "0.87.0+1.20.1"
+fabric-loader = "0.19.2"
+fabric-api = "0.92.8+1.20.1"
 
 forge = "1.20.1-47.2.0"
 forge-dependency = "47" # for mods.toml
 
 # mods
 
-# 0.11.2-pre-701 corresponds to the build of 0.11.2 on CurseForge/Modrinth
-hexcasting = "0.11.2-pre-701"
-# FIXME: this should be 0.11.2, but that breaks the dev environment
-hexcasting-dependency = "0.11.1"
+hexcasting = "0.11.4"
 paucal = "0.6.0-pre-118"
 pkpcpbp = "0.2.0-pre-95"
 
@@ -44,7 +41,7 @@ serializationHooks = "0.4.99999"
 mixinExtras = "0.4.1"
 clothConfig = "11.1.106"
 modMenu = "7.1.0"
-inline = "1.20.1-1.0.1"
+inline = "1.20.1-1.2.2"
 
 caelus = "3.1.0+1.20"
 
