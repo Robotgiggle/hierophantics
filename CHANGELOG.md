@@ -1,5 +1,17 @@
 # Hierophantics
 
+## 1.4.0
+- Updated Hex Casting dependency to 0.11.4
+- The media discount from Manifold Mind is now implemented using the `media_consumption` attribute from the base mod
+  - The pattern config blacklist has been removed, since blacklisting is now handled using the base `cannot_modify_cost` tag
+  - Changing the config value for the cost multiplier now requires a server restart
+- The increased rate of side effects after triggering an embedded mind now scales with the media cost of the triggered hex, so cheap hexes won't have as much impact
+- Overcasting (even with something other than an embedded mind) now causes a slight increase in embedded mind side effects for a short time
+- Added the `bypasses_damage_trigger` tag for damage types that should not fire 'When damaged' and 'When damaged by' triggers
+- 'When damaged' and 'When damaged by' triggers now fire even if incoming damage was fully blocked by absorption (thanks pythonmcpi!)
+- The flay recipes used to activate the Imbuement Bed are now hidden from EMI, as they don't properly convey how the bed works
+- Removed the internal MishapThrower iota type (previously used for the minds-are-disabled mishap)
+
 ## 1.3.7
 - 'When entity struck' trigger now pushes a reference to the main Ender Dragon entity even if what you hit was actually one of its sub-entities
 - 'When health drops below X' trigger now fires even if the health drop was fatal (this can't save you from death, but it can use the media in your inventory before it drops)
