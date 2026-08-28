@@ -77,7 +77,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 val villagerName = sacrifice.getCustomName()?.getString()
                 val newTotal = HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
                 MsgOwnedMindsS2C(newTotal).sendToPlayer(subject)
-                MsgHallucinationTriggerS2C(4.0).sendToPlayer(subject)
+                MsgHallucinationTriggerS2C(3.0).sendToPlayer(subject)
                 
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
                 
