@@ -1,5 +1,7 @@
 package robotgiggle.hierophantics.inits
 
+import at.petrak.hexcasting.common.lib.HexAttributes
+import net.minecraft.entity.attribute.EntityAttributeModifier.Operation
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.Registries
 import net.minecraft.entity.effect.StatusEffect
@@ -7,12 +9,20 @@ import net.minecraft.entity.effect.StatusEffectCategory
 
 object HierophanticsEffects : HierophanticsRegistrar<StatusEffect>(RegistryKeys.STATUS_EFFECT, { Registries.STATUS_EFFECT }) {
     @JvmField
-    val MEDIA_DISCOUNT = register("media_discount", effectSupplier(StatusEffectCategory.BENEFICIAL, 0x64fbff))
+    val MEDIA_DISCOUNT = register("media_discount", { MediaDiscountEffect() })
     @JvmField
-    val SLEEP_ANYWHERE = register("sleep_anywhere", effectSupplier(StatusEffectCategory.BENEFICIAL, 0))
+    val SLEEP_ANYWHERE = register("sleep_anywhere", { SleepAnywhereEffect() })
+}
 
-    // the StatusEffect constructor is protected, so we create an anonymous subclass and return a supplier of that
-    private fun effectSupplier(category: StatusEffectCategory, color: Int): ()->StatusEffect {
-        return { object : StatusEffect(category, color) {} }
+class SleepAnywhereEffect : StatusEffect(StatusEffectCategory.BENEFICIAL, 0)
+
+class MediaDiscountEffect : StatusEffect(StatusEffectCategory.BENEFICIAL, 0x64fbff) {
+    init {
+        this.addAttributeModifier(
+            HexAttributes.MEDIA_CONSUMPTION_MODIFIER,
+            "6845b7c1-3b9c-4164-bb37-e9d35283198b",
+            (HierophanticsConfig.server.mediaDiscount - 1),
+            Operation.MULTIPLY_TOTAL
+        )
     }
 }

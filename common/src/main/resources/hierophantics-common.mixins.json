@@ -15,7 +15,6 @@
   "mixins": [
     "BlockMixin",
     "BrainsweepSpellMixin",
-    "CastingEnvironmentMixin",
     "LivingEntityMixin",
     "OpBrainsweepMixin",
     "PlayerEntityMixin",

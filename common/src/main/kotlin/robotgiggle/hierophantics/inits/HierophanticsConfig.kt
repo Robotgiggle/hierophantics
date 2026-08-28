@@ -14,6 +14,7 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.network.PacketByteBuf
+import net.minecraft.util.math.MathHelper
 import vazkii.patchouli.api.PatchouliAPI
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.networking.msg.MsgSyncConfigS2C
@@ -98,6 +99,7 @@ object HierophanticsConfig {
     class ServerConfig : ConfigData {
         var maxMinds: Int = 64
             private set
+        @Tooltip
         var mediaDiscount: Double = 0.75
             private set
         @Tooltip
@@ -106,29 +108,16 @@ object HierophanticsConfig {
         @Tooltip
         var earlyDamageTriggers: Boolean = false
             private set
-        @Tooltip
-        var discountBlacklist: MutableList<String> = mutableListOf(
-            "hexal:wisp/summon/projectile",
-            "hexal:wisp/summon/ticking",
-            "hexical:conjure_gummy",
-            "hexical:charm",
-            "hexical:recharge_lamp",
-            "lapisworks:imbue_lap",
-            "lapisworks:deposit",
-            "yaha:time_bomb"
-        )
-            private set
+
+        override fun validatePostLoad() {
+            this.mediaDiscount = MathHelper.clamp(this.mediaDiscount, 0.0, 1.0)
+        }
 
         fun encode(buf: PacketByteBuf) {
             buf.writeInt(maxMinds)
             buf.writeDouble(mediaDiscount)
             buf.writeBoolean(playerSleepSpell)
             buf.writeBoolean(earlyDamageTriggers)
-
-            buf.writeInt(discountBlacklist.size)
-            for (item in discountBlacklist) {
-                buf.writeString(item)
-            }
         }
 
         companion object {
@@ -137,11 +126,6 @@ object HierophanticsConfig {
                 mediaDiscount = buf.readDouble()
                 playerSleepSpell = buf.readBoolean()
                 earlyDamageTriggers = buf.readBoolean()
-
-                discountBlacklist = mutableListOf()
-                for (i in 1..buf.readInt()) {
-                    discountBlacklist.add(buf.readString())
-                }
             }
         }
     }
