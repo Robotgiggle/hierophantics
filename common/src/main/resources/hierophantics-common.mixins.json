@@ -17,6 +17,7 @@
     "BrainsweepSpellMixin",
     "LivingEntityMixin",
     "OpBrainsweepMixin",
+    "PlayerBasedCastEnvMixin",
     "PlayerEntityMixin",
     "ReferenceRegistryEntryMixin",
     "ServerPlayerEntityMixin",

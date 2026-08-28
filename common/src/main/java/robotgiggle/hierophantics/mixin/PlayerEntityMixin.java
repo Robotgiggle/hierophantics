@@ -72,12 +72,13 @@ public class PlayerEntityMixin {
 	}
 
     @Inject(method = "getHurtSound", at = @At("TAIL"), cancellable = true)
-    private void playVillagerHurtNoise(CallbackInfoReturnable<SoundEvent> ci) {
+    private void playVillagerHurtNoise(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> ci) {
         if (ci.getReturnValue() == SoundEvents.ENTITY_PLAYER_HURT) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             int minds;
             if (player.getWorld().isClient()) minds = HierophanticsClient.clientOwnedMinds;
             else minds = HieroServerState.getPlayerState(player).getOwnedMinds();
+            if (damageSource.getName().equals("hexcasting.overcast")) minds *= 2;
             if (player.getRandom().nextDouble() < 0.3 - 1.0/(minds + 3)) {
                 if (Hierophantics.isAprilFools()) {
                     ci.setReturnValue(SoundEvents.ENTITY_SALMON_HURT);
