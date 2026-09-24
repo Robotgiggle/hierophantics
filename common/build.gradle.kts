@@ -17,7 +17,7 @@ dependencies {
 
     modApi(libs.patchouli.fabric)
 
-    modApi(libs.hexcasting.fabric)
+    modApi(libs.hexcasting.common)
 
     modApi(libs.clothConfig.common)
 

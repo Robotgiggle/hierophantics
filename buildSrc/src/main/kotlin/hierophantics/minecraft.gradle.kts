@@ -59,7 +59,10 @@ pkJson5 {
 dependencies {
     minecraft(libs.minecraft)
 
-    mappings(variantOf(libs.yarn) { classifier("v2") })
+    mappings(loom.layered {
+        officialMojangMappings()
+        parchment(libs.parchment)
+    })
 
     annotationProcessor(libs.bundles.asm)
 }
