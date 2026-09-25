@@ -188,6 +188,7 @@
 	"text.autoconfig.hierophantics.category.server": "服务端设置",
 	"text.autoconfig.hierophantics.option.server.maxMinds": "玩家最大内嵌意识数",
 	"text.autoconfig.hierophantics.option.server.mediaDiscount": "繁形意识的施法消耗乘数",
+	"text.autoconfig.hierophantics.option.server.mediaDiscount.@Tooltip": "需要重新启动服务端；在玩家拥有效果时修改此项可能会产生意外情况",
 	"text.autoconfig.hierophantics.option.server.playerSleepSpell": "诱发疲乏对内嵌意识的玩家生效",
 	"text.autoconfig.hierophantics.option.server.playerSleepSpell.@Tooltip": "启用时，诱发疲乏会对至少内嵌有一个意识的玩家生效",
 	"text.autoconfig.hierophantics.option.server.earlyDamageTriggers": "伤害触发条件在伤害结算前激活",
