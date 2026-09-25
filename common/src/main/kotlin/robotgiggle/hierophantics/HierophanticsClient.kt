@@ -1,11 +1,11 @@
 package robotgiggle.hierophantics
 
-import net.minecraft.client.gui.screen.Screen
-import net.minecraft.client.MinecraftClient
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.client.Minecraft
 import net.minecraft.world.item.ItemStack
-import net.minecraft.item.Items
-import net.minecraft.item.BlockItem
-import net.minecraft.item.ToolItem
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.BlockItem
+import net.minecraft.world.item.TieredItem
 import at.petrak.hexcasting.client.ClientTickCounter
 import at.petrak.hexcasting.common.lib.HexItems
 import at.petrak.hexcasting.common.lib.HexBlocks
@@ -68,24 +68,24 @@ object HierophanticsClient {
         val emeraldChance = (config.baseEmeraldRate * clientOwnedMinds * getHallucinationScaling()).coerceAtMost(config.maxEmeraldRate)
         if (rng < emeraldChance * 10000) {
             if (Hierophantics.isAprilFools())
-                return ItemStack(fish.get(rng % 4), original.getCount())
-            else if (original.getItem() is BlockItem)
-                return ItemStack(Items.EMERALD_BLOCK, original.getCount())
+                return ItemStack(fish[rng % 4], original.count)
+            else if (original.item is BlockItem)
+                return ItemStack(Items.EMERALD_BLOCK, original.count)
             else
-                return ItemStack(Items.EMERALD, original.getCount())
+                return ItemStack(Items.EMERALD, original.count)
         }
 
         // hallucinate media items due to Manifold Mind
-        if (MinecraftClient.getInstance().player!!.hasEffect((HierophanticsEffects.MEDIA_DISCOUNT.value)) ) {
+        if (Minecraft.getInstance().player!!.hasEffect((HierophanticsEffects.MEDIA_DISCOUNT.value)) ) {
             if (rng > (1 - config.mediaRate) * 10000) {
                 if (Hierophantics.isAprilFools())
-                    return ItemStack(fish.get(rng % 4), original.getCount())
-                else if (original.getItem() is BlockItem)
-                    return ItemStack(mediaBlocks.get(rng % 3), original.getCount())
-                else if (original.getItem() is ToolItem || original.getItem() is ItemStaff)
-                    return ItemStack(HexItems.STAFF_QUENCHED, original.getCount())
+                    return ItemStack(fish[rng % 4], original.count)
+                else if (original.item is BlockItem)
+                    return ItemStack(mediaBlocks[rng % 3], original.count)
+                else if (original.item is TieredItem || original.item is ItemStaff)
+                    return ItemStack(HexItems.STAFF_QUENCHED, original.count)
                 else
-                    return ItemStack(mediaItems.get(rng % 4), original.getCount())
+                    return ItemStack(mediaItems[rng % 4], original.count)
             }
         }
 

@@ -11,8 +11,8 @@ import net.minecraft.world.entity.player.Player
 
 class MindsCappedMishap(val subject: Player) : Mishap() {
 	override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.PURPLE)
-	override fun particleSpray(ctx: CastingEnvironment): ParticleSpray {
-        return ParticleSpray.burst(subject.eyePos, 1.0)
+	override fun particleSpray(env: CastingEnvironment): ParticleSpray {
+        return ParticleSpray.burst(subject.eyePosition, 1.0)
     }
 	override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = error("hierophantics:minds_capped", subject.getName())
 	override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {}

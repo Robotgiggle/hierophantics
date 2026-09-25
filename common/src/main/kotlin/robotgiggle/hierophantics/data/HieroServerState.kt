@@ -2,16 +2,16 @@ package robotgiggle.hierophantics.data
 
 import robotgiggle.hierophantics.Hierophantics
 import net.minecraft.world.entity.player.Player
-import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.MinecraftServer
-import net.minecraft.world.PersistentState
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.saveddata.SavedData
 import java.util.*
 
-class HieroServerState : PersistentState() {
+class HieroServerState : SavedData() {
 	private val players: HashMap<UUID, HieroPlayerState> = HashMap()
 
-	override fun writeNbt(nbt: NbtCompound): NbtCompound {
+	override fun save(nbt: CompoundTag): CompoundTag {
 		players.forEach { (uuid: UUID, player: HieroPlayerState) -> nbt.put(uuid.toString(), player.serialize()) }
 		return nbt
 	}
@@ -23,15 +23,15 @@ class HieroServerState : PersistentState() {
 	}
 
 	companion object {
-		private fun createFromNbt(nbt: NbtCompound): HieroServerState {
+		private fun createFromNbt(nbt: CompoundTag): HieroServerState {
 			val state = HieroServerState()
-			nbt.keys.forEach { uuid -> state.players[UUID.fromString(uuid)] = HieroPlayerState.deserialize(nbt.getCompound(uuid)) }
+			nbt.allKeys.forEach { uuid -> state.players[UUID.fromString(uuid)] = HieroPlayerState.deserialize(nbt.getCompound(uuid)) }
 			return state
 		}
 
 		fun getServerState(server: MinecraftServer): HieroServerState {
-			val state = server.getLevel(Level.OVERWORLD)!!.persistentStateManager.getOrCreate(::createFromNbt, ::HieroServerState, Hierophantics.MOD_ID)
-			state.markDirty()
+			val state = server.getLevel(Level.OVERWORLD)!!.dataStorage.computeIfAbsent(::createFromNbt, ::HieroServerState, Hierophantics.MOD_ID)
+			state.setDirty()
 			return state
 		}
 

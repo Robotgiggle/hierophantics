@@ -5,11 +5,11 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import robotgiggle.hierophantics.data.HieroServerState
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtElement
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.Tag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.network.chat.Component
-import net.minecraft.util.Formatting
+import net.minecraft.ChatFormatting
 import net.minecraft.world.entity.player.Player
 import java.util.UUID
 
@@ -24,27 +24,27 @@ class MindReferenceIota(name: String, host: Player) : Iota(TYPE, MindReference(n
 	val name = (payload as MindReference).name
 	val host = (payload as MindReference).host
 
-	override fun serialize(): NbtElement {
-		val compound = NbtCompound()
+	override fun serialize(): Tag {
+		val compound = CompoundTag()
 		compound.putString("name", name)
-		compound.putString("hostUUID", host.getUuid().toString())
+		compound.putString("hostUUID", host.getUUID().toString())
 		return compound
 	}
 
 	companion object {
 		@JvmField
 		val TYPE: IotaType<MindReferenceIota> = object : IotaType<MindReferenceIota>() {
-			override fun deserialize(nbt: NbtElement, world: ServerLevel): MindReferenceIota? {
-				val name = (nbt as NbtCompound).getString("name")
+			override fun deserialize(nbt: Tag, world: ServerLevel): MindReferenceIota? {
+				val name = (nbt as CompoundTag).getString("name")
 				val hostUuid = UUID.fromString(nbt.getString("hostUUID"))
 				val host = world.getEntity(hostUuid)
 				if (host == null || host !is Player) return null
 				if (!HieroServerState.getPlayerState(host).hasMind(name)) return null
 				return MindReferenceIota(name, host)
 			}
-			override fun display(nbt: NbtElement): Component {
-				val name = (nbt as NbtCompound).getString("name")
-				return Component.translatable("hierophantics.tooltip.mind_reference", name).formatted(Formatting.AQUA)
+			override fun display(nbt: Tag): Component {
+				val name = (nbt as CompoundTag).getString("name")
+				return Component.translatable("hierophantics.tooltip.mind_reference", name).withStyle(ChatFormatting.AQUA)
 			}
 			override fun color() = 0x55ffff
 		}

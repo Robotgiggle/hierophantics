@@ -5,9 +5,9 @@ import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.casting.iota.Iota
 import robotgiggle.hierophantics.Hierophantics
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtElement
-import net.minecraft.nbt.NbtList
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.Tag
+import net.minecraft.nbt.ListTag
 import net.minecraft.world.phys.Vec3
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.MinecraftServer
@@ -35,11 +35,11 @@ class HieroPlayerState {
 	var skipTeleTrigger = 0
 
 	fun tick(player: ServerPlayer) {
-		if (player.isDeadOrDying() || ownedMinds == 0) return
+		if (player.isDeadOrDying || ownedMinds == 0) return
 
-		val currHealth = player.getHealth().toDouble()
-		val currBreath = player.getAir() / 30.0
-		val currHunger = player.getHungerManager().getFoodLevel().toDouble()
+		val currHealth = player.health.toDouble()
+		val currBreath = player.airSupply / 30.0
+		val currHunger = player.getFoodData().foodLevel.toDouble()
 		val currVel = HexAPI.instance().getEntityVelocitySpecial(player)
 		val currFallDist = player.fallDistance.toDouble()
 
@@ -137,14 +137,14 @@ class HieroPlayerState {
 		triggerMinds(player, {t -> t.type == triggerType}, initialIota)
 	}
 
-	fun serialize(): NbtCompound {
-		val compound = NbtCompound()
+	fun serialize(): CompoundTag {
+		val compound = CompoundTag()
 		compound.putInt("owned", ownedMinds)
 		compound.putBoolean("disabled", disabled)
 		compound.putString("lastDmgType", lastDmgType)
-		val minds = NbtList()
+		val minds = ListTag()
 		hieroMinds.forEach { (name, mind) ->
-			val mindNbt = NbtCompound()
+			val mindNbt = CompoundTag()
 			mindNbt.putString("name", name)
 			mindNbt.putCompound("mind", mind.serialize())
 			minds.add(mindNbt)
@@ -154,12 +154,12 @@ class HieroPlayerState {
 	}
 
 	companion object {
-		fun deserialize(compound: NbtCompound): HieroPlayerState {
+		fun deserialize(compound: CompoundTag): HieroPlayerState {
 			val state = HieroPlayerState()
 			state.ownedMinds = compound.getInt("owned")
 			state.disabled = compound.getBoolean("disabled")
 			state.lastDmgType = compound.getString("lastDmgType")
-			compound.getList("minds", NbtElement.COMPOUND_TYPE.toInt()).forEach { mind ->
+			compound.getList("minds", Tag.TAG_COMPOUND.toInt()).forEach { mind ->
 				state.hieroMinds[mind.asCompound.getString("name")] = HieroMind.deserialize(mind.asCompound.getCompound("mind"))
 			}
 			return state

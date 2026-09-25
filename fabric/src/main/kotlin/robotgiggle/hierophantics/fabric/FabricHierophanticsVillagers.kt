@@ -3,7 +3,7 @@ package robotgiggle.hierophantics.fabric
 import com.google.common.collect.ImmutableSet
 
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.registry.Registry
+import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
 import net.minecraft.sounds.SoundEvents
@@ -20,7 +20,7 @@ import java.util.function.Supplier
 object FabricHierophanticsVillagers {
     val FLAY_BED_ID = Hierophantics.id("flay_bed")
     val FLAY_BED_POI = PointOfInterestHelper.register(FLAY_BED_ID, 1, 1, HierophanticsBlocks.FLAY_BED.value
-        .getStateManager().getStates().stream()
+        .getStateDefinition().getPossibleStates().stream()
         .filter({blockState -> 
             blockState.getValue(BedBlock.PART) == BedPart.HEAD
         })
@@ -29,18 +29,18 @@ object FabricHierophanticsVillagers {
 
     val QUILTMIND_ID = Hierophantics.id("quiltmind")
     val QUILTMIND_POI = PointOfInterestHelper.register(QUILTMIND_ID, 1, 1, HierophanticsBlocks.EDIFIED_WORKSTATION.value)
-    val QUILTMIND_POI_KEY = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, QUILTMIND_ID)
+    val QUILTMIND_POI_KEY = ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, QUILTMIND_ID)
     val QUILTMIND = VillagerProfession(
         "quiltmind", 
-        {e -> e.matchesKey(QUILTMIND_POI_KEY)}, 
-        {e -> e.matchesKey(QUILTMIND_POI_KEY)}, 
+        {e -> e.`is`(QUILTMIND_POI_KEY)},
+        {e -> e.`is`(QUILTMIND_POI_KEY)},
         ImmutableSet.of(), 
         ImmutableSet.of(), 
-        SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE
+        SoundEvents.ENCHANTMENT_TABLE_USE
     )
     
     fun init() {
-        Registry.register(Registries.VILLAGER_PROFESSION, QUILTMIND_ID, QUILTMIND)
+        Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, QUILTMIND_ID, QUILTMIND)
         HierophanticsVillagers.QUILTMIND = Supplier{ QUILTMIND }
     }
 }

@@ -14,10 +14,10 @@ import robotgiggle.hierophantics.mishaps.MindsDisabledMishap
 import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C
 import kotlin.math.ln
 
-class HieroMindCastEnv(caster: ServerPlayer, castingHand: Hand, val muted: Boolean) : PlayerBasedCastEnv(caster, castingHand) {
+class HieroMindCastEnv(caster: ServerPlayer, castingHand: InteractionHand, val muted: Boolean) : PlayerBasedCastEnv(caster, castingHand) {
 	var mediaConsumed: Long = 0
 
-	override fun getCastingHand(): Hand = this.castingHand
+	override fun getCastingHand(): InteractionHand = this.castingHand
 	override fun getPigment(): FrozenPigment = IXplatAbstractions.INSTANCE.getPigment(this.caster)
 	override fun produceParticles(particles: ParticleSpray, pigment: FrozenPigment) {
 		if (!muted) super.produceParticles(particles, pigment)

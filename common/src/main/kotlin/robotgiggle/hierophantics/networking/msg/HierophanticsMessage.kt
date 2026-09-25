@@ -7,7 +7,7 @@ import robotgiggle.hierophantics.networking.HierophanticsNetworking
 import robotgiggle.hierophantics.networking.handler.applyOnClient
 import robotgiggle.hierophantics.networking.handler.applyOnServer
 import net.fabricmc.api.EnvType
-import net.minecraft.network.PacketByteBuf
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerPlayer
 import java.util.function.Supplier
 
@@ -32,9 +32,9 @@ sealed interface HierophanticsMessageS2C : HierophanticsMessage {
 sealed interface HierophanticsMessageCompanion<T : HierophanticsMessage> {
     val type: Class<T>
 
-    fun decode(buf: PacketByteBuf): T
+    fun decode(buf: FriendlyByteBuf): T
 
-    fun T.encode(buf: PacketByteBuf)
+    fun T.encode(buf: FriendlyByteBuf)
 
     fun apply(msg: T, supplier: Supplier<PacketContext>) {
         val ctx = supplier.get()

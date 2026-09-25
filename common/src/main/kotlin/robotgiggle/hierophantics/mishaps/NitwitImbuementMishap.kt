@@ -10,12 +10,12 @@ import net.minecraft.world.entity.Mob
 import net.minecraft.world.item.DyeColor
 
 class NitwitImbuementMishap(val mob: Mob) : Mishap() {
-    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.GREEN)
-    override fun particleSpray(ctx: CastingEnvironment): ParticleSpray {
-        return ParticleSpray.burst(mob.eyePos, 1.0)
+    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.GREEN)
+    override fun particleSpray(env: CastingEnvironment): ParticleSpray {
+        return ParticleSpray.burst(mob.eyePosition, 1.0)
     }
-    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context) = error("hierophantics:nitwit_imbuement", mob.displayName)
-    override fun execute(ctx: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
-        trulyHurt(mob, mob.getDamageSources().create(HexDamageTypes.OVERCAST, ctx.castingEntity), 1f)
+    override fun errorMessage(env: CastingEnvironment, errorCtx: Context) = error("hierophantics:nitwit_imbuement", mob.displayName)
+    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
+        trulyHurt(mob, mob.damageSources().source(HexDamageTypes.OVERCAST, env.castingEntity), 1f)
     }
 }

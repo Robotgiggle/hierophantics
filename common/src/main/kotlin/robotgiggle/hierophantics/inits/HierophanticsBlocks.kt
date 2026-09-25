@@ -1,23 +1,23 @@
 package robotgiggle.hierophantics.inits
 
 import at.petrak.hexcasting.common.lib.HexBlocks
-import net.minecraft.item.Item
-import net.minecraft.item.BlockItem
-import net.minecraft.item.ItemConvertible
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.BlockItem
+import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Block
-import net.minecraft.block.AbstractBlock.Settings
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.registries.BuiltInRegistries
 import robotgiggle.hierophantics.blocks.*
 
-object HierophanticsBlocks : HierophanticsRegistrar<Block>(RegistryKeys.BLOCK, { Registries.BLOCK }) {
+object HierophanticsBlocks : HierophanticsRegistrar<Block>(Registries.BLOCK, { BuiltInRegistries.BLOCK }) {
     @JvmField
     val FLAY_BED = blockItem("flay_bed", HierophanticsItems.props, { FlayBedBlock() } )
 
     @JvmField 
-    val EDIFIED_WORKSTATION = blockItem("edified_workstation", HierophanticsItems.props, { Block(Settings.copy(HexBlocks.EDIFIED_PLANKS)) })
+    val EDIFIED_WORKSTATION = blockItem("edified_workstation", HierophanticsItems.props, { Block(Properties.copy(HexBlocks.EDIFIED_PLANKS)) })
 
-    private fun <T : Block> blockItem(name: String, props: Item.Settings, builder: () -> T) =
+    private fun <T : Block> blockItem(name: String, props: Item.Properties, builder: () -> T) =
         blockItem(name, builder) { BlockItem(it, props) }
 
     private fun <B : Block, I : Item> blockItem(
@@ -33,7 +33,7 @@ object HierophanticsBlocks : HierophanticsRegistrar<Block>(RegistryKeys.BLOCK, {
     class BlockItemEntry<B : Block, I : Item>(
         blockEntry: Entry<B>,
         val itemEntry: HierophanticsRegistrar<Item>.Entry<I>,
-    ) : Entry<B>(blockEntry), ItemConvertible {
+    ) : Entry<B>(blockEntry), ItemLike {
         val block by ::value
         val item by itemEntry::value
         val itemKey by itemEntry::key

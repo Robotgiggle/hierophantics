@@ -13,8 +13,8 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
-import net.minecraft.network.PacketByteBuf
-import net.minecraft.util.math.MathHelper
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.util.Mth
 import vazkii.patchouli.api.PatchouliAPI
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.networking.msg.MsgSyncConfigS2C
@@ -110,10 +110,10 @@ object HierophanticsConfig {
             private set
 
         override fun validatePostLoad() {
-            this.mediaDiscount = MathHelper.clamp(this.mediaDiscount, 0.0, 1.0)
+            this.mediaDiscount = Mth.clamp(this.mediaDiscount, 0.0, 1.0)
         }
 
-        fun encode(buf: PacketByteBuf) {
+        fun encode(buf: FriendlyByteBuf) {
             buf.writeInt(maxMinds)
             buf.writeDouble(mediaDiscount)
             buf.writeBoolean(playerSleepSpell)
@@ -121,7 +121,7 @@ object HierophanticsConfig {
         }
 
         companion object {
-            fun decode(buf: PacketByteBuf) = ServerConfig().apply {
+            fun decode(buf: FriendlyByteBuf) = ServerConfig().apply {
                 maxMinds = buf.readInt()
                 mediaDiscount = buf.readDouble()
                 playerSleepSpell = buf.readBoolean()

@@ -101,10 +101,10 @@ public abstract class ServerPlayerMixin extends Player {
 	}
 
 	@Shadow
-	private boolean isBedTooFarAway(BlockPos blockPos, Direction direction) { return false; }
+	private boolean bedInRange(BlockPos pos, Direction direction) { return false; }
 
 	@Shadow
-	private boolean isBedObstructed(BlockPos blockPos, Direction direction) { return false; }
+	private boolean bedBlocked(BlockPos pos, Direction direction) { return false; }
 
 	@Unique
     private Either<Player.BedSleepingProblem, Unit> hierophantics$trimmedTrySleep(ServerPlayer player, BlockPos blockPos) {
@@ -112,10 +112,10 @@ public abstract class ServerPlayerMixin extends Player {
         if (player.isSleeping() || !player.isAlive()) {
             return Either.left(Player.BedSleepingProblem.OTHER_PROBLEM);
         }
-        if (!this.isBedTooFarAway(blockPos, direction)) {
+        if (!this.bedInRange(blockPos, direction)) {
             return Either.left(Player.BedSleepingProblem.TOO_FAR_AWAY);
         }
-        if (this.isBedObstructed(blockPos, direction)) {
+        if (this.bedBlocked(blockPos, direction)) {
             return Either.left(Player.BedSleepingProblem.OBSTRUCTED);
         }
         return super.startSleepInBed(blockPos);

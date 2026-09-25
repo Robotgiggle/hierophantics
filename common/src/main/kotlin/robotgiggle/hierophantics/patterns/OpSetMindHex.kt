@@ -15,7 +15,7 @@ import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.CompoundTag
 
 object OpSetMindHex : SpellAction {
 	override val argc = 2
@@ -54,7 +54,7 @@ object OpSetMindHex : SpellAction {
 	private data class Spell(val state: HieroPlayerState, val mindName: String, val payload: Iota) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			if (payload is NullIota) {
-				state.getMind(mindName).hex = NbtCompound()
+				state.getMind(mindName).hex = CompoundTag()
 			} else {
 				state.getMind(mindName).hex = IotaType.serialize(payload as ListIota)
 			}

@@ -10,7 +10,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.npc.Villager
-import net.minecraft.entity.ai.brain.Activity
+import net.minecraft.world.entity.schedule.Activity
 import net.minecraft.world.entity.schedule.Schedule
 import net.minecraft.world.entity.schedule.ScheduleBuilder
 import net.minecraft.world.effect.MobEffectInstance
@@ -44,19 +44,19 @@ object OpVillagerSleep : SpellAction {
     private data class Spell(val target: LivingEntity) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {
             if (target is Villager) {
-                val now = (env.getWorld().getTimeOfDay() % 24000).toInt()
+                val now = (env.getWorld().dayTime % 24000).toInt()
                 val forcedSleepSched = ScheduleBuilder(Schedule())
-                    .withActivity(now, Activity.REST)
-                    .withActivity(now + 600, Activity.IDLE)
+                    .changeActivityAt(now, Activity.REST)
+                    .changeActivityAt(now + 600, Activity.IDLE)
                     .build()
-                target.brain.setSchedule(forcedSleepSched)
-                (target as VillagerMinterface).`hierophantics$setForcedSleepStatus`(if (target.isBaby()) 2 else 1)
+                target.brain.schedule = forcedSleepSched
+                (target as VillagerMinterface).`hierophantics$setForcedSleepStatus`(if (target.isBaby) 2 else 1)
             } else if (target is Player) {
                 if (env.getWorld().isNight) {
-                    target.sleep(target.blockPosition())
+                    target.startSleeping(target.blockPosition())
                     (target as PlayerAccessor).setSleepCounter(0)
-                    target.addStatusEffect(MobEffectInstance(HierophanticsEffects.SLEEP_ANYWHERE.value, 300, 0, false, false))
-                    env.getWorld().updateSleepingPlayers()
+                    target.addEffect(MobEffectInstance(HierophanticsEffects.SLEEP_ANYWHERE.value, 300, 0, false, false))
+                    env.getWorld().updateSleepingPlayerList()
                 }
             }
         }

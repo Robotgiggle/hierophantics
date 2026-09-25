@@ -14,10 +14,10 @@ import robotgiggle.hierophantics.HierophanticsVillagers;
 @Mixin(Reference.class)
 public class ReferenceRegistryEntryMixin {
     // why on earth isn't there a better way to make something count as a bed for villagers
-    @Inject(method = "is", at = @At("HEAD"), cancellable = true)
-    private void flayBedIsVillagerHome(ResourceKey<?> key, CallbackInfoReturnable<Boolean> ci) {
+    @Inject(method = "is(Lnet/minecraft/resources/ResourceKey;)Z", at = @At("HEAD"), cancellable = true)
+    private void flayBedIsVillagerHome(ResourceKey<?> resourceKey, CallbackInfoReturnable<Boolean> ci) {
         Reference<?> entry = (Reference<?>) (Object) this;
-        if (key == PoiTypes.HOME && entry.key() == HierophanticsVillagers.FLAY_BED_POI_KEY) {
+        if (resourceKey == PoiTypes.HOME && entry.key() == HierophanticsVillagers.FLAY_BED_POI_KEY) {
             ci.setReturnValue(true);
         }
     }

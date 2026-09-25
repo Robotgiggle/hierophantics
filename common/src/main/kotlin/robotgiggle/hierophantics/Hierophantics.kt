@@ -1,8 +1,8 @@
 package robotgiggle.hierophantics
 
-import net.minecraft.entity.damage.DamageType
+import net.minecraft.world.damagesource.DamageType
 import net.minecraft.core.registries.Registries
-import net.minecraft.registry.tag.TagKey
+import net.minecraft.tags.TagKey
 import net.minecraft.resources.ResourceLocation
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -20,7 +20,7 @@ object Hierophantics {
 	)
 
     @JvmField
-    val BYPASSES_DAMAGE_TRIGGER: TagKey<DamageType> = TagKey.of(RegistryKeys.DAMAGE_TYPE, id("bypasses_damage_trigger"))
+    val BYPASSES_DAMAGE_TRIGGER: TagKey<DamageType> = TagKey.create(Registries.DAMAGE_TYPE, id("bypasses_damage_trigger"))
 
     @JvmField
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)

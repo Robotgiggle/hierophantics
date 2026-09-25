@@ -5,11 +5,11 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import robotgiggle.hierophantics.data.Trigger
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtElement
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.Tag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.network.chat.Component
-import net.minecraft.util.Formatting
+import net.minecraft.ChatFormatting
 
 class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 	constructor(trigger: String, threshold: Double = -1.0, dmgType: String = "", inverted: Boolean = false) : this(Trigger(trigger, threshold, dmgType, inverted))
@@ -25,19 +25,19 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 	val dmgType = trigger.dmgType
 	val inverted = trigger.inverted
 
-	override fun serialize(): NbtElement {
+	override fun serialize(): Tag {
 		return trigger.serialize()
 	}
 
 	companion object {
 		@JvmField
 		val TYPE: IotaType<TriggerIota> = object : IotaType<TriggerIota>() {
-			override fun deserialize(nbt: NbtElement, world: ServerLevel): TriggerIota? {
+			override fun deserialize(nbt: Tag, world: ServerLevel): TriggerIota? {
 				return TriggerIota(Trigger.deserialize(nbt))
 			}
-			override fun display(nbt: NbtElement): Component {
+			override fun display(nbt: Tag): Component {
 				var typeDisplay: Component
-				val type = (nbt as NbtCompound).getString("trigger")
+				val type = (nbt as CompoundTag).getString("trigger")
 				val dmgType = nbt.getString("dmgType")
 				val threshold = nbt.getDouble("threshold")
 				val inverted = nbt.getBoolean("inverted")
@@ -52,7 +52,7 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 				} else {
 					typeDisplay = Component.translatable("hierophantics.tooltip.trigger_type." + type)
 				}
-				return Component.translatable("hierophantics.tooltip.trigger", typeDisplay).formatted(Formatting.YELLOW)
+				return Component.translatable("hierophantics.tooltip.trigger", typeDisplay).withStyle(ChatFormatting.YELLOW)
 			}
 			override fun color() = 0xffff55
 		}
