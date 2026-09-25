@@ -7,7 +7,7 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import robotgiggle.hierophantics.data.Trigger
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
-import net.minecraft.server.world.ServerWorld
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
@@ -32,7 +32,7 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 	companion object {
 		@JvmField
 		val TYPE: IotaType<TriggerIota> = object : IotaType<TriggerIota>() {
-			override fun deserialize(nbt: NbtElement, world: ServerWorld): TriggerIota? {
+			override fun deserialize(nbt: NbtElement, world: ServerLevel): TriggerIota? {
 				return TriggerIota(Trigger.deserialize(nbt))
 			}
 			override fun display(nbt: NbtElement): Text {

@@ -1,15 +1,15 @@
 package robotgiggle.hierophantics.mixin;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.block.Block;
-import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import org.spongepowered.asm.mixin.Unique;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
@@ -28,29 +28,29 @@ import com.mojang.datafixers.util.Either;
 
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 
-@Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity {
-    ServerPlayerEntityMixin(World world, BlockPos blockPos, float f, GameProfile gameProfile) {
+@Mixin(ServerPlayer.class)
+public abstract class ServerPlayerMixin extends Player {
+    ServerPlayerMixin(Level world, BlockPos blockPos, float f, GameProfile gameProfile) {
 		super(world, blockPos, f, gameProfile);
 	}
 
-	@Inject(method = "dropItem", at = @At("TAIL"))
+	@Inject(method = "drop", at = @At("TAIL"))
 	private void fireDropTriggers(ItemStack itemStack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemStack> ci, @Local ItemEntity droppedEntity) {
         if (!throwRandomly && retainOwnership) {
-			ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+			ServerPlayer player = (ServerPlayer) (Object) this;
 			HieroServerState.getPlayerState(player).triggerMinds(player, "drop", new EntityIota(droppedEntity));
 		}
     }
 	
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void checkThresholdTriggers(CallbackInfo ci) {
-		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+		ServerPlayer player = (ServerPlayer) (Object) this;
 		HieroServerState.getPlayerState(player).tick(player);
 	}
 
-	@Inject(method = "onDeath", at = @At("HEAD"))
+	@Inject(method = "die", at = @At("HEAD"))
 	private void disableMindsOnDeath(CallbackInfo ci) {
-		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+		ServerPlayer player = (ServerPlayer) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) {
 			state.setDisabled(true);
@@ -59,7 +59,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		}
 	}
 
-	@Inject(method = "worldChanged", at = @At("HEAD"))
+	@Inject(method = "triggerDimensionChangeTriggers", at = @At("HEAD"))
 	private void skipTeleTriggerWhenChangingDims(CallbackInfo ci) {
 		hierophantics$skipTeleTrigger();
 	}
@@ -74,27 +74,27 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		hierophantics$skipTeleTrigger();
 	}
 
-	@Inject(method = "sleep", at = @At("HEAD"))
+	@Inject(method = "startSleeping", at = @At("HEAD"))
 	private void skipTeleTriggerWhenGettingIntoBed(CallbackInfo ci) {
 		hierophantics$skipTeleTrigger();
 	}
 
-	@Inject(method = "wakeUp", at = @At("HEAD"))
+	@Inject(method = "stopSleepInBed", at = @At("HEAD"))
 	private void skipTeleTriggerWhenGettingOutOfBed(CallbackInfo ci) {
 		hierophantics$skipTeleTrigger();
 	}
 
 	@Unique
     private void hierophantics$skipTeleTrigger() {
-		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+		ServerPlayer player = (ServerPlayer) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(5);
 	}
 	
-	@Inject(method = "trySleep", at = @At("HEAD"), cancellable = true)
-	private void trySleepInFlayBed(BlockPos blockPos, CallbackInfoReturnable<Either<PlayerEntity.SleepFailureReason, Unit>> ci) {
-		ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-		Block block = player.getWorld().getBlockState(blockPos).getBlock();
+	@Inject(method = "startSleepInBed", at = @At("HEAD"), cancellable = true)
+	private void trySleepInFlayBed(BlockPos blockPos, CallbackInfoReturnable<Either<Player.BedSleepingProblem, Unit>> ci) {
+		ServerPlayer player = (ServerPlayer) (Object) this;
+		Block block = player.level().getBlockState(blockPos).getBlock();
 		if (block instanceof FlayBedBlock) {
 			ci.setReturnValue(hierophantics$trimmedTrySleep(player, blockPos));
 		}
@@ -107,17 +107,17 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private boolean isBedObstructed(BlockPos blockPos, Direction direction) { return false; }
 
 	@Unique
-    private Either<PlayerEntity.SleepFailureReason, Unit> hierophantics$trimmedTrySleep(ServerPlayerEntity player, BlockPos blockPos) {
-        Direction direction = player.getWorld().getBlockState(blockPos).get(HorizontalFacingBlock.FACING);
+    private Either<Player.BedSleepingProblem, Unit> hierophantics$trimmedTrySleep(ServerPlayer player, BlockPos blockPos) {
+        Direction direction = player.level().getBlockState(blockPos).getValue(HorizontalDirectionalBlock.FACING);
         if (player.isSleeping() || !player.isAlive()) {
-            return Either.left(PlayerEntity.SleepFailureReason.OTHER_PROBLEM);
+            return Either.left(Player.BedSleepingProblem.OTHER_PROBLEM);
         }
         if (!this.isBedTooFarAway(blockPos, direction)) {
-            return Either.left(PlayerEntity.SleepFailureReason.TOO_FAR_AWAY);
+            return Either.left(Player.BedSleepingProblem.TOO_FAR_AWAY);
         }
         if (this.isBedObstructed(blockPos, direction)) {
-            return Either.left(PlayerEntity.SleepFailureReason.OBSTRUCTED);
+            return Either.left(Player.BedSleepingProblem.OBSTRUCTED);
         }
-        return super.trySleep(blockPos);
+        return super.startSleepInBed(blockPos);
     }
 }

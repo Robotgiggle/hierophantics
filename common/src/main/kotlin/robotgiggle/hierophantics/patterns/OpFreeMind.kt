@@ -9,7 +9,7 @@ import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.networking.msg.MsgOwnedMindsS2C
 import robotgiggle.hierophantics.mishaps.*
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 
 object OpFreeMind : SpellAction {
     override val argc = 1
@@ -17,7 +17,7 @@ object OpFreeMind : SpellAction {
         val caster = env.castingEntity
 		val mindRef = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mindRef.host != caster) {
+		if (caster == null || caster !is ServerPlayer || mindRef.host != caster) {
 			throw NotYourMindMishap()
 		}
 
@@ -38,7 +38,7 @@ object OpFreeMind : SpellAction {
 	private data class Spell(val state: HieroPlayerState, val mindName: String) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			val newTotal = state.freeMind(mindName)
-			MsgOwnedMindsS2C(newTotal).sendToPlayer(env.castingEntity as ServerPlayerEntity)
+			MsgOwnedMindsS2C(newTotal).sendToPlayer(env.castingEntity as ServerPlayer)
 		}
 	}
 }

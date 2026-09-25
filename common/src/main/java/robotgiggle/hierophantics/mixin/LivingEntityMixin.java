@@ -1,10 +1,10 @@
 package robotgiggle.hierophantics.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPart;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.EnderDragonPart;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.inits.HierophanticsEffects;
 
@@ -18,22 +18,22 @@ import at.petrak.hexcasting.api.casting.iota.EntityIota;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-    @Inject(method = "onAttacking", at = @At("TAIL"))
+    @Inject(method = "setLastHurtMob", at = @At("TAIL"))
 	private void fireAttackTriggers(Entity target, CallbackInfo ci) {
 		LivingEntity entity = (LivingEntity) (Object) this;
-        if (entity instanceof PlayerEntity player) {
-            if (player.getWorld().isClient)
+        if (entity instanceof Player player) {
+            if (player.level().isClientSide)
 			    return;
 			if (target instanceof EnderDragonPart part)
-				target = part.owner;
-		    HieroServerState.getPlayerState(player).triggerMinds((ServerPlayerEntity) player, "attack", new EntityIota(target));
+				target = part.parentMob;
+		    HieroServerState.getPlayerState(player).triggerMinds((ServerPlayer) player, "attack", new EntityIota(target));
         }
 	}
 
-	@Inject(method = "isSleepingInBed", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "checkBedExists", at = @At("HEAD"), cancellable = true)
 	private void allowSleepingAnywhere(CallbackInfoReturnable<Boolean> ci) {
 		LivingEntity entity = (LivingEntity) (Object) this;
-		if (entity.hasStatusEffect(HierophanticsEffects.SLEEP_ANYWHERE.getValue())) {
+		if (entity.hasEffect(HierophanticsEffects.SLEEP_ANYWHERE.getValue())) {
 			ci.setReturnValue(true);
 		}
 	}

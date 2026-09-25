@@ -1,8 +1,8 @@
 package robotgiggle.hierophantics
 
-import net.minecraft.village.VillagerProfession
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.RegistryKey
+import net.minecraft.world.entity.npc.VillagerProfession
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.resources.ResourceKey
 import java.util.function.Supplier
 
 object HierophanticsVillagers {

@@ -1,7 +1,7 @@
 package robotgiggle.hierophantics
 
 import net.minecraft.entity.damage.DamageType
-import net.minecraft.registry.RegistryKeys
+import net.minecraft.resources.ResourceKeys
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import org.apache.logging.log4j.LogManager

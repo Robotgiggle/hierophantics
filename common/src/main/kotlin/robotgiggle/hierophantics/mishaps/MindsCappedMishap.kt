@@ -7,9 +7,9 @@ import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import net.minecraft.text.Text
 import net.minecraft.util.DyeColor
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.player.Player
 
-class MindsCappedMishap(val subject: PlayerEntity) : Mishap() {
+class MindsCappedMishap(val subject: Player) : Mishap() {
 	override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.PURPLE)
 	override fun particleSpray(ctx: CastingEnvironment): ParticleSpray {
         return ParticleSpray.burst(subject.eyePos, 1.0)

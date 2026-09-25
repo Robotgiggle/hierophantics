@@ -1,11 +1,11 @@
 package robotgiggle.hierophantics.data
 
 import robotgiggle.hierophantics.Hierophantics
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.MinecraftServer
 import net.minecraft.world.PersistentState
-import net.minecraft.world.World
+import net.minecraft.world.level.Level
 import java.util.*
 
 class HieroServerState : PersistentState() {
@@ -30,13 +30,13 @@ class HieroServerState : PersistentState() {
 		}
 
 		fun getServerState(server: MinecraftServer): HieroServerState {
-			val state = server.getWorld(World.OVERWORLD)!!.persistentStateManager.getOrCreate(::createFromNbt, ::HieroServerState, Hierophantics.MOD_ID)
+			val state = server.getLevel(Level.OVERWORLD)!!.persistentStateManager.getOrCreate(::createFromNbt, ::HieroServerState, Hierophantics.MOD_ID)
 			state.markDirty()
 			return state
 		}
 
 		@JvmStatic
-		fun getPlayerState(player: PlayerEntity): HieroPlayerState {
+		fun getPlayerState(player: Player): HieroPlayerState {
 			return getServerState(player.server!!).players.computeIfAbsent(player.uuid) { HieroPlayerState() }
 		}
 	}

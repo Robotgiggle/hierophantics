@@ -7,15 +7,15 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import robotgiggle.hierophantics.data.HieroServerState
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
-import net.minecraft.server.world.ServerWorld
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.player.Player
 import java.util.UUID
 
-class MindReferenceIota(name: String, host: PlayerEntity) : Iota(TYPE, MindReference(name, host)) {
+class MindReferenceIota(name: String, host: Player) : Iota(TYPE, MindReference(name, host)) {
 	@JvmRecord
-    data class MindReference(val name: String, val host: PlayerEntity)
+    data class MindReference(val name: String, val host: Player)
     
     override fun isTruthy() = true
 	override fun toleratesOther(that: Iota): Boolean {
@@ -34,11 +34,11 @@ class MindReferenceIota(name: String, host: PlayerEntity) : Iota(TYPE, MindRefer
 	companion object {
 		@JvmField
 		val TYPE: IotaType<MindReferenceIota> = object : IotaType<MindReferenceIota>() {
-			override fun deserialize(nbt: NbtElement, world: ServerWorld): MindReferenceIota? {
+			override fun deserialize(nbt: NbtElement, world: ServerLevel): MindReferenceIota? {
 				val name = (nbt as NbtCompound).getString("name")
 				val hostUuid = UUID.fromString(nbt.getString("hostUUID"))
 				val host = world.getEntity(hostUuid)
-				if (host == null || host !is PlayerEntity) return null
+				if (host == null || host !is Player) return null
 				if (!HieroServerState.getPlayerState(host).hasMind(name)) return null
 				return MindReferenceIota(name, host)
 			}

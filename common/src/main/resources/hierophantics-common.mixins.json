@@ -5,11 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-    "client.AbstractClientPlayerEntityMixin",
-    "client.HandledScreenMixin",
-    "client.HeldItemRendererMixin",
-    "client.InGameHudMixin",
-    "client.ItemFrameEntityRendererMixin",
+    "client.AbstractClientPlayerMixin",
+    "client.AbstractContainerScreenMixin",
+    "client.ItemInHandRendererMixin",
+    "client.GuiMixin",
+    "client.ItemFrameRendererMixin",
     "client.ItemEntityRendererMixin"
   ],
   "mixins": [
@@ -18,12 +18,12 @@
     "LivingEntityMixin",
     "OpBrainsweepMixin",
     "PlayerBasedCastEnvMixin",
-    "PlayerEntityMixin",
+    "PlayerMixin",
     "ReferenceRegistryEntryMixin",
-    "ServerPlayerEntityMixin",
-    "VillagerEntityMixin",
-    "ZombieVillagerEntityMixin",
-    "accessor.PlayerEntityAccessor"
+    "ServerPlayerMixin",
+    "VillagerMixin",
+    "ZombieVillagerMixin",
+    "accessor.PlayerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

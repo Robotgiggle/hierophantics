@@ -8,8 +8,8 @@ import robotgiggle.hierophantics.Hierophantics
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtList
-import net.minecraft.util.math.Vec3d
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.world.phys.Vec3
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.MinecraftServer
 
 import at.petrak.hexcasting.api.HexAPI
@@ -28,14 +28,14 @@ class HieroPlayerState {
 	var prevHealth = -1.0
 	var prevBreath = -1.0
 	var prevHunger = -1.0
-	var prevVel = Vec3d.ZERO
-	var prev2Vel = Vec3d.ZERO
-	var prev3Vel = Vec3d.ZERO
+	var prevVel = Vec3.ZERO
+	var prev2Vel = Vec3.ZERO
+	var prev3Vel = Vec3.ZERO
 	var prevFallDist = -1.0
 	var skipTeleTrigger = 0
 
-	fun tick(player: ServerPlayerEntity) {
-		if (player.isDead() || ownedMinds == 0) return
+	fun tick(player: ServerPlayer) {
+		if (player.isDeadOrDying() || ownedMinds == 0) return
 
 		val currHealth = player.getHealth().toDouble()
 		val currBreath = player.getAir() / 30.0
@@ -84,7 +84,7 @@ class HieroPlayerState {
 		prevFallDist = currFallDist
 	}
 
-	fun checkTypedDamage(player: ServerPlayerEntity, type: String, initialIota: Iota) {
+	fun checkTypedDamage(player: ServerPlayer, type: String, initialIota: Iota) {
 		lastDmgType = type
 		hieroMinds.forEach { (_, mind) -> 
 			if (mind.trigger.type == "damage_typed" && mind.trigger.dmgType.equals(type)) 
@@ -127,13 +127,13 @@ class HieroPlayerState {
 	}
 
 	@JvmOverloads
-	fun triggerMinds(player: ServerPlayerEntity, triggerPred: Predicate<Trigger>, initialIota: Iota? = null) {
+	fun triggerMinds(player: ServerPlayer, triggerPred: Predicate<Trigger>, initialIota: Iota? = null) {
 		val initialStack = if (initialIota != null) listOf(initialIota) else listOf()
 		hieroMinds.forEach { (_, mind) -> if (triggerPred.test(mind.trigger)) mind.cast(player, initialStack) }
 	}
 
 	@JvmOverloads
-	fun triggerMinds(player: ServerPlayerEntity, triggerType: String, initialIota: Iota? = null) {
+	fun triggerMinds(player: ServerPlayer, triggerType: String, initialIota: Iota? = null) {
 		triggerMinds(player, {t -> t.type == triggerType}, initialIota)
 	}
 

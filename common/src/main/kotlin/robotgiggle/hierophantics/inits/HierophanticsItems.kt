@@ -1,9 +1,9 @@
 package robotgiggle.hierophantics.inits
 
 import net.minecraft.item.Item
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.Registries
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.util.Identifier
 
 object HierophanticsItems : HierophanticsRegistrar<Item>(RegistryKeys.ITEM, { Registries.ITEM }) {

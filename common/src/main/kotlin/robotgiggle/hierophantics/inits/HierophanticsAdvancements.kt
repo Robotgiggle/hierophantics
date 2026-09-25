@@ -5,7 +5,7 @@ import robotgiggle.hierophantics.Hierophantics
 import net.minecraft.advancement.criterion.AbstractCriterion
 import net.minecraft.advancement.criterion.AbstractCriterionConditions
 import net.minecraft.advancement.criterion.Criteria
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.predicate.entity.LootContextPredicate
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer
 import net.minecraft.util.Identifier
@@ -31,7 +31,7 @@ abstract class BaseCriterion<T : BaseCriterion.BaseCondition>(private val id: Id
 	override fun conditionsFromJson(obj: JsonObject, playerPredicate: LootContextPredicate, predicateDeserializer: AdvancementEntityPredicateDeserializer): T = createCondition()
 	protected abstract fun createCondition(): T
 
-	fun trigger(player: ServerPlayerEntity) = trigger(player) { true }
+	fun trigger(player: ServerPlayer) = trigger(player) { true }
 	override fun getId(): Identifier = id
 
 	abstract class BaseCondition(id: Identifier) : AbstractCriterionConditions(id, LootContextPredicate.EMPTY)

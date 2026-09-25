@@ -2,11 +2,11 @@ package robotgiggle.hierophantics.forge
 
 import com.google.common.collect.ImmutableSet
 
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.sound.SoundEvents
-import net.minecraft.village.VillagerProfession
-import net.minecraft.world.poi.PointOfInterestType
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.npc.VillagerProfession
+import net.minecraft.world.entity.ai.village.poi.PoiType
 import net.minecraft.block.BedBlock
 import net.minecraft.block.enums.BedPart
 import robotgiggle.hierophantics.Hierophantics

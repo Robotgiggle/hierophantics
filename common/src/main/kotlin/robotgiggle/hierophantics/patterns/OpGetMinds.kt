@@ -7,13 +7,13 @@ import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.iotas.MindReferenceIota
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 
 object OpGetMinds : ConstMediaAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val caster = env.castingEntity
-		if (caster != null && caster is ServerPlayerEntity) {
+		if (caster != null && caster is ServerPlayer) {
 			val minds = HieroServerState.getPlayerState(caster).hieroMinds
 			val output = mutableListOf<Iota>()
 			minds.forEach { (name, _) -> output.add(MindReferenceIota(name, caster)) }

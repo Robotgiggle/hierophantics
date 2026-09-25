@@ -4,10 +4,10 @@ import at.petrak.hexcasting.common.lib.HexBlocks
 import net.minecraft.item.Item
 import net.minecraft.item.BlockItem
 import net.minecraft.item.ItemConvertible
-import net.minecraft.block.Block
+import net.minecraft.world.level.block.Block
 import net.minecraft.block.AbstractBlock.Settings
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.Registries
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.core.registries.BuiltInRegistries
 import robotgiggle.hierophantics.blocks.*
 
 object HierophanticsBlocks : HierophanticsRegistrar<Block>(RegistryKeys.BLOCK, { Registries.BLOCK }) {

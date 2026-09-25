@@ -7,14 +7,14 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.xplat.IXplatAbstractions
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.Hand
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.mishaps.MindsDisabledMishap
 import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C
 import kotlin.math.ln
 
-class HieroMindCastEnv(caster: ServerPlayerEntity, castingHand: Hand, val muted: Boolean) : PlayerBasedCastEnv(caster, castingHand) {
+class HieroMindCastEnv(caster: ServerPlayer, castingHand: Hand, val muted: Boolean) : PlayerBasedCastEnv(caster, castingHand) {
 	var mediaConsumed: Long = 0
 
 	override fun getCastingHand(): Hand = this.castingHand

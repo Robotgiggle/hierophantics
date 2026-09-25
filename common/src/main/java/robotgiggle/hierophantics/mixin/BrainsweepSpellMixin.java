@@ -1,9 +1,9 @@
 package robotgiggle.hierophantics.mixin;
 
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Final;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.blocks.FlayBedBlockEntity;
@@ -21,7 +21,7 @@ import at.petrak.hexcasting.common.recipe.BrainsweepRecipe;
 public class BrainsweepSpellMixin {
     @Final @Shadow private BlockPos pos;
     @Final @Shadow private BlockState state;
-    @Final @Shadow private MobEntity sacrifice;
+    @Final @Shadow private Mob sacrifice;
     @Final @Shadow private BrainsweepRecipe recipe;
 
     @Inject(method = "cast", at = @At("HEAD"), cancellable = true)

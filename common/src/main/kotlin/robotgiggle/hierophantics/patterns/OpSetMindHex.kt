@@ -14,7 +14,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.nbt.NbtCompound
 
 object OpSetMindHex : SpellAction {
@@ -23,7 +23,7 @@ object OpSetMindHex : SpellAction {
         val caster = env.castingEntity
 		val mindRef = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mindRef.host != caster) {
+		if (caster == null || caster !is ServerPlayer || mindRef.host != caster) {
 			throw NotYourMindMishap()
 		}
 
@@ -40,7 +40,7 @@ object OpSetMindHex : SpellAction {
 			args.getList(1, argc)
 		}
 
-		val trueName = MishapOthersName.getTrueNameFromDatum(args[1], env.castingEntity as? ServerPlayerEntity)
+		val trueName = MishapOthersName.getTrueNameFromDatum(args[1], env.castingEntity as? ServerPlayer)
         if (trueName != null) {
 			throw MishapOthersName(trueName)
 		}

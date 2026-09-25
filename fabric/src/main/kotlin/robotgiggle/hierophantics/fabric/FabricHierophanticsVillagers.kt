@@ -2,12 +2,12 @@ package robotgiggle.hierophantics.fabric
 
 import com.google.common.collect.ImmutableSet
 
-import net.minecraft.registry.Registries
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.registry.Registry
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.sound.SoundEvents
-import net.minecraft.village.VillagerProfession
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.npc.VillagerProfession
 import net.minecraft.block.BedBlock
 import net.minecraft.block.enums.BedPart
 import robotgiggle.hierophantics.Hierophantics

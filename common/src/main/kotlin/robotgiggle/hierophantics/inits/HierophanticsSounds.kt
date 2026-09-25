@@ -1,9 +1,9 @@
 package robotgiggle.hierophantics.inits
 
 import robotgiggle.hierophantics.Hierophantics.id
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.sound.SoundEvent
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.sounds.SoundEvent
 
 object HierophanticsSounds : HierophanticsRegistrar<SoundEvent>(RegistryKeys.SOUND_EVENT, { Registries.SOUND_EVENT }) {
 	val HIEROMIND_CAST = register("hieromind_cast")

@@ -1,7 +1,7 @@
 package robotgiggle.hierophantics.mixin;
 
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +14,7 @@ import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C;
 @Mixin(value = PlayerBasedCastEnv.class, remap = false)
 public class PlayerBasedCastEnvMixin {
     @Shadow
-    private ServerPlayerEntity caster;
+    private ServerPlayer caster;
 
     @Inject(method = "extractMediaFromInventory", at = @At(value = "INVOKE", target = "trulyHurt"))
     private void triggerHallucinationsWhenOvercasting(CallbackInfoReturnable<Long> cir) {

@@ -1,5 +1,5 @@
 package robotgiggle.hierophantics.minterface;
 
-public interface VillagerEntityMinterface {
+public interface VillagerMinterface {
     void hierophantics$setForcedSleepStatus(int value);
 }

@@ -2,7 +2,7 @@ package robotgiggle.hierophantics
 
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.MinecraftClient
-import net.minecraft.item.ItemStack
+import net.minecraft.world.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.BlockItem
 import net.minecraft.item.ToolItem
@@ -76,7 +76,7 @@ object HierophanticsClient {
         }
 
         // hallucinate media items due to Manifold Mind
-        if (MinecraftClient.getInstance().player!!.hasStatusEffect((HierophanticsEffects.MEDIA_DISCOUNT.value)) ) {
+        if (MinecraftClient.getInstance().player!!.hasEffect((HierophanticsEffects.MEDIA_DISCOUNT.value)) ) {
             if (rng > (1 - config.mediaRate) * 10000) {
                 if (Hierophantics.isAprilFools())
                     return ItemStack(fish.get(rng % 4), original.getCount())

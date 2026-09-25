@@ -9,7 +9,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 
 object OpMuteMind : SpellAction {
     override val argc = 2
@@ -17,7 +17,7 @@ object OpMuteMind : SpellAction {
         val caster = env.castingEntity
 		val mindRef = args.getMindReference(0, argc)
 
-		if (caster == null || caster !is ServerPlayerEntity || mindRef.host != caster) {
+		if (caster == null || caster !is ServerPlayer || mindRef.host != caster) {
 			throw NotYourMindMishap()
 		}
 

@@ -5,13 +5,13 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.iotas.TriggerIota
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 
 object OpMakeDmgTypeTrigger : ConstMediaAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val caster = env.castingEntity
-        if (caster != null && caster is ServerPlayerEntity) {
+        if (caster != null && caster is ServerPlayer) {
             val lastDmgType = HieroServerState.getPlayerState(caster).lastDmgType
             if (lastDmgType != "") 
                 return listOf(TriggerIota("damage_typed", dmgType=lastDmgType))

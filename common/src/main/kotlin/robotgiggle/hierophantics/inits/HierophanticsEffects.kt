@@ -2,8 +2,8 @@ package robotgiggle.hierophantics.inits
 
 import at.petrak.hexcasting.common.lib.HexAttributes
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.Registries
+import net.minecraft.resources.ResourceKeys
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectCategory
 

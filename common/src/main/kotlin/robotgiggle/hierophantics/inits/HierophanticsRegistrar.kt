@@ -4,7 +4,7 @@ import dev.architectury.platform.Platform
 import net.fabricmc.api.EnvType
 import robotgiggle.hierophantics.Hierophantics
 import net.minecraft.registry.Registry
-import net.minecraft.registry.RegistryKey
+import net.minecraft.resources.ResourceKey
 import net.minecraft.util.Identifier
 
 

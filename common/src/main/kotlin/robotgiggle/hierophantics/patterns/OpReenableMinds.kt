@@ -8,13 +8,13 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.data.HieroPlayerState
 import robotgiggle.hierophantics.mishaps.NotYourMindMishap
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 
 object OpReenableMinds : SpellAction {
 	override val argc = 0
 	override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
 		val caster = env.castingEntity
-		if (caster == null || caster !is ServerPlayerEntity ) {
+		if (caster == null || caster !is ServerPlayer ) {
 			throw NotYourMindMishap()
 		}
 

@@ -8,7 +8,7 @@ import robotgiggle.hierophantics.networking.handler.applyOnClient
 import robotgiggle.hierophantics.networking.handler.applyOnServer
 import net.fabricmc.api.EnvType
 import net.minecraft.network.PacketByteBuf
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
 import java.util.function.Supplier
 
 sealed interface HierophanticsMessage
@@ -20,11 +20,11 @@ sealed interface HierophanticsMessageC2S : HierophanticsMessage {
 }
 
 sealed interface HierophanticsMessageS2C : HierophanticsMessage {
-    fun sendToPlayer(player: ServerPlayerEntity) {
+    fun sendToPlayer(player: ServerPlayer) {
         HierophanticsNetworking.CHANNEL.sendToPlayer(player, this)
     }
 
-    fun sendToPlayers(players: Iterable<ServerPlayerEntity>) {
+    fun sendToPlayers(players: Iterable<ServerPlayer>) {
         HierophanticsNetworking.CHANNEL.sendToPlayers(players, this)
     }
 }
