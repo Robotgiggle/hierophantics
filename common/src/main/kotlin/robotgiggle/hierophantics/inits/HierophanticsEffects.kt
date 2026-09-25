@@ -1,22 +1,22 @@
 package robotgiggle.hierophantics.inits
 
 import at.petrak.hexcasting.common.lib.HexAttributes
-import net.minecraft.entity.attribute.EntityAttributeModifier.Operation
-import net.minecraft.resources.ResourceKeys
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation
+import net.minecraft.core.registries.Registries
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.entity.effect.StatusEffect
-import net.minecraft.entity.effect.StatusEffectCategory
+import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectCategory
 
-object HierophanticsEffects : HierophanticsRegistrar<StatusEffect>(RegistryKeys.STATUS_EFFECT, { Registries.STATUS_EFFECT }) {
+object HierophanticsEffects : HierophanticsRegistrar<MobEffect>(Registries.MOB_EFFECT, { BuiltInRegistries.MOB_EFFECT }) {
     @JvmField
     val MEDIA_DISCOUNT = register("media_discount", { MediaDiscountEffect() })
     @JvmField
     val SLEEP_ANYWHERE = register("sleep_anywhere", { SleepAnywhereEffect() })
 }
 
-class SleepAnywhereEffect : StatusEffect(StatusEffectCategory.BENEFICIAL, 0)
+class SleepAnywhereEffect : MobEffect(MobEffectCategory.BENEFICIAL, 0)
 
-class MediaDiscountEffect : StatusEffect(StatusEffectCategory.BENEFICIAL, 0x64fbff) {
+class MediaDiscountEffect : MobEffect(MobEffectCategory.BENEFICIAL, 0x64fbff) {
     init {
         this.addAttributeModifier(
             HexAttributes.MEDIA_CONSUMPTION_MODIFIER,

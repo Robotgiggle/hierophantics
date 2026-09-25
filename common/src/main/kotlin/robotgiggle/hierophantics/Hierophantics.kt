@@ -1,9 +1,9 @@
 package robotgiggle.hierophantics
 
 import net.minecraft.entity.damage.DamageType
-import net.minecraft.resources.ResourceKeys
+import net.minecraft.core.registries.Registries
 import net.minecraft.registry.tag.TagKey
-import net.minecraft.util.Identifier
+import net.minecraft.resources.ResourceLocation
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import robotgiggle.hierophantics.networking.HierophanticsNetworking
@@ -26,7 +26,7 @@ object Hierophantics {
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
     @JvmStatic
-	fun id(string: String) = Identifier(MOD_ID, string)
+	fun id(string: String) = ResourceLocation(MOD_ID, string)
 
     @JvmStatic
     fun isAprilFools(): Boolean {

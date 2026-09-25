@@ -8,7 +8,7 @@ import robotgiggle.hierophantics.data.HieroServerState
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.text.Text
+import net.minecraft.network.chat.Component
 import net.minecraft.util.Formatting
 import net.minecraft.world.entity.player.Player
 import java.util.UUID
@@ -42,9 +42,9 @@ class MindReferenceIota(name: String, host: Player) : Iota(TYPE, MindReference(n
 				if (!HieroServerState.getPlayerState(host).hasMind(name)) return null
 				return MindReferenceIota(name, host)
 			}
-			override fun display(nbt: NbtElement): Text {
+			override fun display(nbt: NbtElement): Component {
 				val name = (nbt as NbtCompound).getString("name")
-				return Text.translatable("hierophantics.tooltip.mind_reference", name).formatted(Formatting.AQUA)
+				return Component.translatable("hierophantics.tooltip.mind_reference", name).formatted(Formatting.AQUA)
 			}
 			override fun color() = 0x55ffff
 		}

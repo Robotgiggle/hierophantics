@@ -1,27 +1,27 @@
 package robotgiggle.hierophantics.blocks
 
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.block.BedBlock
-import net.minecraft.block.enums.BedPart
+import net.minecraft.world.level.block.BedBlock
+import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.animal.allay.Allay
 import net.minecraft.world.entity.npc.Villager
 import net.minecraft.world.entity.player.Player
-import net.minecraft.entity.effect.StatusEffectInstance
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.item.ItemStack
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.village.VillagerData
+import net.minecraft.world.entity.npc.VillagerData
 import net.minecraft.world.entity.npc.VillagerProfession
-import net.minecraft.village.TradeOfferList
-import net.minecraft.village.TradeOffer
+import net.minecraft.world.item.trading.MerchantOffers
+import net.minecraft.world.item.trading.MerchantOffer
 import net.minecraft.core.BlockPos
-import net.minecraft.util.math.Box
 import net.minecraft.world.phys.Vec3
-import net.minecraft.util.Util
-import net.minecraft.util.DyeColor
+import net.minecraft.world.phys.AABB
+import net.minecraft.Util
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.Level
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -42,32 +42,32 @@ import at.petrak.hexcasting.common.lib.HexItems
 import kotlin.math.pow
 
 class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(HierophanticsBlockEntities.FLAY_BED.value, pos, state) {
-    val otherPartPos = pos.offset(BedBlock.getOppositePartDirection(state))
-    val headPos = when(state.get(BedBlock.PART)!!) {
+    val otherPartPos = pos.relative(BedBlock.getConnectedDirection(state))
+    val headPos = when(state.getValue(BedBlock.PART)!!) {
         BedPart.HEAD -> pos
         BedPart.FOOT -> otherPartPos
     }
     var comparatorOutput = 0
 
     fun tick(world: Level, pos: BlockPos, state: BlockState) {
-        if (comparatorOutput == 0 && state.get(BedBlock.OCCUPIED)) {
+        if (comparatorOutput == 0 && state.getValue(BedBlock.OCCUPIED)) {
             if (getSleeper(world) is Player) comparatorOutput = 15
             else if (getSleeper(world) is Villager) comparatorOutput = 7
-            world.updateComparators(pos, state.getBlock())
-        } else if (comparatorOutput > 0 && !state.get(BedBlock.OCCUPIED)) {
+            world.updateNeighbourForOutputSignal(pos, state.getBlock())
+        } else if (comparatorOutput > 0 && !state.getValue(BedBlock.OCCUPIED)) {
             comparatorOutput = 0
-            world.updateComparators(pos, state.getBlock())
+            world.updateNeighbourForOutputSignal(pos, state.getBlock())
         }
     }
     
     fun activate(world: ServerLevel, state: BlockState, sacrifice: Mob, pigment: FrozenPigment): Boolean {
-        if (state.get(BedBlock.OCCUPIED)) {
+        if (state.getValue(BedBlock.OCCUPIED)) {
             val subject = getSleeper(world)
 
             // make sure you aren't flaying something into itself
             if (subject == sacrifice) {
                 triggerForNearestPlayer(HierophanticsAdvancements.FUSE_TO_SELF, world)
-                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
+                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
                 return false
             }
@@ -81,41 +81,41 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
                 
-                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
+                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
             } else if (subject is ServerPlayer && sacrifice is Allay) {
                 // allay -> player: apply or lengthen media discount effect and trigger the advancement
                 if (subject.hasEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)) {
-                    val oldTicks = subject.getStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)!!.duration
+                    val oldTicks = subject.getEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)!!.duration
                     val newTicks = (6000 * Math.E.pow((-oldTicks / 12000).toDouble())).toInt()
-                    subject.removeStatusEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)
-                    subject.addStatusEffect(StatusEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, newTicks + oldTicks))
+                    subject.removeEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)
+                    subject.addEffect(MobEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, newTicks + oldTicks))
                 } else {
-                    subject.addStatusEffect(StatusEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, 6000))
+                    subject.addEffect(MobEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, 6000))
                 }
 
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
                 
-                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
+                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
             } else if (subject is Villager && sacrifice is Villager) {
                 // villager -> villager: increase level, merge trade offers, convert to quiltmind if professions don't match
                 val data = subject.getVillagerData()
                 val trades = subject.getOffers()
                 
-                val newLevel = (data.level() + 1).coerceAtMost(5)
-                when (canSubjectKeepProfession(data.getProfession(), sacrifice.getVillagerData().getProfession())) {
-                    0 -> subject.setVillagerData(data.withLevel(newLevel))
-                    1 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(sacrifice.getVillagerData().getProfession()))
-                    2 -> subject.setVillagerData(data.withLevel(newLevel).withProfession(HierophanticsVillagers.QUILTMIND.get()))
+                val newLevel = (data.level + 1).coerceAtMost(5)
+                when (canSubjectKeepProfession(data.profession, sacrifice.villagerData.profession)) {
+                    0 -> subject.villagerData = data.setLevel(newLevel)
+                    1 -> subject.villagerData = data.setLevel(newLevel).setProfession(sacrifice.villagerData.profession)
+                    2 -> subject.villagerData = data.setLevel(newLevel).setProfession(HierophanticsVillagers.QUILTMIND.get())
                 }
                 mergeTradeLists(trades, sacrifice.getOffers())
                 subject.setOffers(trades)
-                subject.setExperience(VillagerData.getLowerLevelExperience(newLevel))
+                subject.villagerXp = VillagerData.getMinXpPerLevel(newLevel)
 
                 triggerForNearestPlayer(HierophanticsAdvancements.WASTE_MIND, world)
                 
-                world.playSound(null, headPos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
+                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
             } else {
                 Hierophantics.LOGGER.warn("Imbuement Bed couldn't find sleeping player or villager")
@@ -129,9 +129,9 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
     }
 
     fun getSleeper(world: Level): Entity? {
-        val entities = world.getEntitiesByClass(Entity::class.java, Box(headPos)) { entity -> entity.getHeight() < 0.3 }
+        val entities = world.getEntitiesOfClass(Entity::class.java, AABB(headPos)) { entity -> entity.bbHeight < 0.3 }
         if (entities.isEmpty()) return null
-        else return entities.get(0)
+        return entities[0]
     }
 
     fun canSubjectKeepProfession(prof1: VillagerProfession, prof2: VillagerProfession): Int {
@@ -149,24 +149,21 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
             return 2
     }
 
-    fun mergeTradeLists(existingList: TradeOfferList, incomingList: TradeOfferList) {
+    fun mergeTradeLists(existingList: MerchantOffers, incomingList: MerchantOffers) {
         for (newOffer in incomingList) {
             var merged = false
 
             // if the incoming offer matches an existing one, merge them into one offer with more max uses
-            for (i in 0..<existingList.size) {
-                if (ItemStack.areEqual(existingList[i].getOriginalFirstBuyItem(), newOffer.getOriginalFirstBuyItem()) 
-                 && ItemStack.areEqual(existingList[i].getSecondBuyItem(), newOffer.getSecondBuyItem()) 
-                 && ItemStack.areEqual(existingList[i].getSellItem(), newOffer.getSellItem())
+            for ((i, oldOffer) in existingList.withIndex()) {
+                if (ItemStack.matches(oldOffer.baseCostA, newOffer.baseCostA)
+                 && ItemStack.matches(oldOffer.costB, newOffer.costB)
+                 && ItemStack.matches(oldOffer.result, newOffer.result)
                 ) {
-                    existingList.set(i, TradeOffer(
-                        existingList[i].getOriginalFirstBuyItem(), 
-                        existingList[i].getSecondBuyItem(), 
-                        existingList[i].getSellItem(), 
-                        existingList[i].getMaxUses() + newOffer.getMaxUses(), 
-                        existingList[i].getMerchantExperience(), 
-                        existingList[i].getPriceMultiplier()
-                    ))
+                    existingList[i] = MerchantOffer(
+                        oldOffer.baseCostA, oldOffer.costB, oldOffer.result,
+                        oldOffer.maxUses + newOffer.maxUses,
+                        oldOffer.xp, oldOffer.priceMultiplier
+                    )
                     merged = true
                     break
                 }
@@ -180,7 +177,11 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
     }
 
     fun triggerForNearestPlayer(adv: BaseCriterion<*>, world: ServerLevel) {
-        val nearestPlayer = world.getClosestPlayer(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 10.0, false)
+        val nearestPlayer = world.getNearestPlayer(
+            worldPosition.x.toDouble(),
+            worldPosition.y.toDouble(),
+            worldPosition.z.toDouble(),
+            10.0, false)
         nearestPlayer?.let{ adv.trigger(it as ServerPlayer) }
     }
     
@@ -193,7 +194,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
 
     fun makeParticles(world: ServerLevel, color: FrozenPigment, amount: Int) {
         val adjust = Vec3(0.0, -0.17, 0.0)
-        ParticleSpray(pos.toCenterPos().add(adjust), Vec3(0.0, 0.5, 0.0), 1.3, 0.0, amount).sprayParticles(world, color)
-        ParticleSpray(otherPartPos.toCenterPos().add(adjust), Vec3(0.0, 0.5, 0.0), 1.3, 0.0, amount).sprayParticles(world, color)
+        ParticleSpray(worldPosition.center.add(adjust), Vec3(0.0, 0.5, 0.0), 1.3, 0.0, amount).sprayParticles(world, color)
+        ParticleSpray(otherPartPos.center.add(adjust), Vec3(0.0, 0.5, 0.0), 1.3, 0.0, amount).sprayParticles(world, color)
     }
 }

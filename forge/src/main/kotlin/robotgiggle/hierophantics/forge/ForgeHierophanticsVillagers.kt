@@ -3,12 +3,12 @@ package robotgiggle.hierophantics.forge
 import com.google.common.collect.ImmutableSet
 
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceKeys
+import net.minecraft.core.registries.Registries
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.npc.VillagerProfession
 import net.minecraft.world.entity.ai.village.poi.PoiType
-import net.minecraft.block.BedBlock
-import net.minecraft.block.enums.BedPart
+import net.minecraft.world.level.block.BedBlock
+import net.minecraft.world.level.block.state.properties.BedPart
 import robotgiggle.hierophantics.Hierophantics
 import robotgiggle.hierophantics.HierophanticsVillagers
 import robotgiggle.hierophantics.inits.HierophanticsBlocks
@@ -24,7 +24,7 @@ object ForgeHierophanticsVillagers {
     val FLAY_BED_POI = POI_TYPES.register("flay_bed", { PointOfInterestType(HierophanticsBlocks.FLAY_BED.value
         .getStateManager().getStates().stream()
         .filter({ blockState ->
-            blockState.get(BedBlock.PART) == BedPart.HEAD
+            blockState.getValue(BedBlock.PART) == BedPart.HEAD
         })
         .collect(ImmutableSet.toImmutableSet()),
     1, 1) })

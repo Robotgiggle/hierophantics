@@ -7,7 +7,7 @@ import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.common.lib.HexDamageTypes
 import net.minecraft.world.entity.Mob
-import net.minecraft.util.DyeColor
+import net.minecraft.world.item.DyeColor
 
 class NitwitImbuementMishap(val mob: Mob) : Mishap() {
     override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.GREEN)

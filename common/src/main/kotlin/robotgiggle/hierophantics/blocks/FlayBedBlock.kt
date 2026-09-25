@@ -1,60 +1,61 @@
 package robotgiggle.hierophantics.blocks
 
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.block.Blocks
-import net.minecraft.block.BedBlock
-import net.minecraft.block.ShapeContext
-import net.minecraft.block.BlockRenderType
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.BedBlock
+import net.minecraft.world.phys.shapes.CollisionContext
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
-import net.minecraft.block.enums.BedPart
+import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.npc.Villager
-import net.minecraft.util.shape.VoxelShape
-import net.minecraft.util.shape.VoxelShapes
+import net.minecraft.world.phys.shapes.VoxelShape
+import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.core.BlockPos
-import net.minecraft.util.math.Box
-import net.minecraft.util.DyeColor
-import net.minecraft.util.Hand
-import net.minecraft.util.ActionResult
-import net.minecraft.util.hit.BlockHitResult
+import net.minecraft.world.phys.AABB
+import net.minecraft.world.item.DyeColor
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.entity.player.Player
-import net.minecraft.text.Text
+import net.minecraft.network.chat.Component
 import net.minecraft.world.level.Level
-import net.minecraft.world.BlockView
+import net.minecraft.world.level.BlockGetter
 
-class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f)) {
+class FlayBedBlock : BedBlock(DyeColor.BLACK, Properties.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f)) {
     init {
-		defaultState = stateManager.defaultState
-            .with(PART, BedPart.FOOT)
-            .with(OCCUPIED, false)
+        registerDefaultState(stateDefinition.any()
+            .setValue(PART, BedPart.FOOT)
+            .setValue(OCCUPIED, false)
+        )
 	}
     
-    override fun createBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
+    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity {
         return FlayBedBlockEntity(blockPos, blockState)
     }
 
-    override fun getOutlineShape(blockState: BlockState, blockView: BlockView, blockPos: BlockPos, shapeContext: ShapeContext): VoxelShape {
-        return VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 0.5, 1.0)
+    override fun getShape(blockState: BlockState, blockGetter: BlockGetter, blockPos: BlockPos, collCtx: CollisionContext): VoxelShape {
+        return Shapes.box(0.0, 0.0, 0.0, 1.0, 0.5, 1.0)
     }
 
-    override fun getRenderType(blockState: BlockState): BlockRenderType {
-        return BlockRenderType.MODEL
+    override fun getRenderShape(blockState: BlockState): RenderShape {
+        return RenderShape.MODEL
     }
 
-    override fun onLandedUpon(world: Level, blockState: BlockState, blockPos: BlockPos, entity: Entity, f: Float) {
-        entity.handleFallDamage(f, 1.0F, entity.getDamageSources().fall())
+    override fun fallOn(world: Level, blockState: BlockState, blockPos: BlockPos, entity: Entity, f: Float) {
+        entity.causeFallDamage(f, 1.0F, entity.damageSources().fall())
     }
 
-    override fun onEntityLand(blockView: BlockView, entity: Entity) {
-        entity.setVelocity(entity.getVelocity().multiply(1.0, 0.0, 1.0))
+    override fun updateEntityAfterFallOn(blockView: BlockGetter, entity: Entity) {
+        entity.deltaMovement = entity.deltaMovement.multiply(1.0, 0.0, 1.0)
     }
 
-    override fun hasComparatorOutput(state: BlockState) = true
+    override fun hasAnalogOutputSignal(state: BlockState) = true
 
-    override fun getComparatorOutput(state: BlockState, world: Level, pos: BlockPos): Int {
+    override fun getAnalogOutputSignal(state: BlockState, world: Level, pos: BlockPos): Int {
         val be = world.getBlockEntity(pos)
         if (be is FlayBedBlockEntity) {
             return be.comparatorOutput
@@ -67,36 +68,36 @@ class FlayBedBlock : BedBlock(DyeColor.BLACK, Settings.copy(Blocks.DEEPSLATE_TIL
     }
 
     // this is identical to BedBlock except it doesn't try to explode in other dims
-    override fun onUse(blockState: BlockState, world: Level, blockPos: BlockPos, Player: Player, hand: Hand, blockHitResult: BlockHitResult): ActionResult {
-        if (world.isClientSide) return ActionResult.CONSUME
+    override fun use(blockState: BlockState, world: Level, blockPos: BlockPos, Player: Player, hand: InteractionHand, blockHitResult: BlockHitResult): InteractionResult {
+        if (world.isClientSide) return InteractionResult.CONSUME
         var sleepPos = blockPos
-        if (blockState.get(PART) == BedPart.FOOT) {
-            sleepPos = sleepPos.offset(blockState.get(FACING))
-            if (!world.getBlockState(sleepPos).isOf(this)) {
-               return ActionResult.CONSUME
+        if (blockState.getValue(PART) == BedPart.FOOT) {
+            sleepPos = sleepPos.relative(blockState.getValue(FACING))
+            if (!world.getBlockState(sleepPos).`is`(this)) {
+               return InteractionResult.CONSUME
             }
         }
-        if (blockState.get(OCCUPIED)) {
+        if (blockState.getValue(OCCUPIED)) {
             if (!wakeVillager(world, blockPos)) {
-               Player.sendMessage(Text.translatable("block.minecraft.bed.occupied"), true)
+               Player.displayClientMessage(Component.translatable("block.minecraft.bed.occupied"), true)
             }
-            return ActionResult.SUCCESS
+            return InteractionResult.SUCCESS
         }
-        Player.trySleep(sleepPos).ifLeft({sleepFailureReason -> 
-            if (sleepFailureReason.getMessage() != null) {
-                Player.sendMessage(sleepFailureReason.getMessage(), true)
+        Player.startSleepInBed(sleepPos).ifLeft({problem ->
+            if (problem.message != null) {
+                Player.displayClientMessage(problem.message!!, true)
             }
         })
-        return ActionResult.SUCCESS
+        return InteractionResult.SUCCESS
     }
 
     // this is private in BedBlock so i have to reimplement it
     fun wakeVillager(world: Level, blockPos: BlockPos): Boolean {
-        val list = world.getEntitiesByClass(Villager::class.java, Box(blockPos), LivingEntity::isSleeping)
+        val list = world.getEntitiesOfClass(Villager::class.java, AABB(blockPos), LivingEntity::isSleeping)
         if (list.isEmpty()) {
             return false
         } else {
-            (list.get(0)).wakeUp()
+            list[0].stopSleeping()
             return true
         }
     }

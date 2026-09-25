@@ -8,7 +8,7 @@ import robotgiggle.hierophantics.data.Trigger
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.text.Text
+import net.minecraft.network.chat.Component
 import net.minecraft.util.Formatting
 
 class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
@@ -35,24 +35,24 @@ class TriggerIota(trigger: Trigger) : Iota(TYPE, trigger) {
 			override fun deserialize(nbt: NbtElement, world: ServerLevel): TriggerIota? {
 				return TriggerIota(Trigger.deserialize(nbt))
 			}
-			override fun display(nbt: NbtElement): Text {
-				var typeDisplay: Text
+			override fun display(nbt: NbtElement): Component {
+				var typeDisplay: Component
 				val type = (nbt as NbtCompound).getString("trigger")
 				val dmgType = nbt.getString("dmgType")
 				val threshold = nbt.getDouble("threshold")
 				val inverted = nbt.getBoolean("inverted")
 				if (!dmgType.equals("")) {
-					typeDisplay = Text.translatable("hierophantics.tooltip.trigger_type.damage_typed", dmgType)
+					typeDisplay = Component.translatable("hierophantics.tooltip.trigger_type.damage_typed", dmgType)
 				} else if (threshold != -1.0) {
 					val dir = if (inverted.xor(type == "velocity" || type == "fall")) 
-						Text.translatable("hierophantics.tooltip.threshold_upward") 
+						Component.translatable("hierophantics.tooltip.threshold_upward") 
 					else 
-						Text.translatable("hierophantics.tooltip.threshold_downward")
-					typeDisplay = Text.translatable("hierophantics.tooltip.trigger_type." + type, dir, threshold)
+						Component.translatable("hierophantics.tooltip.threshold_downward")
+					typeDisplay = Component.translatable("hierophantics.tooltip.trigger_type." + type, dir, threshold)
 				} else {
-					typeDisplay = Text.translatable("hierophantics.tooltip.trigger_type." + type)
+					typeDisplay = Component.translatable("hierophantics.tooltip.trigger_type." + type)
 				}
-				return Text.translatable("hierophantics.tooltip.trigger", typeDisplay).formatted(Formatting.YELLOW)
+				return Component.translatable("hierophantics.tooltip.trigger", typeDisplay).formatted(Formatting.YELLOW)
 			}
 			override fun color() = 0xffff55
 		}

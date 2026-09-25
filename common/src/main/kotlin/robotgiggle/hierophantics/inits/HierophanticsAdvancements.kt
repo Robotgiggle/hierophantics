@@ -2,13 +2,13 @@ package robotgiggle.hierophantics.inits
 
 import com.google.gson.JsonObject
 import robotgiggle.hierophantics.Hierophantics
-import net.minecraft.advancement.criterion.AbstractCriterion
-import net.minecraft.advancement.criterion.AbstractCriterionConditions
-import net.minecraft.advancement.criterion.Criteria
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance
+import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.predicate.entity.LootContextPredicate
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer
-import net.minecraft.util.Identifier
+import net.minecraft.advancements.critereon.ContextAwarePredicate
+import net.minecraft.advancements.critereon.DeserializationContext
+import net.minecraft.resources.ResourceLocation
 
 object HierophanticsAdvancements {
     lateinit var EMBED_MIND: EmbedMindCriterion
@@ -19,22 +19,22 @@ object HierophanticsAdvancements {
     
     @JvmStatic
     fun init() {
-        EMBED_MIND = Criteria.register(EmbedMindCriterion())
-        WASTE_MIND = Criteria.register(WasteMindCriterion())
-        ALL_TRIGGERS = Criteria.register(AllTriggersCriterion())
-		FUSE_VILLAGERS = Criteria.register(FuseVillagersCriterion())
-		FUSE_TO_SELF = Criteria.register(FuseToSelfCriterion())
+        EMBED_MIND = CriteriaTriggers.register(EmbedMindCriterion())
+        WASTE_MIND = CriteriaTriggers.register(WasteMindCriterion())
+        ALL_TRIGGERS = CriteriaTriggers.register(AllTriggersCriterion())
+		FUSE_VILLAGERS = CriteriaTriggers.register(FuseVillagersCriterion())
+		FUSE_TO_SELF = CriteriaTriggers.register(FuseToSelfCriterion())
     }
 }
 
-abstract class BaseCriterion<T : BaseCriterion.BaseCondition>(private val id: Identifier) : AbstractCriterion<T>() {
-	override fun conditionsFromJson(obj: JsonObject, playerPredicate: LootContextPredicate, predicateDeserializer: AdvancementEntityPredicateDeserializer): T = createCondition()
+abstract class BaseCriterion<T : BaseCriterion.BaseCondition>(private val id: ResourceLocation) : SimpleCriterionTrigger<T>() {
+	override fun createInstance(obj: JsonObject, playerPredicate: ContextAwarePredicate, predicateDeserializer: DeserializationContext): T = createCondition()
 	protected abstract fun createCondition(): T
 
 	fun trigger(player: ServerPlayer) = trigger(player) { true }
-	override fun getId(): Identifier = id
+	override fun getId(): ResourceLocation = id
 
-	abstract class BaseCondition(id: Identifier) : AbstractCriterionConditions(id, LootContextPredicate.EMPTY)
+	abstract class BaseCondition(id: ResourceLocation) : AbstractCriterionTriggerInstance(id, ContextAwarePredicate.ANY)
 }
 
 class EmbedMindCriterion : BaseCriterion<EmbedMindCriterion.Condition>(Hierophantics.id("embed_mind")) {

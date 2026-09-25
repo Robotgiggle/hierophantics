@@ -3,7 +3,6 @@ package robotgiggle.hierophantics.mixin.client;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-//import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.RandomSource;
 import robotgiggle.hierophantics.Hierophantics;

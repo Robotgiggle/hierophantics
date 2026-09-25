@@ -11,7 +11,7 @@ import robotgiggle.hierophantics.HieroMindCastEnv
 import robotgiggle.hierophantics.inits.HierophanticsSounds
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.util.Hand
+import net.minecraft.world.InteractionHand
 import net.minecraft.sounds.SoundSource
 
 class HieroMind(var hex: NbtCompound, var trigger: Trigger, var muted: Boolean) {

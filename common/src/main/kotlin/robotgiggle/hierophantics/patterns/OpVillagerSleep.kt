@@ -13,8 +13,8 @@ import net.minecraft.world.entity.npc.Villager
 import net.minecraft.entity.ai.brain.Activity
 import net.minecraft.world.entity.schedule.Schedule
 import net.minecraft.world.entity.schedule.ScheduleBuilder
-import net.minecraft.entity.effect.StatusEffectInstance
-import net.minecraft.text.Text
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.network.chat.Component
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.inits.HierophanticsConfig
 import robotgiggle.hierophantics.inits.HierophanticsEffects
@@ -28,7 +28,7 @@ object OpVillagerSleep : SpellAction {
         env.assertEntityInRange(target)
 
         if (!(target is Villager || target is Player && playerIsSleepable(target))) {
-            throw MishapBadEntity(target, Text.translatable("hexcasting.mishap.invalid_value.class.entity.villager"))
+            throw MishapBadEntity(target, Component.translatable("hexcasting.mishap.invalid_value.class.entity.villager"))
         }
         
         return SpellAction.Result(
@@ -55,7 +55,7 @@ object OpVillagerSleep : SpellAction {
                 if (env.getWorld().isNight) {
                     target.sleep(target.blockPosition())
                     (target as PlayerAccessor).setSleepCounter(0)
-                    target.addStatusEffect(StatusEffectInstance(HierophanticsEffects.SLEEP_ANYWHERE.value, 300, 0, false, false))
+                    target.addStatusEffect(MobEffectInstance(HierophanticsEffects.SLEEP_ANYWHERE.value, 300, 0, false, false))
                     env.getWorld().updateSleepingPlayers()
                 }
             }

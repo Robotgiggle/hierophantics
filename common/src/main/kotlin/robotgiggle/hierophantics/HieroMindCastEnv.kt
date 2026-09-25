@@ -8,7 +8,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.util.Hand
+import net.minecraft.world.InteractionHand
 import robotgiggle.hierophantics.data.HieroServerState
 import robotgiggle.hierophantics.mishaps.MindsDisabledMishap
 import robotgiggle.hierophantics.networking.msg.MsgHallucinationTriggerS2C

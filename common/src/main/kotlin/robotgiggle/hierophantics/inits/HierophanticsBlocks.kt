@@ -6,7 +6,7 @@ import net.minecraft.item.BlockItem
 import net.minecraft.item.ItemConvertible
 import net.minecraft.world.level.block.Block
 import net.minecraft.block.AbstractBlock.Settings
-import net.minecraft.resources.ResourceKeys
+import net.minecraft.core.registries.Registries
 import net.minecraft.core.registries.BuiltInRegistries
 import robotgiggle.hierophantics.blocks.*
 
