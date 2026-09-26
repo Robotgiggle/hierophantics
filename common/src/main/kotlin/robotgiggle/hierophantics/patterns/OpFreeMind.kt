@@ -22,12 +22,8 @@ object OpFreeMind : SpellAction {
 		}
 
 		val state = HieroServerState.getPlayerState(caster)
-		if (!state.hasMind(mindRef.name)) {
-			throw MindFreedMishap()
-		}
-		if (state.disabled) {
-			throw MindsDisabledMishap("free")
-		}
+		if (state.disabled) throw MindsDisabledMishap("free")
+		state.getMind(mindRef.name) // this just checks if it exists
 		
 		return SpellAction.Result(
 			Spell(state, mindRef.name),

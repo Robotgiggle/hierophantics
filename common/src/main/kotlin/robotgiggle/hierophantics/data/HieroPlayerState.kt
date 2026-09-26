@@ -14,6 +14,7 @@ import net.minecraft.server.MinecraftServer
 
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
+import robotgiggle.hierophantics.mishaps.MindFreedMishap
 
 import java.util.function.Predicate
 
@@ -119,7 +120,7 @@ class HieroPlayerState {
 	}
 
 	fun getMind(name: String): HieroMind {
-		return hieroMinds[name]!!
+		return hieroMinds.getOrElse(name) { throw MindFreedMishap() }
 	}
 
 	fun hasMind(name: String): Boolean {

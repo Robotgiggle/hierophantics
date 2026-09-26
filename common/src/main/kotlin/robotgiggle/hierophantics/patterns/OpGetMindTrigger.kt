@@ -14,15 +14,10 @@ object OpGetMindTrigger : ConstMediaAction {
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 		val mindRef = args.getMindReference(0, argc)
 
-		val state = HieroServerState.getPlayerState(mindRef.host)
-		if (!state.hasMind(mindRef.name)) {
-			throw MindFreedMishap()
-		}
-		if (state.disabled) {
-			throw MindsDisabledMishap("read", mindRef.host == env.castingEntity)
-		}
-
+        val state = HieroServerState.getPlayerState(mindRef.host)
+        if (state.disabled) throw MindsDisabledMishap("read", mindRef.host == env.castingEntity)
         val mind = state.getMind(mindRef.name)
+
         if (mind.trigger.type.equals("none")) {
             return listOf(NullIota())
         } else {

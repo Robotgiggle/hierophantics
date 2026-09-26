@@ -16,6 +16,7 @@ import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.nbt.CompoundTag
+import robotgiggle.hierophantics.data.HieroMind
 
 object OpSetMindHex : SpellAction {
 	override val argc = 2
@@ -28,12 +29,8 @@ object OpSetMindHex : SpellAction {
 		}
 
 		val state = HieroServerState.getPlayerState(caster)
-		if (!state.hasMind(mindRef.name)) {
-			throw MindFreedMishap()
-		}
-		if (state.disabled) {
-			throw MindsDisabledMishap("write")
-		}
+		if (state.disabled) throw MindsDisabledMishap("write")
+		val mind = state.getMind(mindRef.name)
 
 		// second argument should be either a list or null, mishap otherwise
 		if (args[1] !is NullIota) {
@@ -46,17 +43,17 @@ object OpSetMindHex : SpellAction {
 		}
 
 		return SpellAction.Result(
-			Spell(state, mindRef.name, args[1]),
+			Spell(mind, args[1]),
 			MediaConstants.CRYSTAL_UNIT,
 			listOf()
 		)
 	}
-	private data class Spell(val state: HieroPlayerState, val mindName: String, val payload: Iota) : RenderedSpell {
+	private data class Spell(val mind: HieroMind, val payload: Iota) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
 			if (payload is NullIota) {
-				state.getMind(mindName).hex = CompoundTag()
+				mind.hex = CompoundTag()
 			} else {
-				state.getMind(mindName).hex = IotaType.serialize(payload as ListIota)
+				mind.hex = IotaType.serialize(payload as ListIota)
 			}
 		}
 	}

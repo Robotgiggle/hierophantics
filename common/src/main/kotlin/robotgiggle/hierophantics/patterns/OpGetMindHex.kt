@@ -16,14 +16,10 @@ object OpGetMindHex : ConstMediaAction {
 		val mindRef = args.getMindReference(0, argc)
 
 		val state = HieroServerState.getPlayerState(mindRef.host)
-		if (!state.hasMind(mindRef.name)) {
-			throw MindFreedMishap()
-		}
-		if (state.disabled) {
-			throw MindsDisabledMishap("read", mindRef.host == env.castingEntity)
-		}
+		if (state.disabled) throw MindsDisabledMishap("read", mindRef.host == env.castingEntity)
+		val mind = state.getMind(mindRef.name)
 
-		val storedHex = IotaType.deserialize(state.getMind(mindRef.name).hex, env.world)
+		val storedHex = IotaType.deserialize(mind.hex, env.world)
 		if (storedHex is ListIota) {
 			return listOf(storedHex)
 		} else {

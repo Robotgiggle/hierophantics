@@ -15,6 +15,7 @@ import robotgiggle.hierophantics.iotas.getTrigger
 import robotgiggle.hierophantics.iotas.getMindReference
 import robotgiggle.hierophantics.mishaps.*
 import net.minecraft.server.level.ServerPlayer
+import robotgiggle.hierophantics.data.HieroMind
 
 object OpSetMindTrigger : SpellAction {
 	override val argc = 2
@@ -27,12 +28,8 @@ object OpSetMindTrigger : SpellAction {
 		}
 
 		val state = HieroServerState.getPlayerState(caster)
-		if (!state.hasMind(mindRef.name)) {
-			throw MindFreedMishap()
-		}
-		if (state.disabled) {
-			throw MindsDisabledMishap("write")
-		}
+		if (state.disabled) throw MindsDisabledMishap("write")
+		val mind = state.getMind(mindRef.name)
 
 		// second argument should be either a trigger or null, mishap otherwise
 		if (args[1] !is NullIota) {
@@ -40,14 +37,13 @@ object OpSetMindTrigger : SpellAction {
 		}
 
 		return SpellAction.Result(
-			Spell(state, mindRef.name, args[1], caster),
+			Spell(mind, args[1], state, caster),
 			MediaConstants.SHARD_UNIT,
 			listOf()
 		)
 	}
-	private data class Spell(val state: HieroPlayerState, val mindName: String, val triggerOrNull: Iota, val caster: ServerPlayer) : RenderedSpell {
+	private data class Spell(val mind: HieroMind, val triggerOrNull: Iota, val state: HieroPlayerState, val caster: ServerPlayer) : RenderedSpell {
 		override fun cast(env: CastingEnvironment) {
-			val mind = state.getMind(mindName)
 			if (triggerOrNull is NullIota) {
                 mind.trigger = Trigger.none()
 			} else {
