@@ -5,7 +5,7 @@
 
 An addon to Hex Casting that lets you embed extracted minds into yourself to make conditional hexes, or into villagers to merge and upgrade them. Inspired by a certain concept from the Foundryside trilogy.
 
-Insert villager minds into yourself by laying on an Imbuement Bed and flaying a master-level villager into the bed block. You can then configure the minds to cast hexes for you based on various trigger conditions (when I take damage, when I break a block, etc). With enough minds, you can have an automated reponse set up for any eventuality!
+Insert villager minds into yourself by laying on an Imbuement Bed and flaying an apprentice-level villager into the bed block. You can then configure the minds to cast hexes for you based on various trigger conditions (when I take damage, when I break a block, etc). With enough minds, you can have an automated reponse set up for any eventuality!
 
 Insert allay minds into yourself via the same process as above, but with an allay rather than a villager. Rather than providing automated casting, this grants a temporary status effect that significantly reduces the amount of media you spend on all your spells. It may also have some interesting effects on your perception of the world...
 
