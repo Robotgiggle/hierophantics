@@ -63,9 +63,9 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
     fun activate(world: ServerLevel, state: BlockState, sacrifice: Mob, pigment: FrozenPigment): Boolean {
         if (state.getValue(BedBlock.OCCUPIED)) {
             val subject = getSleeper(world)
-
-            // make sure you aren't flaying something into itself
+            
             if (subject == sacrifice) {
+                // villager -> itself: trigger advancement, don't flay since the mind goes right back in
                 triggerForNearestPlayer(HierophanticsAdvancements.FUSE_TO_SELF, world)
                 world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
@@ -78,11 +78,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 val newTotal = HieroServerState.getPlayerState(subject).addMind(world.server, villagerName)
                 MsgOwnedMindsS2C(newTotal).sendToPlayer(subject)
                 MsgHallucinationTriggerS2C(3.0).sendToPlayer(subject)
-                
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
-                
-                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
-                makeParticles(world, pigment, 60)
             } else if (subject is ServerPlayer && sacrifice is Allay) {
                 // allay -> player: apply or lengthen media discount effect and trigger the advancement
                 if (subject.hasEffect(HierophanticsEffects.MEDIA_DISCOUNT.value)) {
@@ -93,11 +89,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 } else {
                     subject.addEffect(MobEffectInstance(HierophanticsEffects.MEDIA_DISCOUNT.value, 6000))
                 }
-
                 HierophanticsAdvancements.EMBED_MIND.trigger(subject)
-                
-                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
-                makeParticles(world, pigment, 60)
             } else if (subject is Villager && sacrifice is Villager) {
                 // villager -> villager: increase level, merge trade offers, convert to quiltmind if professions don't match
                 val data = subject.getVillagerData()
@@ -114,13 +106,16 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 subject.villagerXp = VillagerData.getMinXpPerLevel(newLevel)
 
                 triggerForNearestPlayer(HierophanticsAdvancements.FUSE_VILLAGERS, world)
-                
-                world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
-                makeParticles(world, pigment, 60)
             } else {
+                // subject is null or some invalid entity: log error, don't flay the victim
                 Hierophantics.LOGGER.warn("Imbuement Bed couldn't find sleeping player or villager")
                 makeParticles(world, dyeColor(DyeColor.GRAY), 80)
+                return false
             }
+
+            // this is only reached if one of the three options above succeeded
+            world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
+            makeParticles(world, pigment, 60)
         } else {
             triggerForNearestPlayer(HierophanticsAdvancements.WASTE_MIND, world)
             makeParticles(world, dyeColor(DyeColor.RED), 80)
