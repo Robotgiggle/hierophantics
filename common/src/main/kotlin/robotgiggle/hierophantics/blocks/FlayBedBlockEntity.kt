@@ -113,7 +113,7 @@ class FlayBedBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Hieroph
                 subject.setOffers(trades)
                 subject.villagerXp = VillagerData.getMinXpPerLevel(newLevel)
 
-                triggerForNearestPlayer(HierophanticsAdvancements.WASTE_MIND, world)
+                triggerForNearestPlayer(HierophanticsAdvancements.FUSE_VILLAGERS, world)
                 
                 world.playSound(null, headPos, SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.BLOCKS, 1.2f, 1f)
                 makeParticles(world, pigment, 60)
