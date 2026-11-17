@@ -1,5 +1,6 @@
 package robotgiggle.hierophantics.mixin;
 
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -54,41 +55,47 @@ public abstract class ServerPlayerMixin extends Player {
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) {
 			state.setDisabled(true);
-			state.setSkipTeleTrigger(5);
+			state.skipVelocityTriggers();
 			state.setPrevHealth(0);
 		}
 	}
 
-	@Inject(method = "triggerDimensionChangeTriggers", at = @At("HEAD"))
-	private void skipTeleTriggerWhenChangingDims(CallbackInfo ci) {
-		hierophantics$skipTeleTrigger();
+	@Inject(method = {"teleportTo*", "teleportRelative"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFFLjava/util/Set;)V", shift = At.Shift.AFTER))
+	private void fireTeleportTriggers1(CallbackInfo ci) {
+		hierophantics$fireTeleportTriggers();
 	}
 
-	@Inject(method = "startRiding", at = @At("RETURN"))
-	private void skipTeleTriggerWhenMountingEntity(CallbackInfoReturnable<Boolean> ci) {
-		if (ci.getReturnValue()) hierophantics$skipTeleTrigger();
-	}
-
-	@Inject(method = "stopRiding", at = @At("HEAD"))
-	private void skipTeleTriggerWhenDismountingEntity(CallbackInfo ci) {
-		hierophantics$skipTeleTrigger();
-	}
-
-	@Inject(method = "startSleeping", at = @At("HEAD"))
-	private void skipTeleTriggerWhenGettingIntoBed(CallbackInfo ci) {
-		hierophantics$skipTeleTrigger();
-	}
-
-	@Inject(method = "stopSleepInBed", at = @At("HEAD"))
-	private void skipTeleTriggerWhenGettingOutOfBed(CallbackInfo ci) {
-		hierophantics$skipTeleTrigger();
+	@Inject(method = "teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFF)V", shift = At.Shift.AFTER))
+	private void fireTeleportTriggers2(CallbackInfo ci) {
+		hierophantics$fireTeleportTriggers();
 	}
 
 	@Unique
-    private void hierophantics$skipTeleTrigger() {
+	private void hierophantics$fireTeleportTriggers() {
 		ServerPlayer player = (ServerPlayer) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
-		if (state.getOwnedMinds() > 0) state.setSkipTeleTrigger(5);
+		if (state.getOwnedMinds() > 0) {
+			var offsetVec = player.position().subtract(state.getPrevPos());
+			state.triggerMinds(player, "teleport", new Vec3Iota(offsetVec));
+			state.skipVelocityTriggers();
+		}
+	}
+
+	@Inject(method = {"setServerLevel", "stopRiding", "startSleeping", "stopSleepInBed"}, at = @At("HEAD"))
+	private void skipVelocityTriggers1(CallbackInfo ci) {
+		hierophantics$skipVelocityTriggers();
+	}
+
+	@Inject(method = "startRiding", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;positionRider(Lnet/minecraft/world/entity/Entity;)V"))
+	private void skipVelocityTriggers2(CallbackInfoReturnable<Boolean> cir) {
+		hierophantics$skipVelocityTriggers();
+	}
+
+	@Unique
+    private void hierophantics$skipVelocityTriggers() {
+		ServerPlayer player = (ServerPlayer) (Object) this;
+		var state = HieroServerState.getPlayerState(player);
+		if (state.getOwnedMinds() > 0) state.skipVelocityTriggers();
 	}
 	
 	@Inject(method = "startSleepInBed", at = @At("HEAD"), cancellable = true)

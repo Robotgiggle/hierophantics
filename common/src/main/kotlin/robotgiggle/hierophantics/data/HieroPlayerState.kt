@@ -13,7 +13,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.MinecraftServer
 
 import at.petrak.hexcasting.api.HexAPI
-import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import robotgiggle.hierophantics.mishaps.MindFreedMishap
 
 import java.util.function.Predicate
@@ -29,11 +28,10 @@ class HieroPlayerState {
 	var prevHealth = -1.0
 	var prevBreath = -1.0
 	var prevHunger = -1.0
-	var prevVel = Vec3.ZERO
-	var prev2Vel = Vec3.ZERO
-	var prev3Vel = Vec3.ZERO
+	var prevPos = Vec3.ZERO
+	var prevSpeed = -1.0
 	var prevFallDist = -1.0
-	var skipTeleTrigger = 0
+	var velSkipTimer = 0
 
 	fun tick(player: ServerPlayer) {
 		if (player.isDeadOrDying || ownedMinds == 0) return
@@ -41,22 +39,8 @@ class HieroPlayerState {
 		val currHealth = player.health.toDouble()
 		val currBreath = player.airSupply / 30.0
 		val currHunger = player.getFoodData().foodLevel.toDouble()
-		val currVel = HexAPI.instance().getEntityVelocitySpecial(player)
+		val currSpeed = HexAPI.instance().getEntityVelocitySpecial(player).length()
 		val currFallDist = player.fallDistance.toDouble()
-
-		val currSpeed = currVel.length()
-		val prevSpeed = prevVel.length()
-		val prev2Speed = prev2Vel.length()
-		val prev3Speed = prev3Vel.length()
-		
-		// detect teleportation by looking for single-tick velocity spikes
-		// using this rather than a mixin because player teleport code is a horrible mess
-		var teleported = false
-		if (prevSpeed > 4*prev2Speed && prevSpeed > 4*prev3Speed && prevSpeed > 4*currSpeed && prevSpeed >= 1.5) {
-			teleported = true
-			if (skipTeleTrigger > 0) skipTeleTrigger = 0
-			else triggerMinds(player, "teleport", Vec3Iota(prevVel))	
-		}
 
 		// detect threshold-based triggers (but not when respawning)
 		if (prevHealth > 0) {
@@ -66,24 +50,24 @@ class HieroPlayerState {
 					"health" -> if (trigger.passedThreshold(currHealth, prevHealth)) mind.cast(player)
 					"breath" -> if (trigger.passedThreshold(currBreath, prevBreath)) mind.cast(player)
 					"hunger" -> if (trigger.passedThreshold(currHunger, prevHunger)) mind.cast(player)
-					"velocity" -> if (!teleported && trigger.passedThreshold(prevSpeed, prev2Speed)) {
-						if (skipTeleTrigger > 0) skipTeleTrigger = 0
-						else mind.cast(player)
-					}
+					"velocity" -> if (trigger.passedThreshold(currSpeed, prevSpeed) && velSkipTimer == 0) mind.cast(player)
 					"fall" -> if (trigger.passedThreshold(currFallDist, prevFallDist) ) mind.cast(player)
 				}
 			}
 		}
 
-		if (skipTeleTrigger > 0) skipTeleTrigger--
+		if (velSkipTimer > 0) velSkipTimer--
 		prevHealth = currHealth
 		prevBreath = currBreath
 		prevHunger = currHunger
-		prev3Vel = prev2Vel
-		prev2Vel = prevVel
-		prevVel = currVel
+		prevSpeed = currSpeed
+		prevPos = player.position()
 		prevFallDist = currFallDist
 	}
+
+	// this sets the timer to 2 since the velocity measurement is delayed by one tick
+	// so the timer needs to stay above 0 until the spike we're trying to skip actually appears
+	fun skipVelocityTriggers() { velSkipTimer = 2 }
 
 	fun checkTypedDamage(player: ServerPlayer, type: String, initialIota: Iota) {
 		lastDmgType = type

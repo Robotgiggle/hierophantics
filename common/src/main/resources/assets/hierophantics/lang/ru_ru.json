@@ -27,7 +27,6 @@
 
 	"hierophantics.tooltip.mind_reference": "Встроенный разум \"%s\"",
 	"hierophantics.tooltip.trigger": "Активатор: когда %s",
-	"hierophantics.tooltip.mishap_thrower": "Генератор ошибок Hierophantics",
 
 	"hierophantics.tooltip.threshold_upward": "превышает",
 	"hierophantics.tooltip.threshold_downward": "опускается ниже",
@@ -163,7 +162,7 @@
 	"hierophantics.page.make_attack_trigger.summary": "Создаёт активатор, срабатывающий, когда я поражаю другую сущность.",
 	"hierophantics.page.make_break_trigger.summary": "Создаёт активатор, срабатывающий, когда я ломаю блок.",
 	"hierophantics.page.make_jump_trigger.summary": "Создаёт активатор, срабатывающий, когда я прыгаю.",
-	"hierophantics.page.make_teleport_trigger.summary": "Создаёт активатор, срабатывающий, когда я телепортируюсь. По непонятным мне причинам не срабатывает при телепортации короче 1.5 блока.",
+	"hierophantics.page.make_teleport_trigger.summary": "Создаёт активатор, срабатывающий, когда я телепортируюсь.",
 	"hierophantics.page.invert_trigger.summary": "Инвертирует порог числового активатора. Например, «Когда скорость превышает 5.0» станет «Когда скорость опускается ниже 5.0». Не влияет на другие типы активаторов.",
 
 	"text.autoconfig.hierophantics.title": "Конфиг Hierophantics",

@@ -7,10 +7,10 @@
   "client": [
     "client.AbstractClientPlayerMixin",
     "client.AbstractContainerScreenMixin",
-    "client.ItemInHandRendererMixin",
     "client.GuiMixin",
+    "client.ItemEntityRendererMixin",
     "client.ItemFrameRendererMixin",
-    "client.ItemEntityRendererMixin"
+    "client.ItemInHandRendererMixin"
   ],
   "mixins": [
     "BlockMixin",
@@ -21,6 +21,7 @@
     "PlayerMixin",
     "ReferenceRegistryEntryMixin",
     "ServerPlayerMixin",
+    "ThrownEnderpearlMixin",
     "VillagerMixin",
     "ZombieVillagerMixin",
     "accessor.PlayerAccessor"
