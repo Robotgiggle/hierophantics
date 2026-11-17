@@ -55,18 +55,23 @@ public abstract class ServerPlayerMixin extends Player {
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) {
 			state.setDisabled(true);
-			state.skipVelocityTriggers();
+			state.setVelSkipTimer(3);
 			state.setPrevHealth(0);
 		}
 	}
 
-	@Inject(method = {"teleportTo*", "teleportRelative"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFFLjava/util/Set;)V", shift = At.Shift.AFTER))
+	@Inject(method = {"teleportTo(DDD)V", "teleportRelative"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFFLjava/util/Set;)V", shift = At.Shift.AFTER))
 	private void fireTeleportTriggers1(CallbackInfo ci) {
 		hierophantics$fireTeleportTriggers();
 	}
 
+	@Inject(method = "teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDLjava/util/Set;FF)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFFLjava/util/Set;)V", shift = At.Shift.AFTER))
+	private void fireTeleportTriggers2(CallbackInfoReturnable<Boolean> cir) {
+		hierophantics$fireTeleportTriggers();
+	}
+
 	@Inject(method = "teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFF)V", shift = At.Shift.AFTER))
-	private void fireTeleportTriggers2(CallbackInfo ci) {
+	private void fireTeleportTriggers3(CallbackInfo ci) {
 		hierophantics$fireTeleportTriggers();
 	}
 
@@ -76,8 +81,10 @@ public abstract class ServerPlayerMixin extends Player {
 		var state = HieroServerState.getPlayerState(player);
 		if (state.getOwnedMinds() > 0) {
 			var offsetVec = player.position().subtract(state.getPrevPos());
+			if (offsetVec.length() < 0.0001 && state.getVelSkipTimer() == 4) return;
+			state.setVelSkipTimer(4);
+			state.setPrevPos(player.position());
 			state.triggerMinds(player, "teleport", new Vec3Iota(offsetVec));
-			state.skipVelocityTriggers();
 		}
 	}
 
@@ -95,7 +102,7 @@ public abstract class ServerPlayerMixin extends Player {
     private void hierophantics$skipVelocityTriggers() {
 		ServerPlayer player = (ServerPlayer) (Object) this;
 		var state = HieroServerState.getPlayerState(player);
-		if (state.getOwnedMinds() > 0) state.skipVelocityTriggers();
+		if (state.getOwnedMinds() > 0) state.setVelSkipTimer(3);
 	}
 	
 	@Inject(method = "startSleepInBed", at = @At("HEAD"), cancellable = true)

@@ -31,6 +31,10 @@ class HieroPlayerState {
 	var prevPos = Vec3.ZERO
 	var prevSpeed = -1.0
 	var prevFallDist = -1.0
+
+	/** This needs to stay above 0 until both sides of the spike we're trying to skip have passed.
+	 *  Since velocity is delayed by one tick, it should be set to 3 when doing something that makes a spike.
+	 *  Teleports should set it to 4 instead, so that double-teleports on Forge can be detected and skipped. */
 	var velSkipTimer = 0
 
 	fun tick(player: ServerPlayer) {
@@ -64,10 +68,6 @@ class HieroPlayerState {
 		prevPos = player.position()
 		prevFallDist = currFallDist
 	}
-
-	// this sets the timer to 2 since the velocity measurement is delayed by one tick
-	// so the timer needs to stay above 0 until the spike we're trying to skip actually appears
-	fun skipVelocityTriggers() { velSkipTimer = 2 }
 
 	fun checkTypedDamage(player: ServerPlayer, type: String, initialIota: Iota) {
 		lastDmgType = type

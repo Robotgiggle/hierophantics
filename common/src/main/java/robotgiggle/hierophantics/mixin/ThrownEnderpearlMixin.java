@@ -22,8 +22,9 @@ public class ThrownEnderpearlMixin {
             var state = HieroServerState.getPlayerState(player);
             if (state.getOwnedMinds() > 0) {
                 var offsetVec = player.position().subtract(state.getPrevPos());
+                state.setVelSkipTimer(4);
+                state.setPrevPos(player.position());
                 state.triggerMinds(player, "teleport", new Vec3Iota(offsetVec));
-                state.skipVelocityTriggers();
             }
         }
     }
