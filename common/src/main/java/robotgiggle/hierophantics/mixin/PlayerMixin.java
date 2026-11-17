@@ -30,9 +30,14 @@ import java.util.function.Predicate;
 
 @Mixin(Player.class)
 public class PlayerMixin {
+    @Unique
+    private float hierophantics$healthBeforeDmg;
+
     @Inject(method = "actuallyHurt", at = @At("HEAD"))
 	private void fireTriggersBeforeDamage(DamageSource source, float amount, CallbackInfo ci) {
-		if (HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
+        Player player = (Player) (Object) this;
+        hierophantics$healthBeforeDmg = player.getHealth();
+        if (HierophanticsConfig.getServer().getEarlyDamageTriggers()) {
             hierophantics$fireDamageTriggers(source, amount);
         }
 	}
@@ -45,8 +50,9 @@ public class PlayerMixin {
         // this allows health threshold triggers to fire as the player dies but before they drop the media in their inv
         Player player = (Player) (Object) this;
         if (player.isDeadOrDying()) {
-            Predicate<Trigger> isDownwardHealthTrigger = t -> t.type().equals("health") && !t.inverted();
-            HieroServerState.getPlayerState(player).triggerMinds((ServerPlayer) player, isDownwardHealthTrigger);
+            Predicate<Trigger> shouldFireWhileDying = t ->
+                t.type().equals("health") && !t.inverted() && hierophantics$healthBeforeDmg >= t.threshold();
+            HieroServerState.getPlayerState(player).triggerMinds((ServerPlayer) player, shouldFireWhileDying);
         }
 	}
 
