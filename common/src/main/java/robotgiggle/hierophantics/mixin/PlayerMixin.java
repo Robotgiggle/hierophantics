@@ -10,6 +10,7 @@ import robotgiggle.hierophantics.data.HieroServerState;
 import robotgiggle.hierophantics.data.Trigger;
 import robotgiggle.hierophantics.blocks.FlayBedBlock;
 import robotgiggle.hierophantics.inits.HierophanticsConfig;
+import robotgiggle.hierophantics.inits.HierophanticsEffects;
 import robotgiggle.hierophantics.HierophanticsClient;
 import robotgiggle.hierophantics.Hierophantics;
 
@@ -92,7 +93,8 @@ public class PlayerMixin {
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSleeping()Z"))
     private boolean notSleepingIfOnFlayBed(Player instance, Operation<Boolean> original) {
         Block sleepingOn = instance.level().getBlockState(instance.blockPosition()).getBlock();
-        if (sleepingOn instanceof FlayBedBlock) return false;
+        if (sleepingOn instanceof FlayBedBlock && !instance.hasEffect(HierophanticsEffects.SLEEP_ANYWHERE.getValue()))
+            return false;
         return original.call(instance);
     }
 
@@ -101,6 +103,7 @@ public class PlayerMixin {
     private void cantResetTimeIfOnFlayBed(CallbackInfoReturnable<Boolean> ci) {
         Player player = (Player) (Object) this;
         Block sleepingOn = player.level().getBlockState(player.blockPosition()).getBlock();
-        if (sleepingOn instanceof FlayBedBlock) ci.setReturnValue(false);
+        if (sleepingOn instanceof FlayBedBlock && !player.hasEffect(HierophanticsEffects.SLEEP_ANYWHERE.getValue()))
+            ci.setReturnValue(false);
     }
 }
