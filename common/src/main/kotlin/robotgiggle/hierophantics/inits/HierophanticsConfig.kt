@@ -110,6 +110,7 @@ object HierophanticsConfig {
             private set
 
         override fun validatePostLoad() {
+            this.maxMinds = Mth.clamp(this.maxMinds, 0, 1000)
             this.mediaDiscount = Mth.clamp(this.mediaDiscount, 0.0, 1.0)
         }
 
