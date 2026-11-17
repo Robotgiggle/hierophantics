@@ -1,5 +1,14 @@
 # Hierophantics
 
+## 1.4.1
+- 'When teleporting' trigger no longer has a minimum distance, and no longer fails to detect various common teleport methods
+- Merging villagers now triggers the correct advancement (it was previously triggering the advancement for wasting a mind)
+- The config value for maximum embedded minds is now capped at 1000, to prevent Hierophant's Reflection from hitting the stack limit
+- 'When health drops below X' triggers whose threshold has already been passed no longer fire a second time as you die
+- Sleeping via Induce Exhaustion no longer fails if you're standing on or lying in an Imbuement Bed
+- Updated zh_cn translations (thanks ChuijkYahus!)
+- Assorted internal cleanup
+
 ## 1.4.0
 - Updated Hex Casting dependency to 0.11.4
 - The media discount from Manifold Mind is now implemented using the `media_consumption` attribute from the base mod
